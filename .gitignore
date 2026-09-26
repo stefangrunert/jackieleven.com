@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+._*
+
+# IDE
+.idea/
+
+# Redundant: sketches.zip ist ein Archiv des bereits versionierten sketches/
+sketches.zip
+
+# Lokales
+*.log

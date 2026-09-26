@@ -1,0 +1,211 @@
+/* Skizze B — Horizontale Zeitleiste ("Der Film") */
+:root {
+  --bg: #0d0f12;
+  --bg-raise: #15181d;
+  --ink: #e4e6e8;
+  --ink-dim: #8a919b;
+  --line: #262b33;
+  --accent: #d4a24e;
+  --cold: #7d92a6;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---------- Kopf ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.4rem 4vw;
+  font-family: var(--rough);
+}
+.topbar .name {
+  font-size: 15px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.topbar nav {
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.topbar nav a { color: var(--ink-dim); text-decoration: none; margin-left: 1.6rem; }
+.topbar nav a:hover { color: var(--accent); }
+
+/* ---------- Jahresband ---------- */
+.yearband-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(13,15,18,.92);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.yearband {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 4vw;
+}
+.yearband::-webkit-scrollbar { display: none; }
+.yearband button {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--rough);
+  font-size: 14px;
+  letter-spacing: .1em;
+  color: var(--ink-dim);
+  padding: 1rem 1.6rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .2s;
+}
+.yearband button small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  opacity: .6;
+  margin-top: 2px;
+}
+.yearband button:hover { color: var(--ink); }
+.yearband button.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- Bühne ---------- */
+.stage {
+  min-height: 78vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.stage-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+}
+.stage-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.7) saturate(.75);
+  transition: opacity .5s;
+}
+.stage-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--bg));
+}
+.stage-body {
+  padding: clamp(2rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 640px;
+}
+.stage-year {
+  font-family: var(--rough);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cold);
+  margin-bottom: 1.6rem;
+}
+.stage-kind {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 1.2rem;
+}
+.stage blockquote {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: 1.6rem;
+}
+.stage blockquote .q-attr {
+  display: block;
+  font-family: var(--rough);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: .9rem;
+}
+.stage-text { color: #b9bdc4; max-width: 32em; font-size: 1rem; }
+
+/* ---------- Vor/Zurück ---------- */
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 4vw 3rem;
+  font-family: var(--rough);
+}
+.pager button {
+  appearance: none;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--rough);
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: .9rem 1.8rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.pager button:hover { border-color: var(--accent); color: var(--accent); }
+.pager .count {
+  font-size: 12px;
+  letter-spacing: .25em;
+  color: var(--ink-dim);
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2.4rem 4vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+footer a { color: var(--ink-dim); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+@media (max-width: 860px) {
+  .stage { grid-template-columns: 1fr; }
+  .stage-visual { min-height: 42vh; }
+  .stage-visual::after {
+    background: linear-gradient(to bottom, transparent 55%, var(--bg));
+  }
+}

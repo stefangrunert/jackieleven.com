@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skizze B — Horizontale Zeitleiste · Jackie Leven</title>
+<link rel="stylesheet" href="css/b.css">
+</head>
+<body>
+
+<header class="topbar">
+  <span class="name">Jackie Leven</span>
+  <nav>
+    <a href="#">Zeitreise</a>
+    <a href="#">Biografie</a>
+    <a href="#">Über diese Seite</a>
+  </nav>
+</header>
+
+<div class="yearband-wrap">
+  <div class="yearband" id="yearband" role="tablist"></div>
+</div>
+
+<main class="stage">
+  <div class="stage-visual">
+    <img id="stage-img" src="assets/phase-anfaenge.jpg" alt="">
+  </div>
+  <div class="stage-body">
+    <p class="stage-year" id="stage-year">1979</p>
+    <p class="stage-kind" id="stage-kind"></p>
+    <blockquote id="stage-quote"></blockquote>
+    <p class="stage-text" id="stage-text"></p>
+  </div>
+</main>
+
+<div class="pager">
+  <button id="prev">← Früher</button>
+  <span class="count" id="count"></span>
+  <button id="next">Später →</button>
+</div>
+
+<footer>
+  <span>Skizze B · horizontale Zeitleiste</span>
+  <span><a href="index.html">← alle Skizzen</a></span>
+</footer>
+
+<script>
+const stations = [
+  {
+    year: "1979", era: "Doll by Doll", kind: "Song · „Remember“",
+    quote: "„Wir waren jung und wussten alles über den Schmerz —<br>außer, dass er bleiben würde.“",
+    attr: "Doll by Doll · Remember · 1979",
+    text: "London, Ende der Siebziger. Doll by Doll klingen wie nichts, was es damals gab — zu wild für den Folk, zu verletzlich für den Punk. [Begleittext — Platzhalter]",
+    img: "assets/phase-anfaenge.jpg"
+  },
+  {
+    year: "1982", era: "Biografie", kind: "Station · Der Überfall",
+    quote: "Eine Straße in London, ein Angriff aus dem Nichts. Die Stimme — fast verloren.",
+    attr: "",
+    text: "Hier bricht die Zeitleiste fast ab. Dass es 1994 weitergeht, ist kein Comeback — es ist ein Zurückkämpfen. [Platzhalter]",
+    img: "assets/phase-anfaenge.jpg"
+  },
+  {
+    year: "1994", era: "Neubeginn", kind: "Song · „The Mystery of Love“",
+    quote: "„The mystery of love is greater<br>than the mystery of death“",
+    attr: "The Mystery of Love Is Greater Than the Mystery of Death · 1994",
+    text: "Der Titel ist schon das ganze Programm — und vielleicht der zentrale Satz in Jackies Leben. [Begleittext — Platzhalter]",
+    img: "assets/phase-zentrum.jpg"
+  },
+  {
+    year: "1997", era: "Fairy Tales for Hard Men", kind: "Song · „Poortoun“",
+    quote: "„In Poortoun halten die Häuser den Regen aus<br>und die Menschen einander.“",
+    attr: "Fairy Tales for Hard Men · 1997",
+    text: "Märchen für harte Männer — das Album trägt seine Zärtlichkeit schon im Titel gegen die Rauheit. [Platzhalter]",
+    img: "assets/phase-zentrum.jpg"
+  },
+  {
+    year: "2005", era: "Elegy for Johnny Cash", kind: "Song · „Elegy for Johnny Cash“",
+    quote: "„Jetzt ist der Mann in Schwarz gegangen —<br>wer singt für die, die niemand hört?“",
+    attr: "Elegy for Johnny Cash · 2005",
+    text: "Eine Elegie auf einen anderen Außenseiter — und unfreiwillig schon eine auf sich selbst. [Platzhalter]",
+    img: "assets/phase-zentrum.jpg"
+  },
+  {
+    year: "2011", era: "Wayside Shrines", kind: "Song · letzte Aufnahmen",
+    quote: "„An den Wegesrändern stehen kleine Schreine —<br>für die, die unterwegs geblieben sind.“",
+    attr: "Wayside Shrines and the Code of the Travelling Man · 2011",
+    text: "Im November 2011 stirbt Jackie Leven. Das letzte Album erscheint, als wüsste es Bescheid. [Platzhalter]",
+    img: "assets/phase-ende.jpg"
+  }
+];
+
+let current = 0;
+const band = document.getElementById("yearband");
+
+stations.forEach((s, i) => {
+  const b = document.createElement("button");
+  b.innerHTML = s.year + "<small>" + s.era + "</small>";
+  b.setAttribute("role", "tab");
+  b.addEventListener("click", () => show(i));
+  band.appendChild(b);
+});
+
+function show(i) {
+  current = (i + stations.length) % stations.length;
+  const s = stations[current];
+  document.getElementById("stage-year").textContent = s.year;
+  document.getElementById("stage-kind").textContent = s.kind;
+  document.getElementById("stage-quote").innerHTML =
+    s.quote + (s.attr ? '<span class="q-attr">' + s.attr + "</span>" : "");
+  document.getElementById("stage-text").textContent = s.text;
+  const img = document.getElementById("stage-img");
+  img.style.opacity = 0;
+  setTimeout(() => { img.src = s.img; img.style.opacity = 1; }, 250);
+  [...band.children].forEach((b, j) => b.classList.toggle("active", j === current));
+  band.children[current].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  document.getElementById("count").textContent =
+    String(current + 1).padStart(2, "0") + " / " + String(stations.length).padStart(2, "0");
+}
+
+document.getElementById("prev").addEventListener("click", () => show(current - 1));
+document.getElementById("next").addEventListener("click", () => show(current + 1));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") show(current - 1);
+  if (e.key === "ArrowRight") show(current + 1);
+});
+
+show(0);
+</script>
+
+</body>
+</html>

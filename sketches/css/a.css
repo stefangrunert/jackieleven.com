@@ -1,0 +1,249 @@
+/* Skizze A — Vertikale Zeitleiste ("Die Wanderung") */
+:root {
+  --bg: #131109;
+  --bg-raise: #1c1912;
+  --ink: #e9e1cf;
+  --ink-dim: #a2987f;
+  --line: #3a3423;
+  --accent: #c99a4b;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 20%;
+  filter: brightness(.55) saturate(.8);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(19,17,9,.1) 40%, var(--bg) 98%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 0 0 9vh;
+}
+.hero-kicker {
+  font-family: var(--rough);
+  font-size: 13px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -.01em;
+}
+.hero-sub {
+  margin-top: 1.4rem;
+  max-width: 34em;
+  color: var(--ink-dim);
+  font-size: 1.05rem;
+  font-style: italic;
+}
+.hero-years {
+  font-family: var(--rough);
+  font-size: 14px;
+  letter-spacing: .25em;
+  color: var(--ink-dim);
+  margin-top: 2rem;
+}
+
+/* ---------- Zeitleiste ---------- */
+.timeline {
+  position: relative;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 4rem 0 8rem;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 140px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--line) 4%, var(--line) 96%, transparent);
+}
+
+.station {
+  position: relative;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  column-gap: 70px;
+  padding: 5rem 0;
+}
+.station + .station { border-top: 1px dotted var(--line); }
+
+.station-year {
+  font-family: var(--rough);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: right;
+  line-height: 1.1;
+  padding-top: .4rem;
+}
+.station-year small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-top: .5rem;
+}
+/* Knoten auf der Linie */
+.station::before {
+  content: "";
+  position: absolute;
+  left: 140px;
+  top: 5.9rem;
+  width: 9px;
+  height: 9px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--bg);
+}
+
+.station-body { max-width: 620px; }
+
+.station-kind {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 1rem;
+}
+
+.station blockquote {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--ink);
+  border: none;
+  margin-bottom: 1.8rem;
+}
+.station blockquote .q-attr {
+  display: block;
+  font-family: var(--rough);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 1rem;
+}
+
+.station-text { color: #cfc6b0; max-width: 34em; }
+.station-text + .station-text { margin-top: 1em; }
+
+.station figure { margin-top: 2.5rem; }
+.station figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: saturate(.75) contrast(1.05);
+}
+.station figcaption {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-top: .7rem;
+}
+
+.station-links {
+  margin-top: 2rem;
+  font-family: var(--rough);
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.station-links a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  margin-right: 1.5rem;
+}
+.station-links a:hover { border-color: var(--accent); }
+
+/* Biografie-Stationen: kühler, karger */
+.station--bio .station-year { color: #7e93a8; }
+.station--bio::before { background: #7e93a8; }
+.station--bio blockquote { color: #b9c4cf; }
+
+/* ---------- Endmarke ---------- */
+.endmark {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 2rem 0 8rem;
+  text-align: center;
+  color: var(--ink-dim);
+}
+.endmark .star { color: var(--accent); font-size: 1.4rem; }
+
+/* ---------- Footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 3rem 4vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+footer a { color: var(--ink-dim); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 720px) {
+  .timeline::before { left: 18px; }
+  .station {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    padding-left: 44px;
+  }
+  .station::before { left: 18px; }
+  .station-year { text-align: left; margin-bottom: 1.2rem; }
+  footer { flex-direction: column; gap: 1rem; }
+}

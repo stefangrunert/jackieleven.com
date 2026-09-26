@@ -1,0 +1,181 @@
+/* Skizze C — Das Buch ("Lesebuch") */
+:root {
+  --bg: #191713;
+  --ink: #ddd3bd;
+  --ink-dim: #948a72;
+  --rule: #37311f;
+  --accent: #b98a3e;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book { width: min(700px, 90vw); margin: 0 auto; }
+
+/* ---------- Titelblatt ---------- */
+.titlepage {
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.titlepage .rule {
+  width: 60px;
+  height: 1px;
+  background: var(--accent);
+  margin: 2.2rem auto;
+}
+.titlepage h1 {
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+.titlepage .sub {
+  font-style: italic;
+  color: var(--ink-dim);
+  margin-top: .6rem;
+  font-size: 1.05rem;
+}
+.titlepage .years {
+  font-family: var(--rough);
+  font-size: 13px;
+  letter-spacing: .4em;
+  color: var(--ink-dim);
+}
+
+/* ---------- Kapitel ---------- */
+.chapter { padding: 6rem 0 4rem; }
+
+.chapter-head {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.chapter-no {
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.chapter-head h2 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 500;
+  margin-top: .8rem;
+}
+.chapter-head .album {
+  font-style: italic;
+  color: var(--ink-dim);
+  margin-top: .4rem;
+  font-size: .95rem;
+}
+
+/* Initiale */
+.chapter p.lead::first-letter {
+  font-size: 3.4em;
+  float: left;
+  line-height: .85;
+  padding: .08em .12em 0 0;
+  color: var(--accent);
+}
+
+.chapter p + p { margin-top: 1.2em; }
+.chapter p { max-width: 100%; }
+
+/* Herausgehobenes Zitat */
+.pull {
+  margin: 3rem 0;
+  padding: 0 1.5rem;
+  text-align: center;
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.pull::before, .pull::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 1px;
+  background: var(--rule);
+  margin: 1.6rem auto;
+}
+.pull .q-attr {
+  display: block;
+  font-family: var(--rough);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-top: 1.2rem;
+}
+
+.chapter figure { margin: 3rem 0; }
+.chapter figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: saturate(.7) contrast(1.06);
+}
+.chapter figcaption {
+  font-size: .8rem;
+  font-style: italic;
+  color: var(--ink-dim);
+  text-align: center;
+  margin-top: .8rem;
+}
+
+/* Marginalie statt Linkliste */
+.marginnote {
+  font-size: .85rem;
+  font-style: italic;
+  color: var(--ink-dim);
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  margin-top: 3rem;
+}
+.marginnote a { color: var(--accent); text-decoration: none; }
+
+/* ---------- Zwischenraum / Bio-Marke ---------- */
+.interlude {
+  text-align: center;
+  padding: 5rem 0;
+  color: var(--ink-dim);
+  font-style: italic;
+}
+.interlude .mark { color: var(--accent); font-style: normal; letter-spacing: 1em; }
+
+/* ---------- Schluss ---------- */
+.colophon {
+  text-align: center;
+  padding: 6rem 0 8rem;
+  color: var(--ink-dim);
+  font-size: .95rem;
+  font-style: italic;
+}
+.colophon .mark { color: var(--accent); font-size: 1.3rem; font-style: normal; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 2.4rem 4vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+footer a { color: var(--ink-dim); text-decoration: none; }
+footer a:hover { color: var(--accent); }

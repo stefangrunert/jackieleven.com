@@ -1,0 +1,393 @@
+/* jackieleven — nach Skizze E (schwebender Zeitgraph) */
+
+:root {
+  --bg: #0d0f12;
+  --ink: #e4e6e8;
+  --ink-dim: #8a919b;
+  --ink-soft: #b9bdc4;
+  --line: #262b33;
+  --accent: #d4a24e;   /* Werk */
+  --cold: #7d92a6;     /* Leben */
+  --word: #9d8ba6;     /* eigenes Wort */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+::selection { background: rgba(212,162,78,.3); }
+
+a { color: var(--accent); }
+
+/* ---------- Kopf ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.4rem 4vw;
+  font-family: var(--rough);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .name {
+  font-size: 15px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+.topbar nav { font-size: 12px; letter-spacing: .15em; text-transform: uppercase; }
+.topbar nav a { color: var(--ink-dim); text-decoration: none; margin-left: 1.6rem; }
+.topbar nav a:hover,
+.topbar nav a.hier { color: var(--accent); }
+
+/* ---------- Bühne ---------- */
+.stage-wrap { position: relative; flex: 1; }
+
+.stage {
+  min-height: 82vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.stage-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  margin-left: 50px;
+}
+.stage-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.72) saturate(.75);
+  transition: opacity .5s;
+}
+.stage-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--bg));
+  pointer-events: none;
+}
+.stage-visual .bildtext {
+  position: absolute;
+  left: 1.6rem;
+  bottom: 1.2rem;
+  z-index: 2;
+  font-family: var(--rough);
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-shadow: 0 1px 10px rgba(13,15,18,.95);
+}
+
+.stage-body {
+  padding: clamp(2rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 660px;
+  transition: opacity .35s;
+}
+.stage-year {
+  font-family: var(--rough);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cold);
+  margin-bottom: 1.4rem;
+}
+.stage-body[data-art="werk"] .stage-year { -webkit-text-stroke-color: var(--accent); }
+.stage-body[data-art="wort"] .stage-year { -webkit-text-stroke-color: var(--word); }
+
+.stage-kind {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 1.4rem;
+}
+
+.stage blockquote {
+  font-size: clamp(1.25rem, 2.2vw, 1.62rem);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 1.6rem;
+  padding-left: 1.4rem;
+  border-left: 2px solid rgba(212,162,78,.35);
+}
+.stage blockquote cite {
+  display: block;
+  font-family: var(--rough);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 1rem;
+}
+.stage blockquote cite a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(212,162,78,.3); }
+.stage blockquote cite a:hover { border-bottom-color: var(--accent); }
+
+.kein-zitat {
+  font-style: italic;
+  color: var(--ink-dim);
+  margin-bottom: 1.6rem;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--line);
+}
+
+.stage-text { color: var(--ink-soft); max-width: 34em; font-size: 1rem; }
+
+/* ---------- Zeitgraph ---------- */
+.graph {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 220px;
+  z-index: 5;
+  pointer-events: none;
+  padding-left: 2.4rem;
+  background: linear-gradient(to right,
+    rgba(10,11,14,.78) 0%, rgba(10,11,14,.55) 45%,
+    rgba(10,11,14,.22) 72%, transparent 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(to right, black 55%, transparent 100%);
+  mask-image: linear-gradient(to right, black 55%, transparent 100%);
+}
+.graph-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: auto;
+  cursor: ns-resize;
+}
+.graph-viewport::before,
+.graph-viewport::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 90px;
+  z-index: 2;
+  pointer-events: none;
+}
+.graph-viewport::before { top: 0; background: linear-gradient(to bottom, rgba(13,15,18,.85), transparent); }
+.graph-viewport::after { bottom: 0; background: linear-gradient(to top, rgba(13,15,18,.85), transparent); }
+
+.graph-track { position: absolute; left: 0; top: 0; width: 100%; will-change: transform; }
+.graph-track::before {
+  content: "";
+  position: absolute;
+  left: 11px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(228,230,232,.35) 8%, rgba(228,230,232,.35) 92%, transparent);
+}
+
+.g-marker {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--rough);
+  color: rgba(228,230,232,.65);
+  transform: translateY(-50%);
+  padding: 8px 0;
+  text-shadow: 0 1px 8px rgba(13,15,18,.9);
+}
+.g-marker .dot {
+  flex: 0 0 auto;
+  width: 8px; height: 8px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: rgba(228,230,232,.55);
+  box-shadow: 0 0 0 3px rgba(13,15,18,.35);
+  transition: transform .25s cubic-bezier(.2,.7,.3,1.4), background .2s, box-shadow .2s;
+}
+.g-marker[data-art="leben"] .dot { border-radius: 0; transform: rotate(45deg); background: rgba(125,146,166,.8); }
+.g-marker .g-label { line-height: 1.25; }
+.g-marker .g-year { font-size: 14px; letter-spacing: .1em; transition: color .2s; }
+.g-marker .g-era {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity .25s;
+}
+.g-marker:hover .dot, .g-marker.active .dot { transform: scale(1.9); background: var(--accent); }
+.g-marker[data-art="leben"]:hover .dot,
+.g-marker[data-art="leben"].active .dot { transform: rotate(45deg) scale(1.6); background: var(--cold); }
+.g-marker[data-art="wort"]:hover .dot,
+.g-marker[data-art="wort"].active .dot { background: var(--word); }
+.g-marker:hover .g-year { color: var(--ink); }
+.g-marker:hover .g-era, .g-marker.active .g-era { opacity: .7; max-height: 2em; }
+.g-marker.active { color: var(--accent); }
+.g-marker[data-art="leben"].active { color: var(--cold); }
+.g-marker[data-art="wort"].active { color: var(--word); }
+.g-marker.active .dot { box-shadow: 0 0 0 5px rgba(212,162,78,.18), 0 0 18px rgba(212,162,78,.45); }
+.g-marker[data-art="leben"].active .dot { box-shadow: 0 0 0 5px rgba(125,146,166,.18), 0 0 18px rgba(125,146,166,.45); }
+.g-marker[data-art="wort"].active .dot { box-shadow: 0 0 0 5px rgba(157,139,166,.18), 0 0 18px rgba(157,139,166,.45); }
+.g-marker:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+/* ---------- Pager ---------- */
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.6rem 4vw 3rem;
+  font-family: var(--rough);
+}
+.pager .knopf {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: .9rem 1.8rem;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.pager .knopf:hover { border-color: var(--accent); color: var(--accent); }
+.pager .count { font-size: 12px; letter-spacing: .25em; color: var(--ink-dim); }
+
+/* ---------- Textseiten ---------- */
+.text-seite {
+  flex: 1;
+  width: min(760px, 92vw);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) 0 5rem;
+}
+.kicker {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.text-seite h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 500; margin-bottom: 1.6rem; line-height: 1.2; }
+.text-seite h2 {
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 3rem 0 1rem;
+}
+.text-seite p { margin-bottom: 1.2rem; max-width: 36em; }
+.text-seite .lead { font-size: 1.22rem; font-style: italic; color: var(--ink); margin-bottom: 2rem; }
+
+.stationen-liste { list-style: none; margin-top: 2.5rem; border-top: 1px solid var(--line); }
+.stationen-liste a {
+  display: grid;
+  grid-template-columns: 5rem 12rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1rem .4rem;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background .18s;
+}
+.stationen-liste a:hover { background: rgba(212,162,78,.06); }
+.stationen-liste .jahr { font-family: var(--rough); font-size: 13px; letter-spacing: .15em; color: var(--accent); }
+.stationen-liste .wo { font-size: .88rem; color: var(--ink-dim); }
+
+/* ---------- Fuß ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2.4rem 4vw;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* ---------- Mobil: Graph wird waagerechtes Band ---------- */
+@media (max-width: 860px) {
+  .stage { grid-template-columns: 1fr; min-height: 0; }
+  .stage-visual { min-height: 42vh; margin-left: 0; }
+  .stage-visual::after { background: linear-gradient(to bottom, transparent 55%, var(--bg)); }
+  .graph {
+    position: sticky;
+    top: 0; left: 0; right: 0; bottom: auto;
+    width: 100%;
+    height: auto;
+    padding-left: 0;
+    background: rgba(13,15,18,.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-bottom: 1px solid var(--line);
+    pointer-events: auto;
+  }
+  .graph-viewport { position: static; overflow: hidden; cursor: default; }
+  .graph-viewport::before, .graph-viewport::after { display: none; }
+  .graph-track {
+    position: static;
+    display: flex;
+    height: auto !important;
+    transform: none !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .graph-track::-webkit-scrollbar { display: none; }
+  .graph-track::before { display: none; }
+  .g-marker {
+    position: static;
+    transform: none;
+    width: auto;
+    top: auto !important;
+    padding: .9rem 1.3rem;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    text-shadow: none;
+  }
+  .g-marker .dot { display: none; }
+  .g-marker .g-era { opacity: .55; max-height: none; }
+  .g-marker.active { border-bottom-color: var(--accent); }
+  .g-marker[data-art="leben"].active { border-bottom-color: var(--cold); }
+  .g-marker[data-art="wort"].active { border-bottom-color: var(--word); }
+  .stationen-liste a { grid-template-columns: 4rem 1fr; }
+  .stationen-liste .wo { grid-column: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

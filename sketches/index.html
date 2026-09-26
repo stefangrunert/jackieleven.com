@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jackie Leven — Design-Skizzen</title>
+<style>
+  :root {
+    --bg: #100e0a;
+    --ink: #e6dec9;
+    --ink-dim: #93876d;
+    --line: #332d1e;
+    --accent: #c99a4b;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    padding: 6rem 4vw;
+  }
+  main { width: min(860px, 92vw); margin: 0 auto; }
+  .kicker {
+    font-family: var(--rough);
+    font-size: 12px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 500; margin-bottom: .8rem; }
+  .intro { color: var(--ink-dim); max-width: 36em; font-style: italic; margin-bottom: 4rem; }
+
+  .card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--line);
+    padding: 2.2rem 2.4rem;
+    margin-bottom: 1.6rem;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .label {
+    font-family: var(--rough);
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .6rem;
+  }
+  .card h2 { font-size: 1.5rem; font-weight: 500; margin-bottom: .5rem; }
+  .card p { color: var(--ink-dim); font-size: .98rem; max-width: 34em; }
+
+  .notes {
+    margin-top: 4rem;
+    border-top: 1px solid var(--line);
+    padding-top: 2rem;
+    font-size: .9rem;
+    color: var(--ink-dim);
+  }
+  .notes h3 {
+    font-family: var(--rough);
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .notes li { margin: .5rem 0 .5rem 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Jackie Leven · Hommage</p>
+  <h1>Vier Design-Skizzen</h1>
+  <p class="intro">Vier Richtungen für denselben Inhalt: eine chronologische Wanderung durch Jackies Songs, mit kurzen Zitaten und persönlichen Begleittexten. Alle dunkel, alle ruhig — aber mit unterschiedlichem Gang. In der engeren Wahl: A und B; D ist der Versuch, beide zu verbinden.</p>
+
+  <a class="card" href="a-vertikal.html">
+    <p class="label">Skizze A</p>
+    <h2>Die Wanderung — vertikale Zeitleiste</h2>
+    <p>Scrollen durch die Jahre. Eine dünne Linie links, Jahreszahlen als Wegmarken, Biografie-Stationen in kühlerem Ton. Am nächsten an deiner ursprünglichen Idee des Zeitgraphen.</p>
+  </a>
+
+  <a class="card" href="b-horizontal.html">
+    <p class="label">Skizze B</p>
+    <h2>Der Film — horizontale Zeitleiste</h2>
+    <p>Ein Jahresband oben, darunter eine Bühne: eine Station pro Bildschirm, Bild und Zitat groß, Blättern mit Pfeilen oder Tastatur. Kühler, cinematischer, ausstellungsartig.</p>
+  </a>
+
+  <a class="card" href="d-zeitgraph.html">
+    <p class="label">Skizze D · neu</p>
+    <h2>Der Zeitgraph — Navigation + Wanderung</h2>
+    <p>Links eine fixe, scrollbare Zeitachse mit allen Stationen (Punkte = Songs, Rauten = Biografie), proportional zu den Jahren. Klick springt zur Station, ein Scrollspy markiert beim Lesen, wo man gerade ist. Auf kleinen Bildschirmen wird die Achse zum horizontalen Band — direkt vergleichbar mit B.</p>
+  </a>
+
+  <a class="card" href="e-zeitgraph.html">
+    <p class="label">Skizze E · neu</p>
+    <h2>Bühne + schwebender Zeitgraph</h2>
+    <p>Skizze Bs Ausdruck, aber der Zeitgraph schwebt links über dem Bild: JS-gesteuert scrollbar ohne sichtbare Scrollbars (Maus &amp; Gesten), Hover vergrößert die Punkte und zeigt den Albumnamen, Klick lädt die Station auf die Bühne. Auf Mobile wird daraus Bs horizontales Band.</p>
+  </a>
+
+  <a class="card" href="c-buch.html">
+    <p class="label">Skizze C</p>
+    <h2>Das Buch — Lesebuch</h2>
+    <p>Radikal reduziert: eine einzige ruhige Spalte, Kapitel statt Stationen, Initiale, herausgehobene Zitate. Die literarischste Variante — die Begleittexte tragen, nicht die Technik.</p>
+  </a>
+
+  <div class="notes">
+    <h3>Hinweise zu allen Skizzen</h3>
+    <ul>
+      <li>Alle Songzitate außer „The mystery of love …" sind <strong>Platzhalter</strong> und müssen gegen die Original-Lyrics geprüft werden.</li>
+      <li>Die Fotos dienen nur der Gestaltungsfindung; Rechteklärung läuft separat.</li>
+      <li>Schriften sind Systemschriften als Stellvertreter — für die echte Seite hosten wir OFL-Fonts selbst (wie bei optimistic.day).</li>
+      <li>Alles ist statisches HTML/CSS/JS ohne Abhängigkeiten; Responsive-Verhalten ist angedeutet, nicht final.</li>
+    </ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skizze E — Schwebender Zeitgraph · Jackie Leven</title>
+<link rel="stylesheet" href="css/e.css">
+</head>
+<body>
+
+<header class="topbar">
+  <span class="name">Jackie Leven</span>
+  <nav>
+    <a href="#">Zeitreise</a>
+    <a href="#">Biografie</a>
+    <a href="#">Über diese Seite</a>
+  </nav>
+</header>
+
+<div class="stage-wrap">
+
+  <!-- schwebender Zeitgraph -->
+  <nav class="graph" aria-label="Zeitgraph">
+    <div class="graph-viewport" id="g-viewport">
+      <div class="graph-track" id="g-track"></div>
+    </div>
+  </nav>
+
+  <main class="stage">
+    <div class="stage-visual">
+      <img id="stage-img" src="assets/phase-anfaenge.jpg" alt="">
+    </div>
+    <div class="stage-body" id="stage-body">
+      <p class="stage-year" id="stage-year">1979</p>
+      <p class="stage-kind" id="stage-kind"></p>
+      <blockquote id="stage-quote"></blockquote>
+      <p class="stage-text" id="stage-text"></p>
+    </div>
+  </main>
+
+</div>
+
+<div class="pager">
+  <button id="prev">← Früher</button>
+  <span class="count" id="count"></span>
+  <button id="next">Später →</button>
+</div>
+
+<footer>
+  <span>Skizze E · schwebender Zeitgraph</span>
+  <span><a href="index.html">← alle Skizzen</a></span>
+</footer>
+
+<script>
+const stations = [
+  { year: "1979", era: "Remember", kind: "song",
+    kindLabel: "Song · „Remember“",
+    quote: "„Wir waren jung und wussten alles über den Schmerz —<br>außer, dass er bleiben würde.“",
+    attr: "Doll by Doll · Remember · 1979",
+    text: "London, Ende der Siebziger. Doll by Doll klingen wie nichts, was es damals gab — zu wild für den Folk, zu verletzlich für den Punk. [Begleittext — Platzhalter]",
+    img: "assets/phase-anfaenge.jpg" },
+  { year: "1981", era: "Grand Passion", kind: "song",
+    kindLabel: "Song · „Grand Passion“",
+    quote: "„Leidenschaft, groß wie ein Haus —<br>und niemand, der die Türen zählt.“",
+    attr: "Doll by Doll · Grand Passion · 1981",
+    text: "Das dritte Album, und die Band am Rand ihrer Kraft. [Platzhalter]",
+    img: "assets/phase-anfaenge.jpg" },
+  { year: "1982", era: "Der Überfall", kind: "bio",
+    kindLabel: "Station · Der Überfall",
+    quote: "Eine Straße in London, ein Angriff aus dem Nichts. Die Stimme — fast verloren. Die Jahre danach: Suche, Sucht, Schweigen.",
+    attr: "",
+    text: "Hier bricht die Zeitleiste fast ab. Zwölf Jahre Stille. [Platzhalter]",
+    img: "assets/y1983.jpg" },
+  { year: "1994", era: "The Mystery of Love", kind: "song",
+    kindLabel: "Song · „The Mystery of Love (Is Greater Than the Mystery of Death)“",
+    quote: "„The mystery of love is greater<br>than the mystery of death“",
+    attr: "The Mystery of Love Is Greater Than the Mystery of Death · 1994",
+    text: "Der Titel ist schon das ganze Programm — und vielleicht der zentrale Satz in Jackies Leben. [Begleittext — Platzhalter]",
+    img: "assets/y2002-pub.jpg" },
+  { year: "1995", era: "Forbidden Songs", kind: "song",
+    kindLabel: "Song · „Forbidden Songs of the Dying West“",
+    quote: "„Sing die verbotenen Lieder,<br>solange der Westen noch stirbt.“",
+    attr: "Forbidden Songs of the Dying West · 1995",
+    text: "[Begleittext — Platzhalter]",
+    img: "assets/phase-zentrum.jpg" },
+  { year: "1997", era: "Fairy Tales", kind: "song",
+    kindLabel: "Song · „Poortoun“ · Fairy Tales for Hard Men",
+    quote: "„In Poortoun halten die Häuser den Regen aus<br>und die Menschen einander.“",
+    attr: "Fairy Tales for Hard Men · 1997",
+    text: "Märchen für harte Männer — das Album trägt seine Zärtlichkeit schon im Titel gegen die Rauheit. [Platzhalter]",
+    img: "assets/y2004-brick.jpg" },
+  { year: "2000", era: "Defending Ancient Springs", kind: "song",
+    kindLabel: "Song · „Defending Ancient Springs“",
+    quote: "„Wir verteidigen die alten Quellen —<br>nicht aus Trotz, aus Durst.“",
+    attr: "Defending Ancient Springs · 2000",
+    text: "[Begleittext — Platzhalter]",
+    img: "assets/y2000-owl.jpg" },
+  { year: "2005", era: "Elegy for Johnny Cash", kind: "song",
+    kindLabel: "Song · „Elegy for Johnny Cash“",
+    quote: "„Jetzt ist der Mann in Schwarz gegangen —<br>wer singt für die, die niemand hört?“",
+    attr: "Elegy for Johnny Cash · 2005",
+    text: "Eine Elegie auf einen anderen Außenseiter — und unfreiwillig schon eine auf sich selbst. [Platzhalter]",
+    img: "assets/y2004-live.jpg" },
+  { year: "2007", era: "Phantom", kind: "song",
+    kindLabel: "Song · „Oh What a Blow That Phantom Dealt Me!“",
+    quote: "„Welch ein Schlag — und ich stehe noch.“",
+    attr: "Oh What a Blow That Phantom Dealt Me! · 2007",
+    text: "[Begleittext — Platzhalter]",
+    img: "assets/y2002-hund.jpg" },
+  { year: "2010", era: "Gothic Road", kind: "song",
+    kindLabel: "Song · „Gothic Road“",
+    quote: "„Die Straße kennt meine Schritte,<br>auch die, die ich nicht mehr gehen werde.“",
+    attr: "Gothic Road · 2010",
+    text: "[Begleittext — Platzhalter]",
+    img: "assets/phase-ende.jpg" },
+  { year: "2011", era: "Wayside Shrines", kind: "song",
+    kindLabel: "Song · „Wayside Shrines and the Code of the Travelling Man“",
+    quote: "„An den Wegesrändern stehen kleine Schreine —<br>für die, die unterwegs geblieben sind.“",
+    attr: "Wayside Shrines · 2011",
+    text: "[Begleittext — Platzhalter]",
+    img: "assets/y2011-portrait.jpg" },
+  { year: "2011", era: "Abschied", kind: "bio",
+    kindLabel: "Station · November 2011",
+    quote: "„Eternal is the warrior<br>who finds beauty in his wounds“",
+    attr: "Inschrift auf der Gedenkbank für Jackie Leven",
+    text: "Jackie Leven stirbt im November 2011. Die Wanderung endet — die Lieder gehen weiter. [Platzhalter]",
+    img: "assets/memorial.jpg" }
+];
+
+let current = 0;
+const track = document.getElementById("g-track");
+const viewport = document.getElementById("g-viewport");
+const MIN_YEAR = 1978, MAX_YEAR = 2012;
+const MIN_GAP = 44;
+let markerTop = [];   // y-Positionen im Track
+let offset = 0;       // aktueller Scroll-Offset des Tracks
+let targetOffset = 0;
+let rafId = null;
+
+const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
+
+function buildGraph() {
+  track.innerHTML = "";
+  if (isMobile()) { track.style.height = ""; offset = targetOffset = 0; }
+  else {
+    const viewH = viewport.clientHeight || 400;
+    const height = Math.max(viewH, stations.length * MIN_GAP + 120);
+    track.style.height = height + "px";
+
+    markerTop = stations.map(s => {
+      const y = +s.year;
+      return 60 + ((y - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * (height - 120);
+    });
+    for (let i = 1; i < markerTop.length; i++) {
+      if (markerTop[i] - markerTop[i - 1] < MIN_GAP) markerTop[i] = markerTop[i - 1] + MIN_GAP;
+    }
+  }
+
+  stations.forEach((s, i) => {
+    const b = document.createElement("button");
+    b.className = "g-marker";
+    if (s.kind === "bio") b.dataset.kind = "bio";
+    b.innerHTML = '<span class="dot"></span><span class="g-label"><span class="g-year">' +
+      s.year + '</span><span class="g-era">' + s.era + "</span></span>";
+    if (!isMobile()) b.style.top = markerTop[i] + "px";
+    b.addEventListener("click", () => show(i));
+    track.appendChild(b);
+  });
+  markActive();
+}
+
+/* --- sanftes Gleiten des Tracks (JS-gesteuert, keine Scrollbar) --- */
+function maxOffset() {
+  return Math.max(0, track.scrollHeight - viewport.clientHeight);
+}
+function animateTrack() {
+  offset += (targetOffset - offset) * 0.14;
+  if (Math.abs(targetOffset - offset) < 0.5) {
+    offset = targetOffset;
+    track.style.transform = "translateY(" + (-offset) + "px)";
+    rafId = null;
+    return;
+  }
+  track.style.transform = "translateY(" + (-offset) + "px)";
+  rafId = requestAnimationFrame(animateTrack);
+}
+function glideTo(v) {
+  targetOffset = Math.min(maxOffset(), Math.max(0, v));
+  if (rafId === null) rafId = requestAnimationFrame(animateTrack);
+}
+
+viewport.addEventListener("wheel", (e) => {
+  if (isMobile()) return;
+  e.preventDefault();
+  glideTo(targetOffset + e.deltaY);
+}, { passive: false });
+
+let touchY = null;
+viewport.addEventListener("touchstart", (e) => { touchY = e.touches[0].clientY; }, { passive: true });
+viewport.addEventListener("touchmove", (e) => {
+  if (isMobile() || touchY === null) return;
+  const y = e.touches[0].clientY;
+  glideTo(targetOffset + (touchY - y));
+  touchY = y;
+}, { passive: true });
+
+function centerMarker(i) {
+  if (isMobile()) {
+    const m = track.children[i];
+    if (m) m.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    return;
+  }
+  glideTo(markerTop[i] - viewport.clientHeight / 2);
+}
+
+function markActive() {
+  [...track.children].forEach((m, j) => m.classList.toggle("active", j === current));
+}
+
+function show(i) {
+  current = (i + stations.length) % stations.length;
+  const s = stations[current];
+  const body = document.getElementById("stage-body");
+  body.dataset.kind = s.kind;
+  body.style.opacity = 0;
+  const img = document.getElementById("stage-img");
+  img.style.opacity = 0;
+
+  setTimeout(() => {
+    document.getElementById("stage-year").textContent = s.year;
+    document.getElementById("stage-kind").textContent = s.kindLabel;
+    document.getElementById("stage-quote").innerHTML =
+      s.quote + (s.attr ? '<span class="q-attr">' + s.attr + "</span>" : "");
+    document.getElementById("stage-text").textContent = s.text;
+    img.src = s.img;
+    img.style.opacity = 1;
+    body.style.opacity = 1;
+  }, 250);
+
+  markActive();
+  centerMarker(current);
+  document.getElementById("count").textContent =
+    String(current + 1).padStart(2, "0") + " / " + String(stations.length).padStart(2, "0");
+}
+
+document.getElementById("prev").addEventListener("click", () => show(current - 1));
+document.getElementById("next").addEventListener("click", () => show(current + 1));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") show(current - 1);
+  if (e.key === "ArrowRight") show(current + 1);
+});
+
+let rt;
+window.addEventListener("resize", () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => { buildGraph(); centerMarker(current); }, 150);
+});
+
+buildGraph();
+show(0);
+</script>
+
+</body>
+</html>

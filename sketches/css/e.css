@@ -1,0 +1,324 @@
+/* Skizze E — Bs Bühne + schwebender Zeitgraph über dem Bild */
+:root {
+  --bg: #0d0f12;
+  --bg-raise: #15181d;
+  --ink: #e4e6e8;
+  --ink-dim: #8a919b;
+  --line: #262b33;
+  --accent: #d4a24e;
+  --cold: #7d92a6;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---------- Kopf ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.4rem 4vw;
+  font-family: var(--rough);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .name {
+  font-size: 15px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.topbar nav { font-size: 12px; letter-spacing: .15em; text-transform: uppercase; }
+.topbar nav a { color: var(--ink-dim); text-decoration: none; margin-left: 1.6rem; }
+.topbar nav a:hover { color: var(--accent); }
+
+/* ---------- Bühne mit schwebendem Graph ---------- */
+.stage-wrap {
+  position: relative;
+  min-height: 82vh;
+}
+
+.stage {
+  min-height: 82vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.stage-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  margin-left: 50px; /* Bild knapp vom linken Rand gerückt */
+}
+.stage-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.72) saturate(.75);
+  transition: opacity .5s;
+}
+.stage-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--bg));
+}
+.stage-body {
+  padding: clamp(2rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 640px;
+  transition: opacity .35s;
+}
+.stage-year {
+  font-family: var(--rough);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cold);
+  margin-bottom: 1.6rem;
+}
+.stage-body[data-kind="bio"] .stage-year { -webkit-text-stroke-color: var(--cold); }
+.stage-kind {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 1.2rem;
+}
+.stage blockquote {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: 1.6rem;
+}
+.stage blockquote .q-attr {
+  display: block;
+  font-family: var(--rough);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: .9rem;
+}
+.stage-text { color: #b9bdc4; max-width: 32em; font-size: 1rem; }
+
+/* ---------- Der schwebende Zeitgraph ---------- */
+.graph {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 220px;
+  z-index: 5;
+  pointer-events: none; /* nur der Viewport reagiert */
+  padding-left: 2.4rem;
+  /* rauchiger, halbtransparenter Grund, nach rechts weich auslaufend */
+  background: linear-gradient(to right,
+    rgba(10, 11, 14, .78) 0%,
+    rgba(10, 11, 14, .55) 45%,
+    rgba(10, 11, 14, .22) 72%,
+    transparent 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(to right, black 55%, transparent 100%);
+  mask-image: linear-gradient(to right, black 55%, transparent 100%);
+}
+.graph-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: auto;
+  cursor: ns-resize;
+}
+/* elegante Ausblendung oben/unten */
+.graph-viewport::before,
+.graph-viewport::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 2;
+  pointer-events: none;
+}
+.graph-viewport::before { top: 0; background: linear-gradient(to bottom, rgba(13,15,18,.85), transparent); }
+.graph-viewport::after { bottom: 0; background: linear-gradient(to top, rgba(13,15,18,.85), transparent); }
+
+.graph-track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  will-change: transform;
+}
+/* die Linie */
+.graph-track::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(228,230,232,.35) 8%, rgba(228,230,232,.35) 92%, transparent);
+}
+
+.g-marker {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--rough);
+  text-align: left;
+  color: rgba(228,230,232,.65);
+  transform: translateY(-50%);
+  padding: 8px 0;
+  text-shadow: 0 1px 8px rgba(13,15,18,.9);
+}
+.g-marker .dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-left: 8px; /* Linie bei 11px + Linienmitte ≈ Punktmitte */
+  border-radius: 50%;
+  background: rgba(228,230,232,.55);
+  box-shadow: 0 0 0 3px rgba(13,15,18,.35);
+  transition: transform .25s cubic-bezier(.2,.7,.3,1.4), background .2s, box-shadow .2s;
+}
+.g-marker[data-kind="bio"] .dot { border-radius: 0; transform: rotate(45deg); background: rgba(125,146,166,.8); }
+.g-marker .g-label { line-height: 1.25; }
+.g-marker .g-year {
+  font-size: 14px;
+  letter-spacing: .1em;
+  transition: color .2s;
+}
+.g-marker .g-era {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity .25s;
+}
+.g-marker:hover .dot,
+.g-marker.active .dot { transform: scale(1.9); background: var(--accent); }
+.g-marker[data-kind="bio"]:hover .dot,
+.g-marker[data-kind="bio"].active .dot { transform: rotate(45deg) scale(1.6); background: var(--cold); }
+.g-marker:hover .g-year { color: var(--ink); }
+.g-marker:hover .g-era,
+.g-marker.active .g-era { opacity: .7; max-height: 2em; }
+.g-marker.active { color: var(--accent); }
+.g-marker[data-kind="bio"].active { color: var(--cold); }
+.g-marker.active .dot { box-shadow: 0 0 0 5px rgba(212,162,78,.18), 0 0 18px rgba(212,162,78,.45); }
+.g-marker[data-kind="bio"].active .dot { box-shadow: 0 0 0 5px rgba(125,146,166,.18), 0 0 18px rgba(125,146,166,.45); }
+
+/* ---------- Vor/Zurück ---------- */
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 4vw 3rem;
+  font-family: var(--rough);
+}
+.pager button {
+  appearance: none;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--rough);
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: .9rem 1.8rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.pager button:hover { border-color: var(--accent); color: var(--accent); }
+.pager .count { font-size: 12px; letter-spacing: .25em; color: var(--ink-dim); }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2.4rem 4vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+footer a { color: var(--ink-dim); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+/* ---------- Mobile: Graph wird horizontales Band (Bs Muster) ---------- */
+@media (max-width: 860px) {
+  .stage { grid-template-columns: 1fr; min-height: 0; }
+  .stage-wrap { min-height: 0; }
+  .stage-visual { min-height: 40vh; margin-left: 0; }
+  .stage-visual::after { background: linear-gradient(to bottom, transparent 55%, var(--bg)); }
+  .graph {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    height: auto;
+    order: -1;
+    padding-left: 0;
+    background: rgba(13,15,18,.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .graph-viewport { position: static; overflow: hidden; cursor: default; }
+  .graph-viewport::before, .graph-viewport::after { display: none; }
+  .graph-track {
+    position: static;
+    display: flex;
+    height: auto !important;
+    transform: none !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .graph-track::-webkit-scrollbar { display: none; }
+  .graph-track::before { display: none; }
+  .g-marker {
+    position: static;
+    transform: none;
+    width: auto;
+    padding: .9rem 1.3rem;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    text-shadow: none;
+  }
+  .g-marker .dot { display: none; }
+  .g-marker .g-era { opacity: .55; max-height: none; }
+  .g-marker.active { border-bottom-color: var(--accent); }
+  .g-marker[data-kind="bio"].active { border-bottom-color: var(--cold); }
+}
