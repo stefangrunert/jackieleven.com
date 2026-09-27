@@ -7,8 +7,12 @@ DirectoryIndex index.php
 # research/      Levens eigene Texte (Urheberrecht) + Rechercheakten
 # autobiografie/ die Pastiche — darf nirgends als sein Wort erscheinen
 # werkzeug/      Messwerkzeuge
-# .dev/          Werkstattbericht
-RedirectMatch 404 ^/(research|autobiografie|werkzeug|\.dev)(/|$)
+# app/           PHP-Code, nur über index.php
+RedirectMatch 404 ^/(research|autobiografie|werkzeug|app)(/|$)
+
+# Alles, was mit einem Punkt beginnt: .git/ (das ganze Repo!), .dev/,
+# .idea/, .gitignore, .htaccess
+RedirectMatch 404 /\.(?!well-known/)
 
 <FilesMatch "\.(md|py|json)$">
   Require all denied

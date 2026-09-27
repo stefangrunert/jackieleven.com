@@ -18,7 +18,7 @@ Dieser Korpus ist zugleich die **Faktenbasis** und der **stilistische Maßstab**
 |---|---|
 | [`research/`](research/README.md) | Biografisches Kompendium: zwölf Akten mit Fußnoten, Zeitleiste mit Datierungskonflikten, Konzertkalender (470 Auftritte), Website-Geschichte — dazu `columns/` als Primärquelle |
 | [`autobiografie/`](autobiografie/00-rahmen.md) | Die Pastiche: 15 Kapitel in Levens Stimme, **nicht von ihm geschrieben**. Dazu Rahmen, Kapitelplan und das Sprachdokument |
-| `werkzeug/` | `messen.py` misst die Kapitel gegen den Korpus, `pruefen.py` meldet KI-Satzformen |
+| `werkzeug/` | `messen.py` misst die Kapitel gegen den Korpus, `pruefen.py` meldet KI-Satzformen, `zitate.php` prüft die Zitate der Website gegen ihre Quellen |
 | `app/`, `index.php`, `assets/` | Die Website: Front Controller, Views, Stationsdaten, CSS/JS |
 | `sketches/` | Design-Entwürfe A–E; die Seite folgt Entwurf E |
 | `.dev/` | Werkstattbericht über die Entstehung |
@@ -33,11 +33,31 @@ Siehe [`autobiografie/00-rahmen.md`](autobiografie/00-rahmen.md).
 
 ## Die Website lokal starten
 
-DocumentRoot ist das Projektverzeichnis; die Seite läuft unter `https://jackieleven` (MAMP-vhost). Die `.htaccess` leitet alles auf `index.php` und sperrt `research/`, `autobiografie/`, `werkzeug/` und `.dev/` gegen Auslieferung — Arbeitsmaterial ist nicht Teil der Website.
+DocumentRoot ist das Projektverzeichnis; die Seite läuft unter `https://jackieleven` (MAMP-vhost). Die `.htaccess` leitet alles auf `index.php` und sperrt `research/`, `autobiografie/`, `werkzeug/`, `app/` sowie alles, was mit einem Punkt beginnt — darunter `.git/` mit dem ganzen Repository und `.dev/`. Arbeitsmaterial ist nicht Teil der Website.
 
 ```sh
 python3 werkzeug/messen.py              # Kapitel gegen den Korpus messen
 python3 werkzeug/pruefen.py 07 08       # Kandidaten für KI-Sprache, mit führender Null
+```
+
+## Sprachen
+
+Die Seite läuft auf Deutsch und Englisch unter `/de/…` und `/en/…`. `/` leitet nach `Accept-Language` des Browsers weiter, sonst auf Deutsch. Auch die Pfade sind übersetzt (`/de/zeitreise/1950-kirkcaldy`, `/en/timeline/1950-kirkcaldy`); ein Pfad in der falschen Sprache wird umgeleitet, Adressen ohne Präfix aus der Zeit vor der Umstellung ebenfalls.
+
+**Die Zitate werden nie übersetzt.** Sie stehen einmal in `app/data/stationen.php` und erscheinen in jeder Sprachfassung im englischen Original mit `lang="en"`.
+
+Text liegt je nach Art an drei Orten:
+
+| Was | Wo | |
+|---|---|---|
+| Oberfläche, Monatsnamen, URL-Pfade | `app/lang/<code>.php` | Pflicht |
+| Stationstexte (Titel, Label, Begleittext, Bildunterschrift) | `app/data/texte/<code>.php` | optional |
+| Fließtextseiten (Über, Biografie) | `app/views/<code>/` | optional |
+
+Eine neue Sprache: die drei Stellen anlegen und dann den Code in `SPRACHEN` in `app/bootstrap.php` eintragen — vorher ist sie von außen nicht erreichbar. Was fehlt, fällt auf Deutsch zurück und wird mit `lang="de"` ausgezeichnet; eine halb übersetzte Sprache funktioniert also schon. Die englischen Label sind bewusst keine Wort-für-Wort-Übertragung: „Station · Kirkcaldy" ist deutsch, auf Englisch steht nur der Ort.
+
+```sh
+php werkzeug/zitate.php                 # jedes Zitat Zeichen für Zeichen gegen seine Quelle
 ```
 
 ## Rechte — bitte vor einer Veröffentlichung lesen

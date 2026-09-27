@@ -1,18 +1,18 @@
 <?php
 /** @var int $aktiv */
 $alle = stationen();
-$st   = $alle[$aktiv];
-$vor  = $alle[($aktiv - 1 + count($alle)) % count($alle)];
-$nach = $alle[($aktiv + 1) % count($alle)];
+$n    = count($alle);
+$vor  = $alle[($aktiv - 1 + $n) % $n];
+$nach = $alle[($aktiv + 1) % $n];
 ?>
 <div class="stage-wrap">
 
-  <nav class="graph" aria-label="Zeitleiste">
+  <nav class="graph" aria-label="<?= e(t('graph.label')) ?>">
     <div class="graph-viewport" id="g-viewport">
       <div class="graph-track" id="g-track">
         <?php foreach ($alle as $i => $s): ?>
           <a class="g-marker<?= $i === $aktiv ? ' active' : '' ?>"
-             href="/station/<?= e($s['slug']) ?>"
+             href="<?= e(url('station', ['slug' => $s['slug']])) ?>"
              data-i="<?= $i ?>"
              data-art="<?= e($s['art']) ?>"
              data-jahr="<?= e($s['jahr']) ?>"
@@ -20,7 +20,7 @@ $nach = $alle[($aktiv + 1) % count($alle)];
             <span class="dot"></span>
             <span class="g-label">
               <span class="g-year"><?= e($s['jahr']) ?></span>
-              <span class="g-era"><?= e($s['titel']) ?></span>
+              <span class="g-era"><?= sfeld_html($s, 'titel') ?></span>
             </span>
           </a>
         <?php endforeach; ?>
@@ -28,12 +28,12 @@ $nach = $alle[($aktiv + 1) % count($alle)];
     </div>
   </nav>
 
-  <main class="stage" id="stage"><?= render('buehne', ['st' => $st, 'i' => $aktiv]) ?></main>
+  <main class="stage" id="stage"><?= render('buehne', ['st' => $alle[$aktiv]]) ?></main>
 
 </div>
 
-<div class="pager">
-  <a class="knopf" href="/station/<?= e($vor['slug']) ?>" rel="prev">&larr; <?= e($vor['jahr']) ?></a>
-  <span class="count" id="count"><?= str_pad((string)($aktiv + 1), 2, '0', STR_PAD_LEFT) ?> / <?= str_pad((string)count($alle), 2, '0', STR_PAD_LEFT) ?></span>
-  <a class="knopf" href="/station/<?= e($nach['slug']) ?>" rel="next"><?= e($nach['jahr']) ?> &rarr;</a>
-</div>
+<nav class="pager" aria-label="<?= e(t('pager.label')) ?>">
+  <a class="knopf" href="<?= e(url('station', ['slug' => $vor['slug']])) ?>" rel="prev">&larr; <?= e($vor['jahr']) ?></a>
+  <span class="count" id="count"><?= sprintf('%02d / %02d', $aktiv + 1, $n) ?></span>
+  <a class="knopf" href="<?= e(url('station', ['slug' => $nach['slug']])) ?>" rel="next"><?= e($nach['jahr']) ?> &rarr;</a>
+</nav>

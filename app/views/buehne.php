@@ -1,27 +1,23 @@
-<?php /** @var array $st @var int $i */ ?>
+<?php /** @var array $st */ [$bildtext] = sfeld($st, 'bildtext'); ?>
 <div class="stage-visual">
-  <img src="/assets/bilder/<?= e($st['bild']) ?>" alt="<?= e($st['bildtext']) ?>">
-  <?php if ($st['bildtext']): ?><span class="bildtext"><?= e($st['bildtext']) ?></span><?php endif; ?>
+  <img src="/assets/bilder/<?= e($st['bild']) ?>" alt="<?= e($bildtext) ?>">
+  <?php if ($bildtext !== ''): ?><span class="bildtext"><?= sfeld_html($st, 'bildtext') ?></span><?php endif; ?>
 </div>
 
 <div class="stage-body" data-art="<?= e($st['art']) ?>">
   <p class="stage-year"><?= e($st['jahr']) ?></p>
-  <p class="stage-kind"><?= e($st['label']) ?></p>
+  <p class="stage-kind"><?= sfeld_html($st, 'label') ?></p>
 
   <?php if ($st['zitat'] !== ''): ?>
     <blockquote lang="en">
-      <?= e($st['zitat']) ?>
-      <cite>
-        <?php if ($st['archiv']): ?>
-          <a href="<?= e($st['archiv']) ?>" rel="noopener noreferrer" target="_blank">Jackie Leven, <?= e($st['quelle']) ?></a>
-        <?php else: ?>
-          Jackie Leven, <?= e($st['quelle']) ?>
-        <?php endif; ?>
+      <p><?= e($st['zitat']) ?></p>
+      <cite lang="<?= e(sprache()) ?>">
+        <a href="<?= e($st['quelle']['archiv']) ?>" rel="noopener noreferrer" target="_blank"><?= e(t('station.zitat_von', ['quelle' => quelle_text($st['quelle'])])) ?></a>
       </cite>
     </blockquote>
   <?php else: ?>
-    <p class="kein-zitat">Über diese Zeit hat er nichts geschrieben.</p>
+    <p class="kein-zitat"><?= e(t('station.kein_zitat')) ?></p>
   <?php endif; ?>
 
-  <p class="stage-text"><?= e($st['text']) ?></p>
+  <p class="stage-text"><?= sfeld_html($st, 'text') ?></p>
 </div>

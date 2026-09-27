@@ -56,6 +56,18 @@ a { color: var(--accent); }
 .topbar nav a:hover,
 .topbar nav a.hier { color: var(--accent); }
 
+.kopf-rechts { display: flex; align-items: baseline; gap: 2rem; flex-wrap: wrap; }
+.topbar .sprachen {
+  display: flex;
+  gap: .15rem;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--line);
+  letter-spacing: .2em;
+}
+.topbar .sprachen a,
+.topbar .sprachen span { margin-left: 0; padding: .1rem .3rem; }
+.topbar .sprachen span { color: var(--ink); }
+
 /* ---------- Bühne ---------- */
 .stage-wrap { position: relative; flex: 1; }
 
@@ -340,6 +352,7 @@ footer {
 
 /* ---------- Mobil: Graph wird waagerechtes Band ---------- */
 @media (max-width: 860px) {
+  .topbar .sprachen { border-left: 0; padding-left: 0; }
   .stage { grid-template-columns: 1fr; min-height: 0; }
   .stage-visual { min-height: 42vh; margin-left: 0; }
   .stage-visual::after { background: linear-gradient(to bottom, transparent 55%, var(--bg)); }
