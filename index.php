@@ -103,6 +103,27 @@ if ($seite === 'station') {
     exit;
 }
 
+// Kapitel der Pastiche: /de/biografie/07-electric-fur
+if ($seite === 'biografie' && count($teile) === 2) {
+    $i = kapitel_index($teile[1]);
+    if ($i < 0) {
+        nicht_gefunden();
+    }
+    if (!$richtig) {
+        weiter(url('kapitel', ['slug' => $teile[1]]));
+    }
+    $k = kapitelliste()[$i];
+    route('kapitel', ['slug' => $k['slug']]);
+    seite(
+        render('kapitel', ['i' => $i]),
+        t('titel.kapitel', ['titel' => $k['titel'], 'nr' => $i + 1]),
+        'biografie',
+        200,
+        noindex: true
+    );
+    exit;
+}
+
 if (count($teile) !== 1) {
     nicht_gefunden();
 }

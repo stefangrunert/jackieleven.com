@@ -17,8 +17,8 @@ Dieser Korpus ist zugleich die **Faktenbasis** und der **stilistische Maßstab**
 | Pfad | Inhalt |
 |---|---|
 | [`research/`](research/README.md) | Biografisches Kompendium: zwölf Akten mit Fußnoten, Zeitleiste mit Datierungskonflikten, Konzertkalender (470 Auftritte), Website-Geschichte — dazu `columns/` als Primärquelle |
-| [`autobiografie/`](autobiografie/00-rahmen.md) | Die Pastiche: 15 Kapitel in Levens Stimme, **nicht von ihm geschrieben**. Dazu Rahmen, Kapitelplan und das Sprachdokument |
-| `werkzeug/` | `messen.py` misst die Kapitel gegen den Korpus, `pruefen.py` meldet KI-Satzformen, `zitate.php` prüft die Zitate der Website gegen ihre Quellen |
+| [`autobiografie/`](autobiografie/00-rahmen.md) | Die Pastiche: 15 Kapitel in Levens Stimme, **nicht von ihm geschrieben**. Dazu Rahmen, Kapitelplan und das Sprachdokument; Übersetzungen einzelner Teile in `autobiografie/<sprache>/` |
+| `werkzeug/` | `messen.py` misst die Kapitel gegen den Korpus, `pruefen.py` meldet KI-Satzformen, `zitate.php` prüft die Zitate der Website gegen ihre Quellen, `uebersetzung.py` die Übersetzungen der Pastiche gegen das Original |
 | `app/`, `index.php`, `assets/` | Die Website: Front Controller, Views, Stationsdaten, CSS/JS |
 | `sketches/` | Design-Entwürfe A–E; die Seite folgt Entwurf E |
 | `.dev/` | Werkstattbericht über die Entstehung |
@@ -29,11 +29,11 @@ Dieser Korpus ist zugleich die **Faktenbasis** und der **stilistische Maßstab**
 
 Die Kennzeichnung ist keine Formalie. Leven war ein notorischer Ausschmücker — Bob Dylan als angeblicher Ko-Autor, eine Auftragsmörderin als Song-Inspiration, ein eigener Whisky, den sein Labelchef „a complete scam" nannte. Seine echten Erinnerungen klingen bereits wie Erfindungen. Ungekennzeichnete erfundene Ich-Prosa daneben würde seine Biografie endgültig unlesbar machen.
 
-Siehe [`autobiografie/00-rahmen.md`](autobiografie/00-rahmen.md).
+Auf der Website steht das Buch unter „Biografie“: jede Kapitelseite mit Pastiche-Hinweis, „Pastiche“ im Seitentitel, ohne Zitatauszeichnung und mit `noindex`. Die Seite liest die Kapitel direkt aus `autobiografie/`. Siehe [`autobiografie/00-rahmen.md`](autobiografie/00-rahmen.md), Abschnitt „Auf der Website“.
 
 ## Die Website lokal starten
 
-DocumentRoot ist das Projektverzeichnis; die Seite läuft unter `https://jackieleven` (MAMP-vhost). Die `.htaccess` leitet alles auf `index.php` und sperrt `research/`, `autobiografie/`, `werkzeug/`, `app/` sowie alles, was mit einem Punkt beginnt — darunter `.git/` mit dem ganzen Repository und `.dev/`. Arbeitsmaterial ist nicht Teil der Website.
+DocumentRoot ist das Projektverzeichnis; die Seite läuft unter `https://jackieleven.localhost` (MAMP-vhost, Alias von `https://jackieleven`). Den `.localhost`-Namen behandelt der Browser-Pane von Claude Code als lokale Entwicklungsumgebung. Die `.htaccess` leitet alles auf `index.php` und sperrt `research/`, `autobiografie/`, `werkzeug/`, `app/` sowie alles, was mit einem Punkt beginnt — darunter `.git/` mit dem ganzen Repository und `.dev/`. Arbeitsmaterial ist nicht Teil der Website.
 
 ```sh
 python3 werkzeug/messen.py              # Kapitel gegen den Korpus messen
@@ -67,6 +67,6 @@ php werkzeug/zitate.php                 # jedes Zitat Zeichen für Zeichen gegen
 - **`research/columns/`** enthält Levens eigene Texte im Volltext. Die Rechte daran liegen nicht bei uns. Arbeitsgrundlage, keine Veröffentlichung.
 - **`assets/bilder/` und `sketches/assets/`** sind echte Pressefotos. Der Fotograf ist nicht ermittelt.
 - **`research/09-alan-moffatt-genealogie.md`** enthält Registerdaten, Testamentsangaben und Familienspuren zu einer realen Person und ihren Angehörigen.
-- **`autobiografie/`** darf nach dem eigenen Rahmen nirgends als Levens Wort erscheinen.
+- **`autobiografie/`** darf nach dem eigenen Rahmen nirgends als Levens Wort erscheinen. Auf der Website steht es gekennzeichnet und mit `noindex`; vor einer Veröffentlichung ist zu entscheiden, ob das reicht.
 
 Auf der Website selbst steht deshalb kein Songtext, und jedes Zitat ist kurz, wortgetreu und mit Archivlink belegt.

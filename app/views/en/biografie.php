@@ -1,15 +1,23 @@
 <article class="text-seite">
   <p class="kicker">Biography</p>
-  <h1>Jackie Leven, 1950–2011</h1>
+  <h1>The autobiography he never wrote</h1>
 
-  <p class="lead">Born Alan Moffatt on 18 June 1950 in Kirkcaldy, Fife; died 14 November 2011 in
-  Hampshire. He had a band that fell out with everyone who might have helped it, lost his voice
-  for years after an attack in London and only came back in 1994, after which he made more
-  records than his label thought sensible.</p>
+  <aside class="pastiche-hinweis" role="note">
+    <span class="etikett">Pastiche</span>
+    <p><strong>This text is not by Jackie Leven.</strong> We wrote it, in his voice, from what he
+    told about himself. His own words are on the <a href="<?= e(url('start')) ?>">timeline</a>,
+    each with its source.</p>
+  </aside>
 
-  <p>A fuller version is still being written. Until then the
-  <a href="<?= e(url('start')) ?>">timeline</a> takes you through fourteen points in his life,
-  most of them with a sentence of his own.</p>
+  <p class="lead">Leven never wrote an autobiography. For nine years, though, he wrote about his
+  life on his websites, in a voice you come to recognise: a lower-case “i”, long sentences, dashes
+  instead of full stops, jokes at his own expense. This pastiche grew out of those texts: fifteen
+  chapters that follow his life in the order he lived it, not the order in which he told it.</p>
 
-  <?= render('stationsliste') ?>
+  <p>Leven liked to embroider his own story, and even his true memories often sound invented. So
+  that it stays possible to tell his words from ours, every chapter ends with a list of what is
+  documented and what we made up. Where he told tall tales himself, about Bob Dylan, the whisky or
+  the contract killer, the book tells them as his tales.</p>
+
+  <?= render('kapitelliste') ?>
 </article>

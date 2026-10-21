@@ -1,4 +1,4 @@
-<?php /** @var string $inhalt @var string $titel @var string $nav */ ?>
+<?php /** @var string $inhalt @var string $titel @var string $nav @var bool $noindex */ ?>
 <!DOCTYPE html>
 <html lang="<?= e(sprache()) ?>">
 <head>
@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= e($titel) ?></title>
 <meta name="description" content="<?= e(t('meta.beschreibung')) ?>">
+<?php if (!empty($noindex)): ?>
+<meta name="robots" content="noindex">
+<?php endif; ?>
 <?php if (route()['name'] !== null): ?>
 <?php foreach (SPRACHEN as $s): ?>
 <link rel="alternate" hreflang="<?= e($s) ?>" href="<?= e(absolut(alternativ_url($s))) ?>">

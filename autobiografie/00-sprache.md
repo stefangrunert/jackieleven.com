@@ -108,3 +108,7 @@ Zwei Werte weichen weiter ab, und beide bleiben so:
 **Die kurzen Sätze (8,1 % statt 2,1 %).** Nachgesehen: es sind Szenenüberschriften („Then Reading.", „And then Austria.", „Little Venice."), Zitate („Now listen, lads.") und Tatsachen („She could not drive."). Keine davon ist eine gebaute Pointe. Ein Buch aus fünfzehn Kapiteln braucht Schnitte, die eine Monatskolumne nicht braucht.
 
 **Die Streuung (17 statt 30).** Levens Extremwert entsteht durch einzelne Kolumnensätze von über dreihundert Wörtern. Auf hundert Seiten wäre das der Manierismus, vor dem Stefan gewarnt hat. Die flachsten Kapitel — 11, 13, 14 — liegen bei 14 bis 15; dort wäre beim nächsten Durchgang je ein langer, anrollender Satz zu setzen, nicht mehr.
+
+### Nachtrag beim Übersetzen (27. September 2026)
+
+Zwei der fünf Belege vom Anfang standen trotz des Durchgangs noch im Buch, weil `pruefen.py` sie nicht erfasst: „and that is one of my real regrets" (13) — ein bewertender Anschluss mit „that" statt „which" — und „I never got the big audience. I got the right one." (15) — eine Antithese ohne „not". Beide sind entfernt. Die Übersetzerin von Kapitel 15 hat den zweiten erkannt und nach der Regel „Figur im Original bleibt" trotzdem übersetzt; erst der Abgleich mit Stefans Belegliste hat ihn gefangen.

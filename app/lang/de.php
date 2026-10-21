@@ -17,7 +17,7 @@ return [
 
     'titel.start'        => 'Jackie Leven — Zeitreise',
     'titel.station'      => '{jahr} — {titel} · Jackie Leven',
-    'titel.biografie'    => 'Biografie · Jackie Leven',
+    'titel.biografie'    => 'Die Autobiografie, die er nie geschrieben hat · Jackie Leven',
     'titel.ueber'        => 'Über diese Seite · Jackie Leven',
     'titel.404'          => 'Nicht gefunden · Jackie Leven',
 
@@ -34,6 +34,22 @@ return [
     '404.titel'          => 'Hier ist nichts',
     '404.text'           => 'Diese Seite gibt es nicht, oder nicht mehr.',
     '404.zurueck'        => 'Zurück zur Zeitreise',
+
+    'sprachname.de'          => 'Deutsch',
+    'sprachname.en'          => 'Englisch',
+
+    'pastiche.etikett'       => 'Pastiche',
+    'pastiche.nicht_von'     => 'Nicht von Jackie Leven.',
+    'pastiche.erklaerung'    => 'Dieses Kapitel ist eine Pastiche: von uns geschrieben, in seiner Stimme, auf Grundlage dessen, was er selbst erzählt hat. Was belegt und was erfunden ist, steht am Ende.',
+    'pastiche.ueber_buch'    => 'Über dieses Buch',
+    'pastiche.kapitel_von'   => 'Kapitel {nr} von {gesamt}',
+    'pastiche.inhalt'        => 'Inhalt',
+    'pastiche.kapitelnav'    => 'Kapitel blättern',
+    'pastiche.text_fremd'    => 'Das Kapitel liegt bisher nur auf {sprache} vor.',
+    'pastiche.apparat_fremd' => 'Der Nachweis liegt bisher nur auf {sprache} vor.',
+    'pastiche.uebersetzt'    => 'Aus dem Englischen übersetzt',
+    'pastiche.zum_original'  => 'zum Original',
+    'titel.kapitel'          => '{titel} — Pastiche, Kapitel {nr} · Jackie Leven',
 
     'fuss.lebensdaten'   => '1950–2011',
     'fuss.hinweis'       => 'Private Hommage · keine offizielle Seite',

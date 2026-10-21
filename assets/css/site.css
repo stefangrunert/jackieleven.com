@@ -39,7 +39,7 @@ a { color: var(--accent); }
   align-items: baseline;
   gap: 1rem;
   flex-wrap: wrap;
-  padding: 1.4rem 4vw;
+  padding: 1.4rem max(16px, 4vw);
   font-family: var(--rough);
   border-bottom: 1px solid var(--line);
 }
@@ -52,7 +52,7 @@ a { color: var(--accent); }
   text-decoration: none;
 }
 .topbar nav { font-size: 12px; letter-spacing: .15em; text-transform: uppercase; }
-.topbar nav a { color: var(--ink-dim); text-decoration: none; margin-left: 1.6rem; }
+.topbar nav a { color: var(--ink-dim); text-decoration: none; margin-left: 1.6rem; white-space: nowrap; }
 .topbar nav a:hover,
 .topbar nav a.hier { color: var(--accent); }
 
@@ -276,7 +276,7 @@ a { color: var(--accent); }
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1.6rem 4vw 3rem;
+  padding: 1.6rem max(16px, 4vw) 3rem;
   font-family: var(--rough);
 }
 .pager .knopf {
@@ -295,7 +295,7 @@ a { color: var(--accent); }
 /* ---------- Textseiten ---------- */
 .text-seite {
   flex: 1;
-  width: min(760px, 92vw);
+  width: min(760px, calc(100% - 32px));   /* 100 % statt vw: die Scrollleiste zählt nicht mit */
   margin: 0 auto;
   padding: clamp(3rem, 8vw, 6rem) 0 5rem;
 }
@@ -319,26 +319,95 @@ a { color: var(--accent); }
 .text-seite p { margin-bottom: 1.2rem; max-width: 36em; }
 .text-seite .lead { font-size: 1.22rem; font-style: italic; color: var(--ink); margin-bottom: 2rem; }
 
-.stationen-liste { list-style: none; margin-top: 2.5rem; border-top: 1px solid var(--line); }
-.stationen-liste a {
+
+/* ---------- Pastiche ---------- */
+/* Echte Zitate: kursiv, goldener Rand, Quelle darunter. Die Pastiche
+   bekommt bewusst nichts davon — gerader Satz, kalter gestrichelter Kasten. */
+.pastiche-hinweis {
+  border: 1px dashed var(--cold);
+  padding: 1.1rem 1.4rem 1.2rem;
+  margin: 0 0 2.6rem;
+  font-size: .95rem;
+  color: var(--ink-soft);
+}
+.pastiche-hinweis .etikett {
+  display: block;
+  font-family: var(--rough);
+  font-size: 10px;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--cold);
+  margin-bottom: .45rem;
+}
+.pastiche-hinweis p { margin: 0; max-width: none; }
+.pastiche-hinweis strong { color: var(--ink); font-weight: 600; }
+.pastiche-hinweis a { color: var(--cold); }
+
+.teil-fremd {
+  font-family: var(--rough);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.kapitel .anmerkung {
+  font-style: italic;
+  color: var(--ink-dim);
+  border-left: 2px solid var(--line);
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+.kapitel .anmerkung blockquote, .kapitel .anmerkung p { margin: 0; }
+.pastiche-text { margin-top: 1.4rem; }
+.pastiche-text p { margin-bottom: 1.25rem; }
+
+.apparat {
+  margin-top: 4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  font-size: .9rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.apparat h2 { margin-top: 1rem; }
+.apparat strong { color: var(--ink); font-weight: 600; }
+
+.kapitel-nav {
   display: grid;
-  grid-template-columns: 5rem 12rem 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 1rem;
   align-items: baseline;
-  padding: 1rem .4rem;
+  margin-top: 3.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--rough);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.kapitel-nav a { color: var(--ink-dim); text-decoration: none; }
+.kapitel-nav a:hover { color: var(--accent); }
+.kapitel-nav a[rel="next"] { justify-self: end; text-align: right; }
+
+.kapitel-liste { list-style: none; margin-top: 2rem; border-top: 1px solid var(--line); }
+.kapitel-liste a {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  align-items: baseline;
+  padding: .85rem .4rem;
   border-bottom: 1px solid var(--line);
   text-decoration: none;
   color: var(--ink);
   transition: background .18s;
 }
-.stationen-liste a:hover { background: rgba(212,162,78,.06); }
-.stationen-liste .jahr { font-family: var(--rough); font-size: 13px; letter-spacing: .15em; color: var(--accent); }
-.stationen-liste .wo { font-size: .88rem; color: var(--ink-dim); }
+.kapitel-liste a:hover { background: rgba(125,146,166,.07); }
+.kapitel-liste .nr { font-family: var(--rough); font-size: 13px; letter-spacing: .15em; color: var(--cold); }
+.kapitel-liste .titel { font-size: 1.12rem; }
 
 /* ---------- Fuß ---------- */
 footer {
   border-top: 1px solid var(--line);
-  padding: 2.4rem 4vw;
+  padding: 2.4rem max(16px, 4vw);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -352,6 +421,8 @@ footer {
 
 /* ---------- Mobil: Graph wird waagerechtes Band ---------- */
 @media (max-width: 860px) {
+  .kopf-rechts { gap: .5rem 1.4rem; }
+  .topbar nav a { margin: 0 1.2rem 0 0; }
   .topbar .sprachen { border-left: 0; padding-left: 0; }
   .stage { grid-template-columns: 1fr; min-height: 0; }
   .stage-visual { min-height: 42vh; margin-left: 0; }
@@ -397,9 +468,7 @@ footer {
   .g-marker.active { border-bottom-color: var(--accent); }
   .g-marker[data-art="leben"].active { border-bottom-color: var(--cold); }
   .g-marker[data-art="wort"].active { border-bottom-color: var(--word); }
-  .stationen-liste a { grid-template-columns: 4rem 1fr; }
-  .stationen-liste .wo { grid-column: 2; }
-}
+    }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }

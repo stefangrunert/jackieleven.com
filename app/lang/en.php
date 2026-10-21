@@ -17,7 +17,7 @@ return [
 
     'titel.start'        => 'Jackie Leven — Timeline',
     'titel.station'      => '{jahr} — {titel} · Jackie Leven',
-    'titel.biografie'    => 'Biography · Jackie Leven',
+    'titel.biografie'    => 'The autobiography he never wrote · Jackie Leven',
     'titel.ueber'        => 'About this site · Jackie Leven',
     'titel.404'          => 'Not found · Jackie Leven',
 
@@ -34,6 +34,22 @@ return [
     '404.titel'          => 'Nothing here',
     '404.text'           => 'This page does not exist, or no longer does.',
     '404.zurueck'        => 'Back to the timeline',
+
+    'sprachname.de'          => 'German',
+    'sprachname.en'          => 'English',
+
+    'pastiche.etikett'       => 'Pastiche',
+    'pastiche.nicht_von'     => 'Not by Jackie Leven.',
+    'pastiche.erklaerung'    => 'This chapter is a pastiche, written by us in his voice from what he told about himself. What is documented and what is invented is listed at the end.',
+    'pastiche.ueber_buch'    => 'About this book',
+    'pastiche.kapitel_von'   => 'Chapter {nr} of {gesamt}',
+    'pastiche.inhalt'        => 'Contents',
+    'pastiche.kapitelnav'    => 'Browse chapters',
+    'pastiche.text_fremd'    => 'This chapter is so far only available in {sprache}.',
+    'pastiche.apparat_fremd' => 'These notes are so far only available in {sprache}.',
+    'pastiche.uebersetzt'    => 'Translated from English',
+    'pastiche.zum_original'  => 'read the original',
+    'titel.kapitel'          => '{titel} — pastiche, chapter {nr} · Jackie Leven',
 
     'fuss.lebensdaten'   => '1950–2011',
     'fuss.hinweis'       => 'A private tribute · not an official site',

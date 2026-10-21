@@ -19,10 +19,19 @@
   <p>Keine Songtexte, weil die Rechte daran nicht bei uns liegen.</p>
   <p>Keine erfundenen Zitate. Leven war ein notorischer Geschichtenerzähler — Bob Dylan als
   angeblicher Ko-Autor, ein eigener Whisky, eine Auftragsmörderin als Inspiration —, und schon
-  seine echten Erinnerungen klingen wie Erfindungen. Wer ihm zusätzlich erfundene Sätze
-  zuschreibt, macht seine Biografie unlesbar.</p>
+  seine echten Erinnerungen klingen wie Erfindungen. Deshalb wird ihm auf dieser Seite kein Satz
+  als Zitat zugeschrieben, den er nicht geschrieben hat.</p>
   <p>Über den Überfall, der ihn beinahe die Stimme gekostet hat, hat er in neun Jahren
   öffentlichen Schreibens nichts gesagt. An dieser Station steht deshalb kein Zitat.</p>
+
+  <h2>Die Pastiche</h2>
+  <p>Unter <a href="<?= e(url('biografie')) ?>">Biografie</a> steht eine Autobiografie in Levens
+  Stimme, die nicht von ihm ist. Wir haben sie aus seinen eigenen Texten gebaut. Jede Seite davon
+  ist als Pastiche gekennzeichnet, nichts daraus steht in Zitatform, und jedes Kapitel endet mit
+  einer Aufstellung, was belegt und was erfunden ist. Suchmaschinen sind für diese Seiten
+  ausgeschlossen, damit keine Sätze daraus ohne diesen Zusammenhang als seine in Umlauf geraten.</p>
+  <p>Seine echten Worte erkennt man hier daran, dass sie eine Quelle mit Datum und Archivlink
+  tragen.</p>
 
   <h2>Widersprüche</h2>
   <p>Die Quellen widersprechen sich an vielen Stellen: zwei Geburtsdaten, zwei Gründungsjahre der

@@ -48,3 +48,15 @@ Gewählt ist die **frühe Kolumnenstimme**: kleines „i", Gedankenstriche statt
 - **Keine Weisheit auf Vorrat.** Er formuliert Erkenntnisse beiläufig und nimmt sie oft im nächsten Satz halb zurück.
 - **Kein Pathos über den eigenen Schmerz.** Über Sucht, Überfall und Verlust schreibt er trocken, fast technisch.
 - **Keine erfundenen Fakten, die als Beleg missverstanden werden können** — also keine neuen Namen, Daten, Orte oder Werktitel, die es nicht gibt.
+
+## Auf der Website
+
+Seit dem 27. September 2026 steht das Buch auf der Hommage-Seite unter „Biografie". Der Rahmen gilt dort so:
+
+- **Jede Kapitelseite** beginnt mit dem Kasten „Pastiche — Nicht von Jackie Leven", nicht nur die Übersicht, weil Leser über Links mitten ins Buch kommen.
+- **„Pastiche" steht im Seitentitel**, also auch in Browser-Tabs, Lesezeichen und geteilten Links.
+- **Keine Zitatauszeichnung.** Echte Zitate sind auf der Seite kursiv, gold gerandet und tragen eine Quelle mit Datum und Archivlink. Die Pastiche steht in geradem Satz, ohne Quellenzeile.
+- **`noindex`** (Meta-Tag und `X-Robots-Tag`) auf allen Kapitelseiten: Suchmaschinen würden einzelne Sätze ohne Kontext als Levens ausgeben.
+- **Der Nachweis „Belegt / erfunden"** steht am Ende jedes Kapitels.
+
+Die Website liest die Kapitel direkt aus diesem Verzeichnis; Überarbeitungen sind ohne Zwischenschritt online. Übersetzungen liegen in `autobiografie/<sprache>/` mit demselben Dateinamen und dürfen einzelne Teile enthalten — Kapiteltext, Anmerkung im Kopf oder Nachweis. Was fehlt, kommt aus dem Original und ist mit seiner Sprache ausgezeichnet. Stand 27. September 2026: alle fünfzehn Kapitel auf Deutsch in `de/`, alle fünfzehn Nachweise auf Englisch in `en/`. Grundsätze und Entscheidungen: [00-uebersetzung.md](00-uebersetzung.md).

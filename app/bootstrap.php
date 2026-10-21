@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 const APP_ROOT = __DIR__;
 
+/** Das Buch (die Pastiche) liegt außerhalb von app/, als eigenes Arbeitsverzeichnis. */
+const BUCH_ROOT = __DIR__ . '/../autobiografie';
+
 /**
  * Sprachen der Website. Eine neue Sprache braucht:
  *   app/lang/<code>.php         Pflicht: Oberfläche, Pfade, Monatsnamen
@@ -48,11 +51,15 @@ function render_lokal(string $view, array $vars = []): string
     throw new RuntimeException("View fehlt: $view");
 }
 
-function seite(string $inhalt, string $titel, string $nav = '', int $status = 200): void
+/** $noindex: Seite nicht in Suchmaschinen — für die Pastiche, deren Sätze ohne Kontext wie Zitate aussähen. */
+function seite(string $inhalt, string $titel, string $nav = '', int $status = 200, bool $noindex = false): void
 {
     http_response_code($status);
     header('Content-Language: ' . sprache());
-    echo render('layout', ['inhalt' => $inhalt, 'titel' => $titel, 'nav' => $nav]);
+    if ($noindex) {
+        header('X-Robots-Tag: noindex');
+    }
+    echo render('layout', ['inhalt' => $inhalt, 'titel' => $titel, 'nav' => $nav, 'noindex' => $noindex]);
 }
 
 function weiter(string $ziel, int $status = 301): never
@@ -193,6 +200,7 @@ function url(string $route, array $p = [], ?string $s = null): string
     return match ($route) {
         'start'   => "/$s/",
         'station' => "/$s/" . t('pfad.station', [], $s) . '/' . rawurlencode($p['slug']),
+        'kapitel' => "/$s/" . t('pfad.biografie', [], $s) . '/' . rawurlencode($p['slug']),
         default   => "/$s/" . t('pfad.' . $route, [], $s),
     };
 }
@@ -218,4 +226,106 @@ function absolut(string $pfad): string
 {
     $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
     return ($https ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . $pfad;
+}
+
+/* ---------------------------------------------------------------------- */
+/*  Pastiche                                                              */
+/* ---------------------------------------------------------------------- */
+
+function kapitelliste(): array
+{
+    static $k = null;
+    return $k ??= require APP_ROOT . '/data/pastiche.php';
+}
+
+function kapitel_index(string $slug): int
+{
+    foreach (kapitelliste() as $i => $k) {
+        if ($k['slug'] === $slug) {
+            return $i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * Zerlegt eine Kapiteldatei in Anmerkung, Text und Nachweis (Markdown).
+ * Der Standardhinweis „Dieser Text stammt nicht von Jackie Leven" wird entfernt,
+ * weil die Website ihn selbst setzt; weitere Absätze im Kopf bleiben als Anmerkung.
+ */
+function kapitel_teile(string $datei): array
+{
+    $teile = ['anmerkung' => '', 'text' => '', 'apparat' => ''];
+    if (!is_file($datei)) {
+        return $teile;
+    }
+    $roh = str_replace("\r\n", "\n", file_get_contents($datei));
+    $roh = preg_replace('/\A---\n.*?\n---\n/s', '', $roh);
+
+    [$vorn, $apparat] = array_pad(preg_split('/^(?=## )/m', $roh, 2), 2, '');
+    $teile['apparat'] = trim($apparat);
+
+    if (preg_match('/\A\s*((?:>.*(?:\n|$))+)/', $vorn, $m)) {
+        $kopf = preg_split('/\n\s*\n/', trim(preg_replace('/^> ?/m', '', $m[1])));
+        $kopf = array_filter($kopf, fn($a) => !preg_match('/^\*\*(Hinweis|Note):\*\*/', trim($a)));
+        $teile['anmerkung'] = trim(implode("\n\n", $kopf));
+        $vorn = substr($vorn, strlen($m[0]));
+    }
+    $vorn = preg_replace('/^#\s+.*$/m', '', $vorn, 1);          // Kapitelüberschrift
+    $teile['text'] = trim(preg_replace('/\n-{3,}\s*\z/', '', rtrim($vorn)));
+    return $teile;
+}
+
+/**
+ * Ein Kapitel in der aktuellen Sprache: jeder Teil als [Markdown, Sprache].
+ * Text im englischen Original, Anmerkung und Nachweis auf Deutsch — außer eine
+ * Übersetzung in autobiografie/<sprache>/ liefert den Teil.
+ */
+function kapitel(array $k): array
+{
+    $quelle = kapitel_teile(BUCH_ROOT . '/' . $k['slug'] . '.md');
+    $uebers = kapitel_teile(BUCH_ROOT . '/' . sprache() . '/' . $k['slug'] . '.md');
+    $ursprung = ['anmerkung' => 'de', 'text' => 'en', 'apparat' => 'de'];
+    $aus = [];
+    foreach ($ursprung as $teil => $s) {
+        $aus[$teil] = $uebers[$teil] !== '' ? [$uebers[$teil], sprache()] : [$quelle[$teil], $s];
+    }
+    return $aus;
+}
+
+/* ---------------------------------------------------------------------- */
+/*  Markdown — nur was das Buch braucht: Absätze, ##, >, **, *, Links     */
+/* ---------------------------------------------------------------------- */
+
+function md(string $text): string
+{
+    $html = [];
+    foreach (preg_split('/\n\s*\n/', trim($text)) as $block) {
+        $block = trim($block);
+        if ($block === '' || preg_match('/\A-{3,}\z/', $block)) {
+            continue;
+        }
+        if (preg_match('/\A(#{2,6})\s+(.*)\z/s', $block, $m)) {
+            $n = strlen($m[1]);
+            $html[] = "<h$n>" . md_inline($m[2]) . "</h$n>";
+        } elseif (str_starts_with($block, '>')) {
+            $html[] = '<blockquote>' . md(preg_replace('/^> ?/m', '', $block)) . '</blockquote>';
+        } else {
+            $html[] = '<p>' . md_inline(preg_replace('/\s*\n\s*/', ' ', $block)) . '</p>';
+        }
+    }
+    return implode("\n", $html);
+}
+
+function md_inline(string $s): string
+{
+    $s = e($s);
+    $s = preg_replace('/\*\*(.+?)\*\*/s', '<strong>$1</strong>', $s);
+    $s = preg_replace('/(?<![\w*])\*(?=\S)(.+?)(?<=\S)\*(?![\w*])/s', '<em>$1</em>', $s);
+    // Links nach außen bleiben Links; Verweise auf Arbeitsdateien (.md) verlieren den Link, behalten den Text
+    return preg_replace_callback('/\[([^\]]+)\]\(([^)\s]+)\)/', function ($m) {
+        return preg_match('#^https?://#', html_entity_decode($m[2]))
+            ? '<a href="' . $m[2] . '" rel="noopener noreferrer">' . $m[1] . '</a>'
+            : $m[1];
+    }, $s);
 }
