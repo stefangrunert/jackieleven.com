@@ -4,6 +4,7 @@
 
 # IDE
 .idea/
+*.iml
 
 # Redundant: sketches.zip ist ein Archiv des bereits versionierten sketches/
 sketches.zip
