@@ -15,7 +15,7 @@
 <?php endforeach; ?>
 <link rel="alternate" hreflang="x-default" href="<?= e(absolut(alternativ_url(STANDARD_SPRACHE))) ?>">
 <?php endif; ?>
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(APP_ROOT . '/../assets/css/site.css') ?>">
 </head>
 <body>
 
@@ -25,6 +25,8 @@
     <nav aria-label="<?= e(t('nav.label')) ?>">
       <a href="<?= e(url('start')) ?>"<?= $nav === 'zeitreise' ? ' class="hier"' : '' ?>><?= e(t('nav.zeitreise')) ?></a>
       <a href="<?= e(url('biografie')) ?>"<?= $nav === 'biografie' ? ' class="hier"' : '' ?>><?= e(t('nav.biografie')) ?></a>
+      <a href="<?= e(url('diskografie')) ?>"<?= $nav === 'diskografie' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.diskografie')) ?></a>
+      <a href="<?= e(url('pool')) ?>"<?= $nav === 'pool' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.pool')) ?></a>
       <a href="<?= e(url('ueber')) ?>"<?= $nav === 'ueber' ? ' class="hier"' : '' ?>><?= e(t('nav.ueber')) ?></a>
     </nav>
     <nav class="sprachen" aria-label="<?= e(t('sprache.wahl')) ?>">
@@ -47,5 +49,11 @@
 </footer>
 
 <script src="/assets/js/zeitgraph.js" defer></script>
+<?php if ($nav === 'pool'): ?>
+<script src="/assets/js/kolumnen.js?v=<?= filemtime(APP_ROOT . '/../assets/js/kolumnen.js') ?>" defer></script>
+<?php endif; ?>
+<?php if ($nav === 'diskografie'): ?>
+<script src="/assets/js/diskografie.js?v=<?= filemtime(APP_ROOT . '/../assets/js/diskografie.js') ?>" defer></script>
+<?php endif; ?>
 </body>
 </html>

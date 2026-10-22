@@ -12,6 +12,26 @@ Leven hat von Oktober 2002 bis Herbst 2011 auf seinen eigenen Websites geschrieb
 
 Dieser Korpus ist zugleich die **Faktenbasis** und der **stilistische Maßstab** des Projekts.
 
+## The Deep Pool auf der Website
+
+Unter `/de/deep-pool` und `/en/deep-pool` beginnt die Lektüre direkt mit der ersten Kolumne vom Oktober 2002. Nur dort steht eine kurze Einführung über dem Artikel. Ein Zeitstrahl nach dem Vorbild der Zeitreise führt durch alle Texte und markiert den aktuellen Beitrag: auf großen Bildschirmen seitlich, auf schmalen als waagerechtes Band. Oben und unten führen schlichte Links zum vorherigen und nächsten Text sowie zu „Alle Texte“. Die vollständige Jahresübersicht liegt unter `/de/deep-pool/archiv` bzw. `/en/deep-pool/archive`. Jede Leseseite enthält den englischen Originaltext, Datum und Autor; Herkunft, Archivlink und aufklappbare Hinweise stehen unter dem Text. Neue redaktionelle Titel oder Inhaltsbeschreibungen sind nicht ergänzt.
+
+`app/data/kolumnen.php` legt den veröffentlichten Bestand fest: 73 Beiträge bis einschließlich der Todesanzeige vom November 2011. Die drei später archivierten Beiträge von 2012 bleiben in der Recherche, erscheinen aber nicht auf der Website. `app/columns.php` liest die Originaldateien, ohne sie zu verändern. Bekannte Erscheinungsmonate aus den frühen Archiv-URLs werden berücksichtigt; ansonsten sind die späteren Datierungen ausdrücklich als Archivdatum gekennzeichnet. Die Todesanzeige trägt eine entsprechende Autorenangabe der Website-Betreiber. Wiederholte Seitenleistenbilder und zwei Navigationsreste in der September-Kolumne 2007 erscheinen nicht in der Lesefassung. Doppelte Monats- und Rubrikkopfzeilen am Anfang der alten Kolumnen werden durch den Lesekopf ersetzt; die Prosa bleibt unverändert.
+
+```sh
+php werkzeug/kolumnen.php              # Bestand, Wortlaut, Chronologie und Navigation
+```
+
+## Diskographie
+
+Die **Diskographie** unter `/de/diskografie` bzw. `/en/discography` führt durch 88 Einträge von 1973 bis 2024: John St. Field, Doll by Doll, Concrete Bulletproof Invisible, Jackie Leven, Sir Vincent Lone und Jackie Balfour, außerdem Haunted Valley, Kooperationen und spätere Ausgaben. Der Jahreszeitstrahl folgt der Leseposition; die Auswahl nach Projekt und Veröffentlichungsart aktualisiert auch die Jahresnavigation. Links zu einzelnen Einträgen verwenden stabile Anker, Sprachwechsel erhalten die Auswahl. Ohne JavaScript bleibt der gesamte Katalog lesbar.
+
+`app/data/diskografie.json` enthält die Ausgaben, zweisprachige Anmerkungen, Quellen und Coveradressen. Grundlage ist `research/05-diskografie.md`, ergänzt um Labelnachweise und Jackies Ankündigungen. Insbesondere: *Live from a Cornish Pub in Germany* ist durch seinen Septembertext 2008 belegt; *Troubadour Heart* war 2008 zunächst direkt erhältlich und kam 2009 regulär heraus; die Rockpalast-Ausgabe von 2024 enthält CD und DVD. Unveröffentlichte bzw. nicht gesichert erschienene Projekte sind ausdrücklich gekennzeichnet. Cover werden aus den verlinkten Label- und Musikkatalogen eingebunden; digitale Cover belegen keine historischen Erscheinungsdaten.
+
+```sh
+php werkzeug/diskografie.php          # Katalog, Identitäten, Quellen und Sprachfassungen
+```
+
 ## Verzeichnisse
 
 | Pfad | Inhalt |
@@ -64,9 +84,9 @@ php werkzeug/zitate.php                 # jedes Zitat Zeichen für Zeichen gegen
 
 **Dieses Repository ist privat, und das hat Gründe.**
 
-- **`research/columns/`** enthält Levens eigene Texte im Volltext. Die Rechte daran liegen nicht bei uns. Arbeitsgrundlage, keine Veröffentlichung.
+- **`research/columns/`** enthält die wiederhergestellten Originaltexte. Die Rechte daran liegen nicht bei uns. Die Rubrik „The Deep Pool“ macht den festgelegten Bestand als Lesefassung mit Quellen- und Rechtehinweis zugänglich; die Recherchedateien selbst bleiben gesperrt.
 - **`assets/bilder/` und `sketches/assets/`** sind echte Pressefotos. Der Fotograf ist nicht ermittelt.
 - **`research/09-alan-moffatt-genealogie.md`** enthält Registerdaten, Testamentsangaben und Familienspuren zu einer realen Person und ihren Angehörigen.
 - **`autobiografie/`** darf nach dem eigenen Rahmen nirgends als Levens Wort erscheinen. Auf der Website steht es gekennzeichnet und mit `noindex`; vor einer Veröffentlichung ist zu entscheiden, ob das reicht.
 
-Auf der Website selbst steht deshalb kein Songtext, und jedes Zitat ist kurz, wortgetreu und mit Archivlink belegt.
+Die Zeitreise verwendet kurze, wortgetreue Zitate mit Archivlinks. Die Rubrik „The Deep Pool“ gibt dagegen die Originalbeiträge einschließlich der darin enthaltenen Zitate und Liedpassagen wieder.

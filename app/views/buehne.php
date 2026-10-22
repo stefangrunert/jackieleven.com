@@ -1,5 +1,9 @@
-<?php /** @var array $st */ [$bildtext] = sfeld($st, 'bildtext'); ?>
-<div class="stage-visual">
+<?php
+/** @var array $st */
+[$bildtext] = sfeld($st, 'bildtext');
+$tusche = ($st['bildstil'] ?? '') === 'tusche';
+?>
+<div class="stage-visual<?= $tusche ? ' stage-visual--tusche' : '' ?>">
   <img src="/assets/bilder/<?= e($st['bild']) ?>" alt="<?= e($bildtext) ?>">
   <?php if ($bildtext !== ''): ?><span class="bildtext"><?= sfeld_html($st, 'bildtext') ?></span><?php endif; ?>
 </div>

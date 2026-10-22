@@ -1,0 +1,16 @@
+{
+  "mode": "built-in image_gen",
+  "intent": "edit",
+  "use_case": "lighting-weather",
+  "reference_images": [
+    "/Users/stefan/www/jackieleven/assets/grafik-entwuerfe/1971/runde-04/01-fotovorlage-tusche.png",
+    "/Users/stefan/www/jackieleven/assets/grafik-entwuerfe/1971/runde-04/vorstufen/01-neu-aus-foto.png"
+  ],
+  "prompt": "Use case: lighting-weather.\nImage 1 is the EDIT TARGET: the currently approved dark 1971 Jackie Leven ink illustration.\nImage 2 is ONLY an upper-bound reference for brightness and contrast. The desired result is approximately halfway between image 1 and image 2 in how strongly the face and hair stand out.\n\nMake a restrained TONAL ADJUSTMENT to image 1, not a new drawing. Lift its facial midtones and highlights enough that the eyes, forehead, cheek planes, nose and mouth separate more clearly from the dark surroundings. Raise the light hair strokes and upper chest gently as well. Aim for about 40–50% of the brightness difference toward image 2: visibly more present than image 1, distinctly quieter than image 2. The brightest substantial face planes should remain soft neutral grey, approximately #999b9d to #a5a7a9, never white. Preserve deep charcoal in the shadows and the almost-black background; do not lift the blacks or create a grey veil. No harsh clipped shadows or blown highlights.\n\nKEEP EXACTLY image 1's face, proportions, high forehead, hairline, soft jaw, full cheeks, natural asymmetries, eye shapes, sidelong gaze, nose, mouth, sparse moustache and beard, thin irregular long hair, clothing, composition and crop. Keep its established rough ink mark-making and every important contour. Do not adopt image 2's more photographic rendering or warmer cast. No beautification, anatomical change, new details, sharpening, smoothing, additional hatching or new paint texture.\n\nStrictly neutral greys on the existing anthracite background, no sepia, cream, brown, blue or colour tint. Same vertical 4:5, same fading outer edges, no added objects, text, logo or border. Return a single gently more contrasted version of image 1.",
+  "generated_original": "/Users/stefan/.codex/generated_images/01a15df3-9302-7e60-97b6-e238397b828e/exec-7d2eae1a-ab26-4d47-aaa4-95ba920cec6f.png",
+  "workspace_output": "/Users/stefan/www/jackieleven/assets/grafik-entwuerfe/1971/runde-05/01-kontrast-mitte.png",
+  "intended_station": "1971-dorset",
+  "station": "1971-dorset",
+  "site_asset": "/Users/stefan/www/jackieleven/assets/bilder/jackie-leven-1971-kontrast-mitte.png",
+  "status": "selected"
+}

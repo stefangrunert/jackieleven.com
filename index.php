@@ -4,7 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
 /** Seiten mit übersetzten Pfadstücken (pfad.<name> in app/lang/<sprache>.php). */
-const SEITEN = ['station', 'biografie', 'ueber'];
+const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'ueber'];
 
 function nicht_gefunden(): never
 {
@@ -103,6 +103,30 @@ if ($seite === 'station') {
     exit;
 }
 
+// Die Rubrik beginnt mit dem ersten Text; das Archiv bleibt separat erreichbar.
+if ($seite === 'pool') {
+    if (count($teile) === 1) {
+        weiter(url('kolumne', ['slug' => kolumnen()[0]['slug']]), 302);
+    }
+    if (count($teile) === 2 && in_array($teile[1], array_map(fn($s) => t('pfad.pool_archiv', [], $s), SPRACHEN), true)) {
+        if ($teile[1] !== t('pfad.pool_archiv')) {
+            weiter(url('pool_archiv'));
+        }
+        route('pool_archiv');
+        seite(render('pool'), t('titel.pool_archiv'), 'pool');
+        exit;
+    }
+    if (count($teile) !== 2 || ($i = kolumnen_index($teile[1])) < 0) {
+        nicht_gefunden();
+    }
+    $k = kolumnen()[$i];
+    route('kolumne', ['slug' => $k['slug']]);
+    seite(render('kolumne', ['i' => $i]), t('titel.kolumne', [
+        'datum' => kolumnen_datum($k), 'rubrik' => kolumnen_rubrik($k),
+    ]), 'pool');
+    exit;
+}
+
 // Kapitel der Pastiche: /de/biografie/07-electric-fur
 if ($seite === 'biografie' && count($teile) === 2) {
     $i = kapitel_index($teile[1]);
@@ -131,4 +155,8 @@ if (!$richtig) {
     weiter(url($seite));
 }
 route($seite);
+if ($seite === 'diskografie') {
+    seite(render('diskografie'), t('titel.diskografie'), 'diskografie');
+    exit;
+}
 seite(render_lokal($seite), t("titel.$seite"), $seite);

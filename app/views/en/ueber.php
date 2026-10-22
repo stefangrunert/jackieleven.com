@@ -9,14 +9,21 @@
   <p>Between October 2002 and the autumn of 2011 Jackie Leven wrote on his own websites: first
   the monthly column <em>The Deep Pool</em> on jackieleven.com, then from 2008 a blog and several
   other features on jackieleven.co.uk. Both sites have been offline for years. Seventy-six of
-  these texts, around 90,000 words, could be recovered through the Internet Archive.</p>
+  entries from these websites, around 90,000 words, could be recovered through the Internet
+  Archive. The collection also includes a few later notices from the website editors.</p>
   <p>Every quotation on this site is taken word for word from those texts and carries its date
   and a link to the archived page. In every language version of the site the quotations appear
   in his original English, and nothing in them is paraphrased or tidied up. The accompanying
   texts are ours and never appear in quotation marks.</p>
 
+  <h2>The writing archive</h2>
+  <p><a href="<?= e(url('pool')) ?>">The Deep Pool</a> brings together the surviving entries
+  up to and including the announcement of his death in November 2011, in full and in the original English. Reading begins with the first column and continues
+  from one entry to the next. “All texts” lets you turn to a particular year. Every entry includes its source and a link to the
+  surviving archive copy. Where only the archive date is known, it is labelled as such.
+  Rights to the texts remain with their respective holders.</p>
+
   <h2>What you will not find here</h2>
-  <p>No song lyrics, because the rights to them are not ours.</p>
   <p>No invented quotations. Leven was a notorious teller of tall tales — Bob Dylan as an alleged
   co-writer, a whisky of his own, a contract killer as a muse — and even his true memories sound
   made up. So nothing on this site is attributed to him as a quotation unless he wrote it.</p>

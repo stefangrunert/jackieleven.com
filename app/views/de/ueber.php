@@ -9,14 +9,21 @@
   <p>Jackie Leven hat zwischen Oktober 2002 und Herbst 2011 auf seinen eigenen Websites
   geschrieben: erst die Monatskolumne <em>The Deep Pool</em> auf jackieleven.com, ab 2008 einen
   Blog und mehrere Rubriken auf jackieleven.co.uk. Beide Seiten sind seit Jahren offline. Über das
-  Internet Archive ließen sich 76 dieser Texte wiederherstellen, rund 90.000 Wörter.</p>
+  Internet Archive ließen sich 76 Beiträge dieser Websites wiederherstellen, rund 90.000 Wörter.
+  Dazu gehören auch einige spätere Mitteilungen der Website-Betreiber.</p>
   <p>Jedes Zitat auf dieser Seite stammt wortgetreu aus diesen Texten und ist mit Datum und
   Archivlink belegt. Die Zitate stehen in jeder Sprachfassung im englischen Original; nichts davon
   ist übersetzt, nachgedichtet oder sinngemäß wiedergegeben. Die Begleittexte sind unsere und
   stehen nie in Anführungszeichen.</p>
 
+  <h2>Das Textarchiv</h2>
+  <p>Unter <a href="<?= e(url('pool')) ?>">The Deep Pool</a> sind die erhaltenen Beiträge
+  bis einschließlich der Todesanzeige vom November 2011 vollständig im englischen Original zu lesen. Die Lektüre beginnt mit der ersten Kolumne;
+  von dort geht es Text für Text weiter. Über „Alle Texte“ lässt sich ein bestimmtes Jahr aufschlagen. Jeder Beitrag trägt einen Quellenhinweis und
+  einen Link zur erhaltenen Archivfassung. Ist nur das Archivdatum bekannt, wird es als
+  solches bezeichnet. Die Rechte an den Texten liegen bei den jeweiligen Rechteinhabern.</p>
+
   <h2>Was hier nicht steht</h2>
-  <p>Keine Songtexte, weil die Rechte daran nicht bei uns liegen.</p>
   <p>Keine erfundenen Zitate. Leven war ein notorischer Geschichtenerzähler — Bob Dylan als
   angeblicher Ko-Autor, ein eigener Whisky, eine Auftragsmörderin als Inspiration —, und schon
   seine echten Erinnerungen klingen wie Erfindungen. Deshalb wird ihm auf dieser Seite kein Satz

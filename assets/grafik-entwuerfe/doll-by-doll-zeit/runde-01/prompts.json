@@ -1,0 +1,38 @@
+{
+  "tool": "Built-in image_gen",
+  "date": "2026-10-21",
+  "purpose": "Drei erste Kupferstich-Entwürfe für Jackie Levens Doll-by-Doll-Zeit; zur Auswahl und Iteration.",
+  "variants": [
+    {
+      "id": "01",
+      "title": "Feiner Portraetstich",
+      "file": "01-feiner-portraetstich.png",
+      "reference_images": [
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/jackie-head.png",
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/jackie-head-2.png"
+      ],
+      "prompt": "Use case: stylized-concept.\nAsset type: artistic portrait illustration for a Jackie Leven tribute website, first study in a series depicting life phases.\nPrimary request: Create ONE exquisite copperplate engraving portrait of the young Jackie Leven during his Doll by Doll period, closely based on the supplied original photographs.\nInput images: Image 1 is the PRIMARY reference for exact face, hairstyle, expression, clothing and frontal pose. Image 2 is a secondary likeness reference only. Preserve his individual facial proportions, broad forehead, eyes and eyelids, nose, mouth, youthful clean-shaven face, dark swept-back hair with longer strands around the neck, and open dark collared shirt. Do not age him or idealize his features.\nStyle/medium: a delicately hand-engraved copperplate print, very fine tapered burin lines, controlled curved parallel hatching following facial contours, restrained crosshatching in shadows. All tonal modelling comes from visible engraved lines and small touches of stippling; no smooth photographic gray shading. Luminous pale face, crisp sensitive eyes, individually engraved hair.\nComposition/framing: vertical 4:5 portrait, head and upper chest, frontal direct gaze faithfully matching image 1, complete hair silhouette, generous clean margins. Shoulder engraving gently trails off into blank paper near the lower edge.\nColor palette: near-black warm ink on uniform pale ivory paper, extremely subtle paper grain.\nMood: quiet, candid, concentrated, intimate; graceful and precise rather than theatrical.\nConstraints: only the one portrait, no text, no lettering, no signature, no watermark, no border, no ornamental medallion, no props. Do not imitate old paper stains or distress. No photographic filter effect, no pencil, charcoal, woodcut, or painted shading. Preserve recognizable likeness above ornamental effects."
+    },
+    {
+      "id": "02",
+      "title": "Kraeftiger Portraetstich",
+      "file": "02-kraeftiger-portraetstich.png",
+      "reference_images": [
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/jackie-head-2.png",
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/jackie-head.png"
+      ],
+      "prompt": "Use case: stylized-concept.\nAsset type: artistic portrait illustration for a Jackie Leven tribute website, alternative copperplate engraving study.\nPrimary request: Create ONE expressive, richly inked copperplate engraving of the young Jackie Leven in his Doll by Doll period, faithfully based on the supplied original photographs.\nInput images: Image 1 is the PRIMARY reference for the exact face, slightly turned shoulders, gaze, unruly swept-back long dark hair, open collared patterned dark shirt, and expression. Image 2 is supporting likeness evidence only. Keep the young clean-shaven man's actual facial proportions, forehead, heavy eyelids, eyes, nose, lips and jaw; do not make him older, more conventionally handsome or more gaunt.\nStyle/medium: hand-engraved copperplate portrait with bold visual presence, dense layered intersecting burin strokes, fine sharp tapered lines, expressive irregularity and deep ink blacks in the hair and shirt. Facial planes remain luminous and precisely delineated. All shading is visibly constructed with linework, especially sculptural crosshatching; preserve large quiet light areas on forehead and cheekbones. A limited field of closely engraved shadow behind the head can intensify the silhouette, dissolving into clear paper.\nComposition/framing: vertical 4:5, head and upper torso with slightly oblique shoulders exactly like reference image 1; retain full hair silhouette and natural asymmetry, stare directed at viewer; shoulders cut off naturally at lower edge with a soft engraved vignette.\nColor palette: near-black warm ink, pale ivory paper, very subtle paper texture, strong tonal contrast.\nMood: intense, earthy, unsentimental, youthful artistic energy.\nConstraints: just one person, no text, signature, border, ornaments or watermark. No invented objects, no old parchment stains, no distressed poster texture, no broad woodcut gouges, no pencil or charcoal smudges, no photorealistic skin gradients. This is a crafted line engraving, not a photo with a texture overlay. Likeness takes priority."
+    },
+    {
+      "id": "03",
+      "title": "Auf der Feuerleiter",
+      "file": "03-auf-der-feuerleiter.png",
+      "reference_images": [
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/img.png",
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/jackie-head-2.png",
+        "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/doll-by-doll-zeit/jackie-head.png"
+      ],
+      "prompt": "Use case: stylized-concept.\nAsset type: narrative portrait illustration for a Jackie Leven tribute website, alternative copperplate engraving study.\nPrimary request: Create ONE copperplate engraving of the young Jackie Leven in his Doll by Doll period, using the striking high-angle fire-escape photograph as the composition reference.\nInput images: Image 1 is the PRIMARY pose and scene reference: depict only the large foreground man nearest the camera, identified by the user as Jackie Leven, with swept-back dark hair and a dark open-neck collared shirt, looking up at the camera from the ladder. Images 2 and 3 are close facial likeness references for this same foreground man. Do not depict the other band members. Retain the young clean-shaven face and its exact distinctive proportions, eyes, nose, mouth, long hair, clothing, high-angle perspective and body posture.\nComposition/framing: vertical 4:5 portrait crop derived from the original high-angle photo, upper body and the visible forearm and hand gripping a rung. The face remains large, central and clearly readable. Keep only a few essential diagonal ladder rails/rungs and a restrained suggestion of brickwork to convey the original setting. Do not invent a guitar or microphone. Background otherwise opens into generous pale paper; architectural lines fade gradually out toward margins.\nStyle/medium: airy hand-made copperplate line engraving, elegant long tapering burin strokes, lively contour lines and selective fine crosshatching. Detail and ink density concentrate on the recognizable face and hair; clothing and architecture are more loosely and sparingly engraved. Tonal values are made entirely from engraved lines, with no photographic gradients. Not woodcut or a pencil drawing.\nColor palette: near-black warm ink on uniform pale ivory paper with very subtle grain.\nMood: alert, direct, young, slightly raw; an intimate documentary moment translated into fine printmaking.\nConstraints: one person only. Anatomically correct visible hand matching the source, natural grip, coherent ladder geometry. No other people, no writing, caption, signature, border, watermark, decorative ornaments or artificial antique stains. Preserve likeness, don't idealize or age him."
+    }
+  ]
+}

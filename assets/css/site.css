@@ -112,6 +112,38 @@ a { color: var(--accent); }
   text-shadow: 0 1px 10px rgba(13,15,18,.95);
 }
 
+/* Die Tuschebilder bringen ihre gedämpften Tonwerte bereits mit.
+   Das ganze Motiv bleibt sichtbar, einschließlich Hand und Gitarre. */
+.stage-visual--tusche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stage-visual--tusche img {
+  position: relative;
+  inset: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 82vh;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 85%, transparent), linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 5%, black 85%, transparent), linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.stage-visual--tusche::after {
+  background: linear-gradient(to right, var(--bg), transparent 8%, transparent 88%, var(--bg));
+}
+.stage-visual--tusche .bildtext {
+  left: auto;
+  right: 1rem;
+  max-width: 60%;
+  text-align: right;
+}
+
 .stage-body {
   padding: clamp(2rem, 6vw, 5rem);
   display: flex;
@@ -404,6 +436,213 @@ a { color: var(--accent); }
 .kapitel-liste .nr { font-family: var(--rough); font-size: 13px; letter-spacing: .15em; color: var(--cold); }
 .kapitel-liste .titel { font-size: 1.12rem; }
 
+/* ---------- The Deep Pool — Lesen und Blättern ---------- */
+.topbar nav:not(.sprachen) { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; }
+.topbar nav:not(.sprachen) a { margin: 0; }
+.pool-index, .pool-raum { --pool: #b7a2bd; }
+.pool-index { width: min(960px, calc(100% - 8vw)); margin: 0 auto; padding: 3rem 0 4rem; }
+.pool-label { font-family: var(--rough); font-size: 10px; font-weight: 500; line-height: 1.6; letter-spacing: .19em; text-transform: uppercase; color: var(--ink-dim); }
+.pool-textlink { color: var(--pool); text-decoration: none; font-size: 16px; }
+.pool-textlink:hover { color: var(--ink); }
+.pool-archivkopf h1 { font-size: 3rem; font-weight: 400; letter-spacing: -.03em; margin: 1.5rem 0; }
+.pool-archiv, .pool-jahr { scroll-margin-top: 2rem; }
+.pool-jahreswahl { display: flex; flex-wrap: wrap; gap: .5rem; padding: 1.1rem 0; border-block: 1px solid var(--line); }
+.pool-jahreswahl a { font-size: 16px; padding: .45rem .8rem; text-decoration: none; color: var(--ink-soft); }
+.pool-jahreswahl a:hover { color: var(--ink); background: #202027; }
+.pool-datierung { max-width: 760px; margin: 1.3rem 0 3rem; color: var(--ink-dim); font-size: 15px; line-height: 1.7; }
+.pool-jahr { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 2rem; margin-bottom: 2.6rem; }
+.pool-jahreskopf h2 { color: var(--pool); font-size: 2.6rem; line-height: 1.2; font-weight: 400; letter-spacing: -.04em; }
+.pool-jahreskopf > span { display: block; margin-top: .5rem; font-size: 9px; }
+.pool-liste { list-style: none; border-top: 1px solid var(--line); }
+.pool-liste a { display: grid; grid-template-columns: 190px minmax(0, 1fr) 20px; gap: 1rem; align-items: center; padding: 1rem .65rem; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.pool-liste a:hover { background: #16171d; }
+.pool-listendatum { font-size: 19px; }
+.pool-liste small { display: block; font-size: 10px; line-height: 1.6; font-family: var(--rough); color: var(--ink-dim); margin-top: .25rem; }
+.pool-listenrubrik { font-size: 15px; color: var(--ink-soft); }
+.pool-pfeil { color: var(--ink-dim); font-family: var(--rough); }
+.pool-liste a:hover .pool-pfeil { color: var(--pool); }
+.pool-provenienz { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: grid; grid-template-columns: 150px 1fr; gap: 2rem; }
+.pool-provenienz h2 { font-size: 16px; font-weight: 400; color: var(--pool); }
+.pool-provenienz p { color: var(--ink-dim); font-size: 15px; max-width: 700px; }
+.pool-raum {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 680px);
+  gap: clamp(2rem, 5vw, 4rem);
+  width: min(1100px, calc(100% - 8vw));
+  margin: 0 auto;
+  align-items: start;
+}
+.pool-leseseite { width: 100%; min-width: 0; margin: 0; padding: 2rem 0 4rem; }
+.pool-intro { color: var(--accent); font-size: clamp(22px, 2.2vw, 26px); line-height: 1.6; margin: 0 0 3rem; }
+.pool-zeitstrahl { position: sticky; top: 2rem; margin-top: 1.25rem; min-width: 0; }
+.pool-zeitfenster {
+  height: calc(100dvh - var(--pool-oberkante, 7rem));
+  width: calc(100% + 1.5rem);
+  margin-left: -1.5rem;
+  padding-left: 1.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 25px, black calc(100% - 25px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 25px, black calc(100% - 25px), transparent);
+}
+.pool-spur { position: relative; list-style: none; padding: 2rem 0; }
+.pool-spur::before { content: ""; position: absolute; width: 1px; left: 11px; top: 0; bottom: 0; background: linear-gradient(to bottom, transparent, var(--line) 2%, var(--line) 98%, transparent); }
+.pool-jahreswechsel { margin-top: 1.25rem; }
+.pool-zeitstrahl .pool-marker { position: relative; transform: none; padding: .8rem 0; min-height: 46px; }
+.pool-zeitstrahl .g-year { font-size: 13px; letter-spacing: .03em; }
+.pool-zeitstrahl .g-era { font-size: 9px; letter-spacing: .09em; white-space: nowrap; text-overflow: ellipsis; max-width: 173px; min-height: 1.25em; max-height: 2em; }
+.pool-zeitstrahl .pool-mehrfach .g-era { opacity: .7; }
+.pool-zeitstrahl .pool-marker:focus-visible { outline-color: var(--pool); outline-offset: -2px; }
+.pool-zeitstrahl .pool-marker:focus-visible .g-era { opacity: .7; max-height: 2em; }
+.pool-navigation { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: baseline; padding: 1.5rem 0; margin-top: 2rem; border-top: 1px solid var(--line); font-size: 16px; }
+.pool-navigation a { color: var(--ink-soft); text-decoration: none; }
+.pool-navigation a:hover { color: var(--ink); }
+.pool-navigation a[rel="next"] { justify-self: end; }
+.pool-navigation .pool-archivlink { color: var(--ink-dim); font-size: 14px; }
+.pool-navigation--oben { margin: 0 0 3rem; padding: 0; border: 0; }
+.pool-lesekopf { margin-bottom: 2.5rem; }
+.pool-rubrik { color: var(--pool); font-size: 18px; font-style: italic; }
+.pool-lesekopf h1 { font-size: clamp(2.4rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.15; letter-spacing: -.035em; margin: .4rem 0 .8rem; }
+.pool-verfasser { color: var(--ink-soft); font-size: 17px; }
+.pool-verfasser a { color: var(--ink-dim); text-underline-offset: .2em; font-size: 14px; }
+.pool-original { color: #d8d9dc; font-size: 21px; line-height: 1.85; overflow-wrap: break-word; }
+.pool-original p { margin-bottom: 1.5rem; }
+.pool-original h2 { color: var(--pool); font-family: var(--rough); font-weight: 500; font-size: 12px; line-height: 1.7; letter-spacing: .15em; margin: 2.3rem 0 1.5rem; }
+.pool-original h2:first-child { margin-top: 0; }
+.pool-original hr { border: 0; width: 3rem; height: 1px; background: var(--pool); opacity: .5; margin: 2.5rem auto; }
+.pool-original .pool-vers { line-height: 1.65; }
+.pool-original .pool-signatur { color: var(--pool); font-size: 2rem; font-style: italic; margin-top: 2rem; }
+.pool-quellennotiz { margin-top: 2rem; color: var(--ink-dim); font-size: 14px; line-height: 1.8; scroll-margin-top: 2rem; }
+.pool-quellennotiz p { margin-bottom: .8rem; }
+.pool-quellennotiz a { color: var(--ink-soft); text-underline-offset: .25em; }
+.pool-quellennotiz summary { cursor: pointer; }
+.pool-quellennotiz details[open] summary { margin-bottom: 1rem; }
+.pool-index a:focus-visible, .pool-leseseite a:focus-visible, .pool-quellennotiz summary:focus-visible, .topbar a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 860px) {
+  .pool-raum { display: block; width: 100%; }
+  .pool-leseseite { width: min(680px, calc(100% - 8vw)); margin-inline: auto; }
+  .pool-zeitstrahl { top: 0; z-index: 5; margin: 0; background: rgba(13,15,18,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .pool-zeitfenster { height: auto; width: 100%; margin-left: 0; padding-left: 0; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-mask-image: none; mask-image: none; }
+  .pool-zeitfenster::-webkit-scrollbar { display: none; }
+  .pool-spur { display: flex; width: max-content; padding: 0 .5rem; }
+  .pool-spur::before { display: none; }
+  .pool-spur > li { flex: 0 0 auto; }
+  .pool-jahreswechsel { margin: 0 0 0 1rem; }
+  .pool-zeitstrahl .pool-marker { padding: .8rem 1rem; min-height: 64px; border-bottom: 2px solid transparent; }
+  .pool-zeitstrahl .pool-marker.active { border-bottom-color: var(--word); }
+  .pool-zeitstrahl .dot { display: none; }
+  .pool-zeitstrahl .pool-marker .g-era { opacity: .55; max-height: 2em; margin-top: .2rem; }
+  .pool-jahr { grid-template-columns: 110px minmax(0, 1fr); gap: 1rem; }
+  .pool-liste a { grid-template-columns: 150px minmax(0, 1fr) 16px; gap: .6rem; }
+  .pool-provenienz { grid-template-columns: 110px minmax(0, 1fr); gap: 1rem; }
+}
+@media (max-width: 600px) {
+  .pool-index, .pool-leseseite { width: calc(100% - 2.2rem); }
+  .pool-jahreswahl { gap: .2rem; }
+  .pool-jahreswahl a { padding: .5rem .6rem; }
+  .pool-jahr { grid-template-columns: 1fr; gap: .8rem; }
+  .pool-jahreskopf { display: flex; align-items: baseline; gap: 1rem; }
+  .pool-jahreskopf h2 { font-size: 2.2rem; }
+  .pool-liste a { grid-template-columns: minmax(0, 1fr) 20px; padding: .9rem .25rem; gap: .2rem .5rem; }
+  .pool-listenrubrik { grid-column: 1; font-size: 14px; }
+  .pool-pfeil { grid-column: 2; grid-row: 1 / 3; }
+  .pool-provenienz { grid-template-columns: 1fr; gap: .7rem; }
+  .pool-navigation { gap: .6rem; }
+  .pool-navigation--oben { margin-bottom: 2.5rem; }
+  .pool-lesekopf { margin-bottom: 2rem; }
+  .pool-original { font-size: 19px; line-height: 1.8; }
+}
+
+/* ---------- Diskographie ---------- */
+.disk-raum { display: grid; grid-template-columns: 170px minmax(0, 850px); gap: clamp(2rem, 5vw, 5rem); width: min(1200px, calc(100% - 8vw)); margin-inline: auto; align-items: start; }
+.disk-raum [hidden] { display: none !important; }
+.disk-zeitstrahl { position: sticky; top: 2rem; min-width: 0; margin-top: 1.25rem; }
+.disk-zeitfenster { height: calc(100dvh - var(--disk-oberkante, 7rem)); width: calc(100% + 1.5rem); margin-left: -1.5rem; padding-left: 1.5rem; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--line) transparent; -webkit-mask-image: linear-gradient(transparent, black 25px, black calc(100% - 25px), transparent); mask-image: linear-gradient(transparent, black 25px, black calc(100% - 25px), transparent); }
+.disk-spur { position: relative; list-style: none; padding-block: 2rem; }
+.disk-spur::before { content: ""; position: absolute; left: 11px; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.disk-zeitstrahl .disk-marker { position: relative; transform: none; padding: .8rem 0; }
+.disk-zeitstrahl .g-year { font-size: 15px; }
+.disk-zeitstrahl .g-era { min-height: 1.25em; max-height: 2em; margin-top: .2rem; letter-spacing: .08em; }
+.disk-katalog { min-width: 0; padding: 3rem 0 5rem; }
+.disk-kopf { margin-bottom: 2.5rem; max-width: 740px; }
+.disk-kicker, .disk-kuenstler { font-family: var(--rough); font-size: 11px; line-height: 1.6; letter-spacing: .13em; text-transform: uppercase; color: var(--accent); }
+.disk-kicker { color: var(--ink-dim); }
+.disk-kopf h1 { font-size: clamp(3.3rem, 6vw, 5rem); font-weight: 400; letter-spacing: -.04em; line-height: 1.15; margin: .8rem 0 1.3rem; }
+.disk-intro { color: var(--accent); font-size: clamp(20px, 2vw, 24px); line-height: 1.6; }
+.disk-auswahl { display: flex; gap: 1rem 2rem; align-items: end; flex-wrap: wrap; border-block: 1px solid var(--line); padding: 1.15rem 0 1.35rem; }
+.disk-auswahl label { display: flex; flex-direction: column; gap: .45rem; min-width: 0; color: var(--ink-dim); font-family: var(--rough); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.disk-auswahl select { font-family: var(--serif); font-size: 17px; color: var(--ink); background: var(--bg); border: 0; border-bottom: 1px solid #4c4440; border-radius: 0; padding: .35rem 1.8rem .35rem 0; max-width: 100%; }
+.disk-auswahl button { font-family: var(--serif); font-size: 15px; color: var(--accent); border: 0; padding: .4rem 0; background: none; cursor: pointer; }
+.disk-filterstatus { font-size: 14px; color: var(--ink-dim); min-height: 1.7em; margin-top: .6rem; }
+.disk-jahr { scroll-margin-top: 2rem; margin-top: 1.5rem; }
+.disk-jahr > h2 { font-family: var(--rough); font-weight: 400; font-size: 15px; letter-spacing: .12em; color: var(--accent); padding-bottom: .7rem; border-bottom: 1px solid #57472f; }
+.disk-platte { padding: 1.8rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: 2rem; }
+.disk-platte:last-child { border-bottom: 0; }
+.disk-mit-cover { display: grid; grid-template-columns: 164px minmax(0, 1fr); gap: 2rem; }
+.disk-cover { align-self: start; }
+.disk-cover img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; background: #16171a; box-shadow: 0 8px 26px #0005; }
+.disk-plattentext { min-width: 0; }
+.disk-kuenstler { font-size: 10px; margin-bottom: .5rem; }
+.disk-platte h3 { font-size: clamp(25px, 2.5vw, 32px); font-weight: 400; line-height: 1.2; letter-spacing: -.015em; margin-bottom: .8rem; overflow-wrap: break-word; }
+.disk-platte h3 a { color: var(--ink); text-decoration: none; }
+.disk-platte h3 a:hover { color: var(--accent); }
+.disk-metadaten { font-size: 14px; line-height: 1.65; color: var(--ink-dim); }
+.disk-notiz { color: var(--ink-soft); font-size: 17px; line-height: 1.7; margin-top: .8rem; }
+.disk-details { font-size: 13px; color: var(--ink-dim); margin-top: 1rem; }
+.disk-details summary { cursor: pointer; width: fit-content; text-underline-offset: .25em; }
+.disk-details[open] summary { color: var(--ink-soft); margin-bottom: .7rem; }
+.disk-details p { margin-block: .4rem; }
+.disk-details ul { list-style: none; }
+.disk-details a { color: var(--ink-soft); text-underline-offset: .2em; }
+.disk-kleine-ausgabe { padding-block: 1.3rem; }
+.disk-kleine-ausgabe h3 { font-size: 24px; margin-bottom: .5rem; }
+.disk-kleine-ausgabe .disk-details { margin-top: .5rem; }
+.disk-hinweis { margin-top: 4rem; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--ink-dim); font-size: 14px; line-height: 1.8; }
+.disk-hinweis p + p { margin-top: .8rem; }
+.disk-nach-oben { display: inline-block; margin-top: 1.8rem; color: var(--ink-soft); text-decoration: none; font-size: 16px; }
+.disk-leer { color: var(--ink-soft); margin-block: 3rem; }
+.disk-raum :is(a, button, select, summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.disk-zeitstrahl .disk-marker:focus-visible { outline-offset: -2px; }
+@media (min-width: 1100px) {
+  .disk-jahr:first-child .disk-mit-cover { grid-template-columns: 230px minmax(0, 1fr); gap: 2.5rem; }
+  .disk-jahr:first-child .disk-platte h3 { font-size: 3.1rem; }
+}
+@media (max-width: 860px) {
+  .disk-raum { display: block; width: 100%; }
+  .disk-zeitstrahl { top: 0; margin: 0; z-index: 5; background: rgba(13,15,18,.96); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .disk-zeitfenster { height: auto; width: 100%; margin: 0; padding: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-mask-image: none; mask-image: none; }
+  .disk-zeitfenster::-webkit-scrollbar { display: none; }
+  .disk-spur { display: flex; width: max-content; padding: 0 .5rem; }
+  .disk-spur::before { display: none; }
+  .disk-spur > li { flex: 0 0 auto; }
+  .disk-zeitstrahl .disk-marker { padding: .8rem 1.2rem; }
+  .disk-zeitstrahl .g-era { opacity: .55; }
+  .disk-katalog { width: min(760px, calc(100% - 8vw)); margin-inline: auto; padding-top: 2rem; }
+  .disk-jahr, .disk-platte { scroll-margin-top: 6rem; }
+}
+@media (max-width: 540px) {
+  .disk-katalog { width: calc(100% - 2.2rem); }
+  .disk-kopf h1 { font-size: 3rem; }
+  .disk-kopf { margin-bottom: 2rem; }
+  .disk-kicker { font-size: 9px; letter-spacing: .08em; }
+  .disk-auswahl { gap: 1.2rem; }
+  .disk-auswahl label { width: 100%; }
+  .disk-auswahl select { width: 100%; font-size: 17px; }
+  .disk-mit-cover { grid-template-columns: 94px minmax(0, 1fr); gap: 0 1rem; }
+  .disk-mit-cover .disk-plattentext { display: contents; }
+  .disk-mit-cover .disk-cover { grid-column: 1; grid-row: 1 / 4; }
+  .disk-mit-cover .disk-kuenstler { grid-column: 2; grid-row: 1; }
+  .disk-mit-cover h3 { grid-column: 2; grid-row: 2; }
+  .disk-mit-cover .disk-metadaten { grid-column: 2; grid-row: 3; }
+  .disk-mit-cover :is(.disk-notiz, .disk-details) { grid-column: 1 / -1; }
+  .disk-platte h3 { font-size: 25px; }
+  .disk-notiz { font-size: 16px; }
+  .disk-kuenstler { font-size: 9px; }
+}
+
 /* ---------- Fuß ---------- */
 footer {
   border-top: 1px solid var(--line);
@@ -427,6 +666,10 @@ footer {
   .stage { grid-template-columns: 1fr; min-height: 0; }
   .stage-visual { min-height: 42vh; margin-left: 0; }
   .stage-visual::after { background: linear-gradient(to bottom, transparent 55%, var(--bg)); }
+  .stage-visual--tusche { min-height: min(112vw, 78svh); }
+  .stage-visual--tusche img { max-height: 78svh; }
+  .stage-visual--tusche .bildtext { max-width: calc(100% - 2rem); }
+  .stage-visual--tusche::after { background: linear-gradient(to bottom, transparent 86%, var(--bg)); }
   .graph {
     position: sticky;
     top: 0; left: 0; right: 0; bottom: auto;
