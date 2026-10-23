@@ -164,6 +164,10 @@ if (in_array('--lizenzen', $argv, true)) {
     echo count($lizenzen) . " Lizenzen der Nationalbibliothek gespeichert.\n";
 }
 
+// Englische Fassung: gilt nur, solange der deutsche Text unverändert ist (Prüfsumme `quelle`).
+$englisch = is_file(APP_ROOT . '/data/quellen-en.json') ? json_decode(file_get_contents(APP_ROOT . '/data/quellen-en.json'), true, flags: JSON_THROW_ON_ERROR) : [];
+$veraltet = 0;
+
 $quellen = [];
 foreach ($index as $q) {
     [$vorgabe, $teile] = quelldatei($q['datei']);
@@ -180,8 +184,15 @@ foreach ($index as $q) {
         $q['erreichbarkeit'] === 'paywall' => 'abo',
         default => 'verloren',
     };
+    $id = str_replace('_', '-', basename($q['datei'], '.md'));
+    $kurz = $inhalt ? kurztext($inhalt[0]) : '';
+    $zitate = zitate($teile['Zitate'] ?? '');
+    $en = $englisch[$id] ?? null;
+    if ($en !== null && $en['quelle'] !== sha1(implode("\n", $inhalt) . $kurz)) { $en = null; $veraltet++; }
+    if ($en !== null) foreach ($zitate as $n => &$zitat) $zitat['kontext_en'] = $en['zitate_kontext'][$n] ?? '';
+    unset($zitat);
     $quellen[] = [
-        'id' => str_replace('_', '-', basename($q['datei'], '.md')),
+        'id' => $id,
         'titel' => $q['titel'],
         'autor' => $q['autor'],
         'medium' => $q['medium'],
@@ -194,9 +205,11 @@ foreach ($index as $q) {
         'url' => $q['url'],
         'archiv' => $q['archiv'],
         'lizenz' => $lizenz,
-        'kurz' => ['de' => $inhalt ? kurztext($inhalt[0]) : ''],
-        'inhalt' => ['de' => $inhalt],
-        'zitate' => zitate($teile['Zitate'] ?? ''),
+        'kurz' => ['de' => $kurz] + (isset($en['kurz']) ? ['en' => $en['kurz']] : []),
+        'inhalt' => ['de' => $inhalt] + (isset($en['inhalt']) ? ['en' => $en['inhalt']] : []),
+        'zitate' => $zitate,
+        // Übersetzte Angaben in eckigen Klammern (eigene Beschreibungen) und deutsche Medien-/Autorangaben.
+        'en' => array_filter(['titel' => $en['titel'] ?? null, 'medium' => $en['medium'] ?? null, 'autor' => $en['autor'] ?? null]),
         // Nur Rezensionen: In anderen Arten nennt `thema` auch Whisky, Lieder oder Ereignisse gleichen Namens.
         'ausgaben' => $q['kategorie'] === 'rezensionen' ? ausgaben($q['thema'], $q['datum']) : [],
     ];
@@ -207,5 +220,5 @@ usort($quellen, fn($a, $b) => [$a['datum'] === '', $a['datum'], $rang[$a['stufe'
 
 file_put_contents(APP_ROOT . '/data/quellen.json', json_encode($quellen, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n");
 $zahl = array_count_values(array_column($quellen, 'stufe'));
-echo count($quellen) . ' öffentliche Quellen (' . ($zahl['auswahl'] ?? 0) . ' ausgewählt, ' . ($zahl['verzeichnis'] ?? 0) . ' Verzeichnis, ' . ($zahl['weitere'] ?? 0) . ' weitere), '
+echo ($veraltet ? "$veraltet englische Fassungen veraltet (deutscher Text geändert).\n" : '') . count($quellen) . ' öffentliche Quellen (' . ($zahl['auswahl'] ?? 0) . ' ausgewählt, ' . ($zahl['verzeichnis'] ?? 0) . ' Verzeichnis, ' . ($zahl['weitere'] ?? 0) . ' weitere), '
     . (count($index) - count($quellen)) . " intern.\n";

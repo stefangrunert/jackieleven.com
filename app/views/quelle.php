@@ -13,10 +13,10 @@ $nb = str_contains($q['url'], 'nb.no');
   <article>
     <header class="stimme-kopf">
       <p class="disk-kicker"><?= e(t('stimmen.kategorie.' . $q['kategorie'])) ?><?php if ($q['stufe'] === 'auswahl'): ?> · <?= e(t('stimmen.ausgewaehlt')) ?><?php endif; ?></p>
-      <h1 lang="<?= e($q['sprache']) ?>"><?= e($q['titel']) ?></h1>
+      <h1 lang="<?= e(stimme_titelsprache($q)) ?>"><?= e(stimme_feld($q, 'titel')) ?></h1>
       <dl class="disk-fakten">
-        <div><dt><?= e(t('stimmen.medium')) ?></dt><dd><?= e($q['medium']) ?></dd></div>
-        <?php if ($q['autor'] !== ''): ?><div><dt><?= e(t('stimmen.autor')) ?></dt><dd><?= e($q['autor']) ?></dd></div><?php endif; ?>
+        <div><dt><?= e(t('stimmen.medium')) ?></dt><dd><?= e(stimme_feld($q, 'medium')) ?></dd></div>
+        <?php if ($q['autor'] !== ''): ?><div><dt><?= e(t('stimmen.autor')) ?></dt><dd><?= e(stimme_feld($q, 'autor')) ?></dd></div><?php endif; ?>
         <div><dt><?= e(t('stimmen.datum')) ?></dt><dd><?= e(stimme_datum($q['datum'])) ?></dd></div>
         <div><dt><?= e(t('stimmen.sprache')) ?></dt><dd><?= e(stimme_sprache($q['sprache'])) ?></dd></div>
         <div><dt><?= e(t('stimmen.zugang')) ?></dt><dd><?= e(t('stimmen.zugang.' . $q['zugang'])) ?></dd></div>
@@ -38,7 +38,8 @@ $nb = str_contains($q['url'], 'nb.no');
         <?php foreach ($q['zitate'] as $zitat): ?>
           <figure>
             <blockquote lang="<?= e($q['sprache']) ?>"><p><?= e($zitat['text']) ?></p></blockquote>
-            <?php if ($zitat['kontext'] !== ''): ?><figcaption lang="de"><?= md_inline($zitat['kontext']) ?></figcaption><?php endif; ?>
+            <?php $kontext = sprache() === 'en' && ($zitat['kontext_en'] ?? '') !== '' ? $zitat['kontext_en'] : $zitat['kontext']; ?>
+            <?php if ($kontext !== ''): ?><figcaption<?= $kontext === $zitat['kontext'] && sprache() !== 'de' ? ' lang="de"' : '' ?>><?= md_inline($kontext) ?></figcaption><?php endif; ?>
           </figure>
         <?php endforeach; ?>
       </section>
@@ -68,7 +69,7 @@ $nb = str_contains($q['url'], 'nb.no');
   </article>
 
   <nav class="stimme-blaettern" aria-label="<?= e(t('stimmen.blaettern')) ?>">
-    <?php if ($vor): ?><a rel="prev" href="<?= e(stimme_link($vor['id'])) ?>"><span>← <?= e(t('stimmen.vorher')) ?></span><span lang="<?= e($vor['sprache']) ?>"><?= e($vor['titel']) ?></span></a><?php else: ?><span></span><?php endif; ?>
-    <?php if ($nach): ?><a rel="next" href="<?= e(stimme_link($nach['id'])) ?>"><span><?= e(t('stimmen.naechste')) ?> →</span><span lang="<?= e($nach['sprache']) ?>"><?= e($nach['titel']) ?></span></a><?php endif; ?>
+    <?php if ($vor): ?><a rel="prev" href="<?= e(stimme_link($vor['id'])) ?>"><span>← <?= e(t('stimmen.vorher')) ?></span><span lang="<?= e(stimme_titelsprache($vor)) ?>"><?= e(stimme_feld($vor, 'titel')) ?></span></a><?php else: ?><span></span><?php endif; ?>
+    <?php if ($nach): ?><a rel="next" href="<?= e(stimme_link($nach['id'])) ?>"><span><?= e(t('stimmen.naechste')) ?> →</span><span lang="<?= e(stimme_titelsprache($nach)) ?>"><?= e(stimme_feld($nach, 'titel')) ?></span></a><?php endif; ?>
   </nav>
 </main>

@@ -92,7 +92,7 @@ $quellen = array_column($quellen, null, 'url');
           <h2 id="pressestimmen"><?= e(t('disk.pressestimmen')) ?></h2>
           <ul>
             <?php foreach ($stimmen as $q): [$kurz, $kurzSprache] = stimme_text($q['kurz']); ?>
-              <li><p class="stimme-meta"><?= e(stimme_datum($q['datum']) . ' · ' . $q['medium'] . ' · ' . t('stimmen.kategorie.' . $q['kategorie'])) ?></p><a lang="<?= e($q['sprache']) ?>" href="<?= e(stimme_link($q['id'])) ?>"><?= e($q['titel']) ?></a><p class="stimme-kurz"<?= $kurzSprache !== sprache() ? ' lang="de"' : '' ?>><?= md_inline($kurz) ?></p></li>
+              <li><p class="stimme-meta"><?= e(stimme_datum($q['datum']) . ' · ' . stimme_feld($q, 'medium') . ' · ' . t('stimmen.kategorie.' . $q['kategorie'])) ?></p><a lang="<?= e(stimme_titelsprache($q)) ?>" href="<?= e(stimme_link($q['id'])) ?>"><?= e(stimme_feld($q, 'titel')) ?></a><p class="stimme-kurz"<?= $kurzSprache !== sprache() ? ' lang="de"' : '' ?>><?= md_inline($kurz) ?></p></li>
             <?php endforeach; ?>
           </ul>
         </section>

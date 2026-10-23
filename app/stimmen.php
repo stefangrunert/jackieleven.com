@@ -95,6 +95,18 @@ function stimme_datum(string $datum): string
     return $datum === '' ? t('stimmen.undatiert') : diskografie_konzertdatum($datum);
 }
 
+/** Titel, Medium oder Autor; auf Englisch die übersetzte Fassung, wo es eine gibt. */
+function stimme_feld(array $q, string $feld): string
+{
+    return sprache() === 'en' && isset($q['en'][$feld]) ? $q['en'][$feld] : $q[$feld];
+}
+
+/** Sprache des angezeigten Titels: übersetzte Beschreibungen stehen in der Seitensprache. */
+function stimme_titelsprache(array $q): string
+{
+    return sprache() === 'en' && isset($q['en']['titel']) ? 'en' : (str_starts_with($q['titel'], '[') ? 'de' : $q['sprache']);
+}
+
 /** Text in der Seitensprache, sonst Deutsch mit Sprachauszeichnung. */
 function stimme_text(array $texte): array
 {

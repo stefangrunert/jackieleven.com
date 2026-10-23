@@ -23,6 +23,12 @@ foreach ($quellen as $q) {
     $text = json_encode([$q['kurz'], $q['inhalt'], $q['zitate']], JSON_UNESCAPED_UNICODE);
     pruefe_stimmen(!preg_match('~research/|\.md\b|gefunden_ueber|\bsicherheit:~', $text), 'Interner Verweis im öffentlichen Text: ' . $q['id']);
     foreach ($q['ausgaben'] as $id) pruefe_stimmen(in_array($id, $releases, true), 'Unbekannte Ausgabe bei ' . $q['id']);
+    if (stimme_mit_seite($q)) {
+        pruefe_stimmen(($q['kurz']['en'] ?? '') !== '' && count($q['inhalt']['en'] ?? []) === count($q['inhalt']['de']), 'Englische Fassung fehlt oder ist veraltet (werkzeug/quellen.php): ' . $q['id']);
+        foreach ($q['zitate'] as $zitat) pruefe_stimmen($zitat['kontext'] === '' || ($zitat['kontext_en'] ?? '') !== '', 'Zitathinweis ohne Übersetzung: ' . $q['id']);
+    }
+    $klammer = preg_match('/^\[([^\]]*)\]/u', $q['titel'], $m) ? $m[1] : '';
+    pruefe_stimmen(isset($q['en']['titel']) || !preg_match('/\b(und|mit|vor|nach|über|ohne|Konzert\w*|Vorbericht|Bericht|Kurzkritik|Rezension|Kommentare|Gästebuch|Sammeldatei|Ausgabe)\b/u', $klammer), 'Beschreibender Titel ohne Übersetzung: ' . $q['id']);
 }
 pruefe_stimmen(count(array_filter($quellen, fn($q) => $q['stufe'] === 'auswahl')) >= 20, 'Zu wenige ausgewählte Quellen.');
 pruefe_stimmen(stimmen_filter(['art' => 'interviews', 'sprache' => ['x'], 'zugang' => 'gibtsnicht', 'fremd' => 1]) === ['art' => 'interviews'], 'Filter übernimmt unbekannte Werte.');
@@ -61,7 +67,7 @@ foreach (SPRACHEN as $s) {
             pruefe_stimmen($lizenz->length === 1 && str_starts_with($lizenz[0]->getAttribute('href'), 'https://creativecommons.org/licenses/by-nc'), 'Namensnennung oder Lizenz fehlt: ' . $q['id']);
             pruefe_stimmen(str_contains($html, e($q['medium'])), 'Medium fehlt in der Namensnennung: ' . $q['id']);
         }
-        if ($s === 'en') pruefe_stimmen($xp->query('//p[@class="stimme-hinweis"]')->length >= 1, 'Hinweis auf deutsche Zusammenfassung fehlt: ' . $q['id']);
+        if ($s === 'en') pruefe_stimmen(!str_contains($html, e(t('stimmen.nur_deutsch'))) && $xp->query('//div[@lang="de"]')->length === 0, 'Englische Seite zeigt die deutsche Zusammenfassung: ' . $q['id']);
         pruefe_stimmen(alternativ_url('de') === stimme_link($q['id']) || $s === 'en', 'Sprachwechsel verliert die Quelle.');
         $seiten++;
     }
