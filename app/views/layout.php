@@ -4,17 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?= e($titel) ?></title>
-<meta name="description" content="<?= e(t('meta.beschreibung')) ?>">
-<?php if (!empty($noindex)): ?>
-<meta name="robots" content="noindex">
-<?php endif; ?>
-<?php if (route()['name'] !== null): ?>
-<?php foreach (SPRACHEN as $s): ?>
-<link rel="alternate" hreflang="<?= e($s) ?>" href="<?= e(absolut(alternativ_url($s))) ?>">
-<?php endforeach; ?>
-<link rel="alternate" hreflang="x-default" href="<?= e(absolut(alternativ_url(STANDARD_SPRACHE))) ?>">
-<?php endif; ?>
+<?= render('seo', ['seo' => seo_daten($titel), 'noindex' => $noindex]) ?>
 <?php if ($nav === 'start'): ?>
 <link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/home.css">

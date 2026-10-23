@@ -15,6 +15,24 @@ function nicht_gefunden(): never
 $roh   = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $teile = array_values(array_filter(explode('/', $roh), fn($t) => $t !== ''));
 
+// Machine-readable discovery endpoints also work in the packaged release.
+if ($roh === '/robots.txt') {
+    http_response_code(200);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo seo_live()
+        ? "User-agent: *\nAllow: /\nSitemap: " . SEO_ORIGIN . "/sitemap.xml\n"
+        : "User-agent: *\nDisallow: /\n";
+    exit;
+}
+if ($roh === '/sitemap.xml') {
+    http_response_code(200);
+    header('Content-Type: application/xml; charset=utf-8');
+    if (!seo_live()) header('X-Robots-Tag: noindex');
+    echo seo_sitemap();
+    exit;
+}
+
+
 // "/" → die Sprache, die der Browser bevorzugt
 if ($teile === []) {
     header('Vary: Accept-Language');
@@ -92,6 +110,8 @@ if ($seite === 'station') {
     if (($_GET['fragment'] ?? '') === '1') {
         header('Content-Type: text/html; charset=utf-8');
         header('Content-Language: ' . sprache());
+        header('X-Robots-Tag: noindex');
+        header('Link: <' . absolut(url('station', ['slug' => $slug])) . '>; rel="canonical"');
         echo render('buehne', ['st' => $st]);
         exit;
     }

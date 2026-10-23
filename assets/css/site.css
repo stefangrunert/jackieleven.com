@@ -644,6 +644,7 @@ a { color: var(--accent); }
 .bio-detailraum .bio-inhalt { padding-top: 2rem; }
 .bio-intro { margin-bottom: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--line); }
 .bio-intro .lead { margin-bottom: 0; }
+.text-seite .bio-intro .worterklaerung { margin: 1.25rem 0 0; }
 .bio-raum :is(a, button):focus-visible { outline: 2px solid var(--cold); outline-offset: 4px; }
 .bio-zeitstrahl .bio-marker:focus-visible { outline-offset: -2px; }
 
@@ -743,11 +744,10 @@ a { color: var(--accent); }
 .pool-zeitstrahl .pool-mehrfach .g-era { opacity: .7; }
 .pool-zeitstrahl .pool-marker:focus-visible { outline-color: var(--pool); outline-offset: -2px; }
 .pool-zeitstrahl .pool-marker:focus-visible .g-era { opacity: .7; max-height: 2em; }
-.pool-navigation { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: baseline; padding: 1.5rem 0; margin-top: 2rem; border-top: 1px solid var(--line); font-size: 16px; }
+.pool-navigation { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: baseline; padding: 1.5rem 0; margin-top: 2rem; border-top: 1px solid var(--line); font-size: 16px; }
 .pool-navigation a { color: var(--ink-soft); text-decoration: none; }
 .pool-navigation a:hover { color: var(--ink); }
 .pool-navigation a[rel="next"] { justify-self: end; }
-.pool-navigation .pool-archivlink { color: var(--ink-dim); font-size: 14px; }
 .pool-navigation--oben { margin: 0 0 3rem; padding: 0; border: 0; }
 .pool-lesekopf { margin-bottom: 2.5rem; }
 .pool-rubrik { color: var(--pool); font-size: 18px; font-style: italic; }

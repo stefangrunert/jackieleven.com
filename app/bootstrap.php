@@ -8,6 +8,7 @@ if (!defined('PUBLIC_ROOT')) define('PUBLIC_ROOT', dirname(__DIR__));
 require APP_ROOT . '/columns.php';
 require APP_ROOT . '/discography.php';
 require APP_ROOT . '/stimmen.php';
+require APP_ROOT . '/seo.php';
 
 /** Das Buch (die Pastiche) liegt außerhalb von app/, als eigenes Arbeitsverzeichnis. */
 const BUCH_ROOT = __DIR__ . '/../autobiografie';
@@ -61,7 +62,9 @@ function render_lokal(string $view, array $vars = []): string
 function seite(string $inhalt, string $titel, string $nav = '', int $status = 200, bool $noindex = false): void
 {
     http_response_code($status);
+    header('Content-Type: text/html; charset=utf-8');
     header('Content-Language: ' . sprache());
+    $noindex = $noindex || $status >= 400 || !seo_live();
     if ($noindex) {
         header('X-Robots-Tag: noindex');
     }
@@ -235,8 +238,7 @@ function alternativ_url(string $s): string
 
 function absolut(string $pfad): string
 {
-    $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
-    return ($https ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . $pfad;
+    return SEO_ORIGIN . $pfad;
 }
 
 /* ---------------------------------------------------------------------- */

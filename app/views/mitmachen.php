@@ -1,6 +1,4 @@
 <main class="text-seite mitmachen">
-  <p class="kicker"><?= e(t('nav.mitmachen')) ?></p>
-  <h1><?= e(t('mit.titel')) ?></h1>
   <p class="lead"><?= e(t('mit.intro')) ?></p>
   <p><?= e(t('mit.mitarbeit')) ?></p>
   <p><?= e(t('mit.absprache')) ?></p>

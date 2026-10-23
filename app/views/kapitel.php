@@ -45,7 +45,7 @@ $startseite = $startseite ?? false;
     <p class="teil-fremd"><?= e(t('pastiche.uebersetzt')) ?> ·
       <a href="<?= e(url('kapitel', ['slug' => $k['slug']], 'en')) ?>" hreflang="en"><?= e(t('pastiche.zum_original')) ?></a></p>
   <?php endif; ?>
-  <div class="pastiche-text" lang="<?= e($textSprache) ?>">
+  <div class="pastiche-text" data-nosnippet lang="<?= e($textSprache) ?>">
     <?= md($text) ?>
   </div>
 

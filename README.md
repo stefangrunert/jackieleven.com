@@ -330,3 +330,33 @@ der VHost unter `/etc/nginx/sites-available/jackieleven.com`, seine Sicherungen 
 - **`autobiografie/`** darf nach dem eigenen Rahmen nirgends als Levens Wort erscheinen. Auf der Website steht es gekennzeichnet und mit `noindex`; vor einer Veröffentlichung ist zu entscheiden, ob das reicht.
 
 Die Zeitreise verwendet kurze, wortgetreue Zitate mit Archivlinks. Die Rubrik „The Deep Pool“ gibt dagegen die Originalbeiträge einschließlich der darin enthaltenen Zitate und Liedpassagen wieder.
+
+
+## Suchmaschinen und Vorschauen
+
+`app/seo.php` verwaltet die Metadaten und die öffentliche Adresse
+`https://jackieleven.com`. Jede Inhaltsseite hat einen Canonical-Link, DE/EN-
+Sprachverweise, eine Beschreibung sowie Open-Graph-/Twitter-Vorschaudaten.
+JSON-LD beschreibt die Website als unabhängige Hommage und die Seite als Inhalt
+über Jackie; es bezeichnet die Website nicht als offizielle Künstlerseite.
+Filter- und Kontextparameter werden nicht in die kanonische Adresse übernommen.
+
+`/sitemap.xml` wird aus den veröffentlichten Routen erzeugt, inklusive
+Sprachvarianten. Weiterleitungen, Filtervarianten und die mit `noindex`
+versehenen Pastiche-Kapitel sind ausgeschlossen. Die Biografie-Einstiegsseite
+bleibt auffindbar; `data-nosnippet` schließt ihren erfundenen Erzähltext aus
+Suchvorschauen aus. Die Sitemap verwendet keine erfundenen Änderungsdaten.
+
+Nur Anfragen an den Host `jackieleven.com` sind für die Indexierung freigegeben.
+Andere Hosts (einschließlich localhost und Vorschauumgebungen) liefern `noindex`
+und eine sperrende `robots.txt`. Die öffentliche Domain muss bei einer Änderung
+in `SEO_ORIGIN` und `seo_live()` angepasst werden. Fehlerseiten und HTML-Fragmente
+sind ebenfalls `noindex`.
+
+Prüfen: `php werkzeug/seo.php` und `php werkzeug/release.php`.
+Beim Start der vollständigen Website muss die PHP-Site über `ops/nginx-site.conf`
+ausgeliefert werden: Die Interimsseite hat eigene Indexierungssperren und bleibt
+bis dahin gesperrt. Danach `/robots.txt`, `/sitemap.xml` und eine Inhaltsseite
+öffentlich prüfen und die Sitemap in der Google Search Console einreichen.
+Eine Search-Console-Verifizierung wird nicht ohne den tatsächlichen
+Verifizierungscode in den Quelltext eingetragen.

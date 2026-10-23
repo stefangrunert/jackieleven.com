@@ -1,7 +1,4 @@
 <article class="text-seite">
-  <p class="kicker">Über diese Seite</p>
-  <h1>Eine persönliche Hommage</h1>
-
   <p class="lead">Seit ich Jackie Anfang der 2000er Jahre das erste Mal in Drammen im Konzert
   erlebt habe, begleitet er mein Leben. Nicht ständig, nicht immer gleich nah, manche Zeiten
   auch abwesend. Aber er kehrt immer wieder zurück in meinen Orbit und ist da, wenn ich ihn

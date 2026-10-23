@@ -48,11 +48,12 @@ try {
             url('kolumne', ['slug' => kolumnen()[0]['slug']], $s),
             url('kolumne', ['slug' => kolumnen()[count(kolumnen()) - 1]['slug']], $s),
             url('diskografie', [], $s), url('hoeren', [], $s), url('biografie', [], $s),
-            url('ueber', [], $s), url('impressum', [], $s), url('mitmachen', [], $s)];
+            url('ueber', [], $s), url('impressum', [], $s), url('mitmachen', [], $s), url('stimmen', [], $s)];
+        foreach (stimmen() as $quelle) if (stimme_mit_seite($quelle)) $pfade[] = url('quelle', ['slug' => $quelle['id']], $s);
         foreach (stationen() as $station) $pfade[] = url('station', ['slug' => $station['slug']], $s);
         foreach (kapitelliste() as $kapitel) $pfade[] = url('kapitel', ['slug' => $kapitel['slug']], $s);
         foreach (diskografie()['releases'] as $platte) $pfade[] = url('platte', ['slug' => $platte['id']], $s);
-        foreach ($pfade as $pfad) {
+        foreach (array_unique([...$pfade, ...array_map(fn($k) => url('kolumne', ['slug' => $k['slug']], $s), kolumnen()), '/sitemap.xml', '/robots.txt']) as $pfad) {
             $code = 'ini_set("session.save_path", ' . var_export($temp, true) . ');'
                 . 'putenv("JACKIE_RESEND_API_KEY=");'
                 . '$_SERVER["REQUEST_URI"]=' . var_export($pfad, true) . ';'

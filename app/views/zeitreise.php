@@ -4,6 +4,7 @@ $alle = stationen();
 $n    = count($alle);
 $vor  = $alle[($aktiv - 1 + $n) % $n];
 $nach = $alle[($aktiv + 1) % $n];
+$seoAttribut = fn(string $name, array $p, string $titel) => e(json_encode(seo_daten($titel, ['name' => $name, 'p' => $p]), JSON_THROW_ON_ERROR));
 $alternativen = function (?string $slug = null): string {
     $urls = [];
     foreach ([...SPRACHEN, 'x-default'] as $s) {
@@ -18,11 +19,12 @@ $alternativen = function (?string $slug = null): string {
 
   <nav class="graph" aria-label="<?= e(t('graph.label')) ?>">
     <div class="graph-viewport" id="g-viewport">
-      <div class="graph-track" id="g-track" data-alternativen="<?= $alternativen() ?>" data-titel="<?= e(t('titel.zeitreise')) ?>">
+      <div class="graph-track" id="g-track" data-seo="<?= $seoAttribut('zeitreise', [], t('titel.zeitreise')) ?>" data-alternativen="<?= $alternativen() ?>" data-titel="<?= e(t('titel.zeitreise')) ?>">
         <?php foreach ($alle as $i => $s): ?>
           <a class="g-marker<?= $i === $aktiv ? ' active' : '' ?>"
              href="<?= e(url('station', ['slug' => $s['slug']])) ?>"
              data-i="<?= $i ?>"
+             data-seo="<?= $seoAttribut('station', ['slug' => $s['slug']], t('titel.station', ['jahr' => $s['jahr'], 'titel' => sfeld($s, 'titel')[0]])) ?>"
              data-art="<?= e($s['art']) ?>"
              data-jahr="<?= e($s['jahr']) ?>"
              data-alternativen="<?= $alternativen($s['slug']) ?>"

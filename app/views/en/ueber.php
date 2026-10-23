@@ -1,7 +1,4 @@
 <article class="text-seite">
-  <p class="kicker">About this site</p>
-  <h1>A personal tribute</h1>
-
   <p class="lead">Ever since I first saw Jackie in concert in Drammen in the early 2000s,
   he has been part of my life. Not constantly, not always as close, sometimes absent for a
   while. But he keeps coming back into my orbit and is there when I need him.</p>

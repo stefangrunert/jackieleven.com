@@ -10,10 +10,10 @@ $captureText = (int) $capture[2] . (sprache() === 'de' ? '. ' : ' ') . kolumnen_
 <div class="pool-raum">
   <?= render('pool-zeitstrahl', ['liste' => $liste, 'aktiv' => $i]) ?>
 <main class="pool-leseseite">
-  <?= render('pool-navigation', ['vor' => $vor, 'nach' => $nach, 'k' => $k, 'oben' => true]) ?>
   <?php if ($i === 0): ?>
     <p class="pool-intro"><?= e(t('pool.intro')) ?></p>
   <?php endif; ?>
+  <?= render('pool-navigation', ['vor' => $vor, 'nach' => $nach, 'k' => $k, 'oben' => true]) ?>
   <article>
     <header class="pool-lesekopf">
       <p class="pool-rubrik" lang="en"><?= e(kolumnen_rubrik($k)) ?></p>

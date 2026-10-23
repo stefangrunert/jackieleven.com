@@ -17,8 +17,6 @@
 
   <main class="disk-katalog" id="diskografie">
     <header class="disk-kopf">
-      <p class="disk-kicker">John St. Field · Doll by Doll · Jackie Leven</p>
-      <h1><?= e(t('nav.diskografie')) ?></h1>
       <p class="disk-intro"><?= e(t('disk.intro')) ?></p>
     </header>
 

@@ -133,10 +133,22 @@
     var alternativen = JSON.parse((uebersicht ? track : marken[i]).dataset.alternativen);
     document.querySelectorAll('.sprachen a[hreflang], link[rel="alternate"][hreflang]').forEach(function (link) {
       var ziel = alternativen[link.getAttribute('hreflang')];
-      if (ziel) link.href = new URL(ziel, window.location.href).href;
+      if (ziel) link.href = new URL(ziel, link.tagName === 'LINK' ? document.querySelector('link[rel=canonical]').href : window.location.href).href;
     });
-    document.title = uebersicht ? track.dataset.titel : marken[i].dataset.jahr + ' — ' +
-      marken[i].querySelector('.g-era').textContent + ' · Jackie Leven';
+    var seo = JSON.parse((uebersicht ? track : marken[i]).dataset.seo);
+    document.title = seo.titel;
+    document.querySelector('link[rel="canonical"]').href = seo.url;
+    document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(function (m) { m.content = seo.beschreibung; });
+    document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(function (m) { m.content = seo.titel; });
+    document.querySelector('meta[property="og:url"]').content = seo.url;
+    var schema = document.querySelector('script[type="application/ld+json"]');
+    var data = JSON.parse(schema.textContent);
+    var page = data['@graph'].find(function (item) { return item['@type'] === 'WebPage'; });
+    page['@id'] = seo.url + '#webpage';
+    page.url = seo.url;
+    page.name = seo.titel;
+    page.description = seo.beschreibung;
+    schema.textContent = JSON.stringify(data);
   }
 
   function zeige(i, pushen, uebersicht) {
