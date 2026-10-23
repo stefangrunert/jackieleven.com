@@ -254,6 +254,10 @@ php werkzeug/zitate.php                 # jedes Zitat Zeichen für Zeichen gegen
 
 ## Deployment der vollständigen PHP-Website
 
+Die vollständige Website ist seit dem **23. Oktober 2026** unter
+`https://jackieleven.com` öffentlich, auf Deutsch und Englisch. Erstes Live-Release:
+`20261023174647-26786`, auf Grundlage von Commit `9b69425`.
+
 Das Release wird über eine Positivliste gebaut, niemals durch Kopieren des Repositorys.
 `ops/release-files.json` nennt die erlaubten Code-, Daten-, CSS-, JavaScript- und
 Schriftdateien. Dazu kommen nur die im Kolumnenkatalog freigegebenen Texte, die
@@ -276,6 +280,7 @@ node werkzeug/browserablaeufe.cjs             # Navigation und Video-Ladezustän
 php werkzeug/release.php                     # Paket, alle Routen und Assets; ohne Upload
 bash ops/deploy.sh --prepare /tmp/jackie-release  # neuer Ordner; bleibt zur Prüfung liegen
 bash ops/deploy.sh --deploy                  # Upload und atomarer Wechsel von site-current
+python3 ops/check-site.py                    # Öffentliche Seiten, Assets, SEO und Formular-Bereitschaft
 ```
 
 Das Deploy-Skript lädt ausschließlich das vorbereitete Paket per SSH/rsync auf den
@@ -285,18 +290,33 @@ CLI-Erweiterungen, PHP-Syntax und Beispielaufrufe. Die Pakete liegen unter
 `site-previous` auf dessen Vorgänger. Der Wechsel erfolgt erst nach erfolgreichen Prüfungen.
 PHP-CLI und PHP-FPM müssen dieselbe geeignete Version und Erweiterungen verwenden.
 
-Die Interimsseite verwendet weiterhin ihre eigenen Verzeichnisse und Links. Der erste
-Upload der PHP-Website schaltet sie deshalb noch nicht öffentlich. Dafür muss separat
-der VHost aus `ops/nginx-site.conf` eingerichtet werden: PHP-FPM installieren bzw. seinen
-Socketpfad anpassen, die benötigten Umgebungsvariablen im FPM-Pool setzen und den
-DocumentRoot auf `/var/www/jackieleven/site-current/public` umstellen. Danach mit
-`nginx -t` prüfen und nginx neu laden. Auch bei Apache muss der DocumentRoot auf
-`public/` zeigen; dessen `.htaccess` übernimmt das Routing.
+Der aktive nginx-VHost verwendet `ops/nginx-site.conf` mit dem DocumentRoot
+`/var/www/jackieleven/site-current/public` und dem eigenen PHP-8.3-FPM-Pool
+`jackieleven` (`/run/php/jackieleven.sock`). Der Systembenutzer `jackieleven` besitzt
+die privaten Session- und Kontaktlimit-Verzeichnisse unter `/var/lib/jackieleven/`.
+Der Resend-Schlüssel steht ausschließlich in der root-lesbaren Poolkonfiguration
+`/etc/php/8.3/fpm/pool.d/jackieleven.conf`, außerhalb der Releases.
+
+Für die erste Aktivierung oder bewusste Konfigurationsänderungen:
+`python3 ops/activate-site.py --activate`. Das Skript liest den lokal ignorierten
+Schlüssel aus `.dev/resend-api-key` und übergibt ihn über SSH-stdin, ohne Ausgabe
+oder Kommandozeilenargument. `ops/install-site.py` sichert Konfigurationen unter
+`/var/backups/jackieleven-site/`, prüft PHP-FPM und nginx und kontrolliert die
+Seiten am Origin. Bei einem Fehler stellt es die vorherigen Konfigurationen wieder
+her. Cloudflare-Netze werden über die offizielle IP-API abgerufen; nur deren
+Besucher-IP-Header werden für das Kontaktlimit vertraut. Andere VHosts und
+E-Mail-DNS-Einträge werden nicht geändert.
+
+Die vorherige Interimsseite bleibt unter `/var/www/jackieleven/current` erhalten.
+Die Konfigurationssicherung vor dem ersten Livegang liegt unter
+`/var/backups/jackieleven-site/20261023174928074550/`. Für normale Inhaltsupdates
+reicht `ops/deploy.sh --deploy`; die Aktivierung muss nicht wiederholt werden.
 
 ## Interimsseite auf jackieleven.com
 
-Seit dem 23. Oktober 2026 zeigt `https://jackieleven.com/` eine eigenständige, statische
-Interimsseite auf dem vorhandenen Hetzner-Server `77.42.46.154` (SSH-Port `29742`).
+Am 23. Oktober 2026 wurde zunächst eine eigenständige, statische Interimsseite auf
+dem vorhandenen Hetzner-Server `77.42.46.154` (SSH-Port `29742`) eingerichtet.
+Sie wurde am selben Tag durch die vollständige PHP-Website ersetzt.
 Cloudflare hat zwei proxied A-Records für `@` und `www`; die Mail-Einträge bleiben bestehen.
 TLS verwendet Full (Strict), ein automatisch erneuertes Let's-Encrypt-Zertifikat für beide
 Namen und eine Weiterleitung von HTTP sowie `www` auf `https://jackieleven.com`.
@@ -354,9 +374,10 @@ in `SEO_ORIGIN` und `seo_live()` angepasst werden. Fehlerseiten und HTML-Fragmen
 sind ebenfalls `noindex`.
 
 Prüfen: `php werkzeug/seo.php` und `php werkzeug/release.php`.
-Beim Start der vollständigen Website muss die PHP-Site über `ops/nginx-site.conf`
-ausgeliefert werden: Die Interimsseite hat eigene Indexierungssperren und bleibt
-bis dahin gesperrt. Danach `/robots.txt`, `/sitemap.xml` und eine Inhaltsseite
-öffentlich prüfen und die Sitemap in der Google Search Console einreichen.
+Die vollständige Website wird über `ops/nginx-site.conf` ausgeliefert; ihre
+öffentliche Indexierung ist freigegeben. Die stillgelegte Interimsseite behält
+ihre eigenen Indexierungssperren. `ops/check-site.py` prüft die öffentliche
+Sitemap, robots.txt und Inhaltsseiten. Die Sitemap kann in der Google Search
+Console eingereicht werden.
 Eine Search-Console-Verifizierung wird nicht ohne den tatsächlichen
 Verifizierungscode in den Quelltext eingetragen.

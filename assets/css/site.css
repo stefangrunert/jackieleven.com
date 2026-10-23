@@ -109,7 +109,7 @@ a { color: var(--accent); }
 .home-buehne { position: relative; height: 860px; overflow: hidden; }
 .home-portraet { position: absolute; inset: 52px 0 0; }
 .home-portraet img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 75% 30%; mask-image: linear-gradient(to top, transparent, black 45%); }
-.home-vers { position: absolute; left: var(--home-rand); top: 196px; max-width: 620px; }
+.home-vers { position: absolute; left: var(--home-rand); top: 166px; max-width: 620px; }
 .home-vers blockquote { color: var(--accent); font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(62px, 6vw, 72px); font-style: italic; font-weight: 400; line-height: 1.35; letter-spacing: -.01em; transform: translateX(-10px); }
 .home-vers figcaption { margin-top: 44px; font-family: var(--rough); font-size: 15px; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
 .home-name { position: absolute; left: var(--home-rand); top: 74px; }
