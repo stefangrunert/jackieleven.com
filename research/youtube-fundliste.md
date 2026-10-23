@@ -4,7 +4,7 @@ Stand: 23. Oktober 2026. 785 unterschiedliche Videos aus Suchläufen, den Album-
 
 Erfasst sind Titel, Kanal und Direktlink. Die Kategorien folgen Titeln, Kanalangaben und den Videobeschreibungen; bei Konzertmitschnitten sind Ort und Datum nur übernommen, wenn Titel oder Beschreibung sie nennen. „Format offen“ bedeutet, dass sich die Art der Aufnahme nicht sicher bestimmen lässt. Regionale Erreichbarkeit, Klangqualität und Rechtezuordnung sind nicht geprüft; die in der App verwendeten Videos waren am Stichtag per oEmbed erreichbar.
 
-In der App haben 343 Liedtitel ein Hörbeispiel (Studio bevorzugt, sonst die einzige auffindbare Aufnahme) und zusammen 134 Livefassungen. Die Zuordnung folgt dem Lied: dieselben Links stehen bei jedem Vorkommen des Stücks. Livefassungen aus offiziellen Livealben tragen Ort und Jahr oder den Albumtitel; Fan- und TV-Mitschnitte nur mit belegtem Ort. Je Konzert und Lied steht höchstens eine Fassung in der App. Längere Mitschnitte ohne Zeitmarken (etwa Greyhound London um 1983, Kiel 2001, Oslo 2010) bleiben ohne Liedzuordnung in dieser Liste.
+In der App haben 343 Liedtitel ein Hörbeispiel (Studio bevorzugt, sonst die einzige auffindbare Aufnahme) und zusammen 135 Livefassungen. Die Zuordnung folgt dem Lied: dieselben Links stehen bei jedem Vorkommen des Stücks. Livefassungen aus offiziellen Livealben tragen Ort und Jahr oder den Albumtitel; Fan- und TV-Mitschnitte nur mit belegtem Ort. Je Konzert und Lied steht höchstens eine Fassung in der App. Längere Mitschnitte ohne Zeitmarken (etwa Greyhound London um 1983, Kiel 2001, Oslo 2010) bleiben ohne Liedzuordnung in dieser Liste.
 
 ## Suchläufe
 
@@ -531,7 +531,7 @@ In der App haben 343 Liedtitel ein Hörbeispiel (Studio bevorzugt, sonst die ein
 | [Young Male Suicide Blessed by Invisible Woman](https://www.youtube.com/watch?v=0XlpljasetY) | Jackie Leven - Topic | Hörbeispiel: Young Male Suicide Blessed By Invisible Woman · 2 Ausgaben · Album: Forbidden Songs of the Dying West |
 | [Your Winter Days](https://www.youtube.com/watch?v=TWk_2nayhKE) | Jackie Leven - Topic | Hörbeispiel: Your Winter Days · 3 Ausgaben · Album: Defending Ancient Springs |
 
-## Aufnahme / Format offen (171)
+## Aufnahme / Format offen (170)
 
 | Titel / Video | Kanal | Zuordnung |
 |---|---|---|
@@ -572,7 +572,6 @@ In der App haben 343 Liedtitel ein Hörbeispiel (Studio bevorzugt, sonst die ein
 | [Doll by Doll - Lose Myself.](https://www.youtube.com/watch?v=RjGTcEEiKv4) | theepitts | noch offen |
 | [Doll By Doll - Main Travelled Roads](https://www.youtube.com/watch?v=egN-WbQjqO4) | Nigel Jones | noch offen |
 | [Doll by Doll - Main Travelled Roads](https://www.youtube.com/watch?v=SaH-GAjh9qs) | Chefgruesser | noch offen |
-| [Doll By Doll - Main Travelled Roads 1981](https://www.youtube.com/watch?v=ZI-41V7SgEA) | fritz51332 | noch offen |
 | [Doll By Doll - More Than Human](https://www.youtube.com/watch?v=u5WN1iKEEUw) | DAudino | noch offen |
 | [Doll by Doll - More Than Human.](https://www.youtube.com/watch?v=2bMNJ9Nkumc) | theepitts | noch offen |
 | [Doll By Doll - Natural.](https://www.youtube.com/watch?v=q5EyxqkcS98) | theepitts | noch offen |
@@ -764,7 +763,7 @@ In der App haben 343 Liedtitel ein Hörbeispiel (Studio bevorzugt, sonst die ein
 | [The Skaters - Johnny Dowd from Jackie Leven's record "oh what a blow that phantom dealt me!"](https://www.youtube.com/watch?v=MJWrdd-WFmg) | giugiusansan | noch offen |
 | [Tyla J.Pallas-Ode to Jackie Leven(Live)](https://www.youtube.com/watch?v=QiiZbpGPp98) | uomoerrante | noch offen |
 
-## Live (167)
+## Live (168)
 
 | Titel / Video | Kanal | Zuordnung |
 |---|---|---|
@@ -787,6 +786,7 @@ In der App haben 343 Liedtitel ein Hörbeispiel (Studio bevorzugt, sonst die ein
 | [Deep Choking Wooded Death Fix](https://www.youtube.com/watch?v=ilm0uD5LJyk) | Jackie Leven - Topic | Livefassung: Deep Choking Wooded Death Fix · 4 Ausgaben · London 1998 · Album: The Haunted Year - Spring |
 | [Desolation Blues](https://www.youtube.com/watch?v=j54yq7FtYTw) | Jackie Leven - Topic | Livefassung: Desolation Blues · 6 Ausgaben · London, 12 Bar Club · Album: For Peace Comes Dropping Slow |
 | [Doll by Doll - An Honest Woman (live) Warning strobe lighting](https://www.youtube.com/watch?v=vDIKX_u0c5g) | hp source | An Honest Woman · 3 Ausgaben · Ort offen |
+| [Doll By Doll - Main Travelled Roads 1981](https://www.youtube.com/watch?v=ZI-41V7SgEA) | fritz51332 | Livefassung: Main Travelled Roads · 7 Ausgaben · ZDF Disco, 1981 |
 | [Doll by Doll - sound check and partial Nashville gig 1979.](https://www.youtube.com/watch?v=dtR5wCte0Dg) | Ian Rodgers | noch offen · Nashville (London), 1979 |
 | [Doll By Doll - Strip Show (1997 Reunion)](https://www.youtube.com/watch?v=E98KnI88a7I) | TB897 | Livefassung: Strip Show · 2 Ausgaben · Bergen 1997 |
 | [Empty In Soho Square (Live, Bremen, 2004)](https://www.youtube.com/watch?v=AmexnCIrKKA) | Jackie Leven - Topic | Livefassung: Empty In Soho Square · 6 Ausgaben · Bremen 2004 · Album: Live Or Die (Live in Bremen, 1999, 2004) |

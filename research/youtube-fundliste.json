@@ -9135,25 +9135,6 @@
       "checked": "2026-10-23"
     },
     {
-      "id": "ZI-41V7SgEA",
-      "title": "Doll By Doll - Main Travelled Roads 1981",
-      "url": "https://www.youtube.com/watch?v=ZI-41V7SgEA",
-      "channel": "fritz51332",
-      "channelUrl": "",
-      "category": "Aufnahme / Format offen",
-      "source": "Suchtreffer",
-      "queries": [
-        "Doll by Doll live",
-        "Doll by Doll Old Grey Whistle Test",
-        "Doll by Doll Old Grey Whistle Test",
-        "Doll by Doll 1979",
-        "Sir Vincent Lone live",
-        "Doll by Doll A Bright Green Field live"
-      ],
-      "releases": [],
-      "checked": "2026-10-23"
-    },
-    {
       "id": "u5WN1iKEEUw",
       "title": "Doll By Doll - More Than Human",
       "url": "https://www.youtube.com/watch?v=u5WN1iKEEUw",
@@ -12507,6 +12488,36 @@
         "1981-caritas",
         "1981-caritas-12",
         "2008-troubadour-heart"
+      ],
+      "checked": "2026-10-23"
+    },
+    {
+      "id": "ZI-41V7SgEA",
+      "title": "Doll By Doll - Main Travelled Roads 1981",
+      "url": "https://www.youtube.com/watch?v=ZI-41V7SgEA",
+      "channel": "fritz51332",
+      "channelUrl": "",
+      "category": "Live",
+      "source": "Suchtreffer",
+      "recorded": "ZDF Disco, 1981",
+      "use": "live",
+      "queries": [
+        "Doll by Doll live",
+        "Doll by Doll Old Grey Whistle Test",
+        "Doll by Doll Old Grey Whistle Test",
+        "Doll by Doll 1979",
+        "Sir Vincent Lone live",
+        "Doll by Doll A Bright Green Field live"
+      ],
+      "songKey": "maintravelledroads",
+      "releases": [
+        "1981-doll-by-doll",
+        "1981-main-travelled-roads",
+        "1997-for-peace-comes-dropping-slow",
+        "2002-greetings-from-milford",
+        "2007-doll-by-doll-reissue",
+        "2009-the-haunted-year-spring",
+        "2021-the-wanderer-a-tribute-to-jackie-leven"
       ],
       "checked": "2026-10-23"
     },

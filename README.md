@@ -114,7 +114,7 @@ Titel; Bandcamp führt die 22 Stücke des Tribute-Albums in anderer Reihenfolge.
 
 `app/data/youtube-titel.json` ordnet 343 Liedtiteln je eine Liste von YouTube-Aufnahmen zu:
 zuerst das Hörbeispiel (Studioaufnahme bevorzugt, offizielle Topic- und Labelkanäle vor
-Fan-Uploads), danach insgesamt 134 Livefassungen. Die Zuordnung folgt dem Lied, **nicht der
+Fan-Uploads), danach insgesamt 135 Livefassungen. Die Zuordnung folgt dem Lied, **nicht der
 konkreten Aufnahme**: dieselben Links erscheinen bei jedem Vorkommen, auch über Studio-/Livefassungen
 und Wiederveröffentlichungen hinweg. Das Hörbeispiel steht als YouTube-Symbol in der Zeile; die
 Livefassungen folgen chronologisch in einer kleinen Zeile „Live“ unter dem Liedtitel, mit Ort und
@@ -131,7 +131,7 @@ wenige belegte Schreibvarianten werden normalisiert; „Intro“ bleibt ohne Lin
 Einleitungen denselben Titel tragen. Der Tooltip nennt das tatsächliche Video, gegebenenfalls das
 Album, und den Kanal. `diskografie_youtube()` liefert das Hörbeispiel,
 `diskografie_youtube_fassungen()` die ganze Liste. Auf den derzeitigen Titellisten haben damit
-813 von 881 Trackeinträgen auf 84 Ausgabenseiten ein Hörbeispiel, dazu kommen 869 Livelinks.
+813 von 881 Trackeinträgen auf 84 Ausgabenseiten ein Hörbeispiel, dazu kommen 876 Livelinks.
 
 Die Recherche liegt unter `research/youtube-fundliste.md`, als strukturierte Daten unter
 `research/youtube-fundliste.json` und als lokal durchsuchbare Tabelle unter
