@@ -29,7 +29,7 @@ $captureText = (int) $capture[2] . (sprache() === 'de' ? '. ' : ' ') . kolumnen_
 
   <aside class="pool-quellennotiz" id="quellenhinweis" role="note">
     <p><?= e(t('pool.quelle')) ?> <?= e($k['website']) ?>.
-      <a href="<?= e($k['archiv']) ?>" rel="noopener noreferrer"><?= e(t('pool.archivlink')) ?> <span aria-hidden="true">↗</span></a>
+      <a href="<?= e($k['archiv']) ?>" rel="noopener noreferrer"><?= e(t('pool.archivlink')) ?></a>
     </p>
     <details>
       <summary><?= e(t('pool.hinweis_titel')) ?></summary>

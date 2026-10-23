@@ -4,7 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
 /** Seiten mit übersetzten Pfadstücken (pfad.<name> in app/lang/<sprache>.php). */
-const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'ueber'];
+const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'ueber', 'mitmachen'];
 
 function nicht_gefunden(): never
 {
@@ -26,7 +26,7 @@ if (!in_array($teile[0], SPRACHEN, true)) {
     sprache(bevorzugte_sprache());   // nur für eine etwaige 404-Seite
     [$alt, $rest] = [$teile[0], count($teile)];
     if ($alt === 'zeitreise' && $rest === 1) {
-        weiter(url('start', [], STANDARD_SPRACHE));
+        weiter(url('zeitreise', [], STANDARD_SPRACHE));
     }
     if ($alt === 'station' && $rest === 2) {
         weiter(url('station', ['slug' => SLUG_ALIAS[$teile[1]] ?? $teile[1]], STANDARD_SPRACHE));
@@ -45,7 +45,7 @@ if ($teile === []) {
         weiter(url('start'));
     }
     route('start');
-    seite(render('zeitreise', ['aktiv' => 0]), t('titel.start'), 'zeitreise');
+    seite(render('start'), t('titel.start'), 'start');
     exit;
 }
 
@@ -67,7 +67,10 @@ $richtig = $teile[0] === t("pfad.$seite");
 
 if ($seite === 'station') {
     if (count($teile) === 1) {
-        weiter(url('start'));                    // /de/zeitreise → /de/
+        if (!$richtig) weiter(url('zeitreise'));
+        route('zeitreise');
+        seite(render('zeitreise', ['aktiv' => 0]), t('titel.zeitreise'), 'zeitreise');
+        exit;
     }
     if (count($teile) !== 2) {
         nicht_gefunden();
@@ -127,6 +130,19 @@ if ($seite === 'pool') {
     exit;
 }
 
+// Jede im Katalog geführte Ausgabe hat ihre eigene Detailseite.
+if ($seite === 'diskografie' && count($teile) === 2) {
+    $i = diskografie_index($teile[1]);
+    if ($i < 0) nicht_gefunden();
+    $kontext = diskografie_kontext($_GET);
+    if (!$richtig) weiter(diskografie_link($teile[1], $kontext));
+    $platte = diskografie()['releases'][$i];
+    route('platte', ['slug' => $platte['id']]);
+    seite(render('platte', ['platte' => $platte, 'kontext' => $kontext]),
+        $platte['title'] . ' · ' . $platte['year'] . ' · ' . t('nav.diskografie'), 'diskografie');
+    exit;
+}
+
 // Kapitel der Pastiche: /de/biografie/07-electric-fur
 if ($seite === 'biografie' && count($teile) === 2) {
     $i = kapitel_index($teile[1]);
@@ -155,6 +171,12 @@ if (!$richtig) {
     weiter(url($seite));
 }
 route($seite);
+if ($seite === 'mitmachen') {
+    require APP_ROOT . '/kontakt.php';
+    $formular = kontakt_bearbeiten();
+    seite(render('mitmachen', $formular), t('titel.mitmachen'), 'mitmachen', $formular['status']);
+    exit;
+}
 if ($seite === 'diskografie') {
     seite(render('diskografie'), t('titel.diskografie'), 'diskografie');
     exit;

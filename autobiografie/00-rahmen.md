@@ -1,6 +1,6 @@
 # Rahmen: Was dieses Buch ist — und was nicht
 
-**Dieser Text ist nicht von Jackie Leven.** Er ist eine Pastiche: von uns geschrieben, in seiner Stimme, auf Grundlage dessen, was er selbst über sich erzählt hat. Jackie Leven hat nie eine Autobiografie geschrieben. Dieses Buch ist der Versuch, die eine zu bauen, die er hätte schreiben können.
+Dieses Buch ist eine von uns verfasste Pastiche auf Grundlage von Jackie Levens Kolumnen und Blogtexten. Es orientiert sich an seiner Erzählweise und verbindet Erinnerungen, die er selbst erzählt hat, mit erfundenen Szenen und Gesprächen. Die Anmerkungen am Ende der Kapitel erläutern, worauf wir uns gestützt und was wir hinzugedacht haben.
 
 Diese Kennzeichnung ist keine Formalie. Leven war ein notorischer Ausschmücker — Bob Dylan als Ko-Autor, die Profikillerin als Song-Inspiration, der eigene Whisky. Seine echten Erinnerungen klingen bereits wie Erfindungen. Wenn erfundene Ich-Prosa ungekennzeichnet danebensteht, kann später niemand mehr trennen, was von ihm stammt und was von uns. Deshalb gilt:
 
@@ -53,7 +53,7 @@ Gewählt ist die **frühe Kolumnenstimme**: kleines „i", Gedankenstriche statt
 
 Seit dem 27. September 2026 steht das Buch auf der Hommage-Seite unter „Biografie". Der Rahmen gilt dort so:
 
-- **Jede Kapitelseite** beginnt mit dem Kasten „Pastiche — Nicht von Jackie Leven", nicht nur die Übersicht, weil Leser über Links mitten ins Buch kommen.
+- **Jede Kapitelseite** beginnt mit einem kurzen Hinweis unter „Pastiche“, der unsere Urheberschaft und die Verbindung von überlieferten Erinnerungen mit erfundenen Szenen erklärt, weil Leser über Links mitten ins Buch kommen.
 - **„Pastiche" steht im Seitentitel**, also auch in Browser-Tabs, Lesezeichen und geteilten Links.
 - **Keine Zitatauszeichnung.** Echte Zitate sind auf der Seite kursiv, gold gerandet und tragen eine Quelle mit Datum und Archivlink. Die Pastiche steht in geradem Satz, ohne Quellenzeile.
 - **`noindex`** (Meta-Tag und `X-Robots-Tag`) auf allen Kapitelseiten: Suchmaschinen würden einzelne Sätze ohne Kontext als Levens ausgeben.

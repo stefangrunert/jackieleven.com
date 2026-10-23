@@ -14,7 +14,7 @@ $lang  = fn(string $s) => $s !== sprache() ? ' lang="' . e($s) . '"' : '';
 
   <aside class="pastiche-hinweis" role="note">
     <span class="etikett"><?= e(t('pastiche.etikett')) ?></span>
-    <p><strong><?= e(t('pastiche.nicht_von')) ?></strong> <?= e(t('pastiche.erklaerung')) ?>
+    <p><?= e(t('pastiche.erklaerung')) ?>
       <a href="<?= e(url('biografie')) ?>"><?= e(t('pastiche.ueber_buch')) ?></a></p>
   </aside>
 

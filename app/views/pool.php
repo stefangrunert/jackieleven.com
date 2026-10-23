@@ -28,7 +28,6 @@ foreach ($liste as $k) {
               <a href="<?= e(url('kolumne', ['slug' => $k['slug']])) ?>">
                 <span class="pool-listendatum"><time datetime="<?= e($k['datum']) ?>"><?= e(kolumnen_datum($k)) ?></time><?php if ($k['datierung'] === 'archivdatum'): ?><small><?= e(t('pool.archivdatum')) ?></small><?php endif; ?></span>
                 <span class="pool-listenrubrik"><span lang="en"><?= e(kolumnen_rubrik($k)) ?></span><?php if ($k['autor'] !== 'Jackie Leven'): ?><small><?= e(t('pool.webmaster')) ?></small><?php endif; ?></span>
-                <span class="pool-pfeil" aria-hidden="true">↗</span>
               </a>
             </li>
           <?php endforeach; ?>

@@ -1,47 +1,55 @@
 <article class="text-seite">
   <p class="kicker">Über diese Seite</p>
-  <h1>Eine private Hommage</h1>
+  <h1>Eine persönliche Hommage</h1>
 
-  <p class="lead">Diese Seite vertritt weder Jackie Levens Nachlass noch eine Plattenfirma.
-  Sie ist entstanden, weil seine Musik jemandem viel bedeutet.</p>
+  <p class="lead">Seit ich Jackie Anfang der 2000er Jahre das erste Mal in Drammen im Konzert
+  erlebt habe, begleitet er mein Leben. Nicht ständig, nicht immer gleich nah, manche Zeiten
+  auch abwesend. Aber er kehrt immer wieder zurück in meinen Orbit und ist da, wenn ich ihn
+  brauche.</p>
 
-  <h2>Woher das Material stammt</h2>
-  <p>Jackie Leven hat zwischen Oktober 2002 und Herbst 2011 auf seinen eigenen Websites
-  geschrieben: erst die Monatskolumne <em>The Deep Pool</em> auf jackieleven.com, ab 2008 einen
-  Blog und mehrere Rubriken auf jackieleven.co.uk. Beide Seiten sind seit Jahren offline. Über das
-  Internet Archive ließen sich 76 Beiträge dieser Websites wiederherstellen, rund 90.000 Wörter.
-  Dazu gehören auch einige spätere Mitteilungen der Website-Betreiber.</p>
-  <p>Jedes Zitat auf dieser Seite stammt wortgetreu aus diesen Texten und ist mit Datum und
-  Archivlink belegt. Die Zitate stehen in jeder Sprachfassung im englischen Original; nichts davon
-  ist übersetzt, nachgedichtet oder sinngemäß wiedergegeben. Die Begleittexte sind unsere und
-  stehen nie in Anführungszeichen.</p>
+  <p>Warum das so ist, kann ich selbst schwer erklären, und ich will es auch gar nicht
+  versuchen. Im Frühjahr dieses Jahres ist er nun mit besonderer Intensität zurückgekommen,
+  so intensiv, dass ich mehr über ihn als Menschen wissen wollte.</p>
 
-  <h2>Das Textarchiv</h2>
-  <p>Unter <a href="<?= e(url('pool')) ?>">The Deep Pool</a> sind die erhaltenen Beiträge
-  bis einschließlich der Todesanzeige vom November 2011 vollständig im englischen Original zu lesen. Die Lektüre beginnt mit der ersten Kolumne;
-  von dort geht es Text für Text weiter. Über „Alle Texte“ lässt sich ein bestimmtes Jahr aufschlagen. Jeder Beitrag trägt einen Quellenhinweis und
-  einen Link zur erhaltenen Archivfassung. Ist nur das Archivdatum bekannt, wird es als
-  solches bezeichnet. Die Rechte an den Texten liegen bei den jeweiligen Rechteinhabern.</p>
+  <p>Ich habe daraufhin das Netz durchsucht und dabei festgestellt: Jackie beginnt nach und
+  nach in der Anonymität zu verschwinden. Seine Website, die so viel Persönliches von ihm
+  zeigte, ist nicht mehr online. In den sozialen Medien gibt es wenig, wenn überhaupt, Aktivität.
+  In der Presse – kaum noch etwas. Seine Musik wird auf Spotify und Co. nur selten gehört.
+  Ein einziges seiner Lieder wird etwas häufiger gehört. Ich vermute jedoch, die, die es
+  anklicken, tun es meistens wegen des Titels, nicht wegen der Musik.</p>
 
-  <h2>Was hier nicht steht</h2>
-  <p>Keine erfundenen Zitate. Leven war ein notorischer Geschichtenerzähler — Bob Dylan als
-  angeblicher Ko-Autor, ein eigener Whisky, eine Auftragsmörderin als Inspiration —, und schon
-  seine echten Erinnerungen klingen wie Erfindungen. Deshalb wird ihm auf dieser Seite kein Satz
-  als Zitat zugeschrieben, den er nicht geschrieben hat.</p>
-  <p>Über den Überfall, der ihn beinahe die Stimme gekostet hat, hat er in neun Jahren
-  öffentlichen Schreibens nichts gesagt. An dieser Station steht deshalb kein Zitat.</p>
+  <p>Deshalb ist diese Seite entstanden.</p>
+
+  <h2>Die Geschichte von jackieleven.com</h2>
+  <p>Jackieleven.com geht auf eine Fanseite zurück, die
+  <a href="https://web.archive.org/web/20030704141900/http://home.xnet.it:80/tout/HTML/contact.htm">Jan Saghaug 1996 gründete</a>.
+  Ab 2002 schrieb Jackie dafür seine Monatskolumne <em>The Deep Pool</em>.
+  2008 wechselte sein Webauftritt zu jackieleven.co.uk; die .com-Domain wurde noch im selben Jahr
+  <a href="https://web.archive.org/web/20081010185655/http://www.jackieleven.com/">geparkt</a>
+  und später für andere Inhalte genutzt.</p>
+  <p>Mit der heutigen Seite möchte ich an die Arbeit der Menschen anknüpfen, die diese
+  Fanseite aufgebaut und Jackies Webauftritt gemeinsam mit ihm gestaltet haben.</p>
+
+  <h2>Jackies Texte</h2>
+  <p>Die früheren Websites sind seit Jahren offline. Im Internet Archive sind viele ihrer
+  Beiträge erhalten geblieben. Unter <a href="<?= e(url('pool')) ?>">The Deep Pool</a> stehen
+  Jackies Kolumnen und Blogtexte von 2002 bis 2011 sowie die Mitteilung über seinen Tod im
+  November 2011. Sie sind hier im englischen Wortlaut zu lesen. Die Links zu den Archivseiten
+  führen zu den erhaltenen Fassungen.</p>
+
+  <p>Die <a href="<?= e(url('zeitreise')) ?>">Zeitreise</a> verbindet Stationen seines Lebens
+  mit Auszügen aus diesen Texten. Auch die Zitate bleiben auf Englisch. Manche biografischen
+  Angaben widersprechen sich; wo ein Jahr nur ungefähr feststeht, ist das bei der jeweiligen
+  Station vermerkt.</p>
 
   <h2>Die Pastiche</h2>
-  <p>Unter <a href="<?= e(url('biografie')) ?>">Biografie</a> steht eine Autobiografie in Levens
-  Stimme, die nicht von ihm ist. Wir haben sie aus seinen eigenen Texten gebaut. Jede Seite davon
-  ist als Pastiche gekennzeichnet, nichts daraus steht in Zitatform, und jedes Kapitel endet mit
-  einer Aufstellung, was belegt und was erfunden ist. Suchmaschinen sind für diese Seiten
-  ausgeschlossen, damit keine Sätze daraus ohne diesen Zusammenhang als seine in Umlauf geraten.</p>
-  <p>Seine echten Worte erkennt man hier daran, dass sie eine Quelle mit Datum und Archivlink
-  tragen.</p>
+  <p>Die <a href="<?= e(url('biografie')) ?>">Biografie</a> ist eine von uns verfasste Pastiche,
+  die sich an Jackies Erzählweise orientiert. Sie verbindet Erinnerungen aus seinen Kolumnen
+  und Blogtexten mit erfundenen Szenen und Gesprächen. In den Anmerkungen zu den Kapiteln
+  erläutern wir, worauf wir uns gestützt und was wir hinzugedacht haben.</p>
 
-  <h2>Widersprüche</h2>
-  <p>Die Quellen widersprechen sich an vielen Stellen: zwei Geburtsdaten, zwei Gründungsjahre der
-  Band, zwei Jahre für den Überfall, drei Angaben zur Krebsart. Einige Jahreszahlen der Zeitreise
-  sind deshalb Näherungen, und wo das so ist, steht es bei der Station.</p>
+  <h2>Erinnerungen und Hinweise</h2>
+  <p>Wenn du Erinnerungen an Jackie teilen oder etwas zu dieser Seite beitragen möchtest,
+  <a href="mailto:stefan@jackieleven.com">schreib mir gern</a>. Auch Hinweise auf Fehler oder
+  fehlende Texte helfen mir weiter.</p>
 </article>

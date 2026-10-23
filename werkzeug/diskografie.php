@@ -11,6 +11,25 @@ function pruefe_disk(bool $ok, string $fehler): void
 $daten = diskografie();
 $platten = $daten['releases'];
 $ids = array_column($platten, 'id');
+$details = json_decode(file_get_contents(APP_ROOT . '/data/diskografie-details.json'), true, flags: JSON_THROW_ON_ERROR);
+foreach ($details as $id => $detail) {
+    pruefe_disk(in_array($id, $ids, true), 'Details ohne Katalogeintrag: ' . $id);
+    pruefe_disk(!empty($detail['sources']), 'Detailquelle fehlt: ' . $id);
+    foreach ($detail['sources'] as $quelle) {
+        pruefe_disk(filter_var($quelle['url'], FILTER_VALIDATE_URL) !== false && $quelle['label'] !== '', 'Ungültige Detailquelle: ' . $id);
+    }
+    foreach ($detail['tracklists'] ?? [] as $liste) {
+        pruefe_disk($liste['tracks'] !== [], 'Leere Titelliste: ' . $id);
+        foreach ($liste['tracks'] as $track) {
+            pruefe_disk(is_string($track['number']) && $track['number'] !== '' && $track['title'] !== '', 'Unvollständiger Track: ' . $id);
+        }
+        foreach (SPRACHEN as $s) pruefe_disk(!isset($liste['label']) || isset($liste['label'][$s]), 'Datenträgerbezeichnung fehlt: ' . $id);
+    }
+    foreach (SPRACHEN as $s) {
+        foreach ($detail['credits'] ?? [] as $credit) pruefe_disk(isset($credit['role'][$s]) && $credit['name'] !== '', 'Unvollständige Credits: ' . $id);
+        foreach ($detail['facts'] ?? [] as $fakt) pruefe_disk(isset($fakt['label'][$s], $fakt['value'][$s]), 'Unvollständige Fakten: ' . $id);
+    }
+}
 pruefe_disk(count($ids) === count(array_unique($ids)), 'Doppelte Plattenadresse.');
 $jahre = array_column($platten, 'year');
 $sortiert = $jahre;
@@ -53,9 +72,42 @@ foreach (SPRACHEN as $s) {
     }
     foreach ($ids as $id) {
         pruefe_disk($xpath->query('//article[@id="' . $id . '"]')->length === 1, 'Platte nicht eindeutig erreichbar: ' . $id);
+        $links = $xpath->query('//article[@id="' . $id . '"]//a[@data-release-link]');
+        pruefe_disk($links->length > 0, 'Detailverlinkung fehlt: ' . $id);
+        foreach ($links as $link) pruefe_disk($link->getAttribute('href') === url('platte', ['slug' => $id]), 'Titel oder Cover führen nicht zur Detailseite.');
     }
     pruefe_disk(!preg_match('/>disk\.[a-z_]+</', $html), 'Unübersetzter Oberflächentext.');
     route('diskografie');
     pruefe_disk(alternativ_url($s) === url('diskografie', [], $s), 'Sprachwechsel verliert die Route.');
+
+    foreach ($platten as $i => $platte) {
+        $html = render('platte', ['platte' => $platte, 'kontext' => []]);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $html);
+        libxml_clear_errors();
+        $xp = new DOMXPath($dom);
+        pruefe_disk($xp->query('//h1')->length === 1, 'Detailtitel fehlt.');
+        $aktiv = $xp->query('//a[@aria-current="page"]');
+        pruefe_disk($aktiv->length === 1 && $aktiv[0]->getAttribute('href') === diskografie_link($platte['id']), 'Falscher aktiver Zeitstrahleintrag: ' . $platte['id']);
+        foreach (['prev' => $i - 1, 'next' => $i + 1] as $rel => $nachbar) {
+            $links = $xp->query('//a[@rel="' . $rel . '"]');
+            pruefe_disk($links->length === (isset($platten[$nachbar]) ? 2 : 0), 'Fehler am Rand der Navigation.');
+            foreach ($links as $link) pruefe_disk($link->getAttribute('href') === diskografie_link($platten[$nachbar]['id']), 'Falsche chronologische Nachbarplatte.');
+        }
+        $n = array_sum(array_map(fn($liste) => count($liste['tracks']), $details[$platte['id']]['tracklists'] ?? []));
+        pruefe_disk($xp->query('//ol[@class="disk-tracks"]/li')->length === $n, 'Tracks fehlen auf der Detailseite.');
+        pruefe_disk(!str_contains($html, 'class="disk-notiz"'), 'Redaktionelle Beschreibung auf der Detailseite.');
+        pruefe_disk(!preg_match('/>disk\.[a-z_]+</', $html), 'Unübersetzter Detailtext.');
+        route('platte', ['slug' => $platte['id']]);
+        foreach (SPRACHEN as $ziel) pruefe_disk(alternativ_url($ziel) === url('platte', ['slug' => $platte['id']], $ziel), 'Sprachwechsel verliert die Ausgabe.');
+    }
 }
-echo count($platten) . " Einträge: Chronologie, Aliasse, Quellen, Sprungziele und DE/EN geprüft.\n";
+
+$kontext = diskografie_kontext(['projekt' => 'haunted-valley', 'format' => 'alben', 'von' => '1999-greek-notebook', 'fremd' => 'ignorieren']);
+pruefe_disk(count($kontext) === 3, 'Unbekannte Query übernommen.');
+pruefe_disk(diskografie_kontext(['projekt' => ['x'], 'format' => 'x', 'von' => ['x']]) === [], 'Ungültige Query nicht abgefangen.');
+pruefe_disk(diskografie_index('fehlt') === -1, 'Unbekannte Ausgabe gefunden.');
+$html = render('platte', ['platte' => $platten[diskografie_index('1999-greek-notebook')], 'kontext' => $kontext]);
+pruefe_disk(str_contains($html, e(diskografie_link('2000-munich-blues', $kontext))), 'Filterkontext geht beim Blättern verloren.');
+pruefe_disk(!str_contains($html, 'href="' . url('platte', ['slug' => '2000-defending-ancient-springs'])), 'Gefilterte Navigation enthält andere Projekte.');
+pruefe_disk(str_contains($html, e(diskografie_zurueck('1999-greek-notebook', $kontext))), 'Rückweg verliert Filter oder Ursprung.');
+echo count($platten) . " Einträge: Details, Titellisten, Quellen, DE/EN, chronologische Navigation und Filterkontext geprüft.\n";

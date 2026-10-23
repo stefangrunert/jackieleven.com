@@ -202,9 +202,11 @@ function url(string $route, array $p = [], ?string $s = null): string
     $s ??= sprache();
     return match ($route) {
         'start'   => "/$s/",
+        'zeitreise' => "/$s/" . t('pfad.station', [], $s),
         'station' => "/$s/" . t('pfad.station', [], $s) . '/' . rawurlencode($p['slug']),
         'kapitel' => "/$s/" . t('pfad.biografie', [], $s) . '/' . rawurlencode($p['slug']),
         'kolumne' => "/$s/" . t('pfad.pool', [], $s) . '/' . rawurlencode($p['slug']),
+        'platte' => "/$s/" . t('pfad.diskografie', [], $s) . '/' . rawurlencode($p['slug']),
         'pool_archiv' => "/$s/" . t('pfad.pool', [], $s) . '/' . t('pfad.pool_archiv', [], $s),
         default   => "/$s/" . t('pfad.' . $route, [], $s),
     };

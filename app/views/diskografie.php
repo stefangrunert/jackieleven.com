@@ -52,12 +52,12 @@
                      data-projekte="<?= e(implode(' ', $platte['tags'])) ?>" data-format="<?= e($platte['kind']) ?>" aria-labelledby="titel-<?= e($platte['id']) ?>">
               <?php if (isset($platte['cover'])): ?>
                 <figure class="disk-cover">
-                  <img src="<?= e($platte['cover']) ?>" alt="<?= e(t('disk.cover', ['titel' => $platte['title']])) ?>" width="600" height="600" loading="<?= $platte['id'] === '1973-control' ? 'eager' : 'lazy' ?>" decoding="async" referrerpolicy="no-referrer">
+                  <a href="<?= e(diskografie_link($platte['id'])) ?>" data-release-link="<?= e($platte['id']) ?>" aria-label="<?= e(t('disk.oeffnen', ['titel' => $platte['title']])) ?>"><img src="<?= e($platte['cover']) ?>" alt="<?= e(t('disk.cover', ['titel' => $platte['title']])) ?>" width="600" height="600" loading="<?= $platte['id'] === '1973-control' ? 'eager' : 'lazy' ?>" decoding="async" referrerpolicy="no-referrer"></a>
                 </figure>
               <?php endif; ?>
               <div class="disk-plattentext">
                 <p class="disk-kuenstler"><?= e($platte['artist']) ?></p>
-                <h3 id="titel-<?= e($platte['id']) ?>"><a href="#<?= e($platte['id']) ?>"><?= e($platte['title']) ?></a></h3>
+                <h3 id="titel-<?= e($platte['id']) ?>"><a href="<?= e(diskografie_link($platte['id'])) ?>" data-release-link="<?= e($platte['id']) ?>"><?= e($platte['title']) ?></a></h3>
                 <p class="disk-metadaten"><?= e(implode(' · ', array_filter([t('disk.type.' . $platte['kind']), $platte['format'], $platte['label']])) ) ?></p>
                 <?php if ($platte['notes'][sprache()] !== ''): ?><p class="disk-notiz"><?= e($platte['notes'][sprache()]) ?></p><?php endif; ?>
                 <details class="disk-details">
@@ -65,8 +65,8 @@
                   <?php if ($platte['catalog'] !== ''): ?><p><?= e(t('disk.katalognummer')) ?> <?= e($platte['catalog']) ?></p><?php endif; ?>
                   <?php if ($platte['tracks'] !== []): ?><p><?= e(t('disk.weitere_titel')) ?> <?= e(implode(' / ', $platte['tracks'])) ?></p><?php endif; ?>
                   <ul>
-                    <?php foreach ($platte['sources'] as $key): ?><li><a href="<?= e($quellen[$key]['url']) ?>" rel="noopener noreferrer"><?= e($quellen[$key]['label']) ?> ↗</a></li><?php endforeach; ?>
-                    <?php if (isset($platte['coverSource'])): ?><li><a href="<?= e($platte['coverSource']) ?>" rel="noopener noreferrer"><?= e(t('disk.coverquelle')) ?> ↗</a></li><?php endif; ?>
+                    <?php foreach ($platte['sources'] as $key): ?><li><a href="<?= e($quellen[$key]['url']) ?>" rel="noopener noreferrer"><?= e($quellen[$key]['label']) ?></a></li><?php endforeach; ?>
+                    <?php if (isset($platte['coverSource'])): ?><li><a href="<?= e($platte['coverSource']) ?>" rel="noopener noreferrer"><?= e(t('disk.coverquelle')) ?></a></li><?php endif; ?>
                   </ul>
                 </details>
               </div>

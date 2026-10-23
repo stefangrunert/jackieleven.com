@@ -1,23 +1,22 @@
 <article class="text-seite">
-  <p class="kicker">Biography</p>
-  <h1>The autobiography he never wrote</h1>
+  <p class="kicker">Pastiche</p>
+  <h1>A life in fifteen chapters</h1>
 
-  <aside class="pastiche-hinweis" role="note">
-    <span class="etikett">Pastiche</span>
-    <p><strong>This text is not by Jackie Leven.</strong> We wrote it, in his voice, from what he
-    told about himself. His own words are on the <a href="<?= e(url('start')) ?>">timeline</a>,
-    each with its source.</p>
-  </aside>
+  <p class="lead">Jackie often wrote about his life. In his columns, an everyday incident could
+  take him back to childhood or bring to mind someone he had been close to. Funny stories often
+  sit alongside painful memories.</p>
 
-  <p class="lead">Leven never wrote an autobiography. For nine years, though, he wrote about his
-  life on his websites, in a voice you come to recognise: a lower-case “i”, long sentences, dashes
-  instead of full stops, jokes at his own expense. This pastiche grew out of those texts: fifteen
-  chapters that follow his life in the order he lived it, not the order in which he told it.</p>
+  <p>The fifteen chapters here are a pastiche we have written from his columns and blog posts,
+  drawing on his way of telling a story. They follow the course of his life, combining memories
+  he shared with imagined scenes and conversations.</p>
 
-  <p>Leven liked to embroider his own story, and even his true memories often sound invented. So
-  that it stays possible to tell his words from ours, every chapter ends with a list of what is
-  documented and what we made up. Where he told tall tales himself, about Bob Dylan, the whisky or
-  the contract killer, the book tells them as his tales.</p>
+  <p>In the notes at the end of the chapters, we explain what we drew on and what we imagined.
+  Jackie’s own writing can be read in <a href="<?= e(url('pool')) ?>">The Deep Pool</a>;
+  excerpts also accompany the <a href="<?= e(url('zeitreise')) ?>">timeline</a>.</p>
+
+  <p>If you have memories of Jackie or know something about his life that is missing here,
+  <a href="mailto:stefan@jackieleven.com">please get in touch</a>. I’d welcome your contributions
+  as I continue to expand this biography.</p>
 
   <?= render('kapitelliste') ?>
 </article>

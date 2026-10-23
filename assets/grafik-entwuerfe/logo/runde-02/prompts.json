@@ -1,0 +1,15 @@
+{
+  "mode": "built-in image_gen",
+  "intent": "generate",
+  "use_case": "logo-brand",
+  "reference_images": [
+    "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/logo/logo-alte-seite.png",
+    "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/startseite/jackie-mit-gitarre.png"
+  ],
+  "prompt": "Use case: logo-brand.\nReinterpret the old Jackie Leven website emblem in image 1 faithfully for a small transparent website header. IMPORTANT CORRECT INTERPRETATION: the small upright white shape in the upper left is JACKIE LEVEN HIMSELF — his head/face and a hint of neck/collar, above the sweeping diagonal guitar. It is a person playing/holding a guitar. It is NOT a feather or leaf.\n\nUse image 1 as the definitive composition, scale and silhouette reference: a small white portrait around x=35%, y=35%, and the long guitar neck rising diagonally from the lower middle toward the upper right. The sweeping curved light shape toward the lower left evokes the arm/guitar body in the original, with a pointed lower termination. Keep this integrated, spare gesture of Jackie with his guitar. Avoid two disconnected clip-art icons. Leave most of the torso as transparent negative space, as in the old mark.\n\nImage 2 supplies identity cues ONLY for the small human portrait: Jackie Leven's full rounded face, substantial chin, swept-back wavy hair with irregular side curls, real adult male features, natural proportions. Render these as a tiny restrained white stencil/light-on-dark portrait, using only a few robust transparent cuts for eyes, nose and mouth. A slightly frontal three-quarter head as suggested by the old logo, not a leaf-shaped silhouette. Head and a short neck/open shirt collar must immediately read as a person, even at 48–56px total logo size. Keep portrait broadly in the original position and scale; do not draw a full detailed bust or a larger separate medallion.\n\nOne flat neutral soft-white ink #e4e6e8 on a genuinely TRANSPARENT background. The drawing is sparse, slightly uneven and expressive, preserving the original's recognisable diagonal movement. Refine the blurred low-resolution contours just enough for small-screen clarity. No paper texture, gradients, navy rectangle, black filled background, shading, glow, outlines around every shape, text, letters, circular frame or badge. No feather, quill, leaf, wing, flower or bird. Do not add other icons or a different instrument.\n\nDeliver one square transparent PNG emblem, about 85% canvas occupancy with balanced padding. This should read unmistakably as the old Jackie-with-guitar mark, with his small illuminated human face above the diagonal instrument.",
+  "generated_original": "/Users/stefan/.codex/generated_images/01a15df3-9302-7e60-97b6-e238397b828e/exec-090f205d-c321-411a-81cc-1cfa7093435a.png",
+  "workspace_output": "/Users/stefan/www/jackieleven/assets/grafik-entwuerfe/logo/runde-02/01-jackie-mit-gitarre.png",
+  "site_asset": "/Users/stefan/www/jackieleven/assets/bilder/jackie-leven-logo-portraet.png",
+  "status": "rejected-wrong-facing-direction",
+  "note": "Corrected interpretation: Jackie Leven's portrait with guitar, not a feather."
+}

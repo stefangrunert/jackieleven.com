@@ -1,0 +1,14 @@
+{
+  "mode": "built-in image_gen",
+  "intent": "generate",
+  "use_case": "logo-brand",
+  "reference_images": [
+    "/var/folders/3p/vpzqqvhj0sj9_5cs92kqjh8r0000gn/T/codex-clipboard-b51848b0-256c-4d07-8df6-6c1fe1a85583.png"
+  ],
+  "saved_photo_reference": "/Users/stefan/www/jackieleven/assets/grafik-vorlagen/logo/logo-alte-seite.png",
+  "prompt": "Use case: logo-brand.\nAsset type: small transparent header emblem for a personal Jackie Leven tribute website.\nReference: the attached low-resolution emblem from Jackie Leven's old website. Recreate its distinctive silhouette sympathetically and recognisably, with clarified edges for small sizes.\n\nThe reference contains two linked graphic gestures: a small upright feather/quill at the upper left of the main body, and an abstract electric guitar sweeping diagonally from lower left to upper right. Follow the reference's actual silhouette, proportions and diagonal direction closely. The long thin guitar neck points northeast to a small headstock near the upper right. Its body is a sweeping irregular curved form near the lower left, with a narrow pointed projection downward. The separate upright feather has a fine central shaft and a few irregular barbs, pointing down into the guitar area. Treat this as an evocative small mark for music and writing, not a detailed drawing of a new guitar.\n\nPreserve the simple, loose, slightly weathered hand-cut/brush silhouette of the original while removing scan blur and random isolated specks. Clear large shapes with a few irregular contour breaks. Keep inner details minimal and robust enough to read at 48–56 CSS pixels. No thin decorative hatching. Do not turn it into a circular badge, add wings, leaves, music notes or lettering, or invent another symbol.\n\nSingle flat soft white/light neutral grey ink, approximately #e4e6e8, on a genuinely transparent background. No navy background, no dark rectangle, no white square, no shadow, glow, gradient, embossing or 3D. No text.\nOutput a square transparent PNG, with the emblem centred and occupying about 85% of the canvas, roughly 512–1024px square. The main goal is an immediately recognisable refined version of the provided old website mark, ready to sit on anthracite.",
+  "generated_original": "/Users/stefan/.codex/generated_images/01a15df3-9302-7e60-97b6-e238397b828e/exec-fb0f936e-c661-49bc-a45c-281a795e3472.png",
+  "workspace_output": "/Users/stefan/www/jackieleven/assets/grafik-entwuerfe/logo/runde-01/01-feder-gitarre.png",
+  "site_asset": "/Users/stefan/www/jackieleven/assets/bilder/jackie-leven-logo.png",
+  "status": "superseded-incorrect-feather-interpretation"
+}

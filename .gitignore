@@ -12,3 +12,7 @@ sketches.zip
 # Lokales
 *.log
 /assets/grafik-vorlagen/
+
+# Zugangsdaten für den Formularversand
+/app/config.local.php
+/.dev/

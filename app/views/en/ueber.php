@@ -1,47 +1,52 @@
 <article class="text-seite">
   <p class="kicker">About this site</p>
-  <h1>A private tribute</h1>
+  <h1>A personal tribute</h1>
 
-  <p class="lead">This site represents neither Jackie Leven’s estate nor any record company.
-  It exists because his music means a great deal to someone.</p>
+  <p class="lead">Ever since I first saw Jackie in concert in Drammen in the early 2000s,
+  he has been part of my life. Not constantly, not always as close, sometimes absent for a
+  while. But he keeps coming back into my orbit and is there when I need him.</p>
 
-  <h2>Where the material comes from</h2>
-  <p>Between October 2002 and the autumn of 2011 Jackie Leven wrote on his own websites: first
-  the monthly column <em>The Deep Pool</em> on jackieleven.com, then from 2008 a blog and several
-  other features on jackieleven.co.uk. Both sites have been offline for years. Seventy-six of
-  entries from these websites, around 90,000 words, could be recovered through the Internet
-  Archive. The collection also includes a few later notices from the website editors.</p>
-  <p>Every quotation on this site is taken word for word from those texts and carries its date
-  and a link to the archived page. In every language version of the site the quotations appear
-  in his original English, and nothing in them is paraphrased or tidied up. The accompanying
-  texts are ours and never appear in quotation marks.</p>
+  <p>I find it hard to explain why, and I don’t really want to try. This spring, he came
+  back with particular intensity, so strongly that I wanted to know more about him as a
+  person.</p>
 
-  <h2>The writing archive</h2>
-  <p><a href="<?= e(url('pool')) ?>">The Deep Pool</a> brings together the surviving entries
-  up to and including the announcement of his death in November 2011, in full and in the original English. Reading begins with the first column and continues
-  from one entry to the next. “All texts” lets you turn to a particular year. Every entry includes its source and a link to the
-  surviving archive copy. Where only the archive date is known, it is labelled as such.
-  Rights to the texts remain with their respective holders.</p>
+  <p>So I searched the web and realised that Jackie is gradually fading into obscurity.
+  His website, which revealed so much of him as a person, is no longer online. On social
+  media, there is little activity, if any. In the press – hardly anything at all. His music
+  is rarely listened to on Spotify and similar platforms. One of his songs gets listened to
+  a little more often. I suspect, though, that people who click on it usually do so because
+  of the title, not the music.</p>
 
-  <h2>What you will not find here</h2>
-  <p>No invented quotations. Leven was a notorious teller of tall tales — Bob Dylan as an alleged
-  co-writer, a whisky of his own, a contract killer as a muse — and even his true memories sound
-  made up. So nothing on this site is attributed to him as a quotation unless he wrote it.</p>
-  <p>In nine years of writing in public he said nothing about the attack that nearly cost him
-  his voice, so that point on the timeline has no quotation.</p>
+  <p>That is why this site came into being.</p>
+
+  <h2>The history of jackieleven.com</h2>
+  <p>Jackieleven.com grew out of a fan site
+  <a href="https://web.archive.org/web/20030704141900/http://home.xnet.it:80/tout/HTML/contact.htm">founded by Jan Saghaug in 1996</a>.
+  From 2002, Jackie contributed his monthly column, <em>The Deep Pool</em>.
+  In 2008 his website moved to jackieleven.co.uk; the .com domain was
+  <a href="https://web.archive.org/web/20081010185655/http://www.jackieleven.com/">parked later that year</a>
+  and subsequently used for unrelated content.</p>
+  <p>With this site, I hope to carry on some of the work of the people who created that fan
+  site and developed Jackie’s websites with him.</p>
+
+  <h2>Jackie’s writing</h2>
+  <p>The old websites have been offline for years, but many of their entries survive in the
+  Internet Archive. <a href="<?= e(url('pool')) ?>">The Deep Pool</a> collects Jackie’s columns
+  and blog posts from 2002 to 2011, along with the announcement of his death in November 2011.
+  The texts are presented in their original English, with links to the surviving archive copies.</p>
+
+  <p>The <a href="<?= e(url('zeitreise')) ?>">timeline</a> places excerpts from this writing
+  alongside events in his life. These quotations remain in English on both versions of the site.
+  Some biographical accounts disagree; where a year is approximate, the entry says so.</p>
 
   <h2>The pastiche</h2>
-  <p>Under <a href="<?= e(url('biografie')) ?>">Biography</a> there is an autobiography in Leven’s
-  voice that is not by him. We built it from his own texts. Every page of it is marked as a
-  pastiche, nothing in it appears as a quotation, and every chapter ends with a list of what is
-  documented and what is invented. These pages are kept out of search engines so that sentences
-  from them do not end up circulating as his without that context.</p>
-  <p>His real words can be recognised here by their source: a date and a link to the archived
-  page.</p>
+  <p>The <a href="<?= e(url('biografie')) ?>">biography</a> is a pastiche we have written,
+  drawing on Jackie’s way of telling a story. It combines memories from his columns and blog
+  posts with imagined scenes and conversations. In the chapter notes, we explain what we
+  drew on and what we imagined.</p>
 
-  <h2>Contradictions</h2>
-  <p>The sources contradict each other in many places: two dates of birth, two founding years
-  for the band, two years for the attack, three different accounts of the cancer that killed
-  him. Some years on the timeline are therefore approximate, and where that is the case, the
-  entry says so.</p>
+  <h2>Memories and contributions</h2>
+  <p>If you would like to share memories of Jackie or contribute to this site,
+  <a href="mailto:stefan@jackieleven.com">please get in touch</a>. I’d also appreciate hearing
+  about any mistakes or writing that is missing from the collection.</p>
 </article>
