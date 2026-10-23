@@ -1,0 +1,16 @@
+[Unit]
+Description=Expire Jackie Leven contact sessions and old mail-limit counters
+
+[Service]
+Type=oneshot
+User=jackieleven
+Group=jackieleven
+ExecStart=/usr/bin/python3 /usr/local/libexec/jackieleven-clean-state.py
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/jackieleven/sessions /var/lib/jackieleven/contact
+MemoryMax=64M
+TimeoutStartSec=5min

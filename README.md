@@ -312,6 +312,48 @@ Die Konfigurationssicherung vor dem ersten Livegang liegt unter
 `/var/backups/jackieleven-site/20261023174928074550/`. Für normale Inhaltsupdates
 reicht `ops/deploy.sh --deploy`; die Aktivierung muss nicht wiederholt werden.
 
+### Sicherheitskonfiguration
+
+`ops/activate-site.py --activate` installiert außerdem die namensspezifischen
+nginx-Regeln aus `ops/nginx-security.conf` und die Zustandsbereinigung. Direkte
+öffentliche HTTP-/HTTPS-Aufrufe dieses VHosts erhalten 403; zugelassen sind die
+veröffentlichten Cloudflare-Netze und Loopback für lokale Betriebsprüfungen.
+Die Prüfung verwendet den ursprünglichen TCP-Peer (`$realip_remote_addr`), nicht
+den vom Proxy gemeldeten Besucher. Die HTTP-ACME-Challenge bleibt für die
+Zertifikatserneuerung erreichbar. Die Cloudflare-Netzliste wird bei jeder
+Konfigurationsaktivierung neu geladen. Full (Strict) bleibt aktiv. Das ist eine
+IP-basierte Zugangssperre, keine zonenspezifische gegenseitige TLS-Authentisierung.
+
+Vor PHP gelten je Besucher 5 Anfragen/Sekunde mit Burst 30 und höchstens 10
+gleichzeitige Anfragen. Die Kontaktpfade beider Sprachen teilen sich zusätzlich
+10 Anfragen/Minute mit Burst 5, auch für ungültige Eingaben und GET-Aufrufe.
+Abgewiesene Anfragen liefern 429. Statische Assets zählen nicht mit. Das
+PHP-Versandlimit bleibt zusätzlich bestehen. Anfragerümpfe sind auf 128 KiB
+begrenzt, ausreichend für die URL-kodierte maximale Nachrichtenlänge.
+
+Die CSP erlaubt eigene Skripte und die konkret benötigten YouTube-API-Pfade;
+Inline-JavaScript und eval bleiben gesperrt. Nur die vorgesehenen YouTube-Player
+dürfen eingebettet werden, während die Hommage selbst nicht in fremden Frames
+erscheinen darf. Bildquellen umfassen die vorhandenen Coverdienste und die
+Nationalbibliothek. Inline-Stile bleiben für die Player erlaubt. Kamera,
+Mikrofon, Standort, Zahlung und USB sind per Permissions-Policy deaktiviert.
+
+`jackieleven-clean-state.timer` läuft stündlich mit bis zu fünf Minuten Streuung.
+Der Dienst läuft als `jackieleven` und entfernt nur passende Sitzungsdateien
+nach sechs Stunden sowie Zähler nach zwei Tagen. Gesperrte Dateien, Symlinks und
+fremde Dateinamen bleiben erhalten. Die Bereinigung protokolliert nur Anzahlen.
+
+```sh
+python3 werkzeug/cleanup.py                   # Ablauf, Sperren, Symlinks, Aufbewahrung
+php werkzeug/kontakt.php                      # Formularprüfung ohne Mailversand
+python3 ops/check-site.py                     # normale Live-Prüfung
+python3 ops/check-security.py --origin-ip 77.42.46.154
+```
+
+Die letzte Prüfung erzeugt acht absichtlich ungültige Formular-POSTs, prüft die
+429-Sperre vor PHP und wartet auf deren Erholung. Nicht parallel zu anderen
+Kontaktformular-Tests ausführen. Sie versendet keine Nachricht.
+
 ## Interimsseite auf jackieleven.com
 
 Am 23. Oktober 2026 wurde zunächst eine eigenständige, statische Interimsseite auf
