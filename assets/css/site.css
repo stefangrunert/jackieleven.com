@@ -1078,3 +1078,56 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
   .hoer-stueck { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 3rem; }
   .hoer-stueck + .hoer-stueck { padding-top: 3rem; }
 }
+
+/* Stimmen: externe Quellen im Zeitstrahl, ohne Bilder und ohne externe Anfragen. */
+.stimmen-hinweis { color: var(--ink-dim); font-size: 16px; max-width: 46rem; margin-top: 1rem; }
+.stimmen-filter { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem 1.2rem; margin: 2rem 0 .6rem; }
+.stimmen-filter label { display: grid; gap: .3rem; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.stimmen-filter select { min-width: 11rem; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--ink); font: 16px/1.3 var(--serif, inherit); }
+.stimmen-filter button { padding: .55rem 1rem; border: 1px solid var(--accent); border-radius: 2px; background: transparent; color: var(--accent); font: inherit; cursor: pointer; }
+.stimmen-filter button:hover { background: var(--accent); color: var(--bg); }
+.stimmen-zuruecksetzen { align-self: center; font-size: 15px; }
+.stimmen-treffer { color: var(--ink-dim); font-family: var(--rough); font-size: 12px; letter-spacing: .06em; }
+.stimmen-jahr > h2 { margin-bottom: .4rem; }
+.stimme { padding: 1.1rem 0; border-top: 1px solid var(--line); }
+.stimme-meta { color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; line-height: 1.6; margin: 0; }
+.stimme-ausgewaehlt { color: var(--accent); text-transform: uppercase; letter-spacing: .12em; }
+.stimme h3 { font-size: 21px; font-weight: 400; line-height: 1.3; margin: .3rem 0 .4rem; }
+.stimme--auswahl h3 { font-size: 26px; }
+.stimme h3 a { color: var(--ink); text-decoration: none; }
+.stimme h3 a:hover, .stimme h3 a:focus-visible { color: var(--accent); }
+.stimme-kurz { color: var(--ink-soft); font-size: 17px; line-height: 1.55; margin: 0; max-width: 46rem; }
+.stimme--auswahl .stimme-kurz { font-size: 18px; }
+.stimme-merkmale { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .5rem 0 0; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; }
+.stimme-zugang--frei { color: var(--accent); }
+.stimmen-weitere { border-top: 1px solid var(--line); }
+.stimmen-weitere summary { cursor: pointer; padding: .9rem 0; color: var(--accent); font-family: var(--rough); font-size: 12px; letter-spacing: .08em; }
+.stimmen-weitere ul { list-style: none; margin: 0 0 1rem; }
+.stimmen-weitere li { padding: .6rem 0; border-top: 1px solid var(--line); }
+.stimmen-weitere li > a { font-size: 17px; }
+.stimmen-weitere .stimme-kurz { font-size: 15px; color: var(--ink-dim); }
+
+.stimme-detail { width: min(46rem, calc(100% - 8vw)); margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) 0 5rem; }
+.stimme-zurueck { font-family: var(--rough); font-size: 12px; letter-spacing: .06em; margin-bottom: 2rem; }
+.stimme-kopf h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 400; line-height: 1.15; margin: .5rem 0 1.5rem; }
+.stimme-detail section { margin-top: 2.6rem; }
+.stimme-detail section > h2 { font-size: 24px; font-weight: 400; color: var(--accent); margin-bottom: 1rem; }
+.stimme-inhalt p { font-size: 19px; line-height: 1.65; }
+.stimme-inhalt p + p { margin-top: 1rem; }
+.stimme-detail .stimme-hinweis { color: var(--ink-dim); font-size: 14px; }
+.stimme-zitate figure { margin: 0 0 1.4rem; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
+.stimme-zitate blockquote p { font-size: 21px; font-style: italic; line-height: 1.5; }
+.stimme-zitate figcaption { margin-top: .4rem; color: var(--ink-dim); font-size: 14px; }
+.stimme-quelle ul, .stimme-bezuege ul { list-style: none; }
+.stimme-quelle li, .stimme-bezuege li { padding: .45rem 0; border-bottom: 1px solid var(--line); font-size: 18px; }
+.stimme-bezuege li span { color: var(--ink-dim); font-size: 14px; }
+.stimme-lizenz { margin-top: 1rem; color: var(--ink-dim); font-size: 14px; line-height: 1.6; }
+.stimme-blaettern { display: flex; justify-content: space-between; gap: 2rem; margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.stimme-blaettern a { display: grid; gap: .3rem; max-width: 48%; text-decoration: none; }
+.stimme-blaettern a[rel="next"] { text-align: right; margin-left: auto; }
+.stimme-blaettern a span:first-child { font-family: var(--rough); font-size: 11px; letter-spacing: .08em; color: var(--ink-dim); }
+.stimme-blaettern a span:last-child { color: var(--ink-soft); font-size: 17px; }
+.disk-pressestimmen ul { list-style: none; border-top: 1px solid var(--line); }
+.disk-pressestimmen li { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+.disk-pressestimmen li > a { font-size: 19px; }
+.disk-pressestimmen .stimme-kurz { font-size: 16px; margin-top: .2rem; }

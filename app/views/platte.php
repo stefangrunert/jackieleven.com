@@ -87,6 +87,17 @@ $quellen = array_column($quellen, null, 'url');
 
       <?php if ($konzerte = diskografie_livevideos($platte['id'])): ?><?= render('livevideos', ['konzerte' => $konzerte]) ?><?php endif; ?>
 
+      <?php if ($stimmen = stimmen_zur_ausgabe($platte['id'])): ?>
+        <section class="disk-pressestimmen" aria-labelledby="pressestimmen">
+          <h2 id="pressestimmen"><?= e(t('disk.pressestimmen')) ?></h2>
+          <ul>
+            <?php foreach ($stimmen as $q): [$kurz, $kurzSprache] = stimme_text($q['kurz']); ?>
+              <li><p class="stimme-meta"><?= e(stimme_datum($q['datum']) . ' · ' . $q['medium'] . ' · ' . t('stimmen.kategorie.' . $q['kategorie'])) ?></p><a lang="<?= e($q['sprache']) ?>" href="<?= e(stimme_link($q['id'])) ?>"><?= e($q['titel']) ?></a><p class="stimme-kurz"<?= $kurzSprache !== sprache() ? ' lang="de"' : '' ?>><?= md_inline($kurz) ?></p></li>
+            <?php endforeach; ?>
+          </ul>
+        </section>
+      <?php endif; ?>
+
       <?php if (!empty($details['credits'])): ?>
         <section class="disk-beteiligte" aria-labelledby="beteiligte">
           <h2 id="beteiligte"><?= e(t('disk.beteiligte')) ?></h2>

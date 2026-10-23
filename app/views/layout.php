@@ -34,6 +34,7 @@
       <a href="<?= e(url('diskografie')) ?>"<?= $nav === 'diskografie' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.diskografie')) ?></a>
       <a href="<?= e(url('zeitreise')) ?>"<?= $nav === 'zeitreise' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.zeitreise')) ?></a>
       <a href="<?= e(url('biografie')) ?>"<?= $nav === 'biografie' ? ' class="hier"' : '' ?>><?= e(t('nav.biografie')) ?></a>
+      <a href="<?= e(url('stimmen')) ?>"<?= $nav === 'stimmen' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.stimmen')) ?></a>
       <a href="<?= e(url('pool')) ?>"<?= $nav === 'pool' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.pool')) ?></a>
       <a href="<?= e(url('ueber')) ?>"<?= $nav === 'ueber' ? ' class="hier"' : '' ?>><?= e(t('nav.ueber')) ?></a>
       <a class="nav-mitmachen" href="<?= e(url('mitmachen')) ?>"<?= $nav === 'mitmachen' ? ' aria-current="page"' : '' ?>><?= e(t('nav.mitmachen')) ?></a>

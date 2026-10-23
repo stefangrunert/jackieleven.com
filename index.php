@@ -4,7 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
 /** Seiten mit übersetzten Pfadstücken (pfad.<name> in app/lang/<sprache>.php). */
-const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'hoeren', 'ueber', 'mitmachen', 'impressum'];
+const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'stimmen', 'hoeren', 'ueber', 'mitmachen', 'impressum'];
 
 function nicht_gefunden(): never
 {
@@ -143,6 +143,16 @@ if ($seite === 'diskografie' && count($teile) === 2) {
     exit;
 }
 
+// Jede Quelle mit eigener Seite: /de/stimmen/1998-03-06-nordlys-live-med-leven
+if ($seite === 'stimmen' && count($teile) === 2) {
+    $i = stimme_index($teile[1]);
+    if ($i < 0) nicht_gefunden();
+    if (!$richtig) weiter(stimme_link($teile[1]));
+    route('quelle', ['slug' => $teile[1]]);
+    seite(render('quelle', ['i' => $i]), stimmen()[$i]['titel'] . ' · ' . t('nav.stimmen'), 'stimmen');
+    exit;
+}
+
 // Kapitel der Pastiche: /de/biografie/07-electric-fur
 if ($seite === 'biografie' && count($teile) === 2) {
     $i = kapitel_index($teile[1]);
@@ -179,6 +189,10 @@ if ($seite === 'mitmachen') {
 }
 if ($seite === 'diskografie') {
     seite(render('diskografie'), t('titel.diskografie'), 'diskografie');
+    exit;
+}
+if ($seite === 'stimmen') {
+    seite(render('stimmen', ['filter' => stimmen_filter($_GET)]), t('titel.stimmen'), 'stimmen');
     exit;
 }
 if ($seite === 'hoeren') {
