@@ -18,13 +18,13 @@ $nb = str_contains($q['url'], 'nb.no');
         <div><dt><?= e(t('stimmen.medium')) ?></dt><dd><?= e(stimme_feld($q, 'medium')) ?></dd></div>
         <?php if ($q['autor'] !== ''): ?><div><dt><?= e(t('stimmen.autor')) ?></dt><dd><?= e(stimme_feld($q, 'autor')) ?></dd></div><?php endif; ?>
         <div><dt><?= e(t('stimmen.datum')) ?></dt><dd><?= e(stimme_datum($q['datum'])) ?></dd></div>
+        <?php if ($q['scan']['pages'] !== ''): ?><div><dt><?= e(t('stimmen.seite')) ?></dt><dd><?= e($q['scan']['pages']) ?></dd></div><?php endif; ?>
         <div><dt><?= e(t('stimmen.sprache')) ?></dt><dd><?= e(stimme_sprache($q['sprache'])) ?></dd></div>
         <div><dt><?= e(t('stimmen.zugang')) ?></dt><dd><?= e(t('stimmen.zugang.' . $q['zugang'])) ?></dd></div>
       </dl>
     </header>
 
-    <section class="stimme-inhalt" aria-labelledby="inhalt">
-      <h2 id="inhalt"><?= e(t('stimmen.inhalt')) ?></h2>
+    <section class="stimme-inhalt" aria-label="<?= e(t('stimmen.inhalt')) ?>">
       <?php if ($inhaltSprache !== sprache()): ?><p class="stimme-hinweis"><?= e(t('stimmen.nur_deutsch')) ?></p><?php endif; ?>
       <div<?= $inhaltSprache !== sprache() ? ' lang="de"' : '' ?>>
         <?php foreach ($inhalt as $absatz): ?><p><?= md_inline($absatz) ?></p><?php endforeach; ?>
@@ -33,8 +33,7 @@ $nb = str_contains($q['url'], 'nb.no');
     </section>
 
     <?php if ($q['zitate']): ?>
-      <section class="stimme-zitate" aria-labelledby="zitate">
-        <h2 id="zitate"><?= e(t('stimmen.zitate')) ?></h2>
+      <section class="stimme-zitate" aria-label="<?= e(t('stimmen.zitate')) ?>">
         <?php foreach ($q['zitate'] as $zitat): ?>
           <figure>
             <blockquote lang="<?= e($q['sprache']) ?>"><p><?= e($zitat['text']) ?></p></blockquote>
@@ -47,11 +46,12 @@ $nb = str_contains($q['url'], 'nb.no');
 
     <section class="stimme-quelle" aria-labelledby="quelle">
       <h2 id="quelle"><?= e(t('stimmen.lesen')) ?></h2>
+      <?php require __DIR__ . '/quellen-faksimile.php'; ?>
       <ul>
         <?php if ($q['url'] !== ''): ?><li><a href="<?= e($q['url']) ?>" target="_blank" rel="noopener noreferrer"><?= e(t($nb ? 'stimmen.nb' : 'stimmen.original')) ?></a></li><?php endif; ?>
         <?php if ($q['archiv'] !== '' && $q['archiv'] !== $q['url']): ?><li><a href="<?= e($q['archiv']) ?>" target="_blank" rel="noopener noreferrer"><?= e(t('stimmen.archiv')) ?></a></li><?php endif; ?>
       </ul>
-      <?php if ($q['lizenz']): $lizenz = stimme_lizenz($q['lizenz']); ?>
+      <?php if ($q['lizenz'] && empty($q['scan']['facsimiles'])): $lizenz = stimme_lizenz($q['lizenz']); ?>
         <p class="stimme-lizenz"><?= str_replace('{lizenz}', '<a href="' . e($lizenz['url']) . '" target="_blank" rel="noopener noreferrer license">' . e($lizenz['name']) . '</a>', e(t('stimmen.lizenz', ['autor' => $q['autor'] !== '' ? $q['autor'] : '–', 'medium' => $q['medium']]))) ?></p>
       <?php endif; ?>
     </section>

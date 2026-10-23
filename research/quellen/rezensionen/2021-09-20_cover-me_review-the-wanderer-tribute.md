@@ -8,7 +8,7 @@ art: "Albumrezension"
 sprache: "en"
 thema: ["The Wanderer – A Tribute to Jackie Leven", "Michael Weston King", "A Decent Man", "Michael Cosgrave", "Ian Rankin", "Sir Vincent Lone", "Jackie Balfour", "Tribute-Album 2021"]
 url: "https://www.covermesongs.com/2021/09/review-the-wanderer-a-tribute-to-jackie-leven.html"
-archiv: ""
+archiv: "https://web.archive.org/web/20260413051846/https://www.covermesongs.com/2021/09/review-the-wanderer-a-tribute-to-jackie-leven.html"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "ausfuehrlich"

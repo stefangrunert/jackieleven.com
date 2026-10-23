@@ -5,7 +5,20 @@ declare(strict_types=1);
 function stimmen(): array
 {
     static $daten = null;
-    return $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/quellen.json'), true, flags: JSON_THROW_ON_ERROR);
+    if ($daten !== null) return $daten;
+    $daten = json_decode(file_get_contents(APP_ROOT . '/data/quellen.json'), true, flags: JSON_THROW_ON_ERROR);
+    $scans = json_decode(file_get_contents(APP_ROOT . '/data/quellen-scans.json'), true, flags: JSON_THROW_ON_ERROR);
+    foreach ($daten as &$q) {
+        $q['scan'] = $scans[$q['id']] ?? ['pages' => '', 'facsimiles' => []];
+        if (!empty($q['scan']['manifest'])) {
+            $q['url'] = $q['scan']['url'];
+            $q['lizenz'] = $q['scan']['license'] && !empty($q['scan']['public_access']) ? ['name' => $q['scan']['license'], 'checked' => $q['scan']['checked']] : null;
+            if ($q['lizenz'] !== null) $q['zugang'] = 'frei';
+            if ($q['lizenz'] === null && $q['zugang'] === 'frei') $q['zugang'] = 'online';
+        }
+    }
+    unset($q);
+    return $daten;
 }
 
 /** Ausgewählte und Verzeichnis-Quellen haben eine eigene Seite, weitere verweisen direkt aufs Original. */
@@ -98,7 +111,8 @@ function stimme_datum(string $datum): string
 /** Titel, Medium oder Autor; auf Englisch die übersetzte Fassung, wo es eine gibt. */
 function stimme_feld(array $q, string $feld): string
 {
-    return sprache() === 'en' && isset($q['en'][$feld]) ? $q['en'][$feld] : $q[$feld];
+    $text = sprache() === 'en' && isset($q['en'][$feld]) ? $q['en'][$feld] : $q[$feld];
+    return $feld === 'titel' ? str_replace(['[', ']'], '', $text) : $text;
 }
 
 /** Sprache des angezeigten Titels: übersetzte Beschreibungen stehen in der Seitensprache. */

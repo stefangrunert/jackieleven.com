@@ -86,6 +86,13 @@ a { color: var(--accent); }
   font-family: var(--serif);
   font-weight: 300;
 }
+.home-page .topbar {
+  --ink: #e4e6e8;
+  --ink-dim: #8a919b;
+  --line: #262b33;
+  --rough: "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  background: #0d0f12;
+}
 .home-page a { color: inherit; text-decoration: none; }
 .home-page a:hover { color: var(--accent); }
 .home-page a:focus-visible, .home-menuknopf:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
@@ -493,6 +500,7 @@ a { color: var(--accent); }
   margin-bottom: 1rem;
 }
 .text-seite h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 500; margin-bottom: 1.6rem; line-height: 1.2; }
+.text-seite .kapitel-titel { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 500; margin: 0 0 1.6rem; line-height: 1.2; color: var(--ink); letter-spacing: normal; text-transform: none; }
 .text-seite h1 sup { color: var(--accent); font-size: .45em; vertical-align: super; }
 .text-seite .worterklaerung { margin: -1rem 0 2.5rem; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; line-height: 1.6; letter-spacing: .06em; }
 .text-seite .worterklaerung sup { color: var(--accent); }
@@ -591,6 +599,90 @@ a { color: var(--accent); }
 .kapitel-liste a:hover { background: rgba(125,146,166,.07); }
 .kapitel-liste .nr { font-family: var(--rough); font-size: 13px; letter-spacing: .15em; color: var(--cold); }
 .kapitel-liste .titel { font-size: 1.12rem; }
+
+/* ---------- Pastiche — Lebenslinie der Kapitel ---------- */
+.bio-raum {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 760px);
+  gap: clamp(2rem, 5vw, 5rem);
+  width: min(1100px, calc(100% - 8vw));
+  margin-inline: auto;
+  align-items: start;
+}
+.bio-zeitstrahl { position: sticky; top: 2rem; min-width: 0; margin-top: 1.25rem; }
+.bio-zeitfenster {
+  height: calc(100dvh - var(--bio-oberkante, 7rem));
+  width: calc(100% + 1.5rem);
+  margin-left: -1.5rem;
+  padding-left: 1.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  -webkit-mask-image: linear-gradient(transparent, black 25px, black calc(100% - 25px), transparent);
+  mask-image: linear-gradient(transparent, black 25px, black calc(100% - 25px), transparent);
+}
+.bio-spur { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 100%; box-sizing: border-box; list-style: none; padding-block: 2rem; }
+.bio-spur::before { content: ""; position: absolute; left: 11px; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.bio-zeitstrahl .bio-marker { position: relative; transform: none; align-items: flex-start; padding: .75rem 0; }
+.bio-zeitstrahl .dot { margin-top: .3rem; }
+.bio-zeitstrahl .g-label { min-width: 0; }
+.bio-zeitstrahl .g-year { display: block; font-size: 14px; }
+.bio-zeitstrahl .g-era {
+  max-height: none;
+  margin-top: .25rem;
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: .55;
+}
+.bio-zeitstrahl .bio-marker:is(:hover, .active) .g-era { opacity: 1; max-height: none; }
+.bio-inhalt.text-seite { width: 100%; min-width: 0; margin: 0; }
+.bio-detailraum .bio-inhalt { padding-top: 2rem; }
+.bio-intro { margin-bottom: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--line); }
+.bio-intro .lead { margin-bottom: 0; }
+.bio-raum :is(a, button):focus-visible { outline: 2px solid var(--cold); outline-offset: 4px; }
+.bio-zeitstrahl .bio-marker:focus-visible { outline-offset: -2px; }
+
+@media (max-width: 860px) {
+  .bio-raum { display: block; width: 100%; }
+  .bio-zeitstrahl {
+    top: 0;
+    margin: 0;
+    z-index: 5;
+    background: rgba(13,15,18,.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .bio-zeitfenster {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .bio-zeitfenster::-webkit-scrollbar { display: none; }
+  .bio-spur { flex-direction: row; justify-content: flex-start; min-height: 0; width: max-content; padding: 0 .5rem; }
+  .bio-spur::before { display: none; }
+  .bio-spur > li { flex: 0 0 auto; }
+  .bio-zeitstrahl .bio-marker { width: 170px; height: 100%; padding: .8rem 1.2rem; border-bottom: 2px solid transparent; }
+  .bio-zeitstrahl .bio-marker.active { border-bottom-color: var(--cold); }
+  .bio-zeitstrahl .dot { display: none; }
+  .bio-zeitstrahl .g-era { height: 1.9em; max-height: 1.9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bio-inhalt.text-seite { width: min(760px, calc(100% - 8vw)); margin-inline: auto; padding-top: 2.5rem; }
+}
+
+@media (max-width: 540px) {
+  .bio-inhalt.text-seite { width: calc(100% - 2.2rem); }
+}
 
 /* ---------- The Deep Pool — Lesen und Blättern ---------- */
 .topbar nav:not(.sprachen) { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; }
@@ -1016,6 +1108,65 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
 @media (max-width: 760px) {
   .disk-konzert { grid-template-columns: 1fr; }
 }
+
+/* Stimmen: externe Quellen im Zeitstrahl, ohne Bilder und ohne externe Anfragen. */
+.stimmen-hinweis { color: var(--ink-dim); font-size: 16px; max-width: 46rem; margin-top: 1rem; }
+.stimmen-filter { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem 1.2rem; margin: 2rem 0 .6rem; }
+.stimmen-filter label { display: grid; gap: .3rem; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.stimmen-filter select { min-width: 11rem; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: 2px; background: var(--bg); color: var(--ink); color-scheme: dark; font: 16px/1.3 var(--serif, inherit); }
+.stimmen-filter select option { background: var(--bg); color: var(--ink); }
+.stimmen-filter button { padding: .55rem 1rem; border: 1px solid var(--accent); border-radius: 2px; background: transparent; color: var(--accent); font: inherit; cursor: pointer; }
+.stimmen-filter button:hover { background: var(--accent); color: var(--bg); }
+.stimmen-zuruecksetzen { align-self: center; font-size: 15px; }
+.stimmen-treffer { color: var(--ink-dim); font-family: var(--rough); font-size: 12px; letter-spacing: .06em; }
+.stimmen-jahr > h2 { margin-bottom: .4rem; font-size: 18px; padding-bottom: 1rem; }
+.stimmen-jahr + .stimmen-jahr { margin-top: clamp(4.5rem, 8vw, 6.5rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.stimmen-jahr > h2 + .stimme, .stimmen-jahr > h2 + .stimmen-weitere { border-top: 0; }
+.stimme { padding: 1.1rem 0; border-top: 1px solid var(--line); }
+.stimme-meta { color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; line-height: 1.6; margin: 0; }
+.stimme-ausgewaehlt { color: var(--accent); text-transform: uppercase; letter-spacing: .12em; }
+.stimme h3 { font-size: 21px; font-weight: 400; line-height: 1.3; margin: .3rem 0 .4rem; }
+.stimme--auswahl h3 { font-size: 26px; }
+.stimme h3 a { color: var(--ink); text-decoration: none; }
+.stimme h3 a:hover, .stimme h3 a:focus-visible { color: var(--accent); }
+.stimme-kurz { color: var(--ink-soft); font-size: 17px; line-height: 1.55; margin: 0; max-width: 46rem; }
+.stimme--auswahl .stimme-kurz { font-size: 18px; }
+.stimme-merkmale { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .5rem 0 0; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; }
+.stimme-zugang--frei { color: var(--accent); }
+.stimmen-weitere { border-top: 1px solid var(--line); }
+.stimmen-weitere summary { cursor: pointer; padding: .9rem 0; color: var(--ink); font-family: var(--rough); font-size: 16px; line-height: 1.5; letter-spacing: .04em; }
+.stimmen-weitere ul { list-style: none; margin: 0 0 1rem; }
+.stimmen-weitere li { padding: .6rem 0; border-top: 1px solid var(--line); }
+.stimmen-weitere li > a { font-size: 17px; }
+.stimmen-weitere .stimme-kurz { font-size: 15px; color: var(--ink-dim); }
+
+.stimme-detail { width: min(46rem, calc(100% - 8vw)); margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) 0 5rem; }
+.stimme-zurueck { font-family: var(--rough); font-size: 12px; letter-spacing: .06em; margin-bottom: 2rem; }
+.stimme-kopf h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 400; line-height: 1.15; margin: .5rem 0 1.5rem; }
+.stimme-detail section { margin-top: 2.6rem; }
+.stimme-detail section > h2 { font-size: 24px; font-weight: 400; color: var(--accent); margin-bottom: 1rem; }
+.stimme-inhalt p { font-size: 19px; line-height: 1.65; }
+.stimme-inhalt p + p { margin-top: 1rem; }
+.stimme-detail .stimme-hinweis { color: var(--ink-dim); font-size: 14px; }
+.stimme-zitate figure { margin: 0 0 1.4rem; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
+.stimme-zitate blockquote p { font-size: 21px; font-style: italic; line-height: 1.5; }
+.stimme-zitate figcaption { margin-top: .4rem; color: var(--ink-dim); font-size: 14px; }
+.stimme-quelle ul, .stimme-bezuege ul { list-style: none; }
+.quellen-faksimiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1.2rem; margin: 1.2rem 0 .6rem; max-width: 46rem; }
+.quellen-faksimiles figure { margin: 0; max-width: 24rem; }
+.quellen-faksimiles img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+.quellen-faksimiles a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.quellen-faksimiles figcaption, .quellen-scan-credit { font-size: 13px; line-height: 1.6; color: var(--ink-dim); }
+.quellen-faksimiles figcaption { margin-top: .35rem; }
+.quellen-scan-credit { margin-bottom: 1rem; }
+.stimme-quelle li, .stimme-bezuege li { padding: .45rem 0; border-bottom: 1px solid var(--line); font-size: 18px; }
+.stimme-bezuege li span { color: var(--ink-dim); font-size: 14px; }
+.stimme-lizenz { margin-top: 1rem; color: var(--ink-dim); font-size: 14px; line-height: 1.6; }
+.stimme-blaettern { display: flex; justify-content: space-between; gap: 2rem; margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.stimme-blaettern a { display: grid; gap: .3rem; max-width: 48%; text-decoration: none; }
+.stimme-blaettern a[rel="next"] { text-align: right; margin-left: auto; }
+.stimme-blaettern a span:first-child { font-family: var(--rough); font-size: 11px; letter-spacing: .08em; color: var(--ink-dim); }
+.stimme-blaettern a span:last-child { color: var(--ink-soft); font-size: 17px; }
 @media (max-width: 600px) {
   .disk-tracks li { grid-template-columns: 1.6rem minmax(0, 1fr) 36px auto; column-gap: .45rem; }
   .disk-track-youtube { width: 36px; }
@@ -1078,55 +1229,6 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
   .hoer-stueck { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 3rem; }
   .hoer-stueck + .hoer-stueck { padding-top: 3rem; }
 }
-
-/* Stimmen: externe Quellen im Zeitstrahl, ohne Bilder und ohne externe Anfragen. */
-.stimmen-hinweis { color: var(--ink-dim); font-size: 16px; max-width: 46rem; margin-top: 1rem; }
-.stimmen-filter { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem 1.2rem; margin: 2rem 0 .6rem; }
-.stimmen-filter label { display: grid; gap: .3rem; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
-.stimmen-filter select { min-width: 11rem; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--ink); font: 16px/1.3 var(--serif, inherit); }
-.stimmen-filter button { padding: .55rem 1rem; border: 1px solid var(--accent); border-radius: 2px; background: transparent; color: var(--accent); font: inherit; cursor: pointer; }
-.stimmen-filter button:hover { background: var(--accent); color: var(--bg); }
-.stimmen-zuruecksetzen { align-self: center; font-size: 15px; }
-.stimmen-treffer { color: var(--ink-dim); font-family: var(--rough); font-size: 12px; letter-spacing: .06em; }
-.stimmen-jahr > h2 { margin-bottom: .4rem; }
-.stimme { padding: 1.1rem 0; border-top: 1px solid var(--line); }
-.stimme-meta { color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; line-height: 1.6; margin: 0; }
-.stimme-ausgewaehlt { color: var(--accent); text-transform: uppercase; letter-spacing: .12em; }
-.stimme h3 { font-size: 21px; font-weight: 400; line-height: 1.3; margin: .3rem 0 .4rem; }
-.stimme--auswahl h3 { font-size: 26px; }
-.stimme h3 a { color: var(--ink); text-decoration: none; }
-.stimme h3 a:hover, .stimme h3 a:focus-visible { color: var(--accent); }
-.stimme-kurz { color: var(--ink-soft); font-size: 17px; line-height: 1.55; margin: 0; max-width: 46rem; }
-.stimme--auswahl .stimme-kurz { font-size: 18px; }
-.stimme-merkmale { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .5rem 0 0; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; }
-.stimme-zugang--frei { color: var(--accent); }
-.stimmen-weitere { border-top: 1px solid var(--line); }
-.stimmen-weitere summary { cursor: pointer; padding: .9rem 0; color: var(--accent); font-family: var(--rough); font-size: 12px; letter-spacing: .08em; }
-.stimmen-weitere ul { list-style: none; margin: 0 0 1rem; }
-.stimmen-weitere li { padding: .6rem 0; border-top: 1px solid var(--line); }
-.stimmen-weitere li > a { font-size: 17px; }
-.stimmen-weitere .stimme-kurz { font-size: 15px; color: var(--ink-dim); }
-
-.stimme-detail { width: min(46rem, calc(100% - 8vw)); margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) 0 5rem; }
-.stimme-zurueck { font-family: var(--rough); font-size: 12px; letter-spacing: .06em; margin-bottom: 2rem; }
-.stimme-kopf h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 400; line-height: 1.15; margin: .5rem 0 1.5rem; }
-.stimme-detail section { margin-top: 2.6rem; }
-.stimme-detail section > h2 { font-size: 24px; font-weight: 400; color: var(--accent); margin-bottom: 1rem; }
-.stimme-inhalt p { font-size: 19px; line-height: 1.65; }
-.stimme-inhalt p + p { margin-top: 1rem; }
-.stimme-detail .stimme-hinweis { color: var(--ink-dim); font-size: 14px; }
-.stimme-zitate figure { margin: 0 0 1.4rem; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
-.stimme-zitate blockquote p { font-size: 21px; font-style: italic; line-height: 1.5; }
-.stimme-zitate figcaption { margin-top: .4rem; color: var(--ink-dim); font-size: 14px; }
-.stimme-quelle ul, .stimme-bezuege ul { list-style: none; }
-.stimme-quelle li, .stimme-bezuege li { padding: .45rem 0; border-bottom: 1px solid var(--line); font-size: 18px; }
-.stimme-bezuege li span { color: var(--ink-dim); font-size: 14px; }
-.stimme-lizenz { margin-top: 1rem; color: var(--ink-dim); font-size: 14px; line-height: 1.6; }
-.stimme-blaettern { display: flex; justify-content: space-between; gap: 2rem; margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
-.stimme-blaettern a { display: grid; gap: .3rem; max-width: 48%; text-decoration: none; }
-.stimme-blaettern a[rel="next"] { text-align: right; margin-left: auto; }
-.stimme-blaettern a span:first-child { font-family: var(--rough); font-size: 11px; letter-spacing: .08em; color: var(--ink-dim); }
-.stimme-blaettern a span:last-child { color: var(--ink-soft); font-size: 17px; }
 .disk-pressestimmen ul { list-style: none; border-top: 1px solid var(--line); }
 .disk-pressestimmen li { padding: .8rem 0; border-bottom: 1px solid var(--line); }
 .disk-pressestimmen li > a { font-size: 19px; }

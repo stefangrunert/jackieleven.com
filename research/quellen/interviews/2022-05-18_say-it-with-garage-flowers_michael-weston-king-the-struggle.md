@@ -8,7 +8,7 @@ art: "Musikerinterview (Q&A mit Michael Weston King)"
 sprache: "en"
 thema: ["Michael Weston King", "The Final Reel", "Theory of Truthmakers", "Allan Black", "The Struggle", "The Wanderer – A Tribute to Jackie Leven"]
 url: "https://sayitwithgarageflowers.com/2022/05/18/i-didnt-do-this-album-because-i-felt-like-i-needed-to-make-a-record-it-was-to-stop-myself-going-mad/"
-archiv: ""
+archiv: "https://web.archive.org/web/20260904071917/https://sayitwithgarageflowers.com/2022/05/18/i-didnt-do-this-album-because-i-felt-like-i-needed-to-make-a-record-it-was-to-stop-myself-going-mad/"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "ausfuehrlich"

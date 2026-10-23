@@ -28,8 +28,8 @@
         "zitate": [
             {
                 "text": "Doll BY Doll blew my head clean off",
-                "kontext": "Needs über den Pub-Auftritt.",
-                "kontext_en": "Needs on the pub gig."
+                "kontext": "",
+                "kontext_en": ""
             }
         ],
         "en": {
@@ -119,7 +119,8 @@
             }
         ],
         "en": {
-            "titel": "[News items: first signing for Nick Mobbs' Automatic Record Company / “Automatic signings”]"
+            "titel": "[News items: first signing for Nick Mobbs' Automatic Record Company / “Automatic signings”]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -239,7 +240,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Single review] Doll By Doll: 'The Palace Of Love' (Automatic Records)"
+            "titel": "[Single review] Doll By Doll: 'The Palace Of Love' (Automatic Records)",
+            "autor": "anonymous (singles column)"
         },
         "ausgaben": [
             "1979-the-palace-of-love"
@@ -401,7 +403,8 @@
             }
         ],
         "en": {
-            "titel": "[Album review] Doll By Doll: Remember (Automatic K 56618)"
+            "titel": "[Album review] Doll By Doll: Remember (Automatic K 56618)",
+            "autor": "anonymous"
         },
         "ausgaben": [
             "1979-remember"
@@ -431,7 +434,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Tour news: Doll by Doll after the release of “Remember” – “Spring Offensive” tour]"
+            "titel": "[Tour news: Doll by Doll after the release of “Remember” – “Spring Offensive” tour]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -561,7 +565,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (probably Chris Westwood)"
+        },
         "ausgaben": []
     },
     {
@@ -624,7 +630,9 @@
                 "kontext": "Bandsprecher."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -781,7 +789,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -870,7 +880,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Photo item: Doll by Doll sign publishing deal with Virgin Music; single “Gipsy Blood”]"
+            "titel": "[Photo item: Doll by Doll sign publishing deal with Virgin Music; single “Gipsy Blood”]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -897,7 +908,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -924,7 +937,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Single review] Doll By Doll: 'Gypsy Blood' (Automatic)"
+            "titel": "[Single review] Doll By Doll: 'Gypsy Blood' (Automatic)",
+            "autor": "anonymous (singles column)"
         },
         "ausgaben": []
     },
@@ -1015,7 +1029,8 @@
             }
         ],
         "en": {
-            "titel": "[News item: Doll by Doll without a record company – Automatic does not take up option]"
+            "titel": "[News item: Doll by Doll without a record company – Automatic does not take up option]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1043,7 +1058,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Tour news: Doll by Doll negotiating a new record deal]"
+            "titel": "[Tour news: Doll by Doll negotiating a new record deal]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1099,7 +1115,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Photo item: Doll by Doll sign long-term worldwide deal with Magnet Records]"
+            "titel": "[Photo item: Doll by Doll sign long-term worldwide deal with Magnet Records]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1211,7 +1228,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Album review] Doll By Doll: Doll By Doll (Magnet MAGL5039)"
+            "titel": "[Album review] Doll By Doll: Doll By Doll (Magnet MAGL5039)",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1243,7 +1261,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Album and single review] Doll By Doll: Doll By Doll (Magnet MAGL 5039) / Main Travelled Roads (MAG 188)"
+            "titel": "[Album and single review] Doll By Doll: Doll By Doll (Magnet MAGL 5039) / Main Travelled Roads (MAG 188)",
+            "autor": "anonymous"
         },
         "ausgaben": [
             "1981-main-travelled-roads"
@@ -1339,7 +1358,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[News item and band profile: new single “Caritas” / Rock on the Tyne]"
+            "titel": "[News item and band profile: new single “Caritas” / Rock on the Tyne]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1366,7 +1386,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -1418,7 +1440,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -1445,7 +1469,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Brief news item: new album “Grand Passion” on 24 September]"
+            "titel": "[Brief news item: new album “Grand Passion” on 24 September]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1483,7 +1508,8 @@
             }
         ],
         "en": {
-            "titel": "[Album review] Doll By Doll – Grand Passion (Magnet, UK)"
+            "titel": "[Album review] Doll By Doll – Grand Passion (Magnet, UK)",
+            "medium": "34th Street (Thursday supplement of the Daily Pennsylvanian, Philadelphia)"
         },
         "ausgaben": [
             "1982-grand-passion",
@@ -1542,7 +1568,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Ira A. Robbins (ed.); entry by Steven Grant (SG) and others"
+        },
         "ausgaben": []
     },
     {
@@ -1598,7 +1626,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -1625,7 +1655,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Brief news item: debut single “Love Is Shining Down On Me” on Virgin/Charisma]"
+            "titel": "[Brief news item: debut single “Love Is Shining Down On Me” on Virgin/Charisma]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1653,7 +1684,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Studio column “Buzzes”: new Charisma signing Jackie Leven in Chipping Norton]"
+            "titel": "[Studio column “Buzzes”: new Charisma signing Jackie Leven in Chipping Norton]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1685,7 +1717,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Single review] Jackie Leven: Uptown (Charisma/Virgin JACK 2(12))"
+            "titel": "[Single review] Jackie Leven: Uptown (Charisma/Virgin JACK 2(12))",
+            "autor": "anonymous"
         },
         "ausgaben": [
             "1984-uptown"
@@ -1795,7 +1828,9 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[News item: CORE Trust Day Centre for drug addicts opens in London]"
+            "titel": "[News item: CORE Trust Day Centre for drug addicts opens in London]",
+            "medium": "Nursing Standard (RCNi), vol. 5, issue 3, p. 11",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -1923,7 +1958,10 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Cooking Vinyl (press biography for “The Mystery Of Love Is Greater Than The Mystery Of Death”)",
+            "autor": "Cooking Vinyl (unsigned; includes a note by Leven on the album title)"
+        },
         "ausgaben": []
     },
     {
@@ -1987,7 +2025,9 @@
                 "kontext": "Überschrift."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous (probably Johnny Andreassen)"
+        },
         "ausgaben": [
             "1994-songs-from-the-argyll-cycle"
         ]
@@ -2325,7 +2365,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -2817,7 +2859,9 @@
                 "kontext": "Gesamturteil."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "1995-forbidden-songs-of-the-dying-west",
             "1994-the-mystery-of-love-is-greater-than-the-mystery-of-death"
@@ -3031,7 +3075,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Conversation with Jackie Leven at Verftet, Bergen]"
+            "titel": "[Conversation with Jackie Leven at Verftet, Bergen]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -3201,7 +3246,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Cooking Vinyl (press biography for “Fairytales For Hardmen”)"
+        },
         "ausgaben": []
     },
     {
@@ -3227,7 +3274,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Exposé (progressive rock magazine), issue 7"
+        },
         "ausgaben": [
             "1973-control"
         ]
@@ -3382,7 +3431,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "1997-fairytales-for-hardmen"
         ]
@@ -4075,7 +4126,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -4173,7 +4226,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Cooking Vinyl (press biography for “Night Lilies”)"
+        },
         "ausgaben": []
     },
     {
@@ -4478,7 +4533,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Rip It Up (free weekly, Adelaide)"
+        },
         "ausgaben": []
     },
     {
@@ -4872,7 +4929,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "1998-night-lilies-album"
         ]
@@ -5404,7 +5463,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Jonathan Buckley et al. (eds.); entry by Justin Lewis"
+        },
         "ausgaben": []
     },
     {
@@ -5434,7 +5495,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -5633,7 +5696,8 @@
         "zitate": [],
         "en": {
             "titel": "[Review of Defending Ancient Springs, start-of-year column]",
-            "medium": "wandering.dog (private music site at Virgin Net)"
+            "medium": "wandering.dog (private music site at Virgin Net)",
+            "autor": "anonymous"
         },
         "ausgaben": [
             "2000-defending-ancient-springs"
@@ -5711,7 +5775,9 @@
                 "kontext": "Einstieg der Kritik."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2000-defending-ancient-springs"
         ]
@@ -5825,7 +5891,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2000-defending-ancient-springs",
             "2000-you-ve-lost-that-loving-feeling"
@@ -6524,7 +6592,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Head Heritage (Julian Cope), section “Unsung”"
+        },
         "ausgaben": [
             "1979-gypsy-blood-album",
             "1979-remember"
@@ -6758,7 +6828,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -7032,7 +7104,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "JAM (Italian music magazine), no. 73"
+        },
         "ausgaben": []
     },
     {
@@ -7063,7 +7137,8 @@
         },
         "zitate": [],
         "en": {
-            "medium": "Rolling Stone (German edition)"
+            "medium": "Rolling Stone (German edition)",
+            "autor": "Rolling Stone editorial staff (unnamed)"
         },
         "ausgaben": [
             "2001-my-spanish-dad"
@@ -7095,7 +7170,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -7727,7 +7804,10 @@
                 "kontext_en": "Leven on sound collages on his albums."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "Triste (music magazine/webzine, UK), no. 4",
+            "autor": "anonymous (Triste editorial staff)"
+        },
         "ausgaben": []
     },
     {
@@ -7947,7 +8027,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Entertainment Law, Vol. 1, No. 3 (Frank Cass, London), pp. 53–71; republished online in the Entertainment and Sports Law Journal, 2016"
+        },
         "ausgaben": []
     },
     {
@@ -8225,7 +8307,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Oor editorial staff"
+        },
         "ausgaben": []
     },
     {
@@ -8459,7 +8543,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -8635,7 +8721,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2003-shining-brother-shining-sister"
         ]
@@ -8809,7 +8897,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (Uncut editorial staff)"
+        },
         "ausgaben": []
     },
     {
@@ -9026,7 +9116,9 @@
                 "kontext": "Kernpointe."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous (Uncut editorial staff)"
+        },
         "ausgaben": []
     },
     {
@@ -9096,7 +9188,9 @@
                 "kontext": "Leven nach dem Konzert über das kleine Publikum."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -9413,7 +9507,8 @@
             }
         ],
         "en": {
-            "titel": "[Press release] Ian Rankin and Jackie Leven present 'Jackie Leven Said'"
+            "titel": "[Press release] Ian Rankin and Jackie Leven present 'Jackie Leven Said'",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -9840,7 +9935,9 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Biography] Jackie Leven – with “Jackie's Chronological Listening Line from the 1950s to 2005”"
+            "titel": "[Biography] Jackie Leven – with “Jackie's Chronological Listening Line from the 1950s to 2005”",
+            "medium": "jackieleven.com (later also jackieleven.co.uk, section Biography)",
+            "autor": "anonymous (authorised website biography)"
         },
         "ausgaben": []
     },
@@ -10297,7 +10394,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (press release, Cooking Vinyl; song notes by Leven)"
+        },
         "ausgaben": []
     },
     {
@@ -10452,7 +10551,8 @@
         },
         "zitate": [],
         "en": {
-            "medium": "Rolling Stone (German edition)"
+            "medium": "Rolling Stone (German edition)",
+            "autor": "Rolling Stone editorial staff (unnamed)"
         },
         "ausgaben": [
             "2005-elegy-for-johnny-cash"
@@ -11874,7 +11974,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2007-oh-what-a-blow-that-phantom-dealt-me"
         ]
@@ -12039,7 +12141,8 @@
         },
         "zitate": [],
         "en": {
-            "medium": "Rolling Stone (German edition)"
+            "medium": "Rolling Stone (German edition)",
+            "autor": "Rolling Stone editorial staff (unnamed)"
         },
         "ausgaben": [
             "2007-oh-what-a-blow-that-phantom-dealt-me"
@@ -12135,7 +12238,9 @@
                 "kontext": "Fazit zum Klang."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2007-oh-what-a-blow-that-phantom-dealt-me",
             "2005-elegy-for-johnny-cash"
@@ -12504,7 +12609,8 @@
             }
         ],
         "en": {
-            "titel": "[Preview: Jan Åge Johansen brings Jackie Leven to Kabelvåg for the sixth time]"
+            "titel": "[Preview: Jan Åge Johansen brings Jackie Leven to Kabelvåg for the sixth time]",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -12531,7 +12637,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Record Collector (issue 336)"
+        },
         "ausgaben": [
             "1979-remember",
             "1979-gypsy-blood-album",
@@ -12569,7 +12677,9 @@
                 "kontext": "Gesamturteil."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2007-oh-what-a-blow-that-phantom-dealt-me"
         ]
@@ -12769,7 +12879,9 @@
                 "kontext": "Schlussurteil."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "Holly Moors (according to page metadata)"
+        },
         "ausgaben": [
             "2008-lovers-at-the-gun-club"
         ]
@@ -13226,7 +13338,9 @@
                 "kontext_en": "Outlook on the concert."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -13401,7 +13515,9 @@
                 "kontext": "Einstieg."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous (youth page “Scoopet”)"
+        },
         "ausgaben": [
             "2008-lovers-at-the-gun-club"
         ]
@@ -14584,7 +14700,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Record Collector (issue 366)"
+        },
         "ausgaben": [
             "2008-troubadour-heart"
         ]
@@ -14715,7 +14833,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Mixcloud (channel Harknessian)"
+        },
         "ausgaben": []
     },
     {
@@ -15217,7 +15337,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Word Magazine – reader blogs (wordmagazine.co.uk)"
+        },
         "ausgaben": []
     },
     {
@@ -15298,7 +15420,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (quotes from Egon Holstad)"
+        },
         "ausgaben": []
     },
     {
@@ -15334,7 +15458,8 @@
             }
         ],
         "en": {
-            "titel": "[News item: KUF rejects deficit guarantee for Jackie Leven concert] (subheading “Hvem får underskuddsgaranti?”)"
+            "titel": "[News item: KUF rejects deficit guarantee for Jackie Leven concert] (subheading “Hvem får underskuddsgaranti?”)",
+            "autor": "anonymous"
         },
         "ausgaben": []
     },
@@ -15774,7 +15899,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "uncertain (probably Geir Hovensjø)"
+        },
         "ausgaben": [
             "2010-gothic-road"
         ]
@@ -15887,7 +16014,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "davidbelbin.com (the novelist's blog)"
+        },
         "ausgaben": []
     },
     {
@@ -15998,7 +16127,9 @@
                 "kontext_en": "his reply to Diana when she said he had once been a singer."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "BBC Radio Scotland, “Stark Talk” (recording on YouTube, channel TheMudman01)"
+        },
         "ausgaben": []
     },
     {
@@ -16054,7 +16185,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Pennyblackmusic (section Profiles)"
+        },
         "ausgaben": []
     },
     {
@@ -16450,7 +16583,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Comments on the Cooking Vinyl obituary “Jackie Leven June 18th 1950 – 14th November 2011”]"
+            "titel": "[Comments on the Cooking Vinyl obituary “Jackie Leven June 18th 1950 – 14th November 2011”]",
+            "medium": "Cooking Vinyl (cookingvinyl.com, comments)"
         },
         "ausgaben": []
     },
@@ -16577,7 +16711,9 @@
                 "kontext_en": "Bogart, 08.11.2011."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "Word Magazine – reader blogs (wordmagazine.co.uk)"
+        },
         "ausgaben": []
     },
     {
@@ -16689,7 +16825,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (BBC News Scotland, Edinburgh, Fife & East)"
+        },
         "ausgaben": []
     },
     {
@@ -16901,7 +17039,9 @@
                 "kontext_en": "Leven 2006."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "nickchurchill.org.uk (the journalist's blog; includes Bournemouth Echo interviews from 2006, 2008, 2010)"
+        },
         "ausgaben": []
     },
     {
@@ -16932,7 +17072,8 @@
         },
         "zitate": [],
         "en": {
-            "medium": "Rolling Stone (German edition), rollingstone.de"
+            "medium": "Rolling Stone (German edition), rollingstone.de",
+            "autor": "RS (editorial staff)"
         },
         "ausgaben": []
     },
@@ -17085,7 +17226,8 @@
             }
         ],
         "en": {
-            "titel": "[Reader comments on: Jackie Leven: 1950-2011]"
+            "titel": "[Reader comments on: Jackie Leven: 1950-2011]",
+            "medium": "theArtsDesk (comments)"
         },
         "ausgaben": []
     },
@@ -17191,6 +17333,7 @@
         },
         "zitate": [],
         "en": {
+            "medium": "Word Magazine – reader blogs (wordmagazine.co.uk)",
             "autor": "MarkHagen; Amigoman; stevedickychap; Burt Kocain (thread starter)"
         },
         "ausgaben": []
@@ -17229,6 +17372,7 @@
             }
         ],
         "en": {
+            "medium": "The Herald (Herald Scotland), Obituaries",
             "autor": "anonymous (no byline; author unknown)"
         },
         "ausgaben": []
@@ -17331,7 +17475,10 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Dagsavisen (Oslo), print edition",
+            "autor": "anonymous (news item)"
+        },
         "ausgaben": []
     },
     {
@@ -17369,7 +17516,9 @@
                 "kontext_en": "Belbin on Leven as a storyteller."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "davidbelbin.com (the novelist's blog)"
+        },
         "ausgaben": []
     },
     {
@@ -17510,7 +17659,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Rock Town Hall (blog/discussion forum)"
+        },
         "ausgaben": []
     },
     {
@@ -17582,7 +17733,9 @@
                 "kontext_en": "Leven, 2011."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "anonymous (Telegraph obituaries desk)"
+        },
         "ausgaben": []
     },
     {
@@ -17618,7 +17771,10 @@
                 "kontext_en": "about the pub concert."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "The Granville Chambers (Google Sites blog)",
+            "autor": "anonymous (author of The Granville Chambers, Bournemouth Echo music journalist)"
+        },
         "ausgaben": []
     },
     {
@@ -17680,7 +17836,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -17736,7 +17894,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "EFE EME (editorial staff)"
+        },
         "ausgaben": []
     },
     {
@@ -17928,7 +18088,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "Jackie Leven (obituary; subheading: Scottish singer and songwriter who drew on his wanderings to produce a rich stream of poetic and mysterious anthems)"
+            "titel": "Jackie Leven (obituary; subheading: Scottish singer and songwriter who drew on his wanderings to produce a rich stream of poetic and mysterious anthems)",
+            "autor": "anonymous (Times obituaries desk)"
         },
         "ausgaben": []
     },
@@ -17981,7 +18142,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (Music Week News)"
+        },
         "ausgaben": []
     },
     {
@@ -18007,7 +18170,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel MzPJSinclair)"
+        },
         "ausgaben": []
     },
     {
@@ -18061,7 +18226,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel MzPJSinclair)"
+        },
         "ausgaben": []
     },
     {
@@ -18414,7 +18581,8 @@
         },
         "zitate": [],
         "en": {
-            "medium": "FolkWorld (webzine, English edition)"
+            "medium": "FolkWorld (webzine, English edition)",
+            "autor": "FolkWorld editorial staff; reader comment by David \"Dai\" Woosnam"
         },
         "ausgaben": []
     },
@@ -18442,7 +18610,8 @@
         },
         "zitate": [],
         "en": {
-            "medium": "Rolling Stone (German edition)"
+            "medium": "Rolling Stone (German edition)",
+            "autor": "frank germer (letter to the editor)"
         },
         "ausgaben": []
     },
@@ -18503,7 +18672,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "My Vintage Rock (concert memories blog)"
+        },
         "ausgaben": []
     },
     {
@@ -18533,7 +18704,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Orion Publishing Group)"
+        },
         "ausgaben": []
     },
     {
@@ -18673,7 +18846,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Djay Buddha)"
+        },
         "ausgaben": []
     },
     {
@@ -18703,7 +18878,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (blog “Plain and Fancy”)"
+        },
         "ausgaben": []
     },
     {
@@ -18765,7 +18942,9 @@
                 "kontext_en": "Rankin on the shared theme."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Orion Publishing Group)"
+        },
         "ausgaben": []
     },
     {
@@ -18889,7 +19068,9 @@
                 "kontext_en": "Closing appeal of the Leven part."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "Distorsioni (distorsioni.net), section Profili"
+        },
         "ausgaben": []
     },
     {
@@ -18915,7 +19096,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (MyLondon / Westminster local press)"
+        },
         "ausgaben": []
     },
     {
@@ -18951,7 +19134,9 @@
                 "kontext_en": "Mike Scott on Leven's voice."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "The Guardian (Music Blog, series “Cult heroes”)"
+        },
         "ausgaben": []
     },
     {
@@ -18990,7 +19175,8 @@
             }
         ],
         "en": {
-            "titel": "[Reader comments on: Cult heroes: Jackie Leven found musical beauty in his wounds]"
+            "titel": "[Reader comments on: Cult heroes: Jackie Leven found musical beauty in his wounds]",
+            "medium": "The Guardian (comments, Music Blog)"
         },
         "ausgaben": []
     },
@@ -19047,7 +19233,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -19438,7 +19626,9 @@
                 "kontext_en": "Tom on Woodend 2010."
             }
         ],
-        "en": [],
+        "en": {
+            "autor": "Norman Lamont (guest post by “Tom in Glasgow”)"
+        },
         "ausgaben": []
     },
     {
@@ -19599,6 +19789,7 @@
             }
         ],
         "en": {
+            "medium": "YouTube (channel JinderSongs), online tribute concert",
             "autor": "Jinder (JinderSongs) with Deborah Greenwood and others"
         },
         "ausgaben": []
@@ -19817,7 +20008,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous (Cooking Vinyl circle)"
+        },
         "ausgaben": []
     },
     {
@@ -19896,7 +20089,8 @@
             }
         ],
         "en": {
-            "titel": "[Reader comments on: I don't know why Jackie Leven isn't better known – he should be revered]"
+            "titel": "[Reader comments on: I don't know why Jackie Leven isn't better known – he should be revered]",
+            "medium": "The Guardian (comments)"
         },
         "ausgaben": []
     },
@@ -20554,7 +20748,8 @@
             }
         ],
         "en": {
-            "titel": "[Print version] Jackie Leven var en av verdens beste kulthelter"
+            "titel": "[Print version] Jackie Leven var en av verdens beste kulthelter",
+            "medium": "Dagsavisen (Oslo), print edition; syndicated in Amedia papers"
         },
         "ausgaben": [
             "1997-fairytales-for-hardmen"
@@ -20631,7 +20826,9 @@
                 "kontext": "Vorspann."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "Dagsavisen (column “Nye Takter”)"
+        },
         "ausgaben": []
     },
     {
@@ -20778,7 +20975,10 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Jackie Leven Official)",
+            "autor": "Ian Rankin; Jackie Leven Official channel"
+        },
         "ausgaben": []
     },
     {
@@ -20808,7 +21008,10 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Jackie Leven Official)",
+            "autor": "Ian Rankin; Jackie Leven Official channel"
+        },
         "ausgaben": []
     },
     {
@@ -21135,7 +21338,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "Mojo (October 2022 issue)"
+        },
         "ausgaben": []
     },
     {
@@ -21225,7 +21430,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Stephen Schnee, The CD Junkie)"
+        },
         "ausgaben": []
     },
     {
@@ -21255,7 +21462,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Stephen Schnee, The CD Junkie)"
+        },
         "ausgaben": []
     },
     {
@@ -21363,7 +21572,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Wikipedia contributors (created by Soulkeeper)"
+        },
         "ausgaben": []
     },
     {
@@ -21419,7 +21630,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "OBLADADA (editorial staff, unnamed)"
+        },
         "ausgaben": [
             "1973-control"
         ]
@@ -21967,7 +22180,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Wikipedia contributors (created by IP 79.191.110.211)"
+        },
         "ausgaben": []
     },
     {
@@ -21993,7 +22208,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Wikipedia contributors (created by IP 129.206.196.62)"
+        },
         "ausgaben": []
     },
     {
@@ -22023,7 +22240,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Grant's Rock Warehaus)"
+        },
         "ausgaben": []
     },
     {
@@ -22049,7 +22268,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Wikipedia contributors (created by IP 81.86.140.189)"
+        },
         "ausgaben": []
     },
     {
@@ -22123,7 +22344,9 @@
                 "kontext_en": "Caption/leitmotif: a wandering artist with an eventful life."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "LiFO (lifo.gr), section Μουσική"
+        },
         "ausgaben": []
     },
     {
@@ -22149,7 +22372,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "Wikipedia contributors (created by Semming)"
+        },
         "ausgaben": []
     },
     {
@@ -22227,7 +22452,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "YouTube (channel Dag Reinert Johansen)"
+        },
         "ausgaben": []
     },
     {
@@ -22384,7 +22611,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "medium": "God Save The Sex Pistols (fan website by Phil Singleton, philjens.plus.com / sex-pistols.net)"
+        },
         "ausgaben": []
     },
     {
@@ -22414,7 +22643,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "1998-night-lilies-album"
         ]
@@ -22548,7 +22779,9 @@
                 "kontext_en": "Leven on his audience (in Norwegian rendering)."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "waatsveen.no (private website)"
+        },
         "ausgaben": []
     },
     {
@@ -22997,7 +23230,8 @@
         },
         "zitate": [],
         "en": {
-            "titel": "[Glitterhouse Mailorder: Jackie Leven artist page with catalogue texts]"
+            "titel": "[Glitterhouse Mailorder: Jackie Leven artist page with catalogue texts]",
+            "autor": "anonymous (catalogue texts; partly MIG Music label copy or taken from AllMusic)"
         },
         "ausgaben": []
     },
@@ -23050,7 +23284,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": []
     },
     {
@@ -23236,7 +23472,9 @@
             ]
         },
         "zitate": [],
-        "en": [],
+        "en": {
+            "autor": "anonymous"
+        },
         "ausgaben": [
             "2008-lovers-at-the-gun-club"
         ]
@@ -23269,7 +23507,9 @@
                 "kontext": "über „Grand Passion“."
             }
         ],
-        "en": [],
+        "en": {
+            "medium": "Trouser Press (online version of the Trouser Press Guide)"
+        },
         "ausgaben": []
     }
 ]

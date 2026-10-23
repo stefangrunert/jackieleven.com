@@ -9,17 +9,31 @@ $teile = kapitel($k);
 $vor   = $liste[$i - 1] ?? null;
 $nach  = $liste[$i + 1] ?? null;
 $lang  = fn(string $s) => $s !== sprache() ? ' lang="' . e($s) . '"' : '';
+$intro = $intro ?? false;
+$startseite = $startseite ?? false;
 ?>
-<article class="text-seite kapitel">
+<div class="bio-raum bio-detailraum">
+<?= render('kapitel-zeitstrahl', ['aktiv' => $i, 'startseite' => $startseite]) ?>
+<article class="text-seite kapitel bio-inhalt">
 
-  <aside class="pastiche-hinweis" role="note">
-    <span class="etikett"><?= e(t('pastiche.etikett')) ?></span>
-    <p><?= e(t('pastiche.erklaerung')) ?>
-      <a href="<?= e(url('biografie')) ?>"><?= e(t('pastiche.ueber_buch')) ?></a></p>
-  </aside>
+  <?php if ($intro): ?>
+    <?= render_lokal('biografie-intro') ?>
+  <?php endif; ?>
 
-  <p class="kicker"><?= e(t('pastiche.kapitel_von', ['nr' => $i + 1, 'gesamt' => count($liste)])) ?></p>
-  <h1 lang="en"><?= e($k['titel']) ?></h1>
+  <?php if (!$intro): ?>
+    <aside class="pastiche-hinweis" role="note">
+      <span class="etikett"><?= e(t('pastiche.etikett')) ?></span>
+      <p><?= e(t('pastiche.erklaerung')) ?>
+        <a href="<?= e(url('biografie')) ?>"><?= e(t('pastiche.ueber_buch')) ?></a></p>
+    </aside>
+  <?php endif; ?>
+
+  <p class="kicker"><?= e(t('pastiche.kapitel_von', ['nr' => $i + 1, 'gesamt' => count($liste)])) ?> <span aria-hidden="true">·</span> <?= e($k['zeit']) ?></p>
+  <?php if ($intro): ?>
+    <h2 class="kapitel-titel" lang="en"><?= e($k['titel']) ?></h2>
+  <?php else: ?>
+    <h1 class="kapitel-titel" lang="en"><?= e($k['titel']) ?></h1>
+  <?php endif; ?>
 
   <?php if ($anm !== ''): ?>
     <div class="anmerkung"<?= $lang($anmSprache) ?>><?= md($anm) ?></div>
@@ -55,3 +69,4 @@ $lang  = fn(string $s) => $s !== sprache() ? ' lang="' . e($s) . '"' : '';
   </nav>
 
 </article>
+</div>

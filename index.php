@@ -149,7 +149,7 @@ if ($seite === 'stimmen' && count($teile) === 2) {
     if ($i < 0) nicht_gefunden();
     if (!$richtig) weiter(stimme_link($teile[1]));
     route('quelle', ['slug' => $teile[1]]);
-    seite(render('quelle', ['i' => $i]), stimmen()[$i]['titel'] . ' · ' . t('nav.stimmen'), 'stimmen');
+    seite(render('quelle', ['i' => $i]), stimme_feld(stimmen()[$i], 'titel') . ' · ' . t('nav.stimmen'), 'stimmen');
     exit;
 }
 

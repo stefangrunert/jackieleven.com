@@ -24,7 +24,6 @@ $meta = fn(array $q) => implode(' · ', [stimme_datum($q['datum']), stimme_feld(
 
   <main class="disk-katalog stimmen" id="stimmen">
     <header class="disk-kopf">
-      <p class="disk-kicker"><?= e(t('stimmen.kicker')) ?></p>
       <h1><?= e(t('nav.stimmen')) ?></h1>
       <p class="disk-intro"><?= e(t('stimmen.intro')) ?></p>
       <p class="stimmen-hinweis"><?= e(t('stimmen.hinweis')) ?></p>
@@ -77,6 +76,8 @@ $meta = fn(array $q) => implode(' · ', [stimme_datum($q['datum']), stimme_feld(
                   <li id="<?= e($q['id']) ?>">
                     <p class="stimme-meta"><?= e($meta($q)) ?> · <?= e(t('stimmen.zugang.' . $q['zugang'])) ?></p>
                     <a lang="<?= e(stimme_titelsprache($q)) ?>" href="<?= e(stimme_ziel($q)) ?>"<?= str_starts_with(stimme_ziel($q), 'http') ? ' target="_blank" rel="noopener noreferrer"' : '' ?>><?= e(stimme_feld($q, 'titel')) ?></a>
+                    <?php if ($q['scan']['pages'] !== ''): ?><p class="stimme-merkmale"><?= e(t('stimmen.seite') . ' ' . $q['scan']['pages']) ?></p><?php endif; ?>
+                    <?php require __DIR__ . '/quellen-faksimile.php'; ?>
                   </li>
                 <?php endforeach; ?>
               </ul>

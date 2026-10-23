@@ -8,7 +8,7 @@ art: "Albumrezension (Sammelbesprechung)"
 sprache: "en"
 thema: ["The Wanderer – A Tribute to Jackie Leven", "Michael Weston King", "Ian Rankin", "Deborah Greenwood", "Tribute-Album 2021"]
 url: "https://www.scotsman.com/whats-on/arts-and-entertainment/album-reviews-the-wanderer-a-tribute-to-jackie-leven-hamish-hawk-saint-etienne-common-3377706"
-archiv: ""
+archiv: "https://web.archive.org/web/20250218005627/https://www.scotsman.com/whats-on/arts-and-entertainment/album-reviews-the-wanderer-a-tribute-to-jackie-leven-hamish-hawk-saint-etienne-common-3377706"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "kurz"

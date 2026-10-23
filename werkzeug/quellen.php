@@ -166,6 +166,7 @@ if (in_array('--lizenzen', $argv, true)) {
 
 // Englische Fassung: gilt nur, solange der deutsche Text unverändert ist (Prüfsumme `quelle`).
 $englisch = is_file(APP_ROOT . '/data/quellen-en.json') ? json_decode(file_get_contents(APP_ROOT . '/data/quellen-en.json'), true, flags: JSON_THROW_ON_ERROR) : [];
+$angaben = $englisch['_angaben'] ?? [];  // wiederkehrende deutsche Medien- und Autorenangaben
 $veraltet = 0;
 
 $quellen = [];
@@ -209,7 +210,7 @@ foreach ($index as $q) {
         'inhalt' => ['de' => $inhalt] + (isset($en['inhalt']) ? ['en' => $en['inhalt']] : []),
         'zitate' => $zitate,
         // Übersetzte Angaben in eckigen Klammern (eigene Beschreibungen) und deutsche Medien-/Autorangaben.
-        'en' => array_filter(['titel' => $en['titel'] ?? null, 'medium' => $en['medium'] ?? null, 'autor' => $en['autor'] ?? null]),
+        'en' => array_filter(['titel' => $en['titel'] ?? null, 'medium' => $en['medium'] ?? $angaben[$q['medium']] ?? null, 'autor' => $en['autor'] ?? $angaben[$q['autor']] ?? null]),
         // Nur Rezensionen: In anderen Arten nennt `thema` auch Whisky, Lieder oder Ereignisse gleichen Namens.
         'ausgaben' => $q['kategorie'] === 'rezensionen' ? ausgaben($q['thema'], $q['datum']) : [],
     ];

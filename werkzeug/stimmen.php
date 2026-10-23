@@ -47,7 +47,10 @@ foreach (SPRACHEN as $s) {
     pruefe_stimmen($xp->query('//h1')->length === 1, 'Übersicht ohne Titel.');
     pruefe_stimmen($xp->query('//article[contains(@class,"stimme ")]')->length === count(array_filter($quellen, 'stimme_mit_seite')), 'Quellen fehlen in der Übersicht (' . $s . ').');
     pruefe_stimmen($xp->query('//details[@class="stimmen-weitere"]//li')->length === count(array_filter($quellen, fn($q) => !stimme_mit_seite($q))), 'Weitere Quellen fehlen (' . $s . ').');
-    pruefe_stimmen($xp->query('//img | //iframe')->length === 1, 'Bilder oder Player auf der Übersicht.'); // nur das Logo
+    pruefe_stimmen($xp->query('//iframe')->length === 0, 'Unerwarteter Player auf der Übersicht.');
+    foreach ($xp->query('//div[@class="quellen-faksimiles"]//img') as $bild) {
+        pruefe_stimmen(str_starts_with($bild->getAttribute('src'), 'https://www.nb.no/services/image/resolver/') && $bild->getAttribute('loading') === 'lazy', 'Unbekanntes oder vorab geladenes Faksimile.');
+    }
     pruefe_stimmen($xp->query('//nav//a[@aria-current="page" and @href="' . url('stimmen') . '"]')->length === 1, 'Navigation markiert die Seite nicht.');
     pruefe_stimmen(!preg_match('/>stimmen\.[a-z_.-]+</', $html), 'Unübersetzter Text auf der Übersicht.');
     pruefe_stimmen(alternativ_url($s === 'de' ? 'en' : 'de') === url('stimmen', [], $s === 'de' ? 'en' : 'de'), 'Sprachwechsel verliert die Übersicht.');
@@ -61,11 +64,13 @@ foreach (SPRACHEN as $s) {
         $xp = new DOMXPath($dom);
         pruefe_stimmen($xp->query('//h1[@lang]')->length === 1, 'Detailseite ohne Titel: ' . $q['id']);
         pruefe_stimmen($xp->query('//section[@class="stimme-quelle"]//a[@target="_blank"]')->length >= ($q['zugang'] === 'verloren' ? 0 : 1), 'Detailseite ohne Quellenlink: ' . $q['id']);
-        pruefe_stimmen($xp->query('//*[@src]')->length === 0, 'Externe Ressource auf der Detailseite: ' . $q['id']);
+        $bilder = $xp->query('//div[@class="quellen-faksimiles"]//img');
+        pruefe_stimmen($xp->query('//*[@src]')->length === $bilder->length, 'Unerwartete externe Ressource: ' . $q['id']);
+        if ($bilder->length) pruefe_stimmen(in_array($q['scan']['license'], ['ccbync', 'ccbyncnd'], true) && !empty($q['scan']['manifest']), 'Faksimile ohne belegte Lizenz: ' . $q['id']);
         if ($q['lizenz']) {
-            $lizenz = $xp->query('//p[@class="stimme-lizenz"]//a[contains(@rel,"license")]');
+            $lizenz = $xp->query('//p[@class="stimme-lizenz" or @class="quellen-scan-credit"]//a[contains(@rel,"license")]');
             pruefe_stimmen($lizenz->length === 1 && str_starts_with($lizenz[0]->getAttribute('href'), 'https://creativecommons.org/licenses/by-nc'), 'Namensnennung oder Lizenz fehlt: ' . $q['id']);
-            pruefe_stimmen(str_contains($html, e($q['medium'])), 'Medium fehlt in der Namensnennung: ' . $q['id']);
+            pruefe_stimmen(str_contains($html, e(stimme_feld($q, 'medium'))), 'Medium fehlt in der Namensnennung: ' . $q['id']);
         }
         if ($s === 'en') pruefe_stimmen(!str_contains($html, e(t('stimmen.nur_deutsch'))) && $xp->query('//div[@lang="de"]')->length === 0, 'Englische Seite zeigt die deutsche Zusammenfassung: ' . $q['id']);
         pruefe_stimmen(alternativ_url('de') === stimme_link($q['id']) || $s === 'en', 'Sprachwechsel verliert die Quelle.');

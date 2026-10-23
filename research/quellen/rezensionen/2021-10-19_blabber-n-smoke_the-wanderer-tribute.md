@@ -8,7 +8,7 @@ art: "Albumrezension (Blog)"
 sprache: "en"
 thema: ["The Wanderer – A Tribute to Jackie Leven", "Michael Weston King", "Ian Rankin", "Deborah Greenwood", "Johnny Dowd", "Tribute-Album 2021"]
 url: "https://paulkerr.wordpress.com/2021/10/19/the-wanderer-a-tribute-to-jackie-leven-cooking-vinyl/"
-archiv: ""
+archiv: "https://web.archive.org/web/20221129020533/https://paulkerr.wordpress.com/2021/10/19/the-wanderer-a-tribute-to-jackie-leven-cooking-vinyl/"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "kurz"

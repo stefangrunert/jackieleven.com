@@ -16,3 +16,7 @@ sketches.zip
 # Zugangsdaten für den Formularversand
 /app/config.local.php
 /.dev/
+
+# Python-Zwischendateien
+__pycache__/
+*.pyc

@@ -8,7 +8,7 @@ art: "Albumrezension"
 sprache: "en"
 thema: ["Sir Vincent Lone", "Troubadour Heart", "An Honest Woman", "Doll by Doll", "Chris Conway"]
 url: "https://recordcollectormag.com/reviews/album/troubadour-heart"
-archiv: ""
+archiv: "https://web.archive.org/web/20251222110817/https://recordcollectormag.com/reviews/album/troubadour-heart"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "kurz"

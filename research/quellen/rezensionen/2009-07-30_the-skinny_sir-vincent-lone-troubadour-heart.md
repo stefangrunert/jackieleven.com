@@ -8,7 +8,7 @@ art: "Albumrezension"
 sprache: "en"
 thema: ["Sir Vincent Lone", "Troubadour Heart", "Ian Rankin", "Rove On Wraith Of Raith"]
 url: "https://www.theskinny.co.uk/music/reviews/albums/sir-vincent-lone-troubadour-heart"
-archiv: ""
+archiv: "https://web.archive.org/web/20260921202907/https://www.theskinny.co.uk/music/reviews/albums/sir-vincent-lone-troubadour-heart"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "kurz"

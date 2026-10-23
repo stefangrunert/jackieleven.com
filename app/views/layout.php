@@ -76,6 +76,9 @@
 <?php if ($nav === 'diskografie'): ?>
 <script src="/assets/js/diskografie.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/diskografie.js') ?>" defer></script>
 <?php endif; ?>
+<?php if ($nav === 'biografie'): ?>
+<script src="/assets/js/biografie.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/biografie.js') ?>" defer></script>
+<?php endif; ?>
 <?php if ($nav === 'hoeren'): ?>
 <script src="/assets/js/hoeren.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/hoeren.js') ?>" defer></script>
 <?php endif; ?>

@@ -23,7 +23,6 @@ Der wichtigste britische Zeitungsnachruf, geschrieben vom Guardian-Folk- und Wel
 ## Neue Fakten / Anekdoten
 - Denselow traf Leven 1988 persönlich; damals stand der CORE Trust für Leven im Vordergrund.
 - Shaw erinnert an Proben „mit Matratzen an den Wänden“ im Maida-Vale-Squat.
-- Hinterbliebene laut Nachruf: Deborah Greenwood, Sohn Simon aus früherer Beziehung, Schwester Wendy.
 
 ## Zitate
 > "a mixture of Van Morrison and a psychopath" – Denselows eigene Beschreibung aus der Doll-by-Doll-Zeit.

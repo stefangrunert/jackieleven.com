@@ -8,7 +8,7 @@ art: "Albumrezension (Blog, englische Fassung)"
 sprache: "en"
 thema: ["Michael Weston King", "The Struggle", "The Final Reel", "Theory Of Truthmaker"]
 url: "https://gubberock.com/2022/05/09/michael-weston-king-makes-music-for-the-soul/"
-archiv: ""
+archiv: "https://web.archive.org/web/20230329135422/https://gubberock.com/2022/05/09/michael-weston-king-makes-music-for-the-soul/"
 erreichbarkeit: "live"
 sicherheit: "belegt"
 umfang: "kurz"
