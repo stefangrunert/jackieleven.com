@@ -31,9 +31,20 @@ foreach ($quellen as $q) {
     pruefe_stimmen(isset($q['en']['titel']) || !preg_match('/\b(und|mit|vor|nach|über|ohne|Konzert\w*|Vorbericht|Bericht|Kurzkritik|Rezension|Kommentare|Gästebuch|Sammeldatei|Ausgabe)\b/u', $klammer), 'Beschreibender Titel ohne Übersetzung: ' . $q['id']);
 }
 pruefe_stimmen(count(array_filter($quellen, fn($q) => $q['stufe'] === 'auswahl')) >= 20, 'Zu wenige ausgewählte Quellen.');
-pruefe_stimmen(stimmen_filter(['art' => 'interviews', 'sprache' => ['x'], 'zugang' => 'gibtsnicht', 'fremd' => 1]) === ['art' => 'interviews'], 'Filter übernimmt unbekannte Werte.');
+pruefe_stimmen(stimmen_filter(['art' => 'interviews', 'sprache' => ['x'], 'zugang' => 'gibtsnicht', 'fremd' => 1]) === ['auswahl' => '1', 'art' => 'interviews'], 'Filter übernimmt unbekannte Werte.');
 $norwegisch = array_filter($quellen, fn($q) => stimme_passt($q, ['sprache' => 'no']));
 pruefe_stimmen($norwegisch !== [] && array_filter($norwegisch, fn($q) => !in_array($q['sprache'], ['no', 'nn'], true)) === [], 'Sprachfilter Norwegisch falsch.');
+foreach ([['2'], '-1', '3', '1.5'] as $wert) {
+    pruefe_stimmen(stimmen_filter(['auswahl' => $wert]) === ['auswahl' => '1'], 'Ungültige Auswahl übernommen.');
+}
+pruefe_stimmen(stimmen_filter([]) === ['auswahl' => '1'], 'Mittlere Auswahl ist nicht Standard.');
+pruefe_stimmen(stimmen_filter(['auswahl' => '0']) === ['auswahl' => '0'], 'Alle Quellen nicht explizit wählbar.');
+foreach (['1', '2'] as $wert) {
+    $filter = stimmen_filter(['auswahl' => $wert, 'sprache' => 'no']);
+    $gefiltert = array_merge(...array_values(stimmen_jahre($filter)));
+    $erwartet = array_values(array_filter($norwegisch, fn($q) => $wert === '2' ? $q['stufe'] === 'auswahl' : $q['stufe'] !== 'weitere'));
+    pruefe_stimmen($gefiltert === $erwartet && $gefiltert !== [], 'Auswahl und Sprachfilter greifen nicht zusammen.');
+}
 
 libxml_use_internal_errors(true);
 $seiten = 0;
@@ -44,7 +55,7 @@ foreach (SPRACHEN as $s) {
     $html = render('layout', ['inhalt' => render('stimmen', ['filter' => []]), 'titel' => t('titel.stimmen'), 'nav' => 'stimmen', 'noindex' => false]);
     $dom->loadHTML('<?xml encoding="UTF-8">' . $html);
     $xp = new DOMXPath($dom);
-    pruefe_stimmen($xp->query('//h1')->length === 1, 'Übersicht ohne Titel.');
+    pruefe_stimmen($xp->query('//header[@class="disk-kopf"]/p[@class="disk-intro"]')->length === 1, 'Übersicht ohne Einleitung.');
     pruefe_stimmen($xp->query('//article[contains(@class,"stimme ")]')->length === count(array_filter($quellen, 'stimme_mit_seite')), 'Quellen fehlen in der Übersicht (' . $s . ').');
     pruefe_stimmen($xp->query('//details[@class="stimmen-weitere"]//li')->length === count(array_filter($quellen, fn($q) => !stimme_mit_seite($q))), 'Weitere Quellen fehlen (' . $s . ').');
     pruefe_stimmen($xp->query('//iframe')->length === 0, 'Unerwarteter Player auf der Übersicht.');
@@ -54,6 +65,12 @@ foreach (SPRACHEN as $s) {
     pruefe_stimmen($xp->query('//nav//a[@aria-current="page" and @href="' . url('stimmen') . '"]')->length === 1, 'Navigation markiert die Seite nicht.');
     pruefe_stimmen(!preg_match('/>stimmen\.[a-z_.-]+</', $html), 'Unübersetzter Text auf der Übersicht.');
     pruefe_stimmen(alternativ_url($s === 'de' ? 'en' : 'de') === url('stimmen', [], $s === 'de' ? 'en' : 'de'), 'Sprachwechsel verliert die Übersicht.');
+
+    $dom->loadHTML('<?xml encoding="UTF-8">' . render('stimmen', ['filter' => ['auswahl' => '2']]));
+    $xp = new DOMXPath($dom);
+    pruefe_stimmen($xp->query('//article[not(@hidden)]')->length === count(array_filter($quellen, fn($q) => $q['stufe'] === 'auswahl')), 'Auswahl ohne JavaScript falsch.');
+    pruefe_stimmen($xp->query('//details[not(@hidden)]')->length === 0, 'Weitere Quellen trotz engster Auswahl sichtbar.');
+    pruefe_stimmen($xp->query('//input[@type="range" and @value="2" and @aria-valuetext]')->length === 1, 'Reglerzustand fehlt.');
 
     foreach ($quellen as $i => $q) {
         if (!stimme_mit_seite($q)) continue;

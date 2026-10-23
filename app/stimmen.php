@@ -27,6 +27,12 @@ function stimme_mit_seite(array $q): bool
     return $q['stufe'] !== 'weitere';
 }
 
+/** Vorhandene redaktionelle Stufen, keine automatisch berechnete Qualitätsnote. */
+function stimme_gewicht(array $q): int
+{
+    return ['weitere' => 0, 'verzeichnis' => 1, 'auswahl' => 2][$q['stufe']];
+}
+
 function stimme_index(string $id): int
 {
     foreach (stimmen() as $i => $q) {
@@ -73,16 +79,18 @@ function stimme_sprache(string $code): string
 /** Nur bekannte Filterwerte übernehmen. */
 function stimmen_filter(array $query): array
 {
-    $filter = [];
+    $filter = ['auswahl' => '1'];
     $erlaubt = ['art' => stimmen_kategorien(), 'sprache' => [...stimmen_sprachen(), 'andere'], 'zugang' => stimmen_zugaenge()];
     foreach ($erlaubt as $key => $werte) {
         if (isset($query[$key]) && is_string($query[$key]) && in_array($query[$key], $werte, true)) $filter[$key] = $query[$key];
     }
+    if (isset($query['auswahl']) && is_string($query['auswahl']) && in_array($query['auswahl'], ['0', '1', '2'], true)) $filter['auswahl'] = $query['auswahl'];
     return $filter;
 }
 
 function stimme_passt(array $q, array $filter): bool
 {
+    if (stimme_gewicht($q) < (int) ($filter['auswahl'] ?? 0)) return false;
     if (isset($filter['art']) && $q['kategorie'] !== $filter['art']) return false;
     if (isset($filter['zugang']) && $q['zugang'] !== $filter['zugang']) return false;
     if (isset($filter['sprache'])) {
