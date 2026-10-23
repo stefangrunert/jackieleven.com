@@ -1,5 +1,6 @@
 <?php
 return [
+    'disk.youtube_lied' => 'Listen to {titel} on YouTube',
     'disk.hoeren' => 'Listen',
     'disk.album_hoeren' => 'Listen to the album',
     'disk.hoerlink' => 'Listen to {titel} on {dienst}',

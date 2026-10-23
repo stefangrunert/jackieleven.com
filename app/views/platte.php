@@ -60,8 +60,8 @@ $quellen = array_column($quellen, null, 'url');
         <section class="disk-hoeren" id="hoeren" aria-labelledby="hoeren-titel">
           <h2 id="hoeren-titel"><?= e(t('disk.album_hoeren')) ?></h2>
           <ul>
-            <?php foreach ($hoeren['links'] as $link): $dienst = ['spotify' => 'Spotify', 'apple' => 'Apple Music'][$link['service']]; ?>
-              <li><a class="musik-dienst" href="<?= e($link['url']) ?>" rel="noopener noreferrer" title="<?= e('Listen on ' . $dienst) ?>" aria-label="<?= e(t('disk.hoerlink', ['titel' => $platte['title'], 'dienst' => $dienst])) ?>"><?= render('musik-icon', ['dienst' => $link['service']]) ?></a></li>
+            <?php foreach ($hoeren['links'] as $link): $anbieter = diskografie_musikdienste()[$link['service']]; $dienst = $anbieter['name']; ?>
+              <li><a class="musik-dienst" href="<?= e($link['url']) ?>" rel="noopener noreferrer" title="<?= e($anbieter['tooltip']) ?>" aria-label="<?= e(t('disk.hoerlink', ['titel' => $platte['title'], 'dienst' => $dienst])) ?>"><?= render('musik-icon', ['dienst' => $link['service']]) ?></a></li>
             <?php endforeach; ?>
           </ul>
           <?php if (!empty($hoeren['note'][sprache()])): ?><p><?= e($hoeren['note'][sprache()]) ?></p><?php endif; ?>
@@ -77,7 +77,7 @@ $quellen = array_column($quellen, null, 'url');
             <?php if (!empty($liste['label'])): ?><h3><?= e($liste['label'][sprache()]) ?></h3><?php endif; ?>
             <ol class="disk-tracks">
               <?php foreach ($liste['tracks'] as $track): ?>
-                <li><span class="disk-tracknummer" aria-hidden="true"><?= e($track['number']) ?></span><span class="disk-tracktitel"><?= e($track['title']) ?><?php if (!empty($track['artist'])): ?><small><?= e($track['artist']) ?></small><?php endif; ?></span><?php if (!empty($track['duration'])): ?><span class="disk-trackdauer"><?= e($track['duration']) ?></span><?php endif; ?></li>
+                <li><span class="disk-tracknummer" aria-hidden="true"><?= e($track['number']) ?></span><span class="disk-tracktitel"><?= e($track['title']) ?><?php if (!empty($track['artist'])): ?><small><?= e($track['artist']) ?></small><?php endif; ?></span><?php if ($video = diskografie_youtube($track['title'])): ?><a class="disk-track-youtube" href="<?= e($video['url']) ?>" rel="noopener noreferrer" title="<?= e('Listen on YouTube · ' . $video['title'] . ($video['kind'] === 'live' ? ' · Live' : '') . ' · ' . $video['channel']) ?>" aria-label="<?= e(t('disk.youtube_lied', ['titel' => $track['title']])) ?>"><?= render('musik-icon', ['dienst' => 'youtube']) ?></a><?php endif; ?><?php if (!empty($track['duration'])): ?><span class="disk-trackdauer"><?= e($track['duration']) ?></span><?php endif; ?></li>
               <?php endforeach; ?>
             </ol>
           <?php endforeach; ?>

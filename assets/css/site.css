@@ -924,3 +924,15 @@ footer .fuss-text { display: grid; gap: .25rem; }
 .disk-hoeren .musik-dienst:hover, .disk-hoeren .musik-dienst:focus-visible { color: var(--accent); background: rgba(212, 162, 78, .06); }
 .disk-hoeren .musik-dienst:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
 .musik-icon { display: block; width: 24px; height: 24px; flex: none; }
+
+/* Liedbeispiele gelten über alle Ausgaben hinweg. */
+.disk-tracks li { grid-template-columns: 2.5rem minmax(0, 1fr) 44px auto; align-items: center; }
+.disk-tracks .disk-trackdauer { grid-column: 4; min-width: 2.7rem; text-align: right; }
+.disk-track-youtube { grid-column: 3; display: inline-flex; width: 44px; height: 36px; align-items: center; justify-content: center; color: var(--ink-dim); border-radius: 3px; }
+.disk-track-youtube .musik-icon { width: 20px; height: 20px; }
+.disk-track-youtube:hover, .disk-track-youtube:focus-visible { color: var(--accent); }
+.disk-track-youtube:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 600px) {
+  .disk-tracks li { grid-template-columns: 1.6rem minmax(0, 1fr) 36px auto; column-gap: .45rem; }
+  .disk-track-youtube { width: 36px; }
+}

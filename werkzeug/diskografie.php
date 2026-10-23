@@ -37,9 +37,10 @@ foreach ($angebote as $id => $angebot) {
     pruefe_disk($angebot['digitalTitle'] !== '' && $angebot['links'] !== [], 'Unvollständiges Hörangebot.');
     $dienste = [];
     foreach ($angebot['links'] as $link) {
-        $host = ['spotify' => 'open.spotify.com', 'apple' => 'music.apple.com'][$link['service']] ?? null;
-        pruefe_disk($host !== null && parse_url($link['url'], PHP_URL_SCHEME) === 'https'
-            && parse_url($link['url'], PHP_URL_HOST) === $host && str_contains(parse_url($link['url'], PHP_URL_PATH), '/album/'), 'Kein direkter Albumlink.');
+        $dienst = diskografie_musikdienste()[$link['service']] ?? null;
+        $host = parse_url($link['url'], PHP_URL_HOST);
+        pruefe_disk($dienst !== null && in_array($host, $dienst['hosts'], true) && parse_url($link['url'], PHP_URL_SCHEME) === 'https'
+            && str_contains(parse_url($link['url'], PHP_URL_PATH), $link['service'] === 'amazon' ? '/albums/' : '/album/'), 'Kein direkter Albumlink.');
         $dienste[] = $link['service'];
     }
     pruefe_disk(count($dienste) === count(array_unique($dienste)), 'Doppelter Dienst.');
@@ -120,6 +121,15 @@ foreach (SPRACHEN as $s) {
             pruefe_disk($xp->query('.//*[local-name()="svg"]', $link)->length === 1, 'Dienstsymbol fehlt.');
         }
         pruefe_disk(!str_contains($html, '<iframe'), 'Ungefragter eingebetteter Player.');
+        $ytSoll = 0;
+        foreach ($details[$platte['id']]['tracklists'] ?? [] as $liste) foreach ($liste['tracks'] as $track) {
+            if (diskografie_youtube($track['title']) !== null) $ytSoll++;
+        }
+        pruefe_disk($xp->query('//a[@class="disk-track-youtube"]')->length === $ytSoll, 'YouTube-Beispiele fehlen auf einer Ausgabe.');
+        foreach ($xp->query('//a[@class="disk-track-youtube"]') as $link) {
+            pruefe_disk(str_starts_with($link->getAttribute('href'), 'https://www.youtube.com/watch?v=') && $link->getAttribute('title') !== '' && $link->getAttribute('aria-label') !== '', 'YouTube-Link ohne Ziel oder Beschriftung.');
+        }
+
 
         pruefe_disk(!preg_match('/>disk\.[a-z_]+</', $html), 'Unübersetzter Detailtext.');
         route('platte', ['slug' => $platte['id']]);
@@ -136,3 +146,15 @@ pruefe_disk(str_contains($html, e(diskografie_link('2000-munich-blues', $kontext
 pruefe_disk(!str_contains($html, 'href="' . url('platte', ['slug' => '2000-defending-ancient-springs'])), 'Gefilterte Navigation enthält andere Projekte.');
 pruefe_disk(str_contains($html, e(diskografie_zurueck('1999-greek-notebook', $kontext))), 'Rückweg verliert Filter oder Ursprung.');
 echo count($platten) . " Einträge: Details, Titellisten, Quellen, DE/EN, chronologische Navigation und Filterkontext geprüft.\n";
+
+$youtube = json_decode(file_get_contents(APP_ROOT . '/data/youtube-titel.json'), true, flags: JSON_THROW_ON_ERROR);
+$bekannteLieder = [];
+foreach ($details as $detail) foreach ($detail['tracklists'] ?? [] as $liste) foreach ($liste['tracks'] as $track) $bekannteLieder[diskografie_liedschluessel($track['title'])] = true;
+foreach ($youtube as $key => $video) {
+    pruefe_disk(isset($bekannteLieder[$key]), 'YouTube-Beispiel ohne bekannten Liedtitel: ' . $key);
+    pruefe_disk(preg_match('~^https://www\.youtube\.com/watch\?v=[A-Za-z0-9_-]{11}$~', $video['url']) === 1, 'Ungültige Video-Adresse.');
+}
+pruefe_disk(diskografie_youtube('Call Mother A Lonely Field') === diskografie_youtube('Call Mother a Lonely Field (Live, Bremen, 2004)'), 'Live-Zusatz verhindert gemeinsame Liedzuordnung.');
+pruefe_disk(diskografie_youtube('Shadow In My Eye') === diskografie_youtube('Shadow in My Eyes'), 'Abweichende Schreibweise nicht zugeordnet.');
+pruefe_disk(diskografie_youtube('Unbekanntes Lied') === null, 'Fremder Titel erhält falschen Link.');
+echo count($youtube) . " YouTube-Liedbeispiele: zentrale Zuordnung, alle Ausgaben und Beschriftungen geprüft.\n";

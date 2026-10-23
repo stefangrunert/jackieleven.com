@@ -92,3 +92,40 @@ function diskografie_hoerlinks(string $id): array
     $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/diskografie-hoerlinks.json'), true, flags: JSON_THROW_ON_ERROR);
     return $daten[$id] ?? [];
 }
+
+function diskografie_musikdienste(): array
+{
+    return [
+        'spotify' => ['name' => 'Spotify', 'hosts' => ['open.spotify.com'], 'tooltip' => 'Listen on Spotify'],
+        'apple' => ['name' => 'Apple Music', 'hosts' => ['music.apple.com'], 'tooltip' => 'Listen on Apple Music'],
+        'qobuz' => ['name' => 'Qobuz', 'hosts' => ['www.qobuz.com'], 'tooltip' => 'Listen or download on Qobuz'],
+        'amazon' => ['name' => 'Amazon Music', 'hosts' => ['music.amazon.ca'], 'tooltip' => 'Listen on Amazon Music'],
+        'bandcamp' => ['name' => 'Bandcamp', 'hosts' => ['jackieleven.bandcamp.com'], 'tooltip' => 'Listen or buy on Bandcamp'],
+    ];
+}
+
+/** Liedidentität, unabhängig von Datenträger, Satzzeichen oder Live-/Edit-Zusatz. */
+function diskografie_liedschluessel(string $titel): string
+{
+    $titel = preg_replace('/\s*[\[(](?:live|edit|radio|remaster)[^\])]*[\])]/iu', '', $titel);
+    $titel = preg_replace('/\s*[-–—]\s*(?:live|radio edit|edit|remaster).*$/iu', '', $titel);
+    $ascii = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $titel);
+    $key = preg_replace('/[^a-z0-9]/', '', strtolower($ascii !== false ? $ascii : $titel));
+    return [
+        'shadowinmyeye' => 'shadowinmyeyes',
+        'thebarsofdundee' => 'barsofdundee',
+        'levenlament' => 'levenslament',
+        'standinginanothermansrain' => 'anothermansrain',
+        'theworkingmanslovesong' => 'workingmanslovesong',
+        'isawmylovewalkintotheclouds' => 'isawmylovewalkintoclouds',
+        'oliverblues' => 'olivierblues',
+    ][$key] ?? $key;
+}
+
+/** Ein kuratiertes Hörbeispiel pro Lied, auf jeder Ausgabe wiederverwendet. */
+function diskografie_youtube(string $titel): ?array
+{
+    static $daten = null;
+    $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/youtube-titel.json'), true, flags: JSON_THROW_ON_ERROR);
+    return $daten[diskografie_liedschluessel($titel)] ?? null;
+}

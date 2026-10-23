@@ -11,6 +11,10 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/the-mystery-of-love-is-greater-than-the-mystery-of-death/1852636735"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/the-mystery-of-love-is-greater-than-the-mystery-of-death-jackie-leven/bioojxwzn0fka"
       }
     ]
   },
@@ -26,6 +30,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/forbidden-songs-of-the-dying-west/1852637437"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/forbidden-songs-of-the-dying-west-jackie-leven/lnwvyrgenc04a"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G23MZX7M"
       }
     ]
   },
@@ -41,6 +53,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/fairytales-for-hardmen/1852640598"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/fairytales-for-hardmen-jackie-leven/y6pkb2aqzgibc"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G228H1ZH"
       }
     ]
   },
@@ -56,6 +76,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/night-lilies/1852644118"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/night-lilies-jackie-leven/iqffpatfv4ncb"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G21PRX26"
       }
     ]
   },
@@ -71,6 +99,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/defending-ancient-springs/1852647364"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/defending-ancient-springs-jackie-leven/nfz4lcwbbbgpb"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G23QD8XQ"
       }
     ]
   },
@@ -86,6 +122,10 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/creatures-of-light-darkness/1852649329"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/creatures-of-light-darkness-jackie-leven/gofufhj3lkepb"
       }
     ]
   },
@@ -101,6 +141,10 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/shining-brother-shining-sister/1852653654"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/shining-brother-shining-sister-jackie-leven/pztx84rdrkyca"
       }
     ]
   },
@@ -116,6 +160,10 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/elegy-for-johnny-cash/1852662548"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/elegy-for-johnny-cash-jackie-leven/suq1m2va1mcub"
       }
     ]
   },
@@ -131,6 +179,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/jackie-leven-said/1853211916"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/jackie-leven-said-jackie-leven/sap2b91jk667a"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G2577DH8"
       }
     ]
   },
@@ -146,6 +202,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/oh-what-a-blow-that-phantom-dealt-me/1852674029"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/oh-what-a-blow-that-phantom-dealt-me-jackie-leven/z4ss82f2jcqtb"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G22CKQWV"
       }
     ]
   },
@@ -161,6 +225,10 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/lovers-at-the-gun-club/1852685991"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/lovers-at-the-gun-club-jackie-leven/lfh6pmwx6l8lb"
       }
     ]
   },
@@ -176,6 +244,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/gothic-road/1852700511"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/gothic-road-jackie-leven/v9h05y8ctnefb"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G233M1Z9"
       }
     ],
     "note": {
@@ -195,8 +271,50 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/wayside-shrines-and-the-code-of-the-travelling-man/1853075941"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/wayside-shrines-and-the-code-of-the-travelling-man-jackie-leven-michael-cosgrave/z5l5poyhmsmba"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G2412HMN"
       }
     ]
+  },
+  "2021-straight-outta-caledonia-the-songs-of-jackie-leven": {
+    "checked": "2026-10-23",
+    "digitalTitle": "Straight Outta Caledonia – The Songs of Jackie Leven",
+    "trackCount": 10,
+    "links": [
+      {
+        "service": "bandcamp",
+        "url": "https://jackieleven.bandcamp.com/album/straight-outta-caledonia-the-songs-of-jackie-leven"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/straight-outta-caledonia-jackie-leven/hw8vnwpgcm8ba"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G24N1RHZ"
+      }
+    ]
+  },
+  "2021-the-wanderer-a-tribute-to-jackie-leven": {
+    "checked": "2026-10-23",
+    "digitalTitle": "The Wanderer – A Tribute to Jackie Leven",
+    "trackCount": 22,
+    "links": [
+      {
+        "service": "bandcamp",
+        "url": "https://jackieleven.bandcamp.com/album/the-wanderer-a-tribute-to-jackie-leven"
+      }
+    ],
+    "note": {
+      "de": "Bandcamp führt dieselben 22 Stücke in anderer Reihenfolge.",
+      "en": "Bandcamp lists the same 22 songs in a different order."
+    }
   },
   "2022-the-mystery-of-love-is-greater-than-the-mystery-of-death-expanded-edition": {
     "checked": "2026-10-23",
@@ -210,6 +328,14 @@
       {
         "service": "apple",
         "url": "https://music.apple.com/de/album/the-mystery-of-love-is-greater-than-the/1852756935"
+      },
+      {
+        "service": "qobuz",
+        "url": "https://www.qobuz.com/us-en/album/the-mystery-of-love-is-greater-than-the-mystery-of-death-jackie-leven/xc5huwuqm5gab"
+      },
+      {
+        "service": "amazon",
+        "url": "https://music.amazon.ca/albums/B0G23CXCX9"
       }
     ]
   }

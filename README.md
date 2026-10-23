@@ -81,21 +81,41 @@ Cover und Titel öffnen eine eigene Ausgabenseite, beispielsweise `/de/diskograf
 php werkzeug/diskografie.php          # Katalog, Details, Titellisten, Navigation, Quellen und DE/EN
 ```
 
-## Album-Hörlinks
+## Hörlinks und YouTube-Liedbeispiele
 
-`app/data/diskografie-hoerlinks.json` führt zunächst 14 geprüfte digitale Albumangebote
-mit direkten Spotify- und Apple-Music-Links: zwölf reguläre Alben, *Jackie Leven Said*
-und die getrennte erweiterte *Mystery of Love*-Ausgabe. Abgleich am 23. Oktober 2026
-mit Apples öffentlicher iTunes Search/Lookup API (deutscher Store) und der sichtbaren
-Spotify-Diskographie von Jackie Leven. Digitale Datierungen ersetzen keine historischen
-Erscheinungsjahre. *Gothic Road* hat digital zwei zusätzliche Titel; dies steht beim Hörangebot.
+`app/data/diskografie-hoerlinks.json` führt geprüfte digitale Albumangebote mit
+Spotify-, Apple-Music-, Qobuz-, Amazon-Music- und Bandcamp-Links. Die ersten 14
+Albumangebote sind um 15 Qobuz- und zehn Amazon-Angebote sowie zwei Bandcamp-
+Veröffentlichungen ergänzt: *Straight Outta Caledonia* und *The Wanderer – A Tribute*.
+Die Qobuz-/Amazon-Zuordnung stützt sich auf die sichtbaren Künstlerkataloge, Bandcamp
+auf die konkreten Veröffentlichungsseiten. Die Links sind an den beobachteten Store
+gebunden; regionale Erreichbarkeit und Abspielbarkeit können abweichen.
 
-Die Links stehen als selbst gezeichnete, einfarbige SVG-Symbole vor der Titelliste auf den Albumseiten, mit englischen Tooltips und zugänglichen Linkbeschriftungen. „Hören“ in der Übersicht führt
-mit erhaltenen Filtern und Rückweg direkt dorthin. Nur hinterlegte Angebote erscheinen;
-es gibt keine Player, automatischen Plattformabfragen oder externe Musikskripte beim
-Seitenaufruf. Die Dienste werden erst beim Anklicken geöffnet. Einzeltrack-, YouTube-
-und Kauflinks sind für spätere Ergänzungen vorgesehen. Die Verfügbarkeit kann je nach
-Land und Dienst abweichen.
+Die Albumlinks stehen als eigene, einfarbige SVG-Symbole vor der Titelliste,
+mit englischen Tooltips und zugänglichen Beschriftungen. Qobuz ermöglicht auch
+Downloads, Bandcamp Downloads und angebotene physische Ausgaben. Preise und
+Lagerbestände werden nicht auf der Website gespeichert. Historische Titellisten
+und Erscheinungsjahre bleiben bestehen. *Gothic Road* enthält digital zwei zusätzliche
+Titel; Bandcamp führt die 22 Stücke des Tribute-Albums in anderer Reihenfolge.
+
+`app/data/youtube-titel.json` ordnet 132 Liedtiteln jeweils ein YouTube-Hörbeispiel zu.
+Die Zuordnung folgt dem Lied, **nicht der konkreten Aufnahme**: dasselbe Beispiel
+erscheint bei jedem Vorkommen, auch über Studio-/Livefassungen und Wiederveröffentlichungen
+hinweg. Satzzeichen, Live-/Edit-Zusätze und wenige belegte Schreibvarianten werden
+normalisiert; andere Titel bleiben ohne Link. Der Tooltip nennt das tatsächliche Video
+und den Kanal. Auf den derzeitigen Titellisten entstehen dadurch 411 Links auf 75 Ausgabenseiten.
+
+Die Recherche liegt unter `research/youtube-fundliste.md`, als strukturierte Daten unter
+`research/youtube-fundliste.json` und als lokal durchsuchbare Tabelle unter
+`research/youtube-fundliste.html`. Stand 23. Oktober 2026: 287 unterschiedliche Videos aus
+Suchergebnissen und Kanalseiten, einschließlich Topic-Audio, offiziellen Audio-/Standbild-
+Videos, Fan-Uploads, Konzerten, Interviews und Alias-Projekten. Kategorien folgen den
+sichtbaren Metadaten; keine vollständige Wiedergabe- oder Rechteprüfung. Die Sammlung
+beansprucht keine Vollständigkeit. Fremde Suchtreffer und Mix-Links sind entfernt.
+
+Es werden keine Player, externen Musikskripte oder automatischen Plattformabfragen beim
+Seitenaufruf geladen. Die Dienste werden erst beim Anklicken geöffnet. Ein angezeigter Link
+ist keine Zusicherung, dass jedes Video in jedem Land und ohne Anmeldung abspielbar ist.
 
 ## Verzeichnisse
 
