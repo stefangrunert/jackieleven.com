@@ -1,5 +1,9 @@
 <?php
 return [
+    'disk.hoeren' => 'Listen',
+    'disk.album_hoeren' => 'Listen to the album',
+    'disk.hoerlink' => 'Listen to {titel} on {dienst}',
+
     'pfad.mitmachen' => 'contribute',
     'nav.mitmachen' => 'Contribute',
     'titel.mitmachen' => 'Contribute · Jackie Leven',

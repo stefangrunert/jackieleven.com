@@ -81,6 +81,22 @@ Cover und Titel öffnen eine eigene Ausgabenseite, beispielsweise `/de/diskograf
 php werkzeug/diskografie.php          # Katalog, Details, Titellisten, Navigation, Quellen und DE/EN
 ```
 
+## Album-Hörlinks
+
+`app/data/diskografie-hoerlinks.json` führt zunächst 14 geprüfte digitale Albumangebote
+mit direkten Spotify- und Apple-Music-Links: zwölf reguläre Alben, *Jackie Leven Said*
+und die getrennte erweiterte *Mystery of Love*-Ausgabe. Abgleich am 23. Oktober 2026
+mit Apples öffentlicher iTunes Search/Lookup API (deutscher Store) und der sichtbaren
+Spotify-Diskographie von Jackie Leven. Digitale Datierungen ersetzen keine historischen
+Erscheinungsjahre. *Gothic Road* hat digital zwei zusätzliche Titel; dies steht beim Hörangebot.
+
+Die Links stehen als selbst gezeichnete, einfarbige SVG-Symbole vor der Titelliste auf den Albumseiten, mit englischen Tooltips und zugänglichen Linkbeschriftungen. „Hören“ in der Übersicht führt
+mit erhaltenen Filtern und Rückweg direkt dorthin. Nur hinterlegte Angebote erscheinen;
+es gibt keine Player, automatischen Plattformabfragen oder externe Musikskripte beim
+Seitenaufruf. Die Dienste werden erst beim Anklicken geöffnet. Einzeltrack-, YouTube-
+und Kauflinks sind für spätere Ergänzungen vorgesehen. Die Verfügbarkeit kann je nach
+Land und Dienst abweichen.
+
 ## Verzeichnisse
 
 | Pfad | Inhalt |

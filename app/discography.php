@@ -84,3 +84,11 @@ function diskografie_zurueck(string $id, array $kontext): string
     unset($kontext['von']);
     return url('diskografie') . ($kontext ? '?' . http_build_query($kontext) : '') . '#' . $anker;
 }
+
+/** Geprüfte externe Albumangebote; getrennt von historischen Ausgabedaten. */
+function diskografie_hoerlinks(string $id): array
+{
+    static $daten = null;
+    $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/diskografie-hoerlinks.json'), true, flags: JSON_THROW_ON_ERROR);
+    return $daten[$id] ?? [];
+}

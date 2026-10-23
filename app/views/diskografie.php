@@ -60,6 +60,9 @@
                 <h3 id="titel-<?= e($platte['id']) ?>"><a href="<?= e(diskografie_link($platte['id'])) ?>" data-release-link="<?= e($platte['id']) ?>"><?= e($platte['title']) ?></a></h3>
                 <p class="disk-metadaten"><?= e(implode(' · ', array_filter([t('disk.type.' . $platte['kind']), $platte['format'], $platte['label']])) ) ?></p>
                 <?php if ($platte['notes'][sprache()] !== ''): ?><p class="disk-notiz"><?= e($platte['notes'][sprache()]) ?></p><?php endif; ?>
+                <?php if (diskografie_hoerlinks($platte['id']) !== []): ?>
+                  <p class="disk-hoeren-kurz"><a href="<?= e(diskografie_link($platte['id'])) ?>#hoeren" data-release-link="<?= e($platte['id']) ?>"><?= e(t('disk.hoeren')) ?></a></p>
+                <?php endif; ?>
                 <details class="disk-details">
                   <summary><?= e(t('disk.details')) ?></summary>
                   <?php if ($platte['catalog'] !== ''): ?><p><?= e(t('disk.katalognummer')) ?> <?= e($platte['catalog']) ?></p><?php endif; ?>

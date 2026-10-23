@@ -30,6 +30,22 @@ foreach ($details as $id => $detail) {
         foreach ($detail['facts'] ?? [] as $fakt) pruefe_disk(isset($fakt['label'][$s], $fakt['value'][$s]), 'Unvollständige Fakten: ' . $id);
     }
 }
+$angebote = json_decode(file_get_contents(APP_ROOT . '/data/diskografie-hoerlinks.json'), true, flags: JSON_THROW_ON_ERROR);
+foreach ($angebote as $id => $angebot) {
+    pruefe_disk(in_array($id, $ids, true), 'Hörangebot ohne Ausgabe.');
+    pruefe_disk(preg_match('/^\d{4}-\d{2}-\d{2}$/', $angebot['checked']) === 1, 'Prüfdatum fehlt.');
+    pruefe_disk($angebot['digitalTitle'] !== '' && $angebot['links'] !== [], 'Unvollständiges Hörangebot.');
+    $dienste = [];
+    foreach ($angebot['links'] as $link) {
+        $host = ['spotify' => 'open.spotify.com', 'apple' => 'music.apple.com'][$link['service']] ?? null;
+        pruefe_disk($host !== null && parse_url($link['url'], PHP_URL_SCHEME) === 'https'
+            && parse_url($link['url'], PHP_URL_HOST) === $host && str_contains(parse_url($link['url'], PHP_URL_PATH), '/album/'), 'Kein direkter Albumlink.');
+        $dienste[] = $link['service'];
+    }
+    pruefe_disk(count($dienste) === count(array_unique($dienste)), 'Doppelter Dienst.');
+    $anzahl = array_sum(array_map(fn($liste) => count($liste['tracks']), $details[$id]['tracklists'] ?? []));
+    if ($anzahl !== $angebot['trackCount']) foreach (SPRACHEN as $s) pruefe_disk(!empty($angebot['note'][$s]), 'Abweichende digitale Titelliste ohne Hinweis.');
+}
 pruefe_disk(count($ids) === count(array_unique($ids)), 'Doppelte Plattenadresse.');
 $jahre = array_column($platten, 'year');
 $sortiert = $jahre;
@@ -74,7 +90,7 @@ foreach (SPRACHEN as $s) {
         pruefe_disk($xpath->query('//article[@id="' . $id . '"]')->length === 1, 'Platte nicht eindeutig erreichbar: ' . $id);
         $links = $xpath->query('//article[@id="' . $id . '"]//a[@data-release-link]');
         pruefe_disk($links->length > 0, 'Detailverlinkung fehlt: ' . $id);
-        foreach ($links as $link) pruefe_disk($link->getAttribute('href') === url('platte', ['slug' => $id]), 'Titel oder Cover führen nicht zur Detailseite.');
+        foreach ($links as $link) pruefe_disk(in_array($link->getAttribute('href'), [url('platte', ['slug' => $id]), url('platte', ['slug' => $id]) . '#hoeren'], true), 'Titel, Cover oder Hörlink führen nicht zur Detailseite.');
     }
     pruefe_disk(!preg_match('/>disk\.[a-z_]+</', $html), 'Unübersetzter Oberflächentext.');
     route('diskografie');
@@ -96,6 +112,15 @@ foreach (SPRACHEN as $s) {
         $n = array_sum(array_map(fn($liste) => count($liste['tracks']), $details[$platte['id']]['tracklists'] ?? []));
         pruefe_disk($xp->query('//ol[@class="disk-tracks"]/li')->length === $n, 'Tracks fehlen auf der Detailseite.');
         pruefe_disk(!str_contains($html, 'class="disk-notiz"'), 'Redaktionelle Beschreibung auf der Detailseite.');
+        $hoerlinks = $xp->query('//section[@id="hoeren"]//a');
+        pruefe_disk($hoerlinks->length === count($angebote[$platte['id']]['links'] ?? []), 'Hörlinks fehlen oder stehen bei einer falschen Ausgabe.');
+        foreach ($hoerlinks as $j => $link) {
+            pruefe_disk($link->getAttribute('href') === $angebote[$platte['id']]['links'][$j]['url'], 'Falsches Albumangebot.');
+            pruefe_disk($link->getAttribute('title') !== '' && $link->getAttribute('aria-label') !== '', 'Dienstsymbol ohne Beschriftung.');
+            pruefe_disk($xp->query('.//*[local-name()="svg"]', $link)->length === 1, 'Dienstsymbol fehlt.');
+        }
+        pruefe_disk(!str_contains($html, '<iframe'), 'Ungefragter eingebetteter Player.');
+
         pruefe_disk(!preg_match('/>disk\.[a-z_]+</', $html), 'Unübersetzter Detailtext.');
         route('platte', ['slug' => $platte['id']]);
         foreach (SPRACHEN as $ziel) pruefe_disk(alternativ_url($ziel) === url('platte', ['slug' => $platte['id']], $ziel), 'Sprachwechsel verliert die Ausgabe.');

@@ -1,6 +1,7 @@
 <?php
 /** @var array $platte @var array $kontext */
 $details = diskografie_details($platte['id']);
+$hoeren = diskografie_hoerlinks($platte['id']);
 if (!diskografie_passt($platte, $kontext)) unset($kontext['projekt'], $kontext['format']);
 $platten = array_values(array_filter(diskografie()['releases'], fn($p) => diskografie_passt($p, $kontext)));
 $index = array_search($platte['id'], array_column($platten, 'id'), true);
@@ -53,6 +54,18 @@ $quellen = array_column($quellen, null, 'url');
         <dl class="disk-fakten disk-aufnahmefakten">
           <?php foreach ($details['facts'] as $fakt): ?><div><dt><?= e($fakt['label'][sprache()]) ?></dt><dd><?= e($fakt['value'][sprache()]) ?></dd></div><?php endforeach; ?>
         </dl>
+      <?php endif; ?>
+
+      <?php if ($hoeren !== []): ?>
+        <section class="disk-hoeren" id="hoeren" aria-labelledby="hoeren-titel">
+          <h2 id="hoeren-titel"><?= e(t('disk.album_hoeren')) ?></h2>
+          <ul>
+            <?php foreach ($hoeren['links'] as $link): $dienst = ['spotify' => 'Spotify', 'apple' => 'Apple Music'][$link['service']]; ?>
+              <li><a class="musik-dienst" href="<?= e($link['url']) ?>" rel="noopener noreferrer" title="<?= e('Listen on ' . $dienst) ?>" aria-label="<?= e(t('disk.hoerlink', ['titel' => $platte['title'], 'dienst' => $dienst])) ?>"><?= render('musik-icon', ['dienst' => $link['service']]) ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+          <?php if (!empty($hoeren['note'][sprache()])): ?><p><?= e($hoeren['note'][sprache()]) ?></p><?php endif; ?>
+        </section>
       <?php endif; ?>
 
       <section class="disk-titelliste" aria-labelledby="titelliste">

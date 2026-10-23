@@ -150,7 +150,7 @@
       url.search = '';
       ['projekt', 'format'].forEach(function (key) { if (query.has(key)) url.searchParams.set(key, query.get(key)); });
       url.searchParams.set('von', link.dataset.releaseLink);
-      link.href = url.pathname + url.search;
+      link.href = url.pathname + url.search + url.hash;
     });
   }
 
