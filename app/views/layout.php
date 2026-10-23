@@ -76,6 +76,7 @@
 <script src="/assets/js/kolumnen.js?v=<?= filemtime(APP_ROOT . '/../assets/js/kolumnen.js') ?>" defer></script>
 <?php endif; ?>
 <?php if ($nav === 'diskografie'): ?>
+<script src="/assets/js/musiklinks.js?v=<?= filemtime(APP_ROOT . '/../assets/js/musiklinks.js') ?>" defer></script>
 <script src="/assets/js/diskografie.js?v=<?= filemtime(APP_ROOT . '/../assets/js/diskografie.js') ?>" defer></script>
 <?php endif; ?>
 </body>

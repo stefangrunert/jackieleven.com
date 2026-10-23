@@ -121,6 +121,10 @@ foreach (SPRACHEN as $s) {
             pruefe_disk($xp->query('.//*[local-name()="svg"]', $link)->length === 1, 'Dienstsymbol fehlt.');
         }
         pruefe_disk(!str_contains($html, '<iframe'), 'Ungefragter eingebetteter Player.');
+        foreach ($xp->query('//a[@data-music-link]') as $link) {
+            pruefe_disk($link->getAttribute('target') === '_blank' && $link->getAttribute('rel') === 'noopener noreferrer', 'Musiklink verlässt die Hommage oder erlaubt Zugriff auf das Ursprungsfenster.');
+        }
+        pruefe_disk($xp->query('//a[@data-music-link]')->length === $hoerlinks->length + $xp->query('//a[@class="disk-track-youtube"]')->length, 'Musiklink ohne separates Zielfenster.');
         $ytSoll = 0;
         foreach ($details[$platte['id']]['tracklists'] ?? [] as $liste) foreach ($liste['tracks'] as $track) {
             if (diskografie_youtube($track['title']) !== null) $ytSoll++;
