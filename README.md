@@ -91,6 +91,20 @@ Die Qobuz-/Amazon-Zuordnung stützt sich auf die sichtbaren Künstlerkataloge, B
 auf die konkreten Veröffentlichungsseiten. Die Links sind an den beobachteten Store
 gebunden; regionale Erreichbarkeit und Abspielbarkeit können abweichen.
 
+Insgesamt haben 44 Ausgaben ein Albumangebot. Zuletzt kamen Spotify- und Apple-Music-Links
+für 16 weitere Ausgaben hinzu, darunter *For Peace Comes Dropping Slow*, alle vier Teile von
+*The Haunted Year*, die drei Sir-Vincent-Lone-Alben, *Chip Pan Fire*, *Heroes Can Be Any Size*,
+*Live Or Die* und der Rockpalast-Mitschnitt; *Straight Outta Caledonia* hat beide Dienste
+zusätzlich erhalten. Grundlage sind Apples Katalogsuche und die Diskografieseiten bei Spotify.
+*Songs for Lonely Americans* (2004) verweist auf die gleichlautende Digitalfassung von 2006,
+die Rockpalast-Ausgaben von 2011 und 2024 teilen sich eine Digitalfassung. *Live Or Die* enthält
+digital nur die 25 Lieder, ohne die zehn gesprochenen Zwischenstücke der CDs.
+
+Auch *Control* und die fünf Doll-by-Doll-Alben sind über Spotify verknüpft,
+einschließlich der zugehörigen Neuauflagen. YouTube-Beispiele decken deren
+sämtliche Liedtitel ab; die abweichenden Titel „Human Face“ / „The Human Face“
+und „Palace of Love“ / „The Palace of Love“ werden gemeinsam zugeordnet.
+
 Die Albumlinks stehen als eigene, einfarbige SVG-Symbole vor der Titelliste,
 mit englischen Tooltips und zugänglichen Beschriftungen. Qobuz ermöglicht auch
 Downloads, Bandcamp Downloads und angebotene physische Ausgaben. Preise und
@@ -98,20 +112,37 @@ Lagerbestände werden nicht auf der Website gespeichert. Historische Titellisten
 und Erscheinungsjahre bleiben bestehen. *Gothic Road* enthält digital zwei zusätzliche
 Titel; Bandcamp führt die 22 Stücke des Tribute-Albums in anderer Reihenfolge.
 
-`app/data/youtube-titel.json` ordnet 132 Liedtiteln jeweils ein YouTube-Hörbeispiel zu.
-Die Zuordnung folgt dem Lied, **nicht der konkreten Aufnahme**: dasselbe Beispiel
-erscheint bei jedem Vorkommen, auch über Studio-/Livefassungen und Wiederveröffentlichungen
-hinweg. Satzzeichen, Live-/Edit-Zusätze und wenige belegte Schreibvarianten werden
-normalisiert; andere Titel bleiben ohne Link. Der Tooltip nennt das tatsächliche Video
-und den Kanal. Auf den derzeitigen Titellisten entstehen dadurch 411 Links auf 75 Ausgabenseiten.
+`app/data/youtube-titel.json` ordnet 343 Liedtiteln je eine Liste von YouTube-Aufnahmen zu:
+zuerst das Hörbeispiel (Studioaufnahme bevorzugt, offizielle Topic- und Labelkanäle vor
+Fan-Uploads), danach insgesamt 134 Livefassungen. Die Zuordnung folgt dem Lied, **nicht der
+konkreten Aufnahme**: dieselben Links erscheinen bei jedem Vorkommen, auch über Studio-/Livefassungen
+und Wiederveröffentlichungen hinweg. Das Hörbeispiel steht als YouTube-Symbol in der Zeile; die
+Livefassungen folgen chronologisch in einer kleinen Zeile „Live“ unter dem Liedtitel, mit Ort und
+Jahr (etwa „Bremen 1999 · Kiel 2003 · Rockpalast 2004“). Offizielle Livealben ohne belegtes
+Aufnahmedatum erscheinen mit ihrem Titel („Munich Blues“). Je Konzert steht höchstens eine Fassung.
+Ortsnamen mit eigener deutscher Schreibung stehen zweisprachig (`label` als `{de, en}`).
+
+Quellen der Livefassungen sind die Album-Playlists der Topic-Kanäle (*The Haunted Year*, *For Peace
+Comes Dropping Slow*, *Live Or Die*, *Revenge of Memory*), der offizielle Rockpalast-Konzertfilm von
+MIG mit Zeitsprung zum jeweiligen Titel sowie Fan- und TV-Mitschnitte, deren Ort und Datum Titel oder
+Beschreibung belegen. Längere Mitschnitte ohne Zeitmarken bleiben in der Fundliste. Satzzeichen,
+Live-/Edit-Zusätze, „(Spoken)“, „(bonus track)“, „(Full Version)“, „(From Live Show)“ und
+wenige belegte Schreibvarianten werden normalisiert; „Intro“ bleibt ohne Link, weil verschiedene
+Einleitungen denselben Titel tragen. Der Tooltip nennt das tatsächliche Video, gegebenenfalls das
+Album, und den Kanal. `diskografie_youtube()` liefert das Hörbeispiel,
+`diskografie_youtube_fassungen()` die ganze Liste. Auf den derzeitigen Titellisten haben damit
+813 von 881 Trackeinträgen auf 84 Ausgabenseiten ein Hörbeispiel, dazu kommen 869 Livelinks.
 
 Die Recherche liegt unter `research/youtube-fundliste.md`, als strukturierte Daten unter
 `research/youtube-fundliste.json` und als lokal durchsuchbare Tabelle unter
-`research/youtube-fundliste.html`. Stand 23. Oktober 2026: 287 unterschiedliche Videos aus
-Suchergebnissen und Kanalseiten, einschließlich Topic-Audio, offiziellen Audio-/Standbild-
-Videos, Fan-Uploads, Konzerten, Interviews und Alias-Projekten. Kategorien folgen den
-sichtbaren Metadaten; keine vollständige Wiedergabe- oder Rechteprüfung. Die Sammlung
-beansprucht keine Vollständigkeit. Fremde Suchtreffer und Mix-Links sind entfernt.
+`research/youtube-fundliste.html`. Stand 23. Oktober 2026: 785 unterschiedliche Videos aus
+Suchergebnissen, Kanal- und Albumseiten der Topic-Kanäle und einer gezielten Suche je Liedtitel,
+einschließlich Topic-Audio, offiziellen Audio-/Standbild-Videos, Fan-Uploads, Konzerten mit Ort
+und Datum, Interviews und Alias-Projekten. Die Liste vermerkt, welches Video in der App als
+Hörbeispiel oder Livefassung dient, und führt am Ende die 46 Liedtitel ohne auffindbare Aufnahme.
+Kategorien folgen den sichtbaren Metadaten und Videobeschreibungen; die in der App verwendeten
+Videos waren am Stichtag erreichbar, eine Rechteprüfung gibt es nicht. Die Sammlung beansprucht
+keine Vollständigkeit. Fremde Suchtreffer und Mix-Links sind entfernt.
 
 Es werden keine Player, externen Musikskripte oder automatischen Plattformabfragen beim
 Seitenaufruf geladen. Die Dienste werden erst beim Anklicken geöffnet. Ein angezeigter Link

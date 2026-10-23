@@ -104,10 +104,11 @@ function diskografie_musikdienste(): array
     ];
 }
 
-/** Liedidentität, unabhängig von Datenträger, Satzzeichen oder Live-/Edit-Zusatz. */
+/** Liedidentität, unabhängig von Datenträger, Satzzeichen oder Live-/Edit-/Fassungszusatz. */
 function diskografie_liedschluessel(string $titel): string
 {
-    $titel = preg_replace('/\s*[\[(](?:live|edit|radio|remaster)[^\])]*[\])]/iu', '', $titel);
+    $titel = preg_replace('/^\s*\(spoken\)\s*/iu', '', $titel);
+    $titel = preg_replace('/\s*[\[(](?:live|edit|radio|remaster|bonus track|full version|beautiful version|from live show|etc\.)[^\])]*[\])]/iu', '', $titel);
     $titel = preg_replace('/\s*[-–—]\s*(?:live|radio edit|edit|remaster).*$/iu', '', $titel);
     $ascii = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $titel);
     $key = preg_replace('/[^a-z0-9]/', '', strtolower($ascii !== false ? $ascii : $titel));
@@ -119,13 +120,54 @@ function diskografie_liedschluessel(string $titel): string
         'theworkingmanslovesong' => 'workingmanslovesong',
         'isawmylovewalkintotheclouds' => 'isawmylovewalkintoclouds',
         'oliverblues' => 'olivierblues',
+        'humanface' => 'thehumanface',
+        'palaceoflove' => 'thepalaceoflove',
+        'boxershitharderwhenwomanarearound' => 'boxershitharderwhenwomenarearound',
+        'balladofanneredmond' => 'theballadofanneredmond',
+        'kingsofinfinitespaceplusstoryofbasilandronnie' => 'kingsofinfinitespace',
+        'loversatthegunclubplusstoryofshannondoyle' => 'loversatthegunclub',
+        'stingsdeadstoryofthesaddeathofthewellknownsinger' => 'stingsdead',
+        'sextouriststory' => 'sextourist',
+        'whenamandieswithjoshaw' => 'whenamandies',
+        'poortounlosingmyvoice' => 'poortoun',
+        'jackiesbaddepressionafunnystory' => 'jackiesbaddepression',
+        'jackietalksaboutkielandhismother' => 'kielandhismother',
+        'jackietalksaboutnorwegianprisoners' => 'norwegianprisoners',
     ][$key] ?? $key;
 }
 
-/** Ein kuratiertes Hörbeispiel pro Lied, auf jeder Ausgabe wiederverwendet. */
-function diskografie_youtube(string $titel): ?array
+/**
+ * Kuratierte Aufnahmen pro Lied, auf jeder Ausgabe wiederverwendet: zuerst das
+ * Hörbeispiel (Studio bevorzugt), danach Livefassungen mit Ort bzw. Konzert.
+ */
+function diskografie_youtube_fassungen(string $titel): array
 {
     static $daten = null;
     $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/youtube-titel.json'), true, flags: JSON_THROW_ON_ERROR);
-    return $daten[diskografie_liedschluessel($titel)] ?? null;
+    $videos = $daten[diskografie_liedschluessel($titel)] ?? [];
+    if ($videos === []) return [];
+    return array_is_list($videos) ? $videos : [$videos];
+}
+
+/** Ein Hörbeispiel pro Lied, auf jeder Ausgabe wiederverwendet. */
+function diskografie_youtube(string $titel): ?array
+{
+    return diskografie_youtube_fassungen($titel)[0] ?? null;
+}
+
+/** Ort bzw. Konzert einer Livefassung; Ortsnamen mit Exonym stehen zweisprachig. */
+function diskografie_fassung_ort(array $fassung): string
+{
+    $ort = $fassung['label'] ?? '';
+    return is_array($ort) ? ($ort[sprache()] ?? $ort['en']) : $ort;
+}
+
+/** Tooltip mit tatsächlichem Video, Herkunftsalbum und Kanal. */
+function diskografie_fassung_tooltip(array $fassung): string
+{
+    $teile = ['Listen on YouTube', $fassung['title']];
+    if (!empty($fassung['album'])) $teile[] = $fassung['album'];
+    if ($fassung['kind'] === 'live') $teile[] = 'Live' . (isset($fassung['label']) ? ', ' . (is_array($fassung['label']) ? $fassung['label']['en'] : $fassung['label']) : '');
+    $teile[] = $fassung['channel'];
+    return implode(' · ', $teile);
 }

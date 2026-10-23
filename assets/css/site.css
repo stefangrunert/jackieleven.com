@@ -932,6 +932,11 @@ footer .fuss-text { display: grid; gap: .25rem; }
 .disk-track-youtube .musik-icon { width: 20px; height: 20px; }
 .disk-track-youtube:hover, .disk-track-youtube:focus-visible { color: var(--accent); }
 .disk-track-youtube:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.disk-tracktitel .disk-track-live { font-size: 13px; line-height: 1.6; margin-top: .25rem; }
+.disk-track-live span { font-family: var(--rough); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin-right: .35rem; }
+.disk-track-live a { white-space: nowrap; color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.disk-track-live a:hover, .disk-track-live a:focus-visible { color: var(--accent); text-decoration-color: currentColor; }
+.disk-track-live a:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
 @media (max-width: 600px) {
   .disk-tracks li { grid-template-columns: 1.6rem minmax(0, 1fr) 36px auto; column-gap: .45rem; }
   .disk-track-youtube { width: 36px; }

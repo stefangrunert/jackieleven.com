@@ -1,6 +1,8 @@
 <?php
 return [
     'disk.youtube_lied' => '{titel} auf YouTube hören',
+    'disk.live' => 'Live',
+    'disk.youtube_live' => '{titel} live auf YouTube hören: {ort}',
     'disk.hoeren' => 'Hören',
     'disk.album_hoeren' => 'Album hören',
     'disk.hoerlink' => '{titel} bei {dienst} hören',

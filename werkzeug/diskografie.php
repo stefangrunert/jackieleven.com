@@ -124,13 +124,17 @@ foreach (SPRACHEN as $s) {
         foreach ($xp->query('//a[@data-music-link]') as $link) {
             pruefe_disk($link->getAttribute('target') === '_blank' && $link->getAttribute('rel') === 'noopener noreferrer', 'Musiklink verlässt die Hommage oder erlaubt Zugriff auf das Ursprungsfenster.');
         }
-        pruefe_disk($xp->query('//a[@data-music-link]')->length === $hoerlinks->length + $xp->query('//a[@class="disk-track-youtube"]')->length, 'Musiklink ohne separates Zielfenster.');
-        $ytSoll = 0;
+        $liveLinks = $xp->query('//small[@class="disk-track-live"]/a');
+        pruefe_disk($xp->query('//a[@data-music-link]')->length === $hoerlinks->length + $xp->query('//a[@class="disk-track-youtube"]')->length + $liveLinks->length, 'Musiklink ohne separates Zielfenster.');
+        $ytSoll = $liveSoll = 0;
         foreach ($details[$platte['id']]['tracklists'] ?? [] as $liste) foreach ($liste['tracks'] as $track) {
-            if (diskografie_youtube($track['title']) !== null) $ytSoll++;
+            $videos = diskografie_youtube_fassungen($track['title']);
+            if ($videos) $ytSoll++;
+            $liveSoll += max(0, count($videos) - 1);
         }
         pruefe_disk($xp->query('//a[@class="disk-track-youtube"]')->length === $ytSoll, 'YouTube-Beispiele fehlen auf einer Ausgabe.');
-        foreach ($xp->query('//a[@class="disk-track-youtube"]') as $link) {
+        pruefe_disk($liveLinks->length === $liveSoll, 'Livefassungen fehlen auf einer Ausgabe.');
+        foreach ([...$xp->query('//a[@class="disk-track-youtube"]'), ...$liveLinks] as $link) {
             pruefe_disk(str_starts_with($link->getAttribute('href'), 'https://www.youtube.com/watch?v=') && $link->getAttribute('title') !== '' && $link->getAttribute('aria-label') !== '', 'YouTube-Link ohne Ziel oder Beschriftung.');
         }
 
@@ -154,11 +158,32 @@ echo count($platten) . " Einträge: Details, Titellisten, Quellen, DE/EN, chrono
 $youtube = json_decode(file_get_contents(APP_ROOT . '/data/youtube-titel.json'), true, flags: JSON_THROW_ON_ERROR);
 $bekannteLieder = [];
 foreach ($details as $detail) foreach ($detail['tracklists'] ?? [] as $liste) foreach ($liste['tracks'] as $track) $bekannteLieder[diskografie_liedschluessel($track['title'])] = true;
-foreach ($youtube as $key => $video) {
+$fassungen = 0;
+foreach ($youtube as $key => $videos) {
     pruefe_disk(isset($bekannteLieder[$key]), 'YouTube-Beispiel ohne bekannten Liedtitel: ' . $key);
-    pruefe_disk(preg_match('~^https://www\.youtube\.com/watch\?v=[A-Za-z0-9_-]{11}$~', $video['url']) === 1, 'Ungültige Video-Adresse.');
+    $videos = array_is_list($videos) ? $videos : [$videos];
+    pruefe_disk($videos !== [], 'Aufnahmen eines Liedes fehlen: ' . $key);
+    $adressen = [];
+    foreach ($videos as $j => $video) {
+        pruefe_disk(preg_match('~^https://www\.youtube\.com/watch\?v=[A-Za-z0-9_-]{11}(?:&t=\d+s)?$~', $video['url']) === 1, 'Ungültige Video-Adresse: ' . $key);
+        pruefe_disk(in_array($video['kind'], ['audio', 'video', 'live'], true) && $video['title'] !== '' && $video['channel'] !== '', 'Aufnahme ohne Art, Titel oder Kanal: ' . $key);
+        $ort = $video['label'] ?? null;
+        pruefe_disk($ort === null || (is_string($ort) && $ort !== '') || (is_array($ort) && ($ort['de'] ?? '') !== '' && ($ort['en'] ?? '') !== ''), 'Ortsangabe unvollständig: ' . $key);
+        pruefe_disk($j === 0 || ($video['kind'] === 'live' && $ort !== null), 'Weitere Fassung ohne Live-Kennzeichnung: ' . $key);
+        $adressen[] = $video['url'];
+    }
+    pruefe_disk(count(array_unique($adressen)) === count($adressen), 'Doppelte Aufnahme bei ' . $key);
+    $fassungen += count($videos) - 1;
 }
 pruefe_disk(diskografie_youtube('Call Mother A Lonely Field') === diskografie_youtube('Call Mother a Lonely Field (Live, Bremen, 2004)'), 'Live-Zusatz verhindert gemeinsame Liedzuordnung.');
 pruefe_disk(diskografie_youtube('Shadow In My Eye') === diskografie_youtube('Shadow in My Eyes'), 'Abweichende Schreibweise nicht zugeordnet.');
-pruefe_disk(diskografie_youtube('Unbekanntes Lied') === null, 'Fremder Titel erhält falschen Link.');
-echo count($youtube) . " YouTube-Liedbeispiele: zentrale Zuordnung, alle Ausgaben und Beschriftungen geprüft.\n";
+pruefe_disk(diskografie_liedschluessel('(Spoken) The Butterfly Story') === diskografie_liedschluessel('The Butterfly Story'), 'Gesprochene Zwischenstücke nicht gemeinsam zugeordnet.');
+pruefe_disk(diskografie_youtube('Unbekanntes Lied') === null && diskografie_youtube_fassungen('Unbekanntes Lied') === [], 'Fremder Titel erhält falschen Link.');
+pruefe_disk(diskografie_youtube('Call Mother A Lonely Field') === diskografie_youtube_fassungen('Call Mother A Lonely Field')[0], 'Hörbeispiel ist nicht die erste Aufnahme.');
+foreach (['1973-control', '1997-control', '2023-control', '1979-remember', '1979-gypsy-blood-album', '1981-doll-by-doll', '1982-grand-passion', '2006-revenge-of-memory-live-at-the-sheffield-limits-club', '2007-remember-reissue', '2007-gypsy-blood-reissue', '2007-doll-by-doll-reissue', '2007-grand-passion-reissue'] as $id) {
+    pruefe_disk(in_array('spotify', array_column(diskografie_hoerlinks($id)['links'] ?? [], 'service'), true), 'Spotify-Angebot fehlt: ' . $id);
+    foreach ($details[$id]['tracklists'] as $liste) foreach ($liste['tracks'] as $track) {
+        pruefe_disk(diskografie_youtube($track['title']) !== null, 'Frühwerk ohne YouTube-Beispiel: ' . $id . ' / ' . $track['title']);
+    }
+}
+echo count($youtube) . " Lieder mit YouTube-Beispiel und {$fassungen} Livefassungen: zentrale Zuordnung, alle Ausgaben und Beschriftungen geprüft.\n";
