@@ -102,12 +102,32 @@ a { color: var(--accent); }
 .home-buehne { position: relative; height: 860px; overflow: hidden; }
 .home-portraet { position: absolute; inset: 52px 0 0; }
 .home-portraet img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 75% 30%; mask-image: linear-gradient(to top, transparent, black 45%); }
-.home-vers { position: absolute; left: var(--home-rand); top: 104px; max-width: 620px; }
+.home-vers { position: absolute; left: var(--home-rand); top: 196px; max-width: 620px; }
 .home-vers blockquote { color: var(--accent); font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(62px, 6vw, 72px); font-style: italic; font-weight: 400; line-height: 1.04; letter-spacing: -.01em; }
 .home-vers figcaption { margin-top: 24px; font-family: var(--rough); font-size: 12px; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
-.home-name { position: absolute; left: var(--home-rand); bottom: 56px; }
+.home-name { position: absolute; left: var(--home-rand); top: 74px; }
 .home-name h1 { font-size: 40px; font-weight: 300; line-height: 1; letter-spacing: -.01em; }
-.home-name p { margin-top: 10px; font-family: var(--rough); font-size: 12px; font-weight: 400; line-height: 1.7; letter-spacing: .3em; color: var(--accent); }
+.home-name p { margin-top: 10px; font-family: var(--rough); font-size: 12px; font-weight: 400; line-height: 1.7; letter-spacing: .3em; color: var(--ink-dim); }
+.home-hoeren { padding: 44px var(--home-rand); border-block: 1px solid var(--line); }
+.home-hoeren-inner { width: 100%; display: grid; grid-template-columns: minmax(0, 620px) minmax(250px, 1fr); gap: clamp(48px, 7vw, 96px); align-items: start; }
+.home-video-raum { min-width: 0; }
+.home-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+.home-video .hoer-video-bild { object-position: center 28%; }
+.home-playlist-kopf { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 16px; }
+.home-playlist-kopf h2 { color: var(--accent); font-size: 36px; font-weight: 300; line-height: 1; }
+.home-hoeren-link { color: var(--ink-dim); font-family: var(--rough); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.home-playlist ol { list-style: none; border-top: 1px solid var(--line); }
+.home-playlist li { border-bottom: 1px solid var(--line); }
+.home-playlist button, .home-playlist-platz { width: 100%; min-height: 76px; display: grid; grid-template-columns: 34px minmax(0, 1fr); align-content: center; column-gap: 12px; padding: 12px 0; text-align: left; }
+.home-playlist button { border: 0; background: none; color: var(--ink-soft); cursor: pointer; }
+.home-playlist button:hover, .home-playlist button:focus-visible, .home-playlist button[aria-pressed="true"] { color: var(--accent); }
+.home-playlist button:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.home-playlist-nummer, .home-playlist-meta { font-family: var(--rough); font-size: 10px; line-height: 1.5; letter-spacing: .1em; }
+.home-playlist-nummer { grid-row: 1 / span 2; color: var(--ink-dim); }
+.home-playlist-titel { font-size: 20px; line-height: 1.25; }
+.home-playlist-meta { margin-top: 4px; color: var(--ink-dim); text-transform: uppercase; }
+.home-playlist-offen { color: rgba(151, 156, 166, .42); }
+.home-playlist-platz { grid-template-columns: 34px 1fr; }
 .home-inhalte { display: grid; grid-template-columns: 300px minmax(0, 1fr); border-top: 1px solid var(--line); }
 .home-lebenslinie { border-right: 1px solid var(--line); }
 .home-lebenslinie ol { list-style: none; padding: 48px var(--home-rand); display: grid; align-content: start; gap: 28px; }
@@ -145,9 +165,12 @@ a { color: var(--accent); }
   .home-vers { top: auto; left: var(--home-rand); right: var(--home-rand); bottom: 28px; max-width: none; }
   .home-vers blockquote { font-size: 56px; line-height: 1.05; }
   .home-vers figcaption { margin-top: 16px; font-size: 11px; }
-  .home-name { position: static; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px var(--home-rand) 28px; }
+  .home-name { top: 36px; left: var(--home-rand); }
   .home-name h1 { font-size: 30px; }
-  .home-name p { margin-top: 0; font-size: 11px; white-space: nowrap; }
+  .home-name p { margin-top: 8px; font-size: 11px; white-space: nowrap; }
+  .home-hoeren { padding: 32px var(--home-rand); }
+  .home-hoeren-inner { grid-template-columns: minmax(0, 1.4fr) minmax(220px, .6fr); gap: 40px; }
+  .home-playlist-kopf h2 { font-size: 32px; }
   .home-inhalte { display: block; border-top: 0; }
   .home-lebenslinie { border-right: 0; border-block: 1px solid var(--line); }
   .home-lebenslinie ol { display: flex; overflow-x: auto; gap: 28px; padding: 24px var(--home-rand); scrollbar-width: none; }
@@ -170,6 +193,10 @@ a { color: var(--accent); }
 @media (max-width: 599px) {
   .home-page { --home-rand: 20px; }
   .home-vers blockquote { font-size: clamp(30px, 9.744vw, 38px); }
+  .home-hoeren { padding: 24px var(--home-rand); }
+  .home-hoeren-inner { display: flex; flex-direction: column; gap: 28px; }
+  .home-video-raum { width: 100%; }
+  .home-playlist { width: 100%; }
   .home-jahr { font-size: 34px; }
   .home-platte { grid-template-columns: 112px minmax(0, 1fr); gap: 18px; }
   .home-platte h2 { font-size: 21px; }
@@ -448,6 +475,9 @@ a { color: var(--accent); }
   margin-bottom: 1rem;
 }
 .text-seite h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 500; margin-bottom: 1.6rem; line-height: 1.2; }
+.text-seite h1 sup { color: var(--accent); font-size: .45em; vertical-align: super; }
+.text-seite .worterklaerung { margin: -1rem 0 2.5rem; color: var(--ink-dim); font-family: var(--rough); font-size: 11px; line-height: 1.6; letter-spacing: .06em; }
+.text-seite .worterklaerung sup { color: var(--accent); }
 .text-seite h2 {
   font-family: var(--rough);
   font-size: 12px;
@@ -457,7 +487,7 @@ a { color: var(--accent); }
   margin: 3rem 0 1rem;
 }
 .text-seite p { margin-bottom: 1.2rem; max-width: 36em; }
-.text-seite .lead { font-size: 1.22rem; font-style: italic; color: var(--ink); margin-bottom: 2rem; }
+.text-seite .lead { margin-bottom: 2rem; }
 
 
 /* ---------- Pastiche ---------- */
@@ -579,7 +609,7 @@ a { color: var(--accent); }
   align-items: start;
 }
 .pool-leseseite { width: 100%; min-width: 0; margin: 0; padding: 2rem 0 4rem; }
-.pool-intro { color: var(--accent); font-size: clamp(22px, 2.2vw, 26px); line-height: 1.6; margin: 0 0 3rem; }
+.pool-intro { margin: 0 0 3rem; }
 .pool-zeitstrahl { position: sticky; top: 2rem; margin-top: 1.25rem; min-width: 0; }
 .pool-zeitfenster {
   height: calc(100dvh - var(--pool-oberkante, 7rem));
@@ -676,7 +706,7 @@ a { color: var(--accent); }
 .disk-kicker, .disk-kuenstler { font-family: var(--rough); font-size: 11px; line-height: 1.6; letter-spacing: .13em; text-transform: uppercase; color: var(--accent); }
 .disk-kicker { color: var(--ink-dim); }
 .disk-kopf h1 { font-size: clamp(3.3rem, 6vw, 5rem); font-weight: 400; letter-spacing: -.04em; line-height: 1.15; margin: .8rem 0 1.3rem; }
-.disk-intro { color: var(--accent); font-size: clamp(20px, 2vw, 24px); line-height: 1.6; }
+.disk-intro { margin: 0; }
 .disk-auswahl { display: flex; gap: 1rem 2rem; align-items: end; flex-wrap: wrap; border-block: 1px solid var(--line); padding: 1.15rem 0 1.35rem; }
 .disk-auswahl label { display: flex; flex-direction: column; gap: .45rem; min-width: 0; color: var(--ink-dim); font-family: var(--rough); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .disk-auswahl select { font-family: var(--serif); font-size: 17px; color: var(--ink); background: var(--bg); border: 0; border-bottom: 1px solid #4c4440; border-radius: 0; padding: .35rem 1.8rem .35rem 0; max-width: 100%; }
@@ -821,7 +851,7 @@ footer {
   text-transform: uppercase;
   color: var(--ink-dim);
 }
-footer .fuss-text { display: grid; gap: .25rem; }
+footer .fuss-text { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 .35em; margin-left: auto; text-align: right; }
 
 /* ---------- Mobil: Graph wird waagerechtes Band ---------- */
 @media (max-width: 860px) {
@@ -887,7 +917,6 @@ footer .fuss-text { display: grid; gap: .25rem; }
 .home-mitmachen h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 400; line-height: 1.25; margin-bottom: 1rem; }
 .home-mitmachen h2 a { text-decoration: none; }
 .home-mitmachen p { max-width: 46rem; color: var(--ink-soft); margin-bottom: 1rem; }
-.fuss-links { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
 .kontakt { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1rem; }
 .kontakt-formular { display: grid; gap: 1.3rem; position: relative; }
 .kontakt-feld { display: grid; gap: .4rem; }
@@ -937,7 +966,95 @@ footer .fuss-text { display: grid; gap: .25rem; }
 .disk-track-live a { white-space: nowrap; color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-decoration-thickness: 1px; text-underline-offset: .25em; }
 .disk-track-live a:hover, .disk-track-live a:focus-visible { color: var(--accent); text-decoration-color: currentColor; }
 .disk-track-live a:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+/* Live-Videos: lokale Vorschau, Player erst nach dem Klick. */
+.disk-livevideos-hinweis { color: var(--ink-dim); font-size: 14px; margin: -.4rem 0 1.6rem; }
+.disk-konzert { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.4rem 2rem; align-items: start; padding: 1.4rem 0; border-top: 1px solid var(--line); }
+.disk-konzert-player { position: relative; aspect-ratio: 16 / 9; background: #08090b; overflow: hidden; }
+.disk-konzert-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.disk-konzert-vorschau { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--line); }
+.disk-konzert-vorschau img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(.55) brightness(.72); transition: filter .25s; }
+.disk-konzert-vorschau:hover img, .disk-konzert-vorschau:focus-visible img { filter: grayscale(0) brightness(.85); }
+.disk-konzert-vorschau:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.disk-konzert-play { position: relative; width: 3.4rem; height: 3.4rem; border: 1px solid var(--accent); border-radius: 50%; background: rgba(13, 15, 18, .55); }
+.disk-konzert-play::after { content: ""; position: absolute; left: 54%; top: 50%; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 13px solid var(--accent); transform: translate(-50%, -50%); }
+.ist-ladend .disk-konzert-play { animation: disk-konzert-puls 1s ease-in-out infinite alternate; }
+@keyframes disk-konzert-puls { to { opacity: .35; } }
+.disk-konzert-fehler { position: absolute; inset: 0; display: grid; place-content: center; padding: 1rem; color: var(--ink-dim); font-size: 15px; text-align: center; }
+.disk-detail .disk-konzert h3 { font-size: 21px; font-weight: 400; line-height: 1.3; margin: 0; }
+.disk-konzert-meta { color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .08em; margin: .35rem 0 1rem; }
+.disk-konzert-stuecke { list-style: none; border-top: 1px solid var(--line); }
+.disk-konzert-stuecke a { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 16px; line-height: 1.4; text-decoration: none; }
+.disk-konzert-stuecke a:hover, .disk-konzert-stuecke a:focus-visible, .disk-konzert-stuecke a[aria-current] { color: var(--accent); }
+.disk-konzert-stuecke a:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.disk-konzert-zeit { flex: none; color: var(--ink-dim); font-family: var(--rough); font-size: 12px; font-variant-numeric: tabular-nums; }
+.disk-livevideos-mehr { border-top: 1px solid var(--line); }
+.disk-livevideos-mehr summary { cursor: pointer; padding: 1rem 0; color: var(--accent); font-family: var(--rough); font-size: 12px; letter-spacing: .08em; }
+@media (min-width: 761px) {
+  .disk-konzert-player { position: sticky; top: 1.5rem; }
+}
+@media (max-width: 760px) {
+  .disk-konzert { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .disk-tracks li { grid-template-columns: 1.6rem minmax(0, 1fr) 36px auto; column-gap: .45rem; }
   .disk-track-youtube { width: 36px; }
+}
+
+/* ---------- Hören — zehn Wege in Jackies Werk ---------- */
+.hoer-seite { width: min(1120px, calc(100% - 8vw)); margin-inline: auto; padding: clamp(3rem, 7vw, 6rem) 0 6rem; }
+.hoer-seitentitel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.pool-intro,
+.disk-intro,
+.hoer-intro,
+.text-seite .lead {
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.2vw, 26px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.hoer-intro { max-width: 770px; margin: 0 0 clamp(3rem, 6vw, 5rem); }
+.hoer-intro a { color: var(--accent); text-underline-offset: .22em; }
+.hoer-laufnummer, .hoer-kapitelkopf span, .hoer-ausgabe, .hoer-video-text { font-family: var(--rough); }
+.hoer-kapitel { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.hoer-kapitel + .hoer-kapitel { margin-top: clamp(4rem, 9vw, 7rem); }
+.hoer-kapitelkopf { align-self: start; position: sticky; top: 2rem; }
+.hoer-kapitelkopf span { display: block; color: var(--accent); font-size: 10px; line-height: 1.6; letter-spacing: .16em; }
+.hoer-kapitelkopf h2 { margin-top: .55rem; color: var(--ink-soft); font-size: 25px; font-weight: 400; line-height: 1.25; }
+.hoer-stuecke { min-width: 0; }
+.hoer-stueck { display: grid; grid-template-columns: minmax(240px, .82fr) minmax(360px, 1.18fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; padding: 1.25rem 0 4rem; }
+.hoer-stueck + .hoer-stueck { padding-top: 4rem; border-top: 1px solid var(--line); }
+.hoer-laufnummer { color: var(--accent); font-size: 11px; line-height: 1.6; letter-spacing: .16em; }
+.hoer-laufnummer span { color: var(--ink-dim); }
+.hoer-stueck h3 { margin-top: .65rem; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.05; letter-spacing: -.035em; }
+.hoer-ausgabe { margin-top: 1.5rem; color: var(--ink-dim); font-size: 11px; line-height: 1.65; letter-spacing: .06em; }
+.hoer-ausgabe a { color: var(--ink-soft); text-underline-offset: .25em; }
+.hoer-video { min-width: 0; }
+.hoer-video-laden, .hoer-video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.hoer-video-laden { position: relative; display: grid; grid-template-columns: auto auto; place-content: center; align-items: center; gap: .75rem; overflow: hidden; border: 1px solid var(--line); border-radius: 2px; background: #111318; color: var(--ink); cursor: pointer; isolation: isolate; }
+.hoer-video-laden::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(13,15,18,.8), rgba(13,15,18,.42)), radial-gradient(circle at 70% 30%, rgba(212,162,78,.18), transparent 48%); }
+.hoer-video-bild { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(1) contrast(1.08) brightness(.58); opacity: .68; transform: scale(1.015); transition: filter .35s, transform .5s; }
+.hoer-video-laden:hover .hoer-video-bild { filter: grayscale(.82) contrast(1.08) brightness(.68); transform: scale(1.035); }
+.hoer-video-laden:hover { border-color: rgba(212,162,78,.55); }
+.hoer-video-laden:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.hoer-video-nummer { position: absolute; left: -.04em; bottom: -.26em; color: rgba(228,230,232,.035); font-family: var(--serif); font-size: clamp(8rem, 19vw, 14rem); font-weight: 400; line-height: 1; letter-spacing: -.08em; }
+.hoer-play { position: relative; z-index: 1; width: 3.25rem; height: 3.25rem; border: 1px solid var(--accent); border-radius: 50%; }
+.hoer-play::after { content: ""; position: absolute; left: 52%; top: 50%; width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 11px solid var(--accent); transform: translate(-40%, -50%); }
+.hoer-video-text { position: relative; z-index: 1; text-align: left; color: var(--ink-soft); font-size: 11px; line-height: 1.5; letter-spacing: .11em; text-transform: uppercase; }
+.hoer-video-text small { display: block; max-width: 15rem; margin-top: .3rem; color: var(--ink-dim); font-size: 9px; letter-spacing: .06em; text-transform: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hoer-video iframe { display: block; background: #000; }
+.hoer-youtube-link { display: inline-block; margin-top: .7rem; color: var(--ink-dim); font-family: var(--rough); font-size: 10px; letter-spacing: .08em; text-underline-offset: .25em; }
+.hoer-youtube-link:hover, .hoer-youtube-link:focus-visible { color: var(--accent); }
+@media (max-width: 900px) {
+  .hoer-kapitel { grid-template-columns: 1fr; gap: 2rem; }
+  .hoer-kapitelkopf { position: static; display: flex; align-items: baseline; gap: 1rem; }
+  .hoer-kapitelkopf h2 { margin-top: 0; }
+  .hoer-stueck { grid-template-columns: minmax(210px, .72fr) minmax(320px, 1.28fr); gap: 2rem; }
+}
+@media (max-width: 680px) {
+  .hoer-seite { width: calc(100% - 2.2rem); padding-top: 3rem; }
+  .hoer-stueck { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 3rem; }
+  .hoer-stueck + .hoer-stueck { padding-top: 3rem; }
 }

@@ -138,6 +138,27 @@ foreach (SPRACHEN as $s) {
             pruefe_disk(str_starts_with($link->getAttribute('href'), 'https://www.youtube.com/watch?v=') && $link->getAttribute('title') !== '' && $link->getAttribute('aria-label') !== '', 'YouTube-Link ohne Ziel oder Beschriftung.');
         }
 
+        // Live-Videos: vor dem Klick keine Anfrage an YouTube, Vorschauen lokal und lazy.
+        $konzerte = diskografie_livevideos($platte['id']);
+        $bereich = $xp->query('//section[@id="live-videos"]');
+        pruefe_disk($bereich->length === ($konzerte ? 1 : 0), 'Live-Videos fehlen oder stehen bei einer falschen Ausgabe: ' . $platte['id']);
+        foreach ($xp->query('//*[@src]') as $element) {
+            pruefe_disk(!preg_match('~youtube|ytimg|googleapis~i', $element->getAttribute('src')), 'Externe YouTube-Ressource vor dem Klick: ' . $platte['id']);
+        }
+        $skripte = $xp->query('//script[contains(@src, "/assets/js/livevideos.js")]');
+        pruefe_disk($skripte->length === ($konzerte ? 1 : 0) && ($konzerte === [] || $skripte[0]->hasAttribute('defer')), 'Live-Video-Skript fehlt, steht doppelt oder blockiert.');
+        $vorschauen = $xp->query('//section[@id="live-videos"]//img');
+        pruefe_disk($vorschauen->length === count($konzerte), 'Konzert ohne Vorschau.');
+        foreach ($vorschauen as $bild) {
+            $datei = APP_ROOT . '/..' . $bild->getAttribute('src');
+            pruefe_disk($bild->getAttribute('loading') === 'lazy' && $bild->getAttribute('decoding') === 'async' && $bild->getAttribute('width') !== '' && $bild->getAttribute('height') !== '', 'Vorschau wird nicht verzögert geladen.');
+            pruefe_disk(str_starts_with($bild->getAttribute('src'), '/assets/bilder/live/') && is_file($datei) && filesize($datei) <= 24 * 1024, 'Vorschau fehlt oder ist zu groß: ' . $bild->getAttribute('src'));
+        }
+        $videolinks = $xp->query('//a[@data-livevideo]');
+        pruefe_disk($videolinks->length === count($konzerte) + array_sum(array_map(fn($k) => count($k['stuecke']), $konzerte)), 'Konzertstücke fehlen.');
+        foreach ($videolinks as $link) {
+            pruefe_disk(str_starts_with($link->getAttribute('href'), 'https://www.youtube.com/watch?v=' . $link->getAttribute('data-livevideo')) && $link->getAttribute('target') === '_blank', 'Live-Video ohne Rückfalllink.');
+        }
 
         pruefe_disk(!preg_match('/>disk\.[a-z_]+</', $html), 'Unübersetzter Detailtext.');
         route('platte', ['slug' => $platte['id']]);
@@ -187,3 +208,25 @@ foreach (['1973-control', '1997-control', '2023-control', '1979-remember', '1979
     }
 }
 echo count($youtube) . " Lieder mit YouTube-Beispiel und {$fassungen} Livefassungen: zentrale Zuordnung, alle Ausgaben und Beschriftungen geprüft.\n";
+
+$konzertdaten = diskografie_livevideos_daten();
+foreach ($konzertdaten as $name => $konzert) {
+    pruefe_disk(preg_match('/^[a-z0-9-]+$/', $name) === 1 && $konzert['title'] !== '' && preg_match('/^\d{4}(-\d{2}(-\d{2})?)?$/', $konzert['date']) === 1, 'Konzert unvollständig: ' . $name);
+    pruefe_disk(in_array($konzert['source'], ['official', 'fan'], true), 'Herkunft offen: ' . $name);
+    foreach ($konzert['releases'] ?? [] as $id) pruefe_disk(in_array($id, $ids, true), 'Konzert verweist auf unbekannte Ausgabe: ' . $name);
+    foreach ($konzert['videos'] as $video) {
+        pruefe_disk(preg_match('/^[A-Za-z0-9_-]{11}$/', $video['id']) === 1 && $video['title'] !== '' && $video['channel'] !== '', 'Konzertvideo unvollständig: ' . $name);
+        pruefe_disk(is_bool($video['embeddable'] ?? null) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $video['checked'] ?? '') === 1, 'Einbettfreigabe nicht geprüft (werkzeug/livevideos.php): ' . $video['id']);
+        foreach ($video['songs'] as $song) {
+            pruefe_disk(isset($bekannteLieder[diskografie_liedschluessel($song['title'])]) && is_int($song['start']) && $song['start'] >= 0, 'Konzertstück ohne Liedtitel der Diskographie: ' . $song['title']);
+        }
+    }
+}
+$alle = fn(bool $fan) => array_merge(...array_map(fn($p) => diskografie_livevideos($p['id'], $fan), $platten));
+pruefe_disk(array_filter($alle(false), fn($k) => $k['source'] !== 'official') === [], 'Fan-Mitschnitt ohne Freischaltung eingebettet.');
+foreach ($alle(true) as $konzert) foreach ($konzert['stuecke'] as $stueck) pruefe_disk($stueck['video']['embeddable'] === true, 'Nicht einbettbares Video in der Auswahl.');
+pruefe_disk(count(diskografie_livevideos('2011-live-at-rockpalast', false)[0]['stuecke'] ?? []) === 13, 'Konzertausgabe zeigt nicht das ganze Konzert.');
+pruefe_disk(array_column(diskografie_livevideos('2010-gothic-road', true), 'name') === ['manchester-2009', 'essen-2010'] && diskografie_livevideos('2010-gothic-road', false) === [], 'Konzertauswahl oder Fan-Schalter wirkt nicht.');
+pruefe_disk(diskografie_zeitmarke(95) === '1:35' && diskografie_zeitmarke(3888) === '1:04:48', 'Zeitmarke falsch.');
+foreach (['de' => '26. März 2004', 'en' => '26 March 2004'] as $s => $soll) { sprache($s); pruefe_disk(diskografie_konzertdatum('2004-03-26') === $soll, 'Konzertdatum falsch formatiert.'); }
+echo count($konzertdaten) . " Konzerte mit Videos: Einbettfreigabe, lokale Vorschauen, Lazy Load und Fan-Schalter geprüft.\n";

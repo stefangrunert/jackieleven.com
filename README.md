@@ -148,6 +148,35 @@ Es werden keine Player, externen Musikskripte oder automatischen Plattformabfrag
 Seitenaufruf geladen. Die Dienste werden erst beim Anklicken geöffnet. Ein angezeigter Link
 ist keine Zusicherung, dass jedes Video in jedem Land und ohne Anmeldung abspielbar ist.
 
+### Live-Videos auf den Ausgabenseiten
+
+Unter der Titelliste zeigt der Abschnitt „Live-Videos“ Konzertmitschnitte zu den Liedern der
+Ausgabe, als Karte je Konzert. Grundlage ist `app/data/live-videos.json`: Konzert (Titel, Datum in
+der belegten Genauigkeit, Herkunft `official` oder `fan`, zugehörige Ausgaben) mit Videos, Kanal,
+Dauer und den enthaltenen Stücken samt Startsekunde. Auf der Ausgabe des Konzerts selbst stehen alle
+Stücke, sonst nur die gemeinsamen Lieder; ein Klick auf ein Stück springt im Player an die Stelle.
+Derzeit ist nur der vollständige Rockpalast-Film von MIG offiziell; Fan-Mitschnitte (ZDF Disco 1981,
+Cropredy 2004, Manchester 2009, Essen 2010, Glasgow 2011) sind erfasst, werden aber nur mit
+`'fan_videos' => true` in `app/config.local.php` oder `JACKIE_FAN_VIDEOS=1` eingebettet. Hochgeladen
+heißt nicht lizenziert: Bei Fan- und TV-Mitschnitten ist der Uploader selten Rechteinhaber.
+
+Eingebettet wird nur, was `werkzeug/livevideos.php` als einbettbar gespeichert hat (`embeddable`,
+`checked`). Das Werkzeug fragt mit einem Schlüssel für die YouTube Data API (`youtube_api_key` bzw.
+`JACKIE_YOUTUBE_API_KEY`) Einbettfreigabe, Sichtbarkeit, Altersbeschränkung und Sperren für
+Deutschland ab, ohne Schlüssel nur oEmbed. Verweigert YouTube das Abspielen trotzdem, ersetzt sich
+die Karte durch einen Link. Ohne JavaScript sind alle Karten und Stücke gewöhnliche YouTube-Links.
+
+Vor dem Klick lädt die Seite nichts von YouTube. Die Vorschaubilder legt das Werkzeug lokal unter
+`assets/bilder/live/` an (480×270 WebP, derzeit 3–12 KB); sie tragen `loading="lazy"` und werden
+erst beim Scrollen geholt, ab dem vierten Konzert stehen sie eingeklappt und laden erst beim Öffnen.
+`assets/js/livevideos.js` wird nur auf Seiten mit Live-Videos eingebunden; die Player-API von YouTube
+und der Player (`youtube-nocookie.com`) folgen erst beim ersten Klick, je Konzert ein Player.
+
+```sh
+php werkzeug/livevideos.php            # Einbettfreigabe prüfen, fehlende Vorschauen anlegen (Netz)
+php werkzeug/livevideos.php --vorschau # alle Vorschaubilder neu erzeugen
+```
+
 ## Verzeichnisse
 
 | Pfad | Inhalt |

@@ -1,6 +1,6 @@
 # Jackie Leven – Vollständige Diskografie
 
-Recherchestand: 17. September 2026. Die Diskografie umfasst alle Veröffentlichungen unter den Namen **John St. Field**, **Doll by Doll**, **Jackie Leven**, **Sir Vincent Lone** und **Jackie Balfour** sowie Kollaborationen, Fanclub-Releases (Haunted Valley), Singles/EPs, posthume Veröffentlichungen und Reissues.
+Recherchestand: 17. September 2026; ergänzt am 23. Oktober 2026 um den Abschnitt „Rechtelage und Label heute", die Vinyl-Neuauflage 2022 und die Digital-Singles 2021. Die Diskografie umfasst alle Veröffentlichungen unter den Namen **John St. Field**, **Doll by Doll**, **Jackie Leven**, **Sir Vincent Lone** und **Jackie Balfour** sowie Kollaborationen, Fanclub-Releases (Haunted Valley), Singles/EPs, posthume Veröffentlichungen und Reissues.
 
 Hinweis zur Quellenlage: Discogs sperrt den direkten Abruf, die Angaben von dort wurden über Suchmaschinen-Snippets und Drittseiten verifiziert. Die detaillierteste Gesamtliste stammt von der Fan-/Begleitseite des Illustrators Stuart Briers [6], die mit Tracklisten und Katalognummern arbeitet; sie wurde gegen MusicBrainz [3][4][5] und Wikipedia [1][2] abgeglichen. Abweichungen sind im Abschnitt „Widersprüche und Unsicherheiten" aufgeführt.
 
@@ -165,11 +165,31 @@ Zusammengestellt nach Stuart Briers [6], abgeglichen mit MusicBrainz [3]; die FR
 |---|---|---|---|---|---|
 | 2012 | Heroes Can Be Any Size – An Introduction to Jackie Leven | CD | Cooking Vinyl | COOKCD559W [6] | 08.02.2012; zugleich Cover-CD der März-Ausgabe von *The Word* und regulär erhältlich [1][3][6] |
 | 2021 | Straight Outta Caledonia – The Songs of Jackie Leven | LP/CD (limitiertes schwarzes bzw. klares Vinyl, 500 St.) | School Daze (Night-School-Archiv-Offshoot, Glasgow) | RVSN0002 [3][8][9][10] | 23./30.07.2021; erste kommerzielle „Greatest Hits"-Zusammenstellung, 10 Titel [8][9][10] |
+| 2021 | The Garden (Edit) / Clay Jug (Edit) / Call Mother a Lonely Field (Edit) | drei Digital-Singles | Cooking Vinyl | k. A. | 06.08., 03.09. und 15.10.2021; alle drei Titel stammen von *The Mystery of Love*, vermutlich Vorab-Singles zu dessen Neuauflage; Rechtevermerk „Jackie Leven under exclusive license to Cooking Vinyl Limited" [19] |
 | 2021 | The Wanderer – A Tribute to Jackie Leven | 2×CD | Cooking Vinyl | COOKCD803 [6] | Tribute-Album mit Ralph McTell, Eliza Carthy, James Yorkston, Rab Noakes, Johnny Dowd, Ian Rankin u. a. [6] |
-| 2022 | The Mystery of Love Is Greater Than the Mystery of Death (Expanded Edition) | CD | Cooking Vinyl | COOKCD064X [3] | Reissue |
+| 2022 | The Mystery of Love Is Greater Than the Mystery of Death (Expanded Edition) | 2×CD | Cooking Vinyl | COOKCD064X [3] | Reissue; digital 18 Titel [19]; Datierung uneinheitlich – siehe Widersprüche |
+| 2022 | The Mystery of Love Is Greater Than the Mystery of Death (Expanded Edition) | 2×LP, 180 g, auch marmoriert | Cooking Vinyl | EAN 0711297106411 [23] | 09.09.2022 laut jpc [23]; erste Vinyl-Neuauflage des Albums |
 | 2023 | Control | LP | Guerssen Records | 241LP | Reissue der John-St.-Field-LP [14] |
 | 2024 | Live Or Die – Live in Bremen, 1999 & 2004 | 4-CD-Box | MIG (Made in Germany Music) | MIG 02922 [6][15][16] | 26.04.2024; Club Moments Bremen 27.05.1999 + Radio-Bremen-Sendesaal 29.03.2004, restauriert/remastert [15][16] |
 | 2024 | Live at Rockpalast 2004 | CD (Jackie Leven & Michael Cosgrave) | MIG / Rockpalast / WDR | MIG90370 [3] | 27.09.2024 [3] |
+
+## Rechtelage und Label heute (Stand Oktober 2026)
+
+**Wem die Aufnahmen gehören.** Eine öffentliche Erklärung des Labels oder des Nachlasses gibt es nicht. Die Rechtevermerke (℗) in Apple Music, abgefragt am 23.10.2026 über die iTunes-Suche im deutschen Store, zeigen aber eine klare Zweiteilung [19]:
+
+| Veröffentlichungen | ℗-Vermerk | Bedeutung |
+|---|---|---|
+| Alle Alben von *The Mystery of Love* (1994) bis *Oh What a Blow That Phantom Dealt Me!* (2007), dazu *Control*, *For Peace Comes Dropping Slow*, *Jackie Leven Said*, *Heroes Can Be Any Size* und die Digitalfassung von *Straight Outta Caledonia* | „℗ [Jahr] Cooking Vinyl" | Die Masterbänder gehören dem Label. |
+| *Lovers at the Gun Club* (2008), *The Haunted Year* (2009), *Gothic Road* (2010), *Wayside Shrines and the Code of the Travelling Man* (2011), die drei Digital-Singles von 2021 | „Jackie Leven under exclusive license to Cooking Vinyl Limited" bzw. „Cooking Vinyl Ltd under exclusive license from Jackie Leven" | Die Masterbänder gehören Leven, heute seinem Nachlass; Cooking Vinyl hat das exklusive Recht, sie zu verwerten. |
+| *Live Or Die – Live in Bremen* (2024) und *Live at Rockpalast* | „℗ M.i.G – music GmbH" | Die Live-Mitschnitte liegen beim deutschen Label MIG. |
+
+Ab 2008 hat Leven seine neuen Aufnahmen also selbst behalten und nur noch lizenziert. Wann und warum dieser Wechsel im Vertrag kam, ist nicht belegt. Einige ℗-Jahre in Apple Music sind falsch: *Forbidden Songs of the Dying West* steht unter 1992 (statt 1995), *Heroes Can Be Any Size* unter 1998 (statt 2012), *Straight Outta Caledonia* unter 2001 (statt 2021) [19].
+
+**Neu an Apple geliefert.** Alle Cooking-Vinyl-Veröffentlichungen Levens tragen dort fortlaufende Katalognummern aus einem einzigen Block (1852636735 bis 1853211916), auch die Singles von 2021 [19]. Der Katalog wurde also auf einen Schlag neu an Apple geliefert. Zum Vergleich: *Live Or Die* vom April 2024 hat die Nummer 1736557451, die Neulieferung liegt also nach April 2024. Genauer lässt sie sich daraus nicht datieren. Dass sie mit einem Vertriebswechsel nach der Übernahme von 2025 zusammenhängt (s. u.), ist eine **Vermutung**.
+
+**Das Label wurde verkauft.** Am 09.06.2025 gab Exceleration Music (Eigentümer u. a. von Bloodshot Records und Mack Avenue) die Übernahme von Cooking Vinyl bekannt [22]. Ausgenommen waren Cooking Vinyl Publishing UK, Cooking Vinyl Publishing Australia und die Lizenzplattform Motus Music. Rob Collins blieb Geschäftsführer, Gründer Martin Goldschmidt — Levens Förderer seit 1994 — blieb Chairman; das Label arbeitet nach eigener Darstellung unabhängig weiter [22]. Da das Label als Ganzes verkauft wurde, gehören die Leven-Master und -Lizenzen seitdem zu Exceleration (Schluss aus der Deal-Struktur, nicht eigens belegt); die Verlagsrechte an seinen Songs sind von dem Deal nicht berührt, wo sie liegen, ist hier nicht geprüft.
+
+**Leven auf der Label-Website.** Cooking Vinyl führte Leven mindestens von September 2023 bis Juli 2026 auf seiner Seite „Artists", mit einem Link auf seine Linkfire-Seite [20]. Anfang September 2026 hat das Label die Liste geteilt: aktuelle Künstler unter „Artists", frühere unter der neuen Seite „Alumni". Leven steht seitdem nur noch unter „Alumni", mit Foto (Pat Pope) und Namen, aber ohne Link [21]. Aus dem Programm genommen wurde dabei nichts: Seine Alben sind weiter über Cooking Vinyl lieferbar und gestreamt. Details zur Datierung in [09-websites.md](09-websites.md), Abschnitt 7.
 
 ## Widersprüche und Unsicherheiten
 
@@ -182,6 +202,7 @@ Zusammengestellt nach Stuart Briers [6], abgeglichen mit MusicBrainz [3]; die FR
 - **Live Or Die (2024):** Briers übertitelt die Box „Live in Bremen 1994 & 2004", beschreibt aber selbst Aufnahmen von 1999 und 2004 [6]; Label (MIG) und Rezensionen bestätigen „1999 & 2004" [15][16]. Briers' „1994" ist ein Fehler.
 - **Live at Rockpalast:** Es existieren offenbar zwei verschiedene Releases: die DVD (2011, Intergroove; Briers: MIG90377) [1][6] und die CD *Live at Rockpalast 2004* (2024, MIG90370) [3]. Ob die DVD denselben Mitschnitt (2004) enthält, ist nicht zweifelsfrei geklärt.
 - **Control (Original):** El País und die Mehrheit der Quellen: Movieplay, 1973 [11][12]; Efe Eme: 1975 [11]; Briers nennt „1971 Movie Play S-32.738" [6] – 1971 ist das Aufnahmejahr.
+- **Neuauflage *The Mystery of Love* (Expanded Edition):** [07-nachrufe-vermaechtnis.md](07-nachrufe-vermaechtnis.md) datiert die Doppel-CD auf 11/2021, MusicBrainz auf 2022 (COOKCD064X) [3], jpc die Doppel-LP auf den 09.09.2022 [23]; Apple Music führt die digitale Expanded Edition mit dem Originaldatum 04.07.1994 [19]. Möglich ist eine CD-Ausgabe Ende 2021 und die Vinyl-Ausgabe im September 2022; nicht abschließend geklärt.
 - **The Robberies of the Rain:** Nur Briers führt dieses 1983er-Soloalbum mit der Angabe „released 2005" [6]; bei MusicBrainz und in den Wikipedia-Diskografien fehlt es. Veröffentlichung unsicher.
 
 ## Offene Fragen
@@ -214,3 +235,8 @@ Zusammengestellt nach Stuart Briers [6], abgeglichen mit MusicBrainz [3]; die FR
 [16] Jackie Leven: Live Or Die – Live in Bremen, 1999 & 2004 (Rezension) — Musikreviews.de, 07.05.2024 — http://www.musikreviews.de/reviews/2024/Jackie-Leven/Live-Or-Die--Live-in-Bremen-1999--2004 — abgerufen 2026-09-17
 [17] Jackie Leven (offizielle Website, Nachruf-Seite) — jackieleven.co.uk via Wayback Machine (Stand 2011) — https://web.archive.org/web/2011/http://www.jackieleven.co.uk/ — abgerufen 2026-09-17
 [18] Jackie Leven – Control (Cooking-Vinyl-CD, Release-Daten) — Discogs — https://www.discogs.com/release/14946060-Jackie-Leven-Control — abgerufen 2026-09-17
+[19] Jackie Leven — Apple Music, deutscher Store, Albumdaten mit ℗-Vermerken und Katalognummern via iTunes Search API — https://itunes.apple.com/search?term=jackie+leven&entity=album&limit=200&country=de — abgerufen 2026-10-23
+[20] Cooking Vinyl — Seite „Artists" via Wayback Machine, Captures vom 13.09.2023, 12.11.2024 und 01.07.2026 (jeweils mit Leven und Link auf https://JLeven.lnk.to/artist) — https://web.archive.org/web/20230913030637/http://www.cookingvinyl.com/artists, https://web.archive.org/web/20241112171045/http://www.cookingvinyl.com/artists, https://web.archive.org/web/20260701182942/http://www.cookingvinyl.com/artists — abgerufen 2026-10-23
+[21] Cooking Vinyl — Seiten „Artists" (ohne Leven) und „Alumni" (mit Leven) — https://www.cookingvinyl.com/artists und https://www.cookingvinyl.com/alumni — abgerufen 2026-10-23
+[22] Exceleration Music Acquires UK Indie Cooking Vinyl — Digital Music News, 09.06.2025 — https://www.digitalmusicnews.com/2025/06/09/exceleration-music-cooking-vinyl-acquisition/ — abgerufen 2026-10-23
+[23] Jackie Leven – Mystery Of Love Is Greater Than The Mystery Of Death (Expanded Edition), 2 LPs, 180 g — jpc.de, Artikel 10710672 — https://www.jpc.de/jpcng/poprock/detail/-/art/jackie-leven-mystery-of-love-is-greater-than-the-mystery-of-death/hnum/10710672 — abgerufen 2026-10-23

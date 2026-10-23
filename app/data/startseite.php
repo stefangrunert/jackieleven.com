@@ -6,6 +6,29 @@ You\'re making tracks
 But I can\'t be there
 If you change your mind
 And come on back',
+    'hoeren' => [
+        [
+            'video' => 'XLmSL2QBoy0',
+            'titel' => 'Main Travelled Roads',
+            'kuenstler' => 'Doll by Doll',
+            'kontext' => 'ZDF Disco, 1981',
+            'preview' => '/assets/bilder/startseite/main-travelled-roads-preview.webp',
+        ],
+        [
+            'video' => '3pcJw_Zjf94',
+            'titel' => 'Live at Rockpalast',
+            'kuenstler' => 'Jackie Leven',
+            'kontext' => '2004',
+            'preview' => '/assets/bilder/startseite/rockpalast-2004-preview.webp',
+        ],
+        [
+            'video' => 'J65SKEqdAWY',
+            'titel' => 'Jackie Leven at 70',
+            'kuenstler' => 'Deborah Greenwood & friends',
+            'kontext' => 'A celebration of his life & work, 2020',
+            'preview' => '/assets/bilder/startseite/jackie-leven-at-70-preview-v2.webp',
+        ],
+    ],
     'pool' => [
         'slug' => '2009-12-home-specialnote',
         'titel' => 'Wor Jackie’s Gannin Hame Like',

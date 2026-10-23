@@ -4,7 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
 /** Seiten mit übersetzten Pfadstücken (pfad.<name> in app/lang/<sprache>.php). */
-const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'ueber', 'mitmachen'];
+const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'hoeren', 'ueber', 'mitmachen'];
 
 function nicht_gefunden(): never
 {
@@ -179,6 +179,10 @@ if ($seite === 'mitmachen') {
 }
 if ($seite === 'diskografie') {
     seite(render('diskografie'), t('titel.diskografie'), 'diskografie');
+    exit;
+}
+if ($seite === 'hoeren') {
+    seite(render('hoeren'), t('titel.hoeren'), 'hoeren');
     exit;
 }
 seite(render_lokal($seite), t("titel.$seite"), $seite);

@@ -1,6 +1,6 @@
 # Die Websites von Jackie Leven (1996–2025)
 
-Stand der Auswertung: 17. September 2026. Grundlage sind die lokal gespeicherten Wayback-Kopien von `home.xnet.it/tout/HTML/` (298 Captures), von `jackieleven.co.uk` (2008–2025) und die CDX-Capture-Indizes beider Domains. Es wurde nichts aus dem Netz nachgeladen. Zitate stehen im englischen Original. **[belegbar]** kennzeichnet, was sich an den archivierten Seiten selbst oder durch Dritte prüfen lässt, **[SA]** Aussagen, für die nur Leven selbst die Quelle ist.
+Stand der Auswertung: 17. September 2026. Grundlage sind die lokal gespeicherten Wayback-Kopien von `home.xnet.it/tout/HTML/` (298 Captures), von `jackieleven.co.uk` (2008–2025) und die CDX-Capture-Indizes beider Domains. Es wurde nichts aus dem Netz nachgeladen. **Ausnahme, ergänzt am 23. Oktober 2026:** die Angaben zur Künstlerseite bei Cooking Vinyl (Abschnitt 2, Ende von Abschnitt 7, Quellen unter „cookingvinyl.com"); sie wurden live und aus der Wayback Machine abgerufen. Zitate stehen im englischen Original. **[belegbar]** kennzeichnet, was sich an den archivierten Seiten selbst oder durch Dritte prüfen lässt, **[SA]** Aussagen, für die nur Leven selbst die Quelle ist.
 
 ---
 
@@ -41,6 +41,8 @@ Stand der Auswertung: 17. September 2026. Grundlage sind die lokal gespeicherten
 - **28.08.2021** — WordPress-Relaunch „Jackie Leven | Official Website" [r2108].
 - **30.03.2022** — einmal die cPanel-Sperrseite, danach wieder WordPress bis zum letzten Capture am 22.12.2023 [r2312].
 - **2024 bis April 2025** — die Startseite leitet dauerhaft auf „account suspended" um; am 25.04.2025 steht dort die cPanel-Standardseite [r2504].
+- **spätestens 13.09.2023 bis mindestens 01.07.2026** (im Capture vom 12.08.2021 noch nicht) — Cooking Vinyl führt Leven auf seiner Seite „Artists" mit Foto und Link auf die Linkfire-Seite `JLeven.lnk.to/artist` [cv-a2108][cv-a2309][cv-a2411][cv-a2607].
+- **04.–09.09.2026** — Cooking Vinyl teilt seine Künstlerliste in „Artists" und die neue Seite „Alumni". Leven wandert zu den Alumni, sein Eintrag entsteht am 07.09.2026; der Link entfällt [cv-alumni][cv-artists].
 
 ---
 
@@ -349,6 +351,10 @@ Fotos belegen ein Konzert in Milford am 02.12.2000 [milford1]; *Barefoot Days* e
 
 **Das Ende:** Am 30.03.2022 lieferte der Server einmal die cPanel-Sperrseite, danach lief WordPress weiter bis zum letzten Capture am 22.12.2023 [r2312]. Von 2024 bis April 2025 leitete die Startseite dauerhaft auf „account suspended" um; am 25.04.2025 stand dort die cPanel-Standardseite [r2504]. Die Rechnung war offenbar nicht mehr bezahlt worden.
 
+**Die Künstlerseite bei Cooking Vinyl.** Seit dem Ende von jackieleven.co.uk ist die Label-Website neben der Bandcamp-Seite des Nachlasses eine der wenigen offiziellen Stellen, an denen Leven im Netz noch auftaucht. Im Capture vom 12.08.2021 fehlt er auf der Seite „Artists" noch [cv-a2108]; ab dem Capture vom 13.09.2023 steht er dort mit Foto, verlinkt auf `https://JLeven.lnk.to/artist` [cv-a2309], unverändert auch am 12.11.2024 und am 01.07.2026 [cv-a2411][cv-a2607]. Am 23.10.2026 fehlt er auf „Artists" [cv-artists] und steht stattdessen auf der Seite „Alumni" — Foto „Jackie_1_Credit_Pat_Pope", Bildunterschrift „Jackie Leven", **kein Link** [cv-alumni]. Die Linkfire-Seite selbst ist weiter erreichbar (HTTP 200 am 23.10.2026) und führt zu Spotify, Deezer und YouTube; die Tracking-Parameter ihrer Links nennen als Konto „cooking-vinyl" und als Anlagedatum den 29.04.2022 [cv-lnk]. Sie ist also eine Seite des Labels. **[belegbar]**
+
+**Wann die Alumni-Seite entstand**, lässt sich aus dem Seitenquelltext erschließen: Die Website läuft auf Squarespace, und jede Bildkennung (`data-image-id`) beginnt mit dem Zeitstempel ihres Uploads. Alle 92 Bilder der Alumni-Seite wurden zwischen dem 04. und 09.09.2026 hochgeladen, Levens am 07.09.2026 [cv-alumni]. Die Wayback Machine hat von `/alumni` keinen einzigen Capture, und die „Artists"-Seite vom 01.07.2026 verlinkt noch keine Alumni-Seite [cv-a2607]. Die Seite ist also Anfang September 2026 neu angelegt worden; dabei hat das Label seine Liste in aktuelle und frühere Künstler geteilt. Eine Mitteilung dazu gibt es nicht. Ob der Umbau mit der Übernahme des Labels durch Exceleration Music (Juni 2025) zusammenhängt, ist offen — zur Übernahme und zur Rechtelage s. [05-diskografie.md](05-diskografie.md), „Rechtelage und Label heute".
+
 ---
 
 ## 8. Was verloren ist
@@ -422,6 +428,7 @@ Im CDX vorhanden, aber nicht im Textbestand:
 8. **„Out 05/05/05":** Die Startseite bewarb im April 2005 eine Veröffentlichung zu diesem Datum mit Amazon-Link auf eine ISBN-artige ASIN (0752872249, Verlagspräfix) [hp-2005a] — vermutlich *Jackie Leven Said* (Standardangabe 02.05.2005), möglicherweise aber ein Buch- oder Hörbuchartikel. Ungeklärt.
 9. **Sind die Audiodateien der Musik-Sample-Seite archiviert?** (s. 8.4)
 10. **Levens Monatstagebücher auf der alten Haunted-Valley-Site**, die ein Gästebuchschreiber 2012 vermisste [gb12]: Existierte diese Site als eigene Domain, und ist sie irgendwo erfasst?
+11. **Warum führte Cooking Vinyl im September 2026 die Alumni-Seite ein?** Keine Mitteilung des Labels gefunden; ob der Umbau mit der Exceleration-Übernahme von 2025 zusammenhängt, ist offen.
 
 ---
 
@@ -628,5 +635,15 @@ Im CDX vorhanden, aber nicht im Textbestand:
 [fa08]: https://web.archive.org/web/20081230014757/http://www.jackieleven.co.uk/be-my-friend-aug-08.php
 [gb12]: https://web.archive.org/web/20120524052246/http://www.jackieleven.co.uk/guest/ddgb.php
 [L11]: https://web.archive.org/web/20110808052355/http://www.jackieleven.co.uk/live-dates.php
+
+### cookingvinyl.com
+
+[cv-a2108]: https://web.archive.org/web/20210812090655/http://www.cookingvinyl.com/artists
+[cv-a2309]: https://web.archive.org/web/20230913030637/http://www.cookingvinyl.com/artists
+[cv-a2411]: https://web.archive.org/web/20241112171045/http://www.cookingvinyl.com/artists
+[cv-a2607]: https://web.archive.org/web/20260701182942/http://www.cookingvinyl.com/artists
+[cv-artists]: https://www.cookingvinyl.com/artists (live abgerufen 23.10.2026)
+[cv-alumni]: https://www.cookingvinyl.com/alumni (live abgerufen 23.10.2026; Bildkennung des Leven-Eintrags 6a9ea6cb3f6ddd402fd11a84)
+[cv-lnk]: https://JLeven.lnk.to/artist (live abgerufen 23.10.2026)
 
 ---

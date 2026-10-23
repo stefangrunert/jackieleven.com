@@ -9,7 +9,7 @@
     <button class="home-menuknopf" type="button" aria-label="<?= e(t('home.menue')) ?>" aria-expanded="false" aria-controls="home-menu" hidden><span></span><span></span></button>
   </div>
   <nav class="home-menu" id="home-menu" aria-label="<?= e(t('nav.label')) ?>">
-    <?php foreach (['zeitreise', 'biografie', 'diskografie', 'pool', 'ueber', 'mitmachen'] as $rubrik): ?>
+    <?php foreach (['hoeren', 'diskografie', 'zeitreise', 'biografie', 'pool', 'ueber', 'mitmachen'] as $rubrik): ?>
       <a href="<?= e(url($rubrik)) ?>"<?= $rubrik === 'mitmachen' ? ' class="nav-mitmachen"' : '' ?>><?= e(t('nav.' . $rubrik)) ?></a>
     <?php endforeach; ?>
   </nav>

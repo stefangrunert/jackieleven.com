@@ -162,6 +162,70 @@ function diskografie_fassung_ort(array $fassung): string
     return is_array($ort) ? ($ort[sprache()] ?? $ort['en']) : $ort;
 }
 
+/** Konzertvideos zum Einbetten; Freigabe und Vorschau pflegt werkzeug/livevideos.php. */
+function diskografie_livevideos_daten(): array
+{
+    static $daten = null;
+    return $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/live-videos.json'), true, flags: JSON_THROW_ON_ERROR);
+}
+
+/** Fan-Mitschnitte bettet die Seite nur ein, wenn sie ausdrücklich freigeschaltet sind. */
+function diskografie_fanvideos_erlaubt(): bool
+{
+    static $erlaubt = null;
+    if ($erlaubt === null) {
+        $lokal = is_file(APP_ROOT . '/config.local.php') ? require APP_ROOT . '/config.local.php' : [];
+        $env = getenv('JACKIE_FAN_VIDEOS');
+        $erlaubt = $env !== false ? $env === '1' : (bool) ($lokal['fan_videos'] ?? false);
+    }
+    return $erlaubt;
+}
+
+/**
+ * Konzerte mit einbettbaren Videos zu einer Ausgabe, chronologisch. Auf der Ausgabe
+ * des Konzerts erscheinen alle Stücke, sonst nur die gemeinsamen Lieder.
+ */
+function diskografie_livevideos(string $id, ?bool $fan = null): array
+{
+    $fan ??= diskografie_fanvideos_erlaubt();
+    $lieder = [];
+    foreach (diskografie_details($id)['tracklists'] ?? [] as $liste) foreach ($liste['tracks'] as $track) $lieder[diskografie_liedschluessel($track['title'])] = true;
+    $konzerte = [];
+    foreach (diskografie_livevideos_daten() as $name => $konzert) {
+        if ($konzert['source'] !== 'official' && !$fan) continue;
+        $eigen = in_array($id, $konzert['releases'] ?? [], true);
+        $stuecke = [];
+        foreach ($konzert['videos'] as $video) {
+            if (($video['embeddable'] ?? false) !== true || empty($video['checked'])) continue;
+            foreach ($video['songs'] as $song) {
+                if ($eigen || isset($lieder[diskografie_liedschluessel($song['title'])])) $stuecke[] = $song + ['video' => $video];
+            }
+        }
+        if ($stuecke) $konzerte[] = ['name' => $name, 'stuecke' => $stuecke] + $konzert;
+    }
+    usort($konzerte, fn($a, $b) => strcmp($a['date'], $b['date']));
+    return $konzerte;
+}
+
+/** Konzertdatum in der Genauigkeit der Quelle: Tag, Monat oder nur Jahr. */
+function diskografie_konzertdatum(string $datum): string
+{
+    $teile = array_map('intval', explode('-', $datum));
+    $monat = isset($teile[1]) ? (sprachdaten(sprache())['monate'] ?? sprachdaten(STANDARD_SPRACHE)['monate'])[$teile[1] - 1] : '';
+    return match (count($teile)) {
+        3 => $teile[2] . (sprache() === 'de' ? '. ' : ' ') . $monat . ' ' . $teile[0],
+        2 => $monat . ' ' . $teile[0],
+        default => (string) $teile[0],
+    };
+}
+
+function diskografie_zeitmarke(int $sekunden): string
+{
+    $stunden = intdiv($sekunden, 3600);
+    $rest = sprintf('%02d:%02d', intdiv($sekunden % 3600, 60), $sekunden % 60);
+    return $stunden ? $stunden . ':' . $rest : ltrim(substr($rest, 0, 1), '0') . substr($rest, 1);
+}
+
 /** Tooltip mit tatsächlichem Video, Herkunftsalbum und Kanal. */
 function diskografie_fassung_tooltip(array $fassung): string
 {
@@ -170,4 +234,14 @@ function diskografie_fassung_tooltip(array $fassung): string
     if ($fassung['kind'] === 'live') $teile[] = 'Live' . (isset($fassung['label']) ? ', ' . (is_array($fassung['label']) ? $fassung['label']['en'] : $fassung['label']) : '');
     $teile[] = $fassung['channel'];
     return implode(' · ', $teile);
+}
+
+/** YouTube-ID aus den von uns kuratierten Watch-Adressen lesen. */
+function youtube_video_id(string $url): string
+{
+    $host = strtolower((string) parse_url($url, PHP_URL_HOST));
+    if (!in_array($host, ['youtube.com', 'www.youtube.com', 'youtu.be'], true)) return '';
+    if ($host === 'youtu.be') return trim((string) parse_url($url, PHP_URL_PATH), '/');
+    parse_str((string) parse_url($url, PHP_URL_QUERY), $query);
+    return is_string($query['v'] ?? null) ? $query['v'] : '';
 }

@@ -85,6 +85,8 @@ $quellen = array_column($quellen, null, 'url');
         <?php endif; ?>
       </section>
 
+      <?php if ($konzerte = diskografie_livevideos($platte['id'])): ?><?= render('livevideos', ['konzerte' => $konzerte]) ?><?php endif; ?>
+
       <?php if (!empty($details['credits'])): ?>
         <section class="disk-beteiligte" aria-labelledby="beteiligte">
           <h2 id="beteiligte"><?= e(t('disk.beteiligte')) ?></h2>

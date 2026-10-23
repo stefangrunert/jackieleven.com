@@ -33,9 +33,10 @@
   </a>
   <div class="kopf-rechts">
     <nav aria-label="<?= e(t('nav.label')) ?>">
+      <a href="<?= e(url('hoeren')) ?>"<?= $nav === 'hoeren' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.hoeren')) ?></a>
+      <a href="<?= e(url('diskografie')) ?>"<?= $nav === 'diskografie' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.diskografie')) ?></a>
       <a href="<?= e(url('zeitreise')) ?>"<?= $nav === 'zeitreise' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.zeitreise')) ?></a>
       <a href="<?= e(url('biografie')) ?>"<?= $nav === 'biografie' ? ' class="hier"' : '' ?>><?= e(t('nav.biografie')) ?></a>
-      <a href="<?= e(url('diskografie')) ?>"<?= $nav === 'diskografie' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.diskografie')) ?></a>
       <a href="<?= e(url('pool')) ?>"<?= $nav === 'pool' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.pool')) ?></a>
       <a href="<?= e(url('ueber')) ?>"<?= $nav === 'ueber' ? ' class="hier"' : '' ?>><?= e(t('nav.ueber')) ?></a>
       <a class="nav-mitmachen" href="<?= e(url('mitmachen')) ?>"<?= $nav === 'mitmachen' ? ' aria-current="page"' : '' ?>><?= e(t('nav.mitmachen')) ?></a>
@@ -60,10 +61,6 @@
     <span><?= e(t('fuss.hommage')) ?></span>
     <span><?= e(t('fuss.unabhaengig')) ?></span>
   </div>
-  <div class="fuss-links">
-    <a href="<?= e(url('mitmachen')) ?>"><?= e(t('nav.mitmachen')) ?></a>
-    <a href="mailto:stefan@jackieleven.com"><?= e(t('fuss.kontakt')) ?></a>
-  </div>
 </footer>
 <?php if ($nav === 'start'): ?>
 <script src="/assets/js/startseite.js?v=<?= filemtime(APP_ROOT . '/../assets/js/startseite.js') ?>" defer></script>
@@ -75,9 +72,14 @@
 <?php if ($nav === 'pool'): ?>
 <script src="/assets/js/kolumnen.js?v=<?= filemtime(APP_ROOT . '/../assets/js/kolumnen.js') ?>" defer></script>
 <?php endif; ?>
-<?php if ($nav === 'diskografie'): ?>
+<?php if (in_array($nav, ['start', 'diskografie', 'hoeren'], true)): ?>
 <script src="/assets/js/musiklinks.js?v=<?= filemtime(APP_ROOT . '/../assets/js/musiklinks.js') ?>" defer></script>
+<?php endif; ?>
+<?php if ($nav === 'diskografie'): ?>
 <script src="/assets/js/diskografie.js?v=<?= filemtime(APP_ROOT . '/../assets/js/diskografie.js') ?>" defer></script>
+<?php endif; ?>
+<?php if ($nav === 'hoeren'): ?>
+<script src="/assets/js/hoeren.js?v=<?= filemtime(APP_ROOT . '/../assets/js/hoeren.js') ?>" defer></script>
 <?php endif; ?>
 </body>
 </html>

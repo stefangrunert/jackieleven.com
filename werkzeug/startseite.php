@@ -18,6 +18,15 @@ foreach (SPRACHEN as $s) {
     libxml_clear_errors();
     $xp = new DOMXPath($dom);
     pruefe_start($xp->query('//h1')->length === 1, 'Startseite braucht einen eindeutigen Titel.');
+    pruefe_start($xp->query('//section[contains(@class,"home-auftakt")]/following-sibling::*[1][self::section[contains(@class,"home-hoeren")]]')->length === 1, 'Hören steht nicht direkt unter dem Auftakt.');
+    pruefe_start($xp->query('//section[contains(@class,"home-hoeren")]//*[@data-youtube-id="XLmSL2QBoy0"]//img[contains(@src,"main-travelled-roads-preview.webp")]')->length === 1, 'Eigenes Vorschaubild des Startseitenvideos fehlt.');
+    pruefe_start($xp->query('//section[contains(@class,"home-hoeren")]//button[@data-youtube-id="3pcJw_Zjf94"]')->length === 1, 'Zweites Startseitenvideo fehlt.');
+    pruefe_start($xp->query('//section[contains(@class,"home-hoeren")]//button[@data-youtube-id="3pcJw_Zjf94" and contains(@data-youtube-preview,"rockpalast-2004-preview.webp")]')->length === 1, 'Vorschaubild des zweiten Startseitenvideos fehlt.');
+    pruefe_start($xp->query('//section[contains(@class,"home-hoeren")]//button[@data-youtube-id="J65SKEqdAWY" and contains(@data-youtube-preview,"jackie-leven-at-70-preview-v2.webp")]')->length === 1, 'Tribute als drittes Startseitenvideo fehlt.');
+    pruefe_start($xp->query('//section[contains(@class,"home-hoeren")]//iframe')->length === 0, 'YouTube wird vor dem Klick geladen.');
+    pruefe_start($xp->query('//section[contains(@class,"home-hoeren")]//ol/li')->length === 3, 'Startseiten-Playlist braucht drei Plätze.');
+    pruefe_start(str_contains($html, '/assets/js/startseite.js'), 'Playlist-Steuerung der Startseite fehlt.');
+    pruefe_start(!str_contains(file_get_contents(__DIR__ . '/../assets/js/startseite.js'), 'autoplay=1'), 'Startseitenvideos dürfen nicht automatisch abspielen.');
     pruefe_start(str_contains($html, e(t('fuss.hommage'))), 'Hinweis auf inoffizielle Hommage fehlt.');
     pruefe_start(!preg_match('/>home\.[a-z_.]+</', $html), 'Unübersetzter Startseitentext.');
     $hrefs = [];
