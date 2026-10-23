@@ -68,8 +68,8 @@
                   <?php if ($platte['catalog'] !== ''): ?><p><?= e(t('disk.katalognummer')) ?> <?= e($platte['catalog']) ?></p><?php endif; ?>
                   <?php if ($platte['tracks'] !== []): ?><p><?= e(t('disk.weitere_titel')) ?> <?= e(implode(' / ', $platte['tracks'])) ?></p><?php endif; ?>
                   <ul>
-                    <?php foreach ($platte['sources'] as $key): ?><li><a href="<?= e($quellen[$key]['url']) ?>" rel="noopener noreferrer"><?= e($quellen[$key]['label']) ?></a></li><?php endforeach; ?>
-                    <?php if (isset($platte['coverSource'])): ?><li><a href="<?= e($platte['coverSource']) ?>" rel="noopener noreferrer"><?= e(t('disk.coverquelle')) ?></a></li><?php endif; ?>
+                    <?php foreach ($platte['sources'] as $key): ?><li><a href="<?= e($quellen[$key]['url']) ?>" target="_blank" rel="noopener noreferrer"><?= e($quellen[$key]['label']) ?></a></li><?php endforeach; ?>
+                    <?php if (isset($platte['coverSource'])): ?><li><a href="<?= e($platte['coverSource']) ?>" target="_blank" rel="noopener noreferrer"><?= e(t('disk.coverquelle')) ?></a></li><?php endif; ?>
                   </ul>
                 </details>
               </div>

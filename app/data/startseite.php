@@ -32,13 +32,19 @@ And come on back',
     'pool' => [
         'slug' => '2009-12-home-specialnote',
         'titel' => 'Wor Jackie’s Gannin Hame Like',
-        'zitat' => 'Books, good books, could be written about the bizarre, unfathomable rules of factory work. I remember working at Metal Box factory in Carlisle at the end of the Sixties – I got the sack for not getting my hair cut, because, apparently, my long hair could get caught in the immense presses and I’d be sucked in and flattened to death…',
+        'zitat' => [
+            'de' => 'Über die bizarren, unergründlichen Regeln der Fabrikarbeit ließen sich Bücher schreiben, gute Bücher. Ich erinnere mich an meine Arbeit in der Metal-Box-Fabrik in Carlisle Ende der Sechziger – ich wurde entlassen, weil ich mir die Haare nicht schneiden ließ. Angeblich könnten sich meine langen Haare in den gewaltigen Pressen verfangen, mich hineinziehen und zu Tode quetschen …',
+            'en' => 'Books, good books, could be written about the bizarre, unfathomable rules of factory work. I remember working at Metal Box factory in Carlisle at the end of the Sixties – I got the sack for not getting my hair cut, because, apparently, my long hair could get caught in the immense presses and I’d be sucked in and flattened to death…',
+        ],
     ],
     'leben' => [
         'slug' => '2011-04-the-past-he-death-of-my-brother-ed-has-led-to',
         'station' => '2011-ed',
         // Die im Archiv fehlende Initiale T ist im gelieferten Entwurf ergänzt.
-        'zitat' => 'The death of my brother Ed has led to me thinking about the past in ways that I want to, but also in unbidden ways. I’ve been engulfed by kind of filmic snapshots of early days in Scotland – intensely hot childhood summers in the town of Leslie, Fife, Scotland, but also winters of deep snow … Snowdrops will always make me think of Ed now.',
+        'zitat' => [
+            'de' => 'Seit dem Tod meines Bruders Ed denke ich über die Vergangenheit nach – manchmal, weil ich es will, manchmal drängen sich die Erinnerungen ungefragt auf. Mich überschwemmen wie Filmschnipsel Bilder aus frühen Tagen in Schottland: glühend heiße Kindheitssommer in Leslie, Fife, aber auch Winter mit tiefem Schnee … Schneeglöckchen werden mich von nun an immer an Ed erinnern.',
+            'en' => 'The death of my brother Ed has led to me thinking about the past in ways that I want to, but also in unbidden ways. I’ve been engulfed by kind of filmic snapshots of early days in Scotland – intensely hot childhood summers in the town of Leslie, Fife, Scotland, but also winters of deep snow … Snowdrops will always make me think of Ed now.',
+        ],
     ],
     'platte' => [
         'id' => '1994-the-mystery-of-love-is-greater-than-the-mystery-of-death',

@@ -4,7 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
 /** Seiten mit übersetzten Pfadstücken (pfad.<name> in app/lang/<sprache>.php). */
-const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'hoeren', 'ueber', 'mitmachen'];
+const SEITEN = ['station', 'biografie', 'pool', 'diskografie', 'hoeren', 'ueber', 'mitmachen', 'impressum'];
 
 function nicht_gefunden(): never
 {

@@ -28,6 +28,7 @@ foreach (SPRACHEN as $s) {
     pruefe_start(str_contains($html, '/assets/js/startseite.js'), 'Playlist-Steuerung der Startseite fehlt.');
     pruefe_start(!str_contains(file_get_contents(__DIR__ . '/../assets/js/startseite.js'), 'autoplay=1'), 'Startseitenvideos dürfen nicht automatisch abspielen.');
     pruefe_start(str_contains($html, e(t('fuss.hommage'))), 'Hinweis auf inoffizielle Hommage fehlt.');
+    pruefe_start($xp->query('//footer//a[@href="' . url('impressum') . '"]')->length === 1, 'Impressum fehlt im Footer.');
     pruefe_start(!preg_match('/>home\.[a-z_.]+</', $html), 'Unübersetzter Startseitentext.');
     $hrefs = [];
     foreach ($xp->query('//a[@href]') as $link) $hrefs[] = $link->getAttribute('href');
@@ -46,16 +47,20 @@ foreach (SPRACHEN as $s) {
     foreach (['pool', 'leben'] as $i => $key) {
         $quote = trim($auszuege->item($i)->textContent);
         $quelle = kolumnen()[kolumnen_index($daten[$key]['slug'])];
-        $original = preg_replace('/\s+/', ' ', $quelle['text']);
-        // Die fehlende Initiale im archivierten Ed-Text ist im Entwurf ergänzt.
-        if ($key === 'leben') $original = str_replace('he death of my brother', 'The death of my brother', $original);
-        foreach (explode('…', $quote) as $teil) {
-            $teil = trim($teil, " .\t\n\r");
-            if ($teil !== '') pruefe_start(str_contains($original, $teil), 'Auszug weicht vom Original ab: ' . $key);
+        $erwartet = preg_replace('/\s+/', ' ', $daten[$key]['zitat'][sprache()]);
+        pruefe_start($quote === $erwartet, 'Sprachfassung des Auszugs stimmt nicht: ' . $key);
+        if (sprache() === 'en') {
+            $original = preg_replace('/\s+/', ' ', $quelle['text']);
+            // Die fehlende Initiale im archivierten Ed-Text ist im Entwurf ergänzt.
+            if ($key === 'leben') $original = str_replace('he death of my brother', 'The death of my brother', $original);
+            foreach (explode('…', $quote) as $teil) {
+                $teil = trim($teil, " .\t\n\r");
+                if ($teil !== '') pruefe_start(str_contains($original, $teil), 'Auszug weicht vom Original ab: ' . $key);
+            }
         }
         pruefe_start($auszuege->item($i)->getAttribute('cite') === $quelle['archiv'], 'Zitatquelle fehlt: ' . $key);
     }
-    pruefe_start($xp->query('//button[@aria-controls="home-menu"]')->length === 1, 'Mobiles Menü fehlt.');
+    pruefe_start($xp->query('//header[contains(concat(" ", normalize-space(@class), " "), " topbar ")]')->length === 1, 'Einheitlicher Seitenkopf fehlt.');
     pruefe_start(!str_contains($xp->query('//footer')->item(0)->textContent, '1950'), 'Lebensdaten wieder im Footer.');
     pruefe_start(!str_contains($html, '↗'), 'Diagonale Linkpfeile wieder eingeführt.');
     foreach (SPRACHEN as $ziel) pruefe_start(alternativ_url($ziel) === url('start', [], $ziel), 'Startseiten-Sprachwechsel fehlerhaft.');
@@ -63,6 +68,33 @@ foreach (SPRACHEN as $s) {
     foreach (SPRACHEN as $ziel) pruefe_start(alternativ_url($ziel) === url('zeitreise', [], $ziel), 'Zeitreise-Sprachwechsel führt zur Startseite.');
     pruefe_start(url('start') !== url('zeitreise'), 'Startseite und Zeitreise haben dieselbe Adresse.');
     pruefe_start(str_contains(render_lokal('biografie'), 'href="' . url('zeitreise') . '"'), 'Biografie-Link führt nicht zur Zeitreise.');
+    foreach (stationen() as $st) {
+        if ($st['quelle'] === null) continue;
+        $kolumne = kolumne_nach_datei($st['quelle']['datei']);
+        pruefe_start($kolumne !== null, 'Lokale Lesefassung der Zitatquelle fehlt: ' . $st['slug']);
+        pruefe_start(
+            str_contains(render('buehne', ['st' => $st]), 'href="' . url('kolumne', ['slug' => $kolumne['slug']]) . '"'),
+            'Zitat der Zeitreise führt nicht zur lokalen Lesefassung: ' . $st['slug']
+        );
+    }
+    foreach ([
+        '1971-dorset' => '1973-control',
+        '1977-doll-by-doll' => '1979-remember',
+        '1978-bristol-gardens' => '1979-gypsy-blood-album',
+        '1983-caledonian-road' => '1982-grand-passion',
+        '1994-mystery-of-love' => '1994-the-mystery-of-love-is-greater-than-the-mystery-of-death',
+        '2002-the-deep-pool' => '2003-shining-brother-shining-sister',
+        '2004-woman-in-a-car' => '2005-elegy-for-johnny-cash',
+        '2008-cottage-industry' => '2008-lovers-at-the-gun-club',
+        '2011-ed' => '2011-wayside-shrines-and-the-code-of-the-travelling-man',
+        '2011-november' => '2012-heroes-can-be-any-size-an-introduction-to-jackie-leven',
+    ] as $stationsslug => $plattenid) {
+        $station = stationen()[stations_index($stationsslug)];
+        pruefe_start(
+            str_contains(render('buehne', ['st' => $station]), 'href="' . diskografie_link($plattenid) . '"'),
+            'Werkmarke der Zeitreise fehlt: ' . $plattenid
+        );
+    }
 }
 
 // Den echten Frontcontroller in getrennten Prozessen prüfen, einschließlich
@@ -79,6 +111,7 @@ foreach ([
     '/en/deep-pool/2009-12-home-specialnote' => 200,
     '/de/diskografie/1994-the-mystery-of-love-is-greater-than-the-mystery-of-death' => 200,
     '/en/discography/1994-the-mystery-of-love-is-greater-than-the-mystery-of-death' => 200,
+    '/de/impressum' => 200, '/en/legal-notice' => 200,
 ] as $path => $status) {
     $code = '$_SERVER["REQUEST_URI"] = ' . var_export($path, true) . ';'
         . 'register_shutdown_function(function () { fwrite(STDERR, "STATUS:" . http_response_code()); });'

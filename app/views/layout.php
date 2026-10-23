@@ -23,13 +23,10 @@
 </head>
 <body<?= $nav === 'start' ? ' class="home-page"' : '' ?>>
 
-<?php if ($nav === 'start'): ?>
-<?= render('start-kopf') ?>
-<?php else: ?>
 <header class="topbar">
   <a class="name" href="<?= e(url('start')) ?>" aria-label="<?= e(t('nav.start')) ?>"<?= $nav === 'start' ? ' aria-current="page"' : '' ?>>
     <img class="site-logo" src="/assets/bilder/jackie-leven-logo-originalnah.png" alt="" width="56" height="56">
-    <?php if ($nav !== 'start'): ?><span>Jackie Leven</span><?php endif; ?>
+    <span>Jackie Leven</span>
   </a>
   <div class="kopf-rechts">
     <nav aria-label="<?= e(t('nav.label')) ?>">
@@ -52,11 +49,11 @@
     </nav>
   </div>
 </header>
-<?php endif; ?>
 
 <?= $inhalt ?>
 
 <footer<?= $nav === 'start' ? ' class="home-footer"' : '' ?>>
+  <a class="fuss-impressum" href="<?= e(url('impressum')) ?>"<?= $nav === 'impressum' ? ' aria-current="page"' : '' ?>><?= e(t('nav.impressum')) ?></a>
   <div class="fuss-text">
     <span><?= e(t('fuss.hommage')) ?></span>
     <span><?= e(t('fuss.unabhaengig')) ?></span>

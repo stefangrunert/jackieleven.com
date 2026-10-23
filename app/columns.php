@@ -85,6 +85,17 @@ function kolumnen_index(string $slug): int
     return -1;
 }
 
+/** Die öffentlich eingebundene Lesefassung zu einer Quelldatei. */
+function kolumne_nach_datei(string $datei): ?array
+{
+    foreach (kolumnen() as $k) {
+        if ($k['datei'] === $datei) {
+            return $k;
+        }
+    }
+    return null;
+}
+
 function kolumnen_datum(array $k): string
 {
     [$jahr, $monat] = explode('-', $k['datum']);

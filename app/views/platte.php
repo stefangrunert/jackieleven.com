@@ -98,7 +98,7 @@ $quellen = array_column($quellen, null, 'url');
 
       <section class="disk-quellen" aria-labelledby="quellen">
         <h2 id="quellen"><?= e(t('disk.quellen')) ?></h2>
-        <ul><?php foreach ($quellen as $quelle): ?><li><a href="<?= e($quelle['url']) ?>" rel="noopener noreferrer"><?= e($quelle['label']) ?></a></li><?php endforeach; ?></ul>
+        <ul><?php foreach ($quellen as $quelle): ?><li><a href="<?= e($quelle['url']) ?>" target="_blank" rel="noopener noreferrer"><?= e($quelle['label']) ?></a></li><?php endforeach; ?></ul>
       </section>
     </article>
     <?= render('platte-navigation', $navigation + ['oben' => false]) ?>

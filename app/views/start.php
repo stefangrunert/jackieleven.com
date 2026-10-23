@@ -19,12 +19,11 @@ $lebenslinie = [
         <img src="/assets/bilder/startseite/portrait-graphic.png" alt="<?= e(t('home.portraet_alt')) ?>" width="1536" height="1024" fetchpriority="high">
       </figure>
       <header class="home-name">
-        <h1 id="home-titel">Jackie Leven</h1>
-        <p>1950–2011</p>
+        <h1 id="home-titel" aria-label="Jackie Leven"><span aria-hidden="true">1950–2011</span></h1>
       </header>
       <figure class="home-vers">
         <blockquote lang="en"><?= nl2br(e($start['vers']), false) ?></blockquote>
-        <figcaption lang="en">My Philosophy</figcaption>
+        <figcaption lang="en">My Philosophy · Jackie Leven, 2003</figcaption>
       </figure>
     </div>
   </section>
@@ -78,14 +77,14 @@ $lebenslinie = [
       <article class="home-auszug">
         <span class="home-anfuhrung" aria-hidden="true">“</span>
         <figure>
-          <blockquote lang="en" cite="<?= e($poolQuelle['archiv']) ?>"><?= e($start['pool']['zitat']) ?></blockquote>
+          <blockquote lang="<?= e(sprache()) ?>" cite="<?= e($poolQuelle['archiv']) ?>"><?= e($start['pool']['zitat'][sprache()]) ?></blockquote>
           <figcaption><a href="<?= e(url('kolumne', ['slug' => $poolQuelle['slug']])) ?>">The Deep Pool · <?= e(kolumnen_datum($poolQuelle)) ?> · <span lang="en"><?= e($start['pool']['titel']) ?></span></a></figcaption>
         </figure>
       </article>
       <article class="home-auszug">
         <span class="home-anfuhrung" aria-hidden="true">“</span>
         <figure>
-          <blockquote lang="en" cite="<?= e($lebenQuelle['archiv']) ?>"><?= e($start['leben']['zitat']) ?></blockquote>
+          <blockquote lang="<?= e(sprache()) ?>" cite="<?= e($lebenQuelle['archiv']) ?>"><?= e($start['leben']['zitat'][sprache()]) ?></blockquote>
           <figcaption><a href="<?= e(url('station', ['slug' => $start['leben']['station']])) ?>"><?= e(t('nav.zeitreise')) ?> · 2011</a></figcaption>
         </figure>
       </article>

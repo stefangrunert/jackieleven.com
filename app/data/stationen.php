@@ -36,6 +36,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-1971-kontrast-mitte.png',
   'bildstil' => 'tusche',
+  'platte' => '1973-control',
   'zitat'  => 'Lying there on his back, sensing that there was no approaching car, he saw the full yellow moon seeping across the slumbering village of Sturminster Marshall, and for the first time in a long long time, heard himself think \'it\'s nearly good to be almost alive\'',
   'quelle' => [
     'rubrik' => 'deep-pool',
@@ -51,6 +52,7 @@ return [
   'art'    => 'werk',
   'bild'   => 'jackie-leven-1977-fotovorlage-tusche.png',
   'bildstil' => 'tusche',
+  'platte' => '1979-remember',
   'zitat'  => 'Me and Paul were also remembering how Doll By Doll acquired a reputation as ‘art terrorists\' back in the band\'s beginnings: one year we assembled a hideous calendar full of images depicting poverty war and cruelty.',
   'quelle' => [
     'rubrik' => 'deep-pool',
@@ -66,6 +68,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-1978-mystisch.png',
   'bildstil' => 'tusche',
+  'platte' => '1979-gypsy-blood-album',
   'zitat'  => 'My mother looked me in the eye, and in her finest broad Geordie street tones said “Yer livin’ in a street full o buggers”.',
   'quelle' => [
     'rubrik' => 'the-past',
@@ -81,6 +84,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-1983-tusche.png',
   'bildstil' => 'tusche',
+  'platte' => '1982-grand-passion',
   'zitat'  => '',
   'quelle' => null,
 ],
@@ -121,6 +125,7 @@ return [
   'art'    => 'werk',
   'bild'   => 'jackie-leven-1994-mit-hand.png',
   'bildstil' => 'tusche',
+  'platte' => '1994-the-mystery-of-love-is-greater-than-the-mystery-of-death',
   'zitat'  => '',
   'quelle' => null,
 ],
@@ -131,6 +136,7 @@ return [
   'art'    => 'wort',
   'bild'   => 'jackie-leven-2000-mit-glas.png',
   'bildstil' => 'tusche',
+  'platte' => '2003-shining-brother-shining-sister',
   'zitat'  => 'The market hall clock ‘dang’ is wonderfully workaday – a blunt stab of sonic info for commoners who may need to know that it’s TIME.',
   'quelle' => [
     'rubrik' => 'blog',
@@ -146,6 +152,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-2006-tusche.png',
   'bildstil' => 'tusche',
+  'platte' => '2005-elegy-for-johnny-cash',
   'zitat'  => '',
   'quelle' => null,
 ],
@@ -156,6 +163,7 @@ return [
   'art'    => 'wort',
   'bild'   => 'jackie-leven-2008-mit-gitarre.png',
   'bildstil' => 'tusche',
+  'platte' => '2008-lovers-at-the-gun-club',
   'zitat'  => 'I’m a cottage industry and there’s nobody in my cottage at the moment',
   'quelle' => [
     'rubrik' => 'home',
@@ -171,6 +179,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-nachdenklich.png',
   'bildstil' => 'tusche',
+  'platte' => '2011-wayside-shrines-and-the-code-of-the-travelling-man',
   'zitat'  => 'Snowdrops will always make me think of Ed now',
   'quelle' => [
     'rubrik' => 'the-past',
@@ -201,6 +210,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-gedenkbank-tusche.png',
   'bildstil' => 'tusche',
+  'platte' => '2012-heroes-can-be-any-size-an-introduction-to-jackie-leven',
   'zitat'  => '',
   'quelle' => null,
 ],
