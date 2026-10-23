@@ -21,8 +21,8 @@
   <div class="kopf-rechts">
     <nav aria-label="<?= e(t('nav.label')) ?>">
       <a href="<?= e(url('hoeren')) ?>"<?= $nav === 'hoeren' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.hoeren')) ?></a>
-      <a href="<?= e(url('diskografie')) ?>"<?= $nav === 'diskografie' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.diskografie')) ?></a>
       <a href="<?= e(url('zeitreise')) ?>"<?= $nav === 'zeitreise' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.zeitreise')) ?></a>
+      <a href="<?= e(url('diskografie')) ?>"<?= $nav === 'diskografie' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.diskografie')) ?></a>
       <a href="<?= e(url('biografie')) ?>"<?= $nav === 'biografie' ? ' class="hier"' : '' ?>><?= e(t('nav.biografie')) ?></a>
       <a href="<?= e(url('stimmen')) ?>"<?= $nav === 'stimmen' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.stimmen')) ?></a>
       <a href="<?= e(url('pool')) ?>"<?= $nav === 'pool' ? ' class="hier" aria-current="page"' : '' ?>><?= e(t('nav.pool')) ?></a>
