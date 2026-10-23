@@ -19,7 +19,7 @@
 <link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/home.css">
 <?php endif; ?>
-<link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(APP_ROOT . '/../assets/css/site.css') ?>">
+<link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(PUBLIC_ROOT . '/assets/css/site.css') ?>">
 </head>
 <body<?= $nav === 'start' ? ' class="home-page"' : '' ?>>
 
@@ -60,23 +60,23 @@
   </div>
 </footer>
 <?php if ($nav === 'start'): ?>
-<script src="/assets/js/startseite.js?v=<?= filemtime(APP_ROOT . '/../assets/js/startseite.js') ?>" defer></script>
+<script src="/assets/js/startseite.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/startseite.js') ?>" defer></script>
 <?php endif; ?>
 
 <?php if ($nav === 'zeitreise'): ?>
-<script src="/assets/js/zeitgraph.js" defer></script>
+<script src="/assets/js/zeitgraph.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/zeitgraph.js') ?>" defer></script>
 <?php endif; ?>
 <?php if ($nav === 'pool'): ?>
-<script src="/assets/js/kolumnen.js?v=<?= filemtime(APP_ROOT . '/../assets/js/kolumnen.js') ?>" defer></script>
+<script src="/assets/js/kolumnen.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/kolumnen.js') ?>" defer></script>
 <?php endif; ?>
 <?php if (in_array($nav, ['start', 'diskografie', 'hoeren'], true)): ?>
-<script src="/assets/js/musiklinks.js?v=<?= filemtime(APP_ROOT . '/../assets/js/musiklinks.js') ?>" defer></script>
+<script src="/assets/js/musiklinks.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/musiklinks.js') ?>" defer></script>
 <?php endif; ?>
 <?php if ($nav === 'diskografie'): ?>
-<script src="/assets/js/diskografie.js?v=<?= filemtime(APP_ROOT . '/../assets/js/diskografie.js') ?>" defer></script>
+<script src="/assets/js/diskografie.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/diskografie.js') ?>" defer></script>
 <?php endif; ?>
 <?php if ($nav === 'hoeren'): ?>
-<script src="/assets/js/hoeren.js?v=<?= filemtime(APP_ROOT . '/../assets/js/hoeren.js') ?>" defer></script>
+<script src="/assets/js/hoeren.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/hoeren.js') ?>" defer></script>
 <?php endif; ?>
 </body>
 </html>

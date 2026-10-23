@@ -31,5 +31,5 @@ $watch = fn(array $stueck) => 'https://www.youtube.com/watch?v=' . $stueck['vide
     </article>
   <?php endforeach; ?>
   <?php if (count($konzerte) > $sichtbar): ?></details><?php endif; ?>
-  <script src="/assets/js/livevideos.js?v=<?= filemtime(APP_ROOT . '/../assets/js/livevideos.js') ?>" defer></script>
+  <script src="/assets/js/livevideos.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/livevideos.js') ?>" defer></script>
 </section>

@@ -4,18 +4,28 @@ $alle = stationen();
 $n    = count($alle);
 $vor  = $alle[($aktiv - 1 + $n) % $n];
 $nach = $alle[($aktiv + 1) % $n];
+$alternativen = function (?string $slug = null): string {
+    $urls = [];
+    foreach ([...SPRACHEN, 'x-default'] as $s) {
+        $urls[$s] = $slug === null
+            ? url('zeitreise', [], $s === 'x-default' ? STANDARD_SPRACHE : $s)
+            : url('station', ['slug' => $slug], $s === 'x-default' ? STANDARD_SPRACHE : $s);
+    }
+    return e(json_encode($urls, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
+};
 ?>
 <div class="stage-wrap">
 
   <nav class="graph" aria-label="<?= e(t('graph.label')) ?>">
     <div class="graph-viewport" id="g-viewport">
-      <div class="graph-track" id="g-track">
+      <div class="graph-track" id="g-track" data-alternativen="<?= $alternativen() ?>" data-titel="<?= e(t('titel.zeitreise')) ?>">
         <?php foreach ($alle as $i => $s): ?>
           <a class="g-marker<?= $i === $aktiv ? ' active' : '' ?>"
              href="<?= e(url('station', ['slug' => $s['slug']])) ?>"
              data-i="<?= $i ?>"
              data-art="<?= e($s['art']) ?>"
              data-jahr="<?= e($s['jahr']) ?>"
+             data-alternativen="<?= $alternativen($s['slug']) ?>"
              <?= $i === $aktiv ? 'aria-current="true"' : '' ?>>
             <span class="dot"></span>
             <span class="g-label">

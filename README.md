@@ -225,6 +225,47 @@ Eine neue Sprache: die drei Stellen anlegen und dann den Code in `SPRACHEN` in `
 php werkzeug/zitate.php                 # jedes Zitat Zeichen für Zeichen gegen seine Quelle
 ```
 
+## Deployment der vollständigen PHP-Website
+
+Das Release wird über eine Positivliste gebaut, niemals durch Kopieren des Repositorys.
+`ops/release-files.json` nennt die erlaubten Code-, Daten-, CSS-, JavaScript- und
+Schriftdateien. Dazu kommen nur die im Kolumnenkatalog freigegebenen Texte, die
+15 veröffentlichten Buchkapitel samt vorhandenen Übersetzungen und die von der App
+ausgewählten Bilder. Neue Laufzeitdateien müssen ausdrücklich in die Liste aufgenommen
+werden; Bildentwürfe, unbenutzte Fotos, übrige Recherche, Git-Daten, Werkzeuge und
+`app/config.local.php` werden nicht übernommen. Symlinks in Quelldateien sind nicht erlaubt.
+
+Jedes Release enthält einen eigenen Ordner `public/` mit dem öffentlichen Einstieg und
+den Assets. **Nur dieser Ordner ist der DocumentRoot.** PHP-Code und die für die
+Lesefassungen benötigten Texte liegen daneben und sind nicht direkt per HTTP erreichbar.
+`release-manifest.sha256` verzeichnet die übertragenen Dateien mit ihren Prüfsummen.
+API-Schlüssel und optionale Einstellungen kommen auf dem Server aus der PHP-FPM-Umgebung
+(`JACKIE_RESEND_API_KEY`, `JACKIE_FAN_VIDEOS`). Für das Kontaktlimit sollte
+`JACKIE_CONTACT_STATE_DIR` auf ein dauerhaftes, privates und für PHP beschreibbares
+Verzeichnis außerhalb der Releases zeigen.
+
+```sh
+node werkzeug/browserablaeufe.cjs             # Navigation und Video-Ladezustände
+php werkzeug/release.php                     # Paket, alle Routen und Assets; ohne Upload
+bash ops/deploy.sh --prepare /tmp/jackie-release  # neuer Ordner; bleibt zur Prüfung liegen
+bash ops/deploy.sh --deploy                  # Upload und atomarer Wechsel von site-current
+```
+
+Das Deploy-Skript lädt ausschließlich das vorbereitete Paket per SSH/rsync auf den
+bisherigen Server. Vor dem Wechsel prüft es Prüfsummen, PHP-Version, benötigte
+CLI-Erweiterungen, PHP-Syntax und Beispielaufrufe. Die Pakete liegen unter
+`/var/www/jackieleven/site-releases/`; `site-current` zeigt auf das aktive Paket,
+`site-previous` auf dessen Vorgänger. Der Wechsel erfolgt erst nach erfolgreichen Prüfungen.
+PHP-CLI und PHP-FPM müssen dieselbe geeignete Version und Erweiterungen verwenden.
+
+Die Interimsseite verwendet weiterhin ihre eigenen Verzeichnisse und Links. Der erste
+Upload der PHP-Website schaltet sie deshalb noch nicht öffentlich. Dafür muss separat
+der VHost aus `ops/nginx-site.conf` eingerichtet werden: PHP-FPM installieren bzw. seinen
+Socketpfad anpassen, die benötigten Umgebungsvariablen im FPM-Pool setzen und den
+DocumentRoot auf `/var/www/jackieleven/site-current/public` umstellen. Danach mit
+`nginx -t` prüfen und nginx neu laden. Auch bei Apache muss der DocumentRoot auf
+`public/` zeigen; dessen `.htaccess` übernimmt das Routing.
+
 ## Interimsseite auf jackieleven.com
 
 Seit dem 23. Oktober 2026 zeigt `https://jackieleven.com/` eine eigenständige, statische

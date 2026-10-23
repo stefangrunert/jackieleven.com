@@ -66,6 +66,19 @@ foreach (SPRACHEN as $s) {
     foreach (SPRACHEN as $ziel) pruefe_start(alternativ_url($ziel) === url('start', [], $ziel), 'Startseiten-Sprachwechsel fehlerhaft.');
     route('zeitreise');
     foreach (SPRACHEN as $ziel) pruefe_start(alternativ_url($ziel) === url('zeitreise', [], $ziel), 'Zeitreise-Sprachwechsel führt zur Startseite.');
+    $zeitdom = new DOMDocument();
+    $zeitdom->loadHTML('<?xml encoding="UTF-8">' . render('zeitreise', ['aktiv' => 0]));
+    libxml_clear_errors();
+    $zeitxp = new DOMXPath($zeitdom);
+    foreach ($zeitxp->query('//*[@data-alternativen]') as $marke) {
+        $urls = json_decode($marke->getAttribute('data-alternativen'), true, flags: JSON_THROW_ON_ERROR);
+        $slug = $marke->hasAttribute('data-i') ? stationen()[(int) $marke->getAttribute('data-i')]['slug'] : null;
+        foreach ([...SPRACHEN, 'x-default'] as $ziel) {
+            $sprache = $ziel === 'x-default' ? STANDARD_SPRACHE : $ziel;
+            $soll = $slug === null ? url('zeitreise', [], $sprache) : url('station', ['slug' => $slug], $sprache);
+            pruefe_start(($urls[$ziel] ?? null) === $soll, 'Sprachziel der Zeitreise-Marke fehlt oder ist falsch.');
+        }
+    }
     pruefe_start(url('start') !== url('zeitreise'), 'Startseite und Zeitreise haben dieselbe Adresse.');
     pruefe_start(str_contains(render_lokal('biografie'), 'href="' . url('zeitreise') . '"'), 'Biografie-Link führt nicht zur Zeitreise.');
     foreach (stationen() as $st) {

@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 const APP_ROOT = __DIR__;
+// Das Release setzt seinen öffentlichen Ordner im vorgeschalteten index.php.
+if (!defined('PUBLIC_ROOT')) define('PUBLIC_ROOT', dirname(__DIR__));
 
 require APP_ROOT . '/columns.php';
 require APP_ROOT . '/discography.php';

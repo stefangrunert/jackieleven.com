@@ -38,14 +38,29 @@
     link.rel = 'noopener noreferrer';
     link.textContent = bereich.dataset.youtube;
     hinweis.appendChild(link);
-    karte.querySelector('.disk-konzert-player').replaceChildren(hinweis);
+    var spieler = karte.spieler;
     karte.spieler = null;
+    karte.bereit = false;
+    karte.ladend = false;
+    if (spieler && spieler.destroy) spieler.destroy();
+    karte.querySelector('.disk-konzert-player').replaceChildren(hinweis);
+    karte.querySelector('.disk-konzert-player').classList.remove('ist-ladend');
   }
 
   function pausiereAndere(aktiv) {
     karten.forEach(function (karte) {
-      if (karte !== aktiv && karte.spieler && karte.spieler.pauseVideo) karte.spieler.pauseVideo();
+      if (karte !== aktiv && karte.bereit && karte.spieler) karte.spieler.pauseVideo();
     });
+  }
+
+  function spieleZiel(karte) {
+    if (karte.videoId === karte.ziel.id) {
+      karte.spieler.seekTo(karte.ziel.start, true);
+      karte.spieler.playVideo();
+    } else {
+      karte.videoId = karte.ziel.id;
+      karte.spieler.loadVideoById({ videoId: karte.ziel.id, startSeconds: karte.ziel.start });
+    }
   }
 
   function spiele(karte, ziel) {
@@ -54,43 +69,45 @@
     if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return false;
     markiere(karte, id, start);
     karte.link = ziel.href;
-    if (karte.spieler && karte.videoId === id) {
-      karte.spieler.seekTo(start, true);
-      karte.spieler.playVideo();
+    karte.ziel = { id: id, start: start };
+    if (karte.bereit && karte.spieler) {
+      spieleZiel(karte);
       return true;
     }
-    karte.videoId = id;
-    if (karte.spieler) {
-      karte.spieler.loadVideoById({ videoId: id, startSeconds: start });
-      return true;
-    }
+    // Eine Initialisierung pro Karte; weitere Klicks ändern nur das Wunschziel.
+    if (karte.ladend) return true;
+    karte.ladend = true;
     var bereich = karte.querySelector('.disk-konzert-player');
     bereich.classList.add('ist-ladend');
     ladeApi().then(function () {
+      var auswahl = karte.ziel;
+      karte.videoId = auswahl.id;
       var platz = document.createElement('div');
       bereich.replaceChildren(platz);
-      bereich.classList.remove('ist-ladend');
       karte.spieler = new window.YT.Player(platz, {
         host: 'https://www.youtube-nocookie.com',
-        videoId: id,
-        playerVars: { autoplay: 0, start: start, rel: 0, playsinline: 1 },
+        videoId: auswahl.id,
+        playerVars: { autoplay: 0, start: auswahl.start, rel: 0, playsinline: 1 },
         events: {
           onReady: function (event) {
+            if (event.target !== karte.spieler) return;
+            karte.bereit = true;
+            karte.ladend = false;
+            bereich.classList.remove('ist-ladend');
             event.target.getIframe().title = karte.querySelector('h3').textContent;
-            event.target.playVideo();
+            spieleZiel(karte);
           },
-          onError: function () { zeigeFehler(karte); },
+          onError: function (event) { if (event.target === karte.spieler) zeigeFehler(karte); },
           onStateChange: function (event) {
-            if (event.data === window.YT.PlayerState.PLAYING) pausiereAndere(karte);
+            if (event.target === karte.spieler && event.data === window.YT.PlayerState.PLAYING) pausiereAndere(karte);
           }
         }
       });
       if (karten.indexOf(karte) < 0) karten.push(karte);
-    }, function () {
-      // Player-API blockiert: das Video auf YouTube öffnen.
+    }).catch(function () {
+      // Der Link bleibt auch bei einer blockierten Player-API direkt anklickbar.
       api = null;
-      bereich.classList.remove('ist-ladend');
-      window.open(ziel.href, '_blank', 'noopener');
+      zeigeFehler(karte);
     });
     return true;
   }

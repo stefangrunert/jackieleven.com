@@ -101,7 +101,8 @@
   /* --- Stationswechsel ------------------------------------------------- */
   var aktiv = marken.findIndex(function (m) { return m.classList.contains('active'); });
   if (aktiv < 0) aktiv = 0;
-  var laeuft = false;
+  var anfrage = null;
+  var wechsel = 0;
 
   function markiere(i) {
     marken.forEach(function (m, j) {
@@ -126,28 +127,49 @@
     knoepfe[1].innerHTML = nach.dataset.jahr + ' →';
   }
 
-  function zeige(i, pushen) {
-    i = (i + marken.length) % marken.length;
-    if (laeuft || i === aktiv) { zentriere(i); return; }
+  function seitenangaben(i, pushen, uebersicht) {
     var url = marken[i].getAttribute('href');
-    laeuft = true;
+    if (pushen && window.location.pathname !== url) history.pushState({ i: i }, '', url);
+    var alternativen = JSON.parse((uebersicht ? track : marken[i]).dataset.alternativen);
+    document.querySelectorAll('.sprachen a[hreflang], link[rel="alternate"][hreflang]').forEach(function (link) {
+      var ziel = alternativen[link.getAttribute('hreflang')];
+      if (ziel) link.href = new URL(ziel, window.location.href).href;
+    });
+    document.title = uebersicht ? track.dataset.titel : marken[i].dataset.jahr + ' — ' +
+      marken[i].querySelector('.g-era').textContent + ' · Jackie Leven';
+  }
+
+  function zeige(i, pushen, uebersicht) {
+    i = (i + marken.length) % marken.length;
+    var nummer = ++wechsel;
+    if (anfrage) anfrage.abort();
+    anfrage = null;
+    if (i === aktiv) {
+      stage.style.opacity = '1';
+      zentriere(i);
+      seitenangaben(i, pushen, uebersicht);
+      return;
+    }
+    var url = marken[i].getAttribute('href');
+    anfrage = new AbortController();
     stage.style.opacity = '0';
 
-    fetch(url + '?fragment=1', { headers: { 'X-Requested-With': 'fetch' } })
+    fetch(url + '?fragment=1', { signal: anfrage.signal, headers: { 'X-Requested-With': 'fetch' } })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
       .then(function (html) {
+        if (nummer !== wechsel) return;
         stage.innerHTML = html;
         aktiv = i;
         markiere(i);
         pagerAktualisieren(i);
         zentriere(i);
-        if (pushen) history.pushState({ i: i }, '', url);
-        document.title = marken[i].dataset.jahr + ' — ' +
-          marken[i].querySelector('.g-era').textContent + ' · Jackie Leven';
-        requestAnimationFrame(function () { stage.style.opacity = '1'; });
-        laeuft = false;
+        seitenangaben(i, pushen, uebersicht);
+        requestAnimationFrame(function () { if (nummer === wechsel) stage.style.opacity = '1'; });
+        anfrage = null;
       })
-      .catch(function () { window.location.href = url; });
+      .catch(function (fehler) {
+        if (nummer === wechsel && fehler.name !== 'AbortError') window.location.href = url;
+      });
   }
 
   track.addEventListener('click', function (e) {
@@ -175,7 +197,7 @@
   window.addEventListener('popstate', function () {
     var pfad = window.location.pathname;
     var i = marken.findIndex(function (m) { return m.getAttribute('href') === pfad; });
-    zeige(i < 0 ? 0 : i, false);
+    zeige(i < 0 ? 0 : i, false, i < 0);
   });
 
   stage.style.transition = 'opacity .3s';
