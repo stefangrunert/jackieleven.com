@@ -5654,7 +5654,7 @@
   "datei": "konzertberichte/1981-06-15_record-business_doll-by-doll-the-venue-london.md"
  },
  {
-  "titel": "Crystal Balls Up – Doll By Doll, Venue, London",
+  "titel": "[Doll By Doll, Venue, London]",
   "autor": "Robin Smith",
   "medium": "Record Mirror",
   "datum": "1981-06-20",
@@ -7636,6 +7636,34 @@
   "bezug": [],
   "gefunden_ueber": "Websuche „Jackie Leven“ Kiel Konzert; Original-Link aus der Blog-Wiedergabe",
   "datei": "konzertberichte/undatiert_kieler-nachrichten_der-kauz-im-anekdotendickicht-jackie-lev.md"
+ },
+ {
+  "titel": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+  "autor": "John Pidgeon; Folkhinweise: Eric Winter",
+  "medium": "New Musical Express",
+  "datum": "1972-10-28",
+  "stufe": "auswahl",
+  "kategorie": "meldungen",
+  "art": "Konzertankündigungen",
+  "sprache": "en",
+  "thema": [
+   "John St. Field",
+   "Alex Atterson",
+   "Helen Woodall",
+   "Control",
+   "Folkclubs"
+  ],
+  "url": "https://www.worldradiohistory.com/UK/New-Musical-Express/1972/NME%201972-10-28.pdf#page=35",
+  "archiv": "",
+  "erreichbarkeit": "live",
+  "sicherheit": "belegt",
+  "umfang": "kurz",
+  "abgerufen": "2026-10-24",
+  "bezug": [
+   "jackie-leven-vor-1975.md"
+  ],
+  "gefunden_ueber": "Recherche vor 1975, Q6; Originalscan heruntergeladen, OCR und beide Seiten visuell geprüft",
+  "datei": "meldungen/1972-10-28_nme_john-st-field-folkclubs.md"
  },
  {
   "titel": "[Musikkolumne mit „…Que“-Glossen, darin: John St. Field]",
@@ -14541,6 +14569,33 @@
   ],
   "gefunden_ueber": "research/youtube-fundliste.md (Live-Abschnitt); YouTube-Beschreibung",
   "datei": "radio-tv/undatiert_taratata_italienisches-tv-jackie-leven.md"
+ },
+ {
+  "titel": "Take Off Your Head And Listen",
+  "autor": "Jerry Gilbert",
+  "medium": "Sounds",
+  "datum": "1971-11-06",
+  "stufe": "auswahl",
+  "kategorie": "rezensionen",
+  "art": "Samplerkritik und früher Veröffentlichungsnachweis",
+  "sprache": "en",
+  "thema": [
+   "Alan Moffatt",
+   "Finest Hour",
+   "Take Off Your Head And Listen",
+   "Rubber Records"
+  ],
+  "url": "https://worldradiohistory.com/UK/Sounds/70s/Sounds-1971-11-06.pdf#page=26",
+  "archiv": "",
+  "erreichbarkeit": "live",
+  "sicherheit": "belegt",
+  "umfang": "kurz",
+  "abgerufen": "2026-10-24",
+  "bezug": [
+   "jackie-leven-vor-1975.md"
+  ],
+  "gefunden_ueber": "Recherche vor 1975, Q2 und Q5; Originalscan und Fotos der Originalpressung visuell geprüft",
+  "datei": "rezensionen/1971-11-06_sounds_take-off-your-head-and-listen.md"
  },
  {
   "titel": "[Plattenrubrik: JOHN ST. FIELD – „Control“]",

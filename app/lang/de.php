@@ -60,6 +60,8 @@ return [
     'stimmen.datum' => 'Datum',
     'stimmen.seite' => 'Seite',
     'stimmen.scan_gross' => 'Faksimile in voller Größe ansehen',
+    'stimmen.auszug_gross' => 'Ausschnitt zum Lesen vergrößern',
+    'stimmen.auszug_hinweis' => 'Rote Rahmen sind redaktionell ergänzt. Bild anklicken zum Vergrößern; der Quellenlink führt zum vollständigen Seitenkontext.',
     'stimmen.inhalt' => 'Zusammenfassung',
     'stimmen.eigene_worte' => 'Zusammenfassung in eigenen Worten; den Wortlaut enthält das Original.',
     'stimmen.nur_deutsch' => 'Diese Zusammenfassung gibt es bisher nur auf Deutsch.',

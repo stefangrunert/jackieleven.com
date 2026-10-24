@@ -47,6 +47,17 @@ Quelle Q2: *Take Off Your Head And Listen*, Rubber LP 001, 1971. Fotos aus dem [
 
 Das Foto bestätigt die gedruckte Namensform, aber allein noch nicht die spätere Identität Jackie Leven. Diese Verknüpfung stammt weiterhin aus Biografie und Diskografie. Die genaue Zuordnung von A2 zum Rex Hotel wird ausdrücklich in den Discogs-Notizen vorgenommen; die Hülle verbindet die Livekennzeichnung mit einer allgemeinen Danksagung an das Clubpublikum.
 
+## Verwendung in Voices
+
+Für die Website werden ausgewählte Stellen aus den markierten Fassungen als kompakte WebP-Ausschnitte
+bereitgestellt. Auswahl, Ausschnittkoordinaten, Bildunterschriften und Originalverweise stehen in
+[web-auszuege.json](web-auszuege.json). `python3 werkzeug/quellen-auszuege.py` erzeugt daraus die öffentlichen
+Bilder unter `assets/images/voices/` und `app/data/quellen-auszuege.json`. Die Originale bleiben unverändert.
+Auf der Seite sind Breite und Höhe begrenzt; ein Klick vergrößert den Ausschnitt, der Quellenlink öffnet
+den vollständigen Seitenkontext. Das Etikettfoto ist dem Discogs-Eintrag zugeordnet, die Zeitungsausschnitte
+den Ausgaben bei World Radio History. Für die Samplerkritik wird das Etikett als ergänzender Nachweis von
+Moffatts Beitrag gezeigt; die Kritik selbst enthält kein individuelles Urteil über ihn.
+
 ## Noch ohne Faksimile
 
 Für den *Sounds*-Verriss vom 24.03.1979 liegt bislang nur der öffentlich sichtbare Archivnachweis vor. Vom *MOJO*-Artikel 2022 sind die hier verwendeten späteren Passagen nur über indexierte Textauszüge geprüft. Auch das BBC-Aufnahmeprotokoll von 1969 und die Beilagen von *Saint Judas* beziehungsweise der Guerssen-Neuauflage von *Control* fehlen. Die spanischen Pressefunde sind weiterhin überwiegend nur als OCR-Auszüge dokumentiert. Für diese Stellen wurde kein Originalscan nachgebildet.

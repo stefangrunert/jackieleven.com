@@ -92,17 +92,17 @@ Die Funde sind noch nicht in `research/01–12` eingearbeitet. Die wichtigsten P
 | [Nachrufe und Gedenkartikel](#nachrufe) | 36 | 26 | 4 | 6 | 0 |
 | [Interviews](#interviews) | 80 | 60 | 12 | 8 | 0 |
 | [Porträts, Features, Retrospektiven](#portraets) | 31 | 21 | 3 | 7 | 0 |
-| [Rezensionen](#rezensionen) | 213 | 193 | 12 | 8 | 0 |
+| [Rezensionen](#rezensionen) | 214 | 194 | 12 | 8 | 0 |
 | [Konzertberichte](#konzertberichte) | 89 | 79 | 8 | 2 | 0 |
 | [Erinnerungen und Würdigungen](#erinnerungen) | 17 | 14 | 2 | 1 | 0 |
 | [Foren, Gästebücher, Mailinglisten](#foren) | 39 | 23 | 16 | 0 | 0 |
 | [Radio, TV, Film, Podcasts](#radio-tv) | 51 | 40 | 3 | 0 | 8 |
 | [Nachschlagewerke und Datenbanken](#nachschlagewerke) | 45 | 36 | 7 | 2 | 0 |
 | [Bücher und wissenschaftliche Arbeiten](#buecher) | 65 | 2 | 0 | 62 | 1 |
-| [Meldungen und Pressetexte](#meldungen) | 98 | 64 | 14 | 20 | 0 |
-| **Gesamt** | **764** | 558 | 81 | 116 | 9 |
+| [Meldungen und Pressetexte](#meldungen) | 99 | 65 | 14 | 20 | 0 |
+| **Gesamt** | **766** | 560 | 81 | 116 | 9 |
 
-Sprachen: en 421, no 209, de 76, it 15, nl 12, es 9, el 4, fr 3, nn 3, sv 3, da 2, fi 2, pl 2, ja 1, arz 1, vo 1.
+Sprachen: en 423, no 209, de 76, it 15, nl 12, es 9, el 4, fr 3, nn 3, sv 3, da 2, fi 2, pl 2, ja 1, arz 1, vo 1.
 
 <a id="nachrufe"></a>
 ### Nachrufe und Gedenkartikel (36)
@@ -270,10 +270,11 @@ Sprachen: en 421, no 209, de 76, it 15, nl 12, es 9, el 4, fr 3, nn 3, sv 3, da 
 | – | Glen Matlock with Concrete Bulletproof Invisible | Jim Henderson · God Save The Sex Pistols (Fan-Website von Phil Singleton, philjens.plus.com / sex-pistols.net) | Projektporträt mit Diskografie (Fanseite) | en | live | [undatiert_god-save-the-sex-pistols_concrete-bulletproof-invisible](portraets/undatiert_god-save-the-sex-pistols_concrete-bulletproof-invisible.md) |
 
 <a id="rezensionen"></a>
-### Rezensionen (213)
+### Rezensionen (214)
 
 | Datum | Titel | Autor · Medium | Art | Spr. | Erreichbarkeit | Datei |
 |---|---|---|---|---|---|---|
+| 1971-11-06 | Take Off Your Head And Listen | Jerry Gilbert · Sounds | Samplerkritik und früher Veröffentlichungsnachweis | en | live | [1971-11-06_sounds_take-off-your-head-and-listen](rezensionen/1971-11-06_sounds_take-off-your-head-and-listen.md) |
 | 1975-12-13 | [Plattenrubrik: JOHN ST. FIELD – „Control“] | anonym · La Vanguardia Española (Barcelona) | Albumkurzkritik in Neuerscheinungsrubrik | es | Paywall (unsicher) | [1975-12-13_la-vanguardia_john-st-field-control](rezensionen/1975-12-13_la-vanguardia_john-st-field-control.md) |
 | 1976-01-09 | [Plattenkritik: JOHN ST. FIELD: «CONTROL» (Movieplay)] | anonym · Marca (Madrid) | Albumkritik in Rock-/Plattenkolumne | es | Paywall (unsicher) | [1976-01-09_marca_john-st-field-control](rezensionen/1976-01-09_marca_john-st-field-control.md) |
 | 1979-02-24 | [Singlekritik] Doll By Doll: 'The Palace Of Love' (Automatic Records) | anonym (Singles-Rubrik) · Record Mirror | Single-Kurzkritik | en | live (unsicher) | [1979-02-24_record-mirror_doll-by-doll-the-palace-of-love](rezensionen/1979-02-24_record-mirror_doll-by-doll-the-palace-of-love.md) |
@@ -504,7 +505,7 @@ Sprachen: en 421, no 209, de 76, it 15, nl 12, es 9, el 4, fr 3, nn 3, sv 3, da 
 | 1980-08-09 | Doll By Doll – Torrington, London | anonym (Byline im OCR nicht erfasst) · Record Mirror | Konzertkritik | en | live (unsicher) | [1980-08-09_record-mirror_doll-by-doll-torrington-london](konzertberichte/1980-08-09_record-mirror_doll-by-doll-torrington-london.md) |
 | 1980-09-13 | Doll By Doll, The Castle, Richmond | Ian Pye · Melody Maker | Konzertkritik | en | live | [1980-09-13_melody-maker_doll-by-doll-the-castle-richmond](konzertberichte/1980-09-13_melody-maker_doll-by-doll-the-castle-richmond.md) |
 | 1981-06-15 | Doll By Doll – London, The Venue | John Hayward · Record Business | Konzertkritik (Branchenblatt) | en | live | [1981-06-15_record-business_doll-by-doll-the-venue-london](konzertberichte/1981-06-15_record-business_doll-by-doll-the-venue-london.md) |
-| 1981-06-20 | Crystal Balls Up – Doll By Doll, Venue, London | Robin Smith · Record Mirror | Konzertkritik | en | live | [1981-06-20_record-mirror_crystal-balls-up-doll-by-doll-venue](konzertberichte/1981-06-20_record-mirror_crystal-balls-up-doll-by-doll-venue.md) |
+| 1981-06-20 | [Doll By Doll, Venue, London] | Robin Smith · Record Mirror | Konzertkritik | en | live | [1981-06-20_record-mirror_crystal-balls-up-doll-by-doll-venue](konzertberichte/1981-06-20_record-mirror_crystal-balls-up-doll-by-doll-venue.md) |
 | 1981-09-12 | Doll By Doll – Nite Club, Edinburgh | Bob Flynn · Record Mirror | Konzertkritik | en | live | [1981-09-12_record-mirror_doll-by-doll-nite-club-edinburgh](konzertberichte/1981-09-12_record-mirror_doll-by-doll-nite-club-edinburgh.md) |
 | 1983-01-17 | Doll By Doll – London: Marquee | John Hayward · Record Business | Konzertkritik (letztes London-Konzert) | en | live | [1983-01-17_record-business_doll-by-doll-marquee-farewell](konzertberichte/1983-01-17_record-business_doll-by-doll-marquee-farewell.md) |
 | 1995-04-29 | Bra med Leven | Julie Forchhammer · Bergensavisen | Konzertkritik | no | live | [1995-04-29_bergensavisen_bra-med-leven](konzertberichte/1995-04-29_bergensavisen_bra-med-leven.md) |
@@ -831,10 +832,11 @@ Sprachen: en 421, no 209, de 76, it 15, nl 12, es 9, el 4, fr 3, nn 3, sv 3, da 
 | – | [Beiläufige Erwähnungen von Jackie Leven und Doll by Doll in Büchern – Sammelüberblick] | diverse · diverse Verlage (Internet-Archive-Scans) | Sammelüberblick (Buchstellen mit Kurz- oder Listenerwähnung) | en | Paywall (unsicher) | [undatiert_diverse_beilaeufige-erwaehnungen-sammelueberblick](buecher/undatiert_diverse_beilaeufige-erwaehnungen-sammelueberblick.md) |
 
 <a id="meldungen"></a>
-### Meldungen und Pressetexte (98)
+### Meldungen und Pressetexte (99)
 
 | Datum | Titel | Autor · Medium | Art | Spr. | Erreichbarkeit | Datei |
 |---|---|---|---|---|---|---|
+| 1972-10-28 | The Nationwide Gig Guide [John St Field in den Folkclubs] | John Pidgeon; Folkhinweise: Eric Winter · New Musical Express | Konzertankündigungen | en | live | [1972-10-28_nme_john-st-field-folkclubs](meldungen/1972-10-28_nme_john-st-field-folkclubs.md) |
 | 1975 | [Sammelfunde spanische Presse 1975–1999: John St. Field – Nennungen, TVE-Testbild-Musik, Sammleranzeige] | diverse · Spanische Tages- und Wochenpresse (Hemeroteca Digital BNE, Prensa Histórica) | Sammeldatei Kurzmeldungen/Fernsehprogramme | es | Paywall (unsicher) | [1975_hemerotecas-es_john-st-field-sammelfunde-1975-1999](meldungen/1975_hemerotecas-es_john-st-field-sammelfunde-1975-1999.md) |
 | 1975-12-13 | [Musikkolumne mit „…Que“-Glossen, darin: John St. Field] | anonym · Pueblo (Madrid) | Glosse in Musikkolumne | es | live | [1975-12-13_pueblo_que-un-cantautor-ingles-john-st-field](meldungen/1975-12-13_pueblo_que-un-cantautor-ingles-john-st-field.md) |
 | 1978-10-21 | [Meldungen: Erste Signierung von Nick Mobbs' Automatic Record Company / „Automatic signings“] | anonym · Music Week | Branchenmeldungen (zwei Kurzartikel) | en | live | [1978-10-21_music-week_automatic-signs-doll-by-doll](meldungen/1978-10-21_music-week_automatic-signs-doll-by-doll.md) |

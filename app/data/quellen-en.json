@@ -667,7 +667,7 @@
   "1981-06-20-record-mirror-crystal-balls-up-doll-by-doll-venue": {
     "kurz": "Robin Smith is disappointed by Doll by Doll's London Venue gig in June 1981: he expected an earthquake and got only a few tremors; Leven seemed petulant, and the old manic style was largely gone.",
     "inhalt": [
-      "The concert review (Record Mirror, 20 June 1981, page 18, headline “Crystal Balls Up”) opens with an image of disappointment: Smith feels like a kid who has been promised a pound of wine gums. After so long underground, Doll by Doll should have come up fighting and determined at their big gig at the Venue, at last to start hitting mass appeal. “I expected an earthquake, but all I got were a few tremors.”",
+      "The concert review (Record Mirror, 20 June 1981, page 18) opens with an image of disappointment: Smith feels like a kid who has been promised a pound of wine gums. After so long underground, Doll by Doll should have come up fighting and determined at their big gig at the Venue, at last to start hitting mass appeal. “I expected an earthquake, but all I got were a few tremors.”",
       "Leven appeared to him to be in a petulant mood, anxious to play the bashful musician and sensitive artist. Largely gone was the old manic style that could have you gripping the edge of your seat with your eyeballs bulging. A sentence about old numbers such as “Palace of Love” is not reliably legible in the scan; the band played all the songs competently, but “Main Travelled Roads” was savagely cut short. The verdict: “Adequate but not inspired”; Leven and his lads should really pull their fingers out, because 1981 and the new deal are going to be make or break time for the band."
     ],
     "zitate_kontext": [
@@ -675,7 +675,8 @@
       "Smith on Leven on stage",
       "Smith's closing verdict"
     ],
-    "quelle": "e21c0f9aafad27f1a3bfe70d9f01d3559ac0e4a1"
+    "quelle": "987bddcb819d301f3f928f0a3bfa270d154ae4f1",
+    "titel": "[Doll By Doll, Venue, London]"
   },
   "1981-06-zigzag-doll-by-doll-part-1": {
     "kurz": "Kris Needs's two-part 1981 ZigZag interview accompanies Doll by Doll's third, self-titled album on Magnet; part two names \"The Perfect Romance\" as a collaboration between Leven and Claire Verve.",
@@ -9049,5 +9050,27 @@
       "Leven on his audience (in Norwegian rendering)."
     ],
     "quelle": "45fe82449a897910987647a03c9b5e844bff6371"
+  },
+  "1971-11-06-sounds-take-off-your-head-and-listen": {
+    "kurz": "Still using the name Alan Moffatt, Jackie appears on a 1971 sampler from the Tyneside folk club scene with “Finest Hour”. Jerry Gilbert welcomes the record in *Sounds* as an excellent debut for the new Rubber label.",
+    "inhalt": [
+      "An early trail leads to Newcastle: among the musicians on *Take Off Your Head And Listen*, the first sampler from Rubber Records, is **Alan Moffatt**. His contribution, “Finest Hour”, is marked as a live recording and credits Moffatt as its writer. The label bears ℗ 1971. Jackie had appeared on a record well before *Control*, still using his original name.",
+      "Jerry Gilbert introduces the sampler in the folk pages of *Sounds* on 6 November 1971. He praises the debut from the new Newcastle label, its low price and the prospect of further releases by these musicians. His review concerns the compilation as a whole; it offers no separate judgement on Moffatt’s song. The Alan Hull mentioned in the text is the Lindisfarne musician.",
+      "The record itself makes the connection visible: “Finest Hour – Alan Moffatt” is the second track on side A. The sleeve thanks the audience at the Rex Hotel Folk/Arts Club; [the Discogs entry for the original pressing](https://www.discogs.com/release/2298445-Various-Take-Off-Your-Head-And-Listen) places the recording at that club and identifies Moffatt as Jackie Leven. [Paul Du Noyer’s obituary](https://www.pauldunoyer.com/the-jackie-leven-obituary/) also gives Alan Moffatt as his original name. The review documents the sampler in autumn 1971, while the label documents his contribution to it."
+    ],
+    "zitate_kontext": [],
+    "quelle": "70d20fce975c59100f73cd4f9086cf5ab28df514"
+  },
+  "1972-10-28-nme-john-st-field-folkclubs": {
+    "titel": "The Nationwide Gig Guide [John St Field in the folk clubs]",
+    "autor": "John Pidgeon; folk listings: Eric Winter",
+    "kurz": "In autumn 1972, John St Field appears among the folk clubs of England’s south coast in the NME gig guide. Two listings pair him with Alex Atterson, whose name is also associated with *Control*.",
+    "inhalt": [
+      "Three small entries in the *New Musical Express* gig guide bring John St Field’s early performing life into focus. For Friday 27 October 1972, the paper lists him with Helen Woodall at the Star Inn in Portsmouth. On Sunday he is due to play with Alex Atterson at the Pembroke Arms in Bournemouth; the following Monday, the two are on the programme at the Blacksmiths Arms in Shirley.",
+      "The scale is different from the rock clubs Doll by Doll would later play: three evenings in the folk listings, among many other musicians. Yet **Alex Atterson** is also one of the musicians associated with *Control*. The listings establish that Leven was being advertised as John St Field by October 1972, giving concrete places and dates to an early musical life so often known only through later recollections.",
+      "The guide was compiled by John Pidgeon, with Eric Winter credited for the folk listings. Portsmouth appears on printed page 24, Bournemouth and Shirley on page 33. These are announcements rather than concert reports: they do not establish whether the evenings took place as planned or how the musicians performed together."
+    ],
+    "zitate_kontext": [],
+    "quelle": "75492786ba83a7d3420da550f87dbc40074e67ee"
   }
 }

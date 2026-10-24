@@ -69,6 +69,7 @@ $q['zitate'] = array_values(array_filter($q['zitate'], fn($z) => !in_array(trim(
     <section class="stimme-quelle" aria-labelledby="quelle">
       <h2 id="quelle"><?= e(t('stimmen.lesen')) ?></h2>
       <?php require __DIR__ . '/quellen-faksimile.php'; ?>
+      <?php require __DIR__ . '/quellen-auszuege.php'; ?>
       <ul>
         <?php if ($q['url'] !== ''): ?><li><a href="<?= e($q['url']) ?>" target="_blank" rel="noopener noreferrer"><?= e(t($nb ? 'stimmen.nb' : 'stimmen.original')) ?></a></li><?php endif; ?>
         <?php if ($q['archiv'] !== '' && $q['archiv'] !== $q['url']): ?><li><a href="<?= e($q['archiv']) ?>" target="_blank" rel="noopener noreferrer"><?= e(t('stimmen.archiv')) ?></a></li><?php endif; ?>

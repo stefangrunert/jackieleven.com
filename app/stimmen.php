@@ -8,7 +8,9 @@ function stimmen(): array
     if ($daten !== null) return $daten;
     $daten = json_decode(file_get_contents(APP_ROOT . '/data/quellen.json'), true, flags: JSON_THROW_ON_ERROR);
     $scans = json_decode(file_get_contents(APP_ROOT . '/data/quellen-scans.json'), true, flags: JSON_THROW_ON_ERROR);
+    $auszuege = json_decode(file_get_contents(APP_ROOT . '/data/quellen-auszuege.json'), true, flags: JSON_THROW_ON_ERROR);
     foreach ($daten as &$q) {
+        $q['auszuege'] = $auszuege[$q['id']] ?? [];
         $q['scan'] = $scans[$q['id']] ?? ['pages' => '', 'facsimiles' => []];
         if (!empty($q['scan']['manifest'])) {
             $q['url'] = $q['scan']['url'];
@@ -19,14 +21,6 @@ function stimmen(): array
     }
     unset($q);
     return $daten;
-}
-
-/** Redaktionelle Einordnungen zu einzelnen Jahren, mit Verweisen auf die Belege. */
-function stimmen_einordnung(string $jahr): ?array
-{
-    static $daten = null;
-    $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/stimmen-einordnungen.json'), true, flags: JSON_THROW_ON_ERROR);
-    return $daten[$jahr] ?? null;
 }
 
 /** Ausgewählte und Verzeichnis-Quellen haben eine eigene Seite, weitere verweisen direkt aufs Original. */

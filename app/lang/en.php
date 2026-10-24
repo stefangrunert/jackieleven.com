@@ -60,6 +60,8 @@ return [
     'stimmen.datum' => 'Date',
     'stimmen.seite' => 'Page',
     'stimmen.scan_gross' => 'View full-size facsimile',
+    'stimmen.auszug_gross' => 'Enlarge excerpt to read',
+    'stimmen.auszug_hinweis' => 'Red frames are editorial additions. Click an image to enlarge it; the source link opens the full page for context.',
     'stimmen.inhalt' => 'Summary',
     'stimmen.eigene_worte' => 'Summary in our own words; for the exact wording see the original.',
     'stimmen.nur_deutsch' => 'This summary is currently only available in German.',

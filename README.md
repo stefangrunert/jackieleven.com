@@ -179,8 +179,8 @@ php werkzeug/livevideos.php --vorschau # alle Vorschaubilder neu erzeugen
 
 ## Stimmen: externe Quellen
 
-`/de/stimmen` bzw. `/en/voices` zeigt, was andere über Jackie geschrieben und gesagt haben: 739 Interviews,
-Kritiken, Porträts, Konzertberichte, Nachrufe, Erinnerungen, Sendungen, Foren und Bücher von 1978 bis heute,
+`/de/stimmen` bzw. `/en/voices` zeigt, was andere über Jackie geschrieben und gesagt haben: 741 Interviews,
+Kritiken, Porträts, Konzertberichte, Nachrufe, Erinnerungen, Sendungen, Foren und Bücher von 1971 bis heute,
 im Zeitstrahl wie die Diskographie und filterbar nach Art, Sprache und Zugang (frei lesbar, online, Webarchiv,
 Bezahlschranke, verloren). Grundlage ist die Recherche in `research/quellen/` (eine Datei je Quelle, eigene
 Inhaltsangabe); das Konzept steht in `research/ressourcen-seite-konzept.md`.
@@ -189,7 +189,7 @@ Inhaltsangabe); das Konzept steht in `research/ressourcen-seite-konzept.md`.
 ausführliche Inhaltsangabe und wörtliche Zitate im Original, auch längere; Fundweg, Sicherheit, Widersprüche und
 Verweise auf Arbeitsdateien bleiben intern. Quellen, die einen verbreiteten Irrtum widerlegen (etwa das
 Erscheinungsjahr von *Control*), tragen zusätzlich einen Abschnitt **Korrektur** und einen **Beleg** mit dem
-Originalwortlaut und einer Übersetzung. Stufen: 32 ausgewählte Quellen (Liste im Werkzeug), das Verzeichnis mit eigener Detailseite und
+Originalwortlaut und einer Übersetzung. Stufen: 34 ausgewählte Quellen (Liste im Werkzeug und YAML-Köpfe), das Verzeichnis mit eigener Detailseite und
 „weitere Quellen“, die je Jahr eingeklappt direkt aufs Original verweisen; Quellen, die nur aus zweiter Hand
 bekannt sind, bleiben intern. Ein Feld `stufe:` im YAML-Kopf einer Quelle geht der Regel vor. Rezensionen sind
 über die Albumtitel den Ausgaben zugeordnet und erscheinen dort als „Pressestimmen“.
@@ -199,12 +199,17 @@ frei. `--lizenzen` fragt das über `api.nb.no` ab und speichert es in `app/data/
 lizenzierte Artikel sind als „frei lesbar“ gekennzeichnet und tragen Namensnennung und Lizenz. Die englischen
 Fassungen stehen in `app/data/quellen-en.json`, je Quelle mit einer Prüfsumme des deutschen Texts; ändert sich
 dieser, gilt die Übersetzung als veraltet. Die englische Seite fällt nie auf Deutsch zurück, und
-`werkzeug/stimmen.php` schlägt fehl, solange einer Quelle mit eigener Seite die englische Fassung fehlt. Die Seiten laden
-keine Bilder und nichts von außen; die Übersicht ist ungepackt rund 490 KB groß, der Server sollte gzip liefern.
+`werkzeug/stimmen.php` schlägt fehl, solange einer Quelle mit eigener Seite die englische Fassung fehlt.
+Ausgewählte Detailseiten zeigen kompakte Faksimile-Ausschnitte mit Quellenverweisen; rote Rahmen sind als
+redaktionelle Ergänzung gekennzeichnet. `werkzeug/quellen-auszuege.py` erzeugt die lokalen WebP-Dateien und
+`app/data/quellen-auszuege.json` aus den erhaltenen markierten Originalen und `research/faksimiles/web-auszuege.json`.
+Die Vorschauen sind auf 24 rem Breite und 26 rem Höhe begrenzt, werden verzögert geladen und lassen sich
+anklicken. Die Übersicht lädt diese Bilder nicht; der Server sollte gzip liefern.
 
 ```sh
 php werkzeug/quellen.php              # öffentliche Daten aus research/quellen/ erzeugen
 php werkzeug/quellen.php --lizenzen   # zusätzlich Lizenzen der Nationalbibliothek abfragen (Netz)
+python3 werkzeug/quellen-auszuege.py  # kompakte Faksimile-Ausschnitte erzeugen (Pillow)
 php werkzeug/stimmen.php              # Daten, Übersicht, Detailseiten, Lizenzen, Filter und Routen prüfen
 ```
 

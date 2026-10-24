@@ -64,8 +64,11 @@ foreach (diskografie_livevideos_daten() as $konzert) {
         if ($video['embeddable']) $bilder[] = 'assets/bilder/live/' . $video['id'] . '.webp';
     }
 }
+foreach (stimmen() as $stimme) {
+    foreach ($stimme['auszuege'] as $auszug) $bilder[] = ltrim($auszug['image'], '/');
+}
 foreach (array_unique($bilder) as $bild) {
-    if (!preg_match('~^assets/bilder/[a-zA-Z0-9/_-]+\.(png|jpe?g|webp)$~', $bild)) throw new RuntimeException('Invalid image path');
+    if (!preg_match('~^assets/(?:bilder|images/voices)/[a-zA-Z0-9/_-]+\.(png|jpe?g|webp)$~', $bild)) throw new RuntimeException('Invalid image path');
     kopiere($bild);
 }
 kopiere('.htaccess', 'public/.htaccess');

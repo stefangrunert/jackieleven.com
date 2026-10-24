@@ -33,10 +33,6 @@ foreach ($quellen as $q) {
     pruefe_stimmen(isset($q['en']['titel']) || !preg_match('/\b(und|mit|vor|nach|über|ohne|Konzert\w*|Vorbericht|Bericht|Kurzkritik|Rezension|Kommentare|Gästebuch|Sammeldatei|Ausgabe)\b/u', $klammer), 'Beschreibender Titel ohne Übersetzung: ' . $q['id']);
 }
 pruefe_stimmen(count(array_filter($quellen, fn($q) => $q['stufe'] === 'auswahl')) >= 20, 'Zu wenige ausgewählte Quellen.');
-foreach (json_decode(file_get_contents(APP_ROOT . '/data/stimmen-einordnungen.json'), true, flags: JSON_THROW_ON_ERROR) as $jahr => $einordnung) {
-    foreach (SPRACHEN as $s) pruefe_stimmen(($einordnung['titel'][$s] ?? '') !== '' && ($einordnung['text'][$s] ?? '') !== '', 'Einordnung unvollständig: ' . $jahr);
-    foreach ($einordnung['quellen'] as $id) pruefe_stimmen(stimme_index($id) >= 0, 'Einordnung verweist auf eine Quelle ohne Seite: ' . $id);
-}
 pruefe_stimmen(stimmen_filter(['art' => 'interviews', 'sprache' => ['x'], 'zugang' => 'gibtsnicht', 'fremd' => 1]) === ['auswahl' => '1', 'art' => 'interviews'], 'Filter übernimmt unbekannte Werte.');
 $norwegisch = array_filter($quellen, fn($q) => stimme_passt($q, ['sprache' => 'no']));
 pruefe_stimmen($norwegisch !== [] && array_filter($norwegisch, fn($q) => !in_array($q['sprache'], ['no', 'nn'], true)) === [], 'Sprachfilter Norwegisch falsch.');
@@ -65,6 +61,10 @@ foreach (SPRACHEN as $s) {
     pruefe_stimmen($xp->query('//article[contains(@class,"stimme ")]')->length === count(array_filter($quellen, 'stimme_mit_seite')), 'Quellen fehlen in der Übersicht (' . $s . ').');
     pruefe_stimmen($xp->query('//details[@class="stimmen-weitere"]//li')->length === count(array_filter($quellen, fn($q) => !stimme_mit_seite($q))), 'Weitere Quellen fehlen (' . $s . ').');
     pruefe_stimmen($xp->query('//iframe')->length === 0, 'Unerwarteter Player auf der Übersicht.');
+    pruefe_stimmen($xp->query('//aside')->length === 0, 'Redaktionelle Einordnung in der Quellenübersicht.');
+    foreach (['1971-11-06-sounds-take-off-your-head-and-listen', '1972-10-28-nme-john-st-field-folkclubs'] as $id) {
+        pruefe_stimmen($xp->query('//article[@id="' . $id . '" and not(@hidden)]')->length === 1, 'Frühe Quelle fehlt in der Standardansicht: ' . $id);
+    }
     foreach ($xp->query('//div[@class="quellen-faksimiles"]//img') as $bild) {
         pruefe_stimmen(str_starts_with($bild->getAttribute('src'), 'https://www.nb.no/services/image/resolver/') && $bild->getAttribute('loading') === 'lazy', 'Unbekanntes oder vorab geladenes Faksimile.');
     }
@@ -89,7 +89,18 @@ foreach (SPRACHEN as $s) {
         pruefe_stimmen($xp->query('//h1[@lang]')->length === 1, 'Detailseite ohne Titel: ' . $q['id']);
         pruefe_stimmen($xp->query('//section[@class="stimme-quelle"]//a[@target="_blank"]')->length >= ($q['zugang'] === 'verloren' ? 0 : 1), 'Detailseite ohne Quellenlink: ' . $q['id']);
         $bilder = $xp->query('//div[@class="quellen-faksimiles"]//img');
-        pruefe_stimmen($xp->query('//*[@src]')->length === $bilder->length, 'Unerwartete externe Ressource: ' . $q['id']);
+        $auszuege = $xp->query('//div[@class="quellen-auszuege"]//img');
+        pruefe_stimmen($auszuege->length === count($q['auszuege']), 'Faksimile-Ausschnitt fehlt: ' . $q['id']);
+        pruefe_stimmen($xp->query('//*[@src]')->length === $bilder->length + $auszuege->length, 'Unerwartete externe Ressource: ' . $q['id']);
+        foreach ($auszuege as $bild) {
+            $src = $bild->getAttribute('src');
+            pruefe_stimmen(preg_match('~^/assets/images/voices/[a-z0-9-]+\.webp$~', $src) === 1, 'Unbekannter lokaler Bildpfad: ' . $q['id']);
+            $datei = PUBLIC_ROOT . $src;
+            $masse = is_file($datei) ? getimagesize($datei) : false;
+            pruefe_stimmen($masse && $masse[0] === (int) $bild->getAttribute('width') && $masse[1] === (int) $bild->getAttribute('height'), 'Bild fehlt oder Maße falsch: ' . $src);
+            pruefe_stimmen(filesize($datei) < 300000 && max($masse[0], $masse[1]) <= 1800, 'Faksimile nicht für das Web skaliert: ' . $src);
+            pruefe_stimmen($bild->getAttribute('loading') === 'lazy' && $bild->getAttribute('alt') !== '', 'Faksimile ohne verzögertes Laden oder Bildbeschreibung: ' . $src);
+        }
         if ($bilder->length) pruefe_stimmen(in_array($q['scan']['license'], ['ccbync', 'ccbyncnd'], true) && !empty($q['scan']['manifest']), 'Faksimile ohne belegte Lizenz: ' . $q['id']);
         if ($q['lizenz']) {
             $lizenz = $xp->query('//p[@class="stimme-lizenz" or @class="quellen-scan-credit"]//a[contains(@rel,"license")]');
