@@ -11,23 +11,29 @@ async function timeline() {
   const events = {}, windowEvents = {}, requests = [];
   const location = new URL('https://example.org/de/zeitreise/a');
   const urls = slug => JSON.stringify({ de: '/de/zeitreise' + slug, en: '/en/timeline' + slug, 'x-default': '/de/zeitreise' + slug });
+  const seo = (slug, titel) => JSON.stringify({ titel, url: 'https://example.org/de/zeitreise' + slug, beschreibung: 'Text ' + titel });
   const links = ['en', 'de', 'x-default'].map(lang => ({
     href: 'https://example.org/' + (lang === 'en' ? 'en/timeline/a' : 'de/zeitreise/a'), getAttribute: () => lang
   }));
   const markers = ['a', 'b', 'c'].map((slug, i) => ({
-    dataset: { jahr: String(1950 + i), alternativen: urls('/' + slug) }, style: {},
+    dataset: { jahr: String(1950 + i), alternativen: urls('/' + slug), seo: seo('/' + slug, slug.toUpperCase()) }, style: {},
     classList: { contains: () => i === 0, toggle() {} },
     getAttribute: () => '/de/zeitreise/' + slug, setAttribute() {}, removeAttribute() {}, scrollIntoView() {},
     querySelector: () => ({ textContent: slug }), closest() { return this; }
   }));
   const viewport = { addEventListener() {} };
-  const track = { style: {}, dataset: { alternativen: urls(''), titel: 'Zeitreise' },
+  const track = { style: {}, dataset: { alternativen: urls(''), seo: seo('', 'Zeitreise') },
     querySelectorAll: () => markers, addEventListener: (name, fn) => events[name] = fn };
   const stage = { style: {}, innerHTML: 'A' };
+  const canonical = { href: 'https://example.org/de/zeitreise/a' }, ogUrl = { content: '' }, description = { content: '' };
+  const schema = { textContent: JSON.stringify({ '@graph': [{ '@type': 'WebSite' }, { '@type': 'WebPage' }] }) };
   const document = {
     getElementById: id => ({ 'g-viewport': viewport, 'g-track': track, stage })[id],
-    querySelectorAll: selector => selector.includes('hreflang') ? links : [], addEventListener() {}
+    querySelectorAll: selector => selector.includes('hreflang') ? links : selector.includes('description') ? [description] : [],
+    querySelector: selector => selector.includes('canonical') ? canonical : selector.includes('og:url') ? ogUrl : selector.includes('ld+json') ? schema : null,
+    addEventListener() {}
   };
+  const webpage = () => JSON.parse(schema.textContent)['@graph'][1];
   let pushes = 0;
   vm.runInNewContext(source('zeitgraph.js'), {
     document, URL, AbortController, setTimeout, clearTimeout, requestAnimationFrame: fn => fn(),
@@ -44,6 +50,11 @@ async function timeline() {
   assert.equal(stage.innerHTML, 'B');
   assert.equal(links[0].href, 'https://example.org/en/timeline/b');
   assert.equal(links[2].href, 'https://example.org/de/zeitreise/b');
+  assert.equal(document.title, 'B');
+  assert.equal(canonical.href, 'https://example.org/de/zeitreise/b');
+  assert.equal(ogUrl.content, 'https://example.org/de/zeitreise/b');
+  assert.equal(description.content, 'Text B');
+  assert.equal(webpage()['@id'], 'https://example.org/de/zeitreise/b#webpage');
 
   click(2);
   back('/a');
@@ -64,6 +75,8 @@ async function timeline() {
   back('');
   assert.equal(links[0].href, 'https://example.org/en/timeline');
   assert.equal(document.title, 'Zeitreise');
+  assert.equal(canonical.href, 'https://example.org/de/zeitreise');
+  assert.equal(webpage().name, 'Zeitreise');
 
   click(1);
   click(2);
