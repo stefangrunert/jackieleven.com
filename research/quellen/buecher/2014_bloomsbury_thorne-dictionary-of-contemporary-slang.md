@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Tony Thornes Slangwörterbuch belegt das Stichwort „heat“ (Polizei, Verfolgungsdruck) mit einer Zeile aus „Endgame“, einem Doll-by-Doll-Song von 1979.
+
 ## Inhalt
-Das Slangwörterbuch belegt das Stichwort „heat“ (im Sinne von Polizei/Verfolgungsdruck) mit einer Zeile aus „Endgame“, einem Doll-by-Doll-Song von 1979 – ein kurioser lexikografischer Nachweis für Levens Texte.
+Im *Dictionary of Contemporary Slang* (Bloomsbury) führt Tony Thorne unter „heat“ im Sinne von Polizei beziehungsweise Verfolgungsdruck als Belegzitat eine Zeile aus „Endgame“ an, einem Song von Doll by Doll aus dem Jahr 1979. Es ist ein kurioser lexikografischer Nachweis für Levens Texte; der Liedtext selbst wird hier nicht wiedergegeben.
 
 ## Widersprüche / Anmerkungen
 - Liedtext wird hier nicht zitiert.

@@ -52,7 +52,7 @@ class Head(HTMLParser):
 assets = set()
 paths = [
     '/de/', '/en/', '/de/hoeren', '/en/listen', '/de/zeitreise', '/en/timeline',
-    '/en/timeline/1977-doll-by-doll', '/de/diskografie', '/en/discography/1973-control',
+    '/en/timeline/1977-doll-by-doll', '/de/diskografie', '/en/discography/1975-control',
     '/de/biografie', '/en/biography', '/en/voices', '/de/stimmen?auswahl=2',
     '/en/voices/1978-06-zigzag-doll-by-doll-acne-club-aylesbury',
     '/en/deep-pool/2002-10-deep-pool-oktober-2002', '/de/deep-pool/2002-10-deep-pool-oktober-2002',

@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In seiner Geschichte der alternativen Countrymusik, *South by South West*, bespricht Brian Hinton kurz *Shining Brother, Shining Sister*: eine Klage über „Dusty“, eine junge Heroinabhängige, und ein Duett mit David Thomas.
+
 ## Inhalt
-Hinton bespricht im Kontext britischer Americana-Verwandter „Shining Brother, Shining Sister“: Leven schreibe darauf eine Klage für „Dusty“, eine kleine Heroinabhängige; erwähnt wird auch das Duett mit David Thomas auf einem trostlosen „Surf's Up“.
+Brian Hinton behandelt Leven im Zusammenhang britischer Verwandter der Americana. Zu *Shining Brother, Shining Sister* bemerkt er, Leven schreibe darauf eine Klage für „Dusty“, eine kleine Heroinabhängige. Außerdem erwähnt er das Duett mit David Thomas auf einem trostlosen „Surf’s Up“, dem Beach-Boys-Stück.
 
 ## Widersprüche / Anmerkungen
 - Das Duett „Surf's Up“ (Beach Boys) mit Thomas: in 05-diskografie.md abzugleichen.

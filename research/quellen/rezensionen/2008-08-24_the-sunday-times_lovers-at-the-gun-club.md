@@ -17,8 +17,11 @@ bezug: ["04-solokarriere.md"]
 gefunden_ueber: "in 04-solokarriere.md [16] genannt; Direktabruf (nur Anreißer und Metadaten frei)"
 ---
 
+## Kurz
+Stewart Lee stellt Leven in der Sunday Times als klassischen Kultkünstler vor – großer Mann in dicken Socken, obskure 70er-Band, Drogenproblem – und gibt *Lovers at the Gun Club* vier Sterne.
+
 ## Inhalt
-Der Komiker und Kritiker Stewart Lee stellt Leven im frei lesbaren Anreißer als klassischen Kultkünstler vor: großer Mann in dicken Socken, obskure 70er-Band, Drogenproblem, stilistisch bunte Soloalben. Laut 04-solokarriere.md vergab er vier Sterne und befand, die Qualität der Songs trage über den befürchteten Sound „erstickend guten Geschmacks“ hinweg.
+Der Komiker und Kritiker Stewart Lee bespricht in der Sunday Times vom 24. August 2008 Jackie Levens Album *Lovers at the Gun Club*. Im frei lesbaren Anreißer stellt er Leven als klassischen Kultkünstler vor: ein großer Mann in dicken Socken, mit obskurer Siebziger-Band, Drogenproblem und stilistisch bunten Soloalben. Der Rest hinter der Bezahlschranke ist nicht eingesehen; nach anderer Auskunft vergab Lee vier Sterne und befand, die Qualität der Songs trage über den befürchteten Sound „erstickend guten Geschmacks“ hinweg.
 
 ## Widersprüche / Anmerkungen
 - Volltext hinter der Times-Paywall; Wertung nur über research/ bekannt, nicht selbst gesehen (daher `unsicher`).

@@ -17,8 +17,13 @@ bezug: ["06-kollaborationen.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Ian Rankins Rebus-Roman *A Question of Blood* (2003) liegt Rebus in der Badewanne, während Leven auf der Anlage läuft: Er singe über die Romantik harter Männer.
+
 ## Inhalt
-Rebus liegt in der lauwarmen Badewanne, hat Curry bestellt, und Leven läuft auf der Anlage – er singe über die Romantik harter Männer (Anspielung auf „Fairytales for Hardmen“). Kurze Szene, aber als Leven-Stelle in Rankins Werk oft zitiert.
+In *A Question of Blood* (Orion, London 2003), einem Roman um den Edinburgher Inspector John Rebus, kommt Jackie Leven in einer kurzen Szene vor: Rebus liegt in einer lauwarmen Badewanne, hat Curry bestellt, und auf der Anlage läuft Leven, der „über die Romantik harter Männer“ singe. Das ist eine Anspielung auf Levens Album *Fairytales for Hard Men*.
+
+Die Stelle zählt zu den am häufigsten zitierten Leven-Erwähnungen in Rankins Werk, das seit der Freundschaft der beiden immer wieder Leven-Musik und -Zeilen aufgreift. Der Roman erschien auch in Übersetzung, etwa als *Een kwestie van bloed* (niederländisch), *Una cuestión de sangre* (spanisch, 2010) und *Die Kinder des Todes* (deutsch, Goldmann 2006), jeweils mit der Szene.
 
 ## Widersprüche / Anmerkungen
 - Übersetzungen mit der Stelle: „Een kwestie van bloed“ (nl.), „Una cuestión de sangre“ (span., 2010), „Die Kinder des Todes“ (dt., Goldmann 2006).

@@ -17,8 +17,20 @@ bezug: []
 gefunden_ueber: "WebSearch \"Doll By Doll\" Jackie Leven (allowed_domains worldradiohistory.com); Scan S. 10 und 12 per pypdf gelesen"
 ---
 
+## Kurz
+Music Week nennt „Uptown“, die zweite Solosingle des Ex-Doll-by-Doll-Sängers, einen großen, mitreißenden Sound, der dank Geoff Emericks Produktion reichlich Airplay bekommen sollte.
+
 ## Inhalt
-Music-Week-Kurzkritik der zweiten Solosingle des „Ex-Doll-By-Doll-Sängers“: großer, mitreißender Sound, emotionaler Gesang und Akustikgitarre, die sich zu einem lauten Refrain mit vollem Chor und Bläsern steigern; dank der großen Produktion von Geoff Emerick sollte die Single viel Airplay bekommen. Auf S. 12 steht „Uptown“ in der Liste der Titel, die knapp unter der Airplay-Tabelle „blubbern“.
+In der Singles-Rubrik von Music Week (4. August 1984) bespricht ein ungenannter Rezensent Jackie Levens „Uptown“ (Charisma/Virgin JACK 2, 12-Zoll JACK 212, Vertrieb EMI). Er sieht „einen großen, mitreißenden Sound“ für die zweite Solosingle „dieses Ex-Doll-by-Doll-Sängers und -Songschreibers“. Die Nummer biete emotionalen Gesang und akustische Gitarre, die sich zu einem forschen Refrain mit vollem Backgroundchor und aufbauenden Bläsern steigern.
+
+Wegen der „großen Produktion von Geoff Emerick“ – der Tonmeister und Produzent war zuvor vor allem durch seine Arbeit mit den Beatles bekannt – sollte die Platte „reichlich Aufmerksamkeit“ im Radio bekommen. Auf Seite 12 desselben Heftes taucht „Jackie Leven – Uptown – Charisma/Virgin“ außerdem in der Liste der Titel auf, die knapp unterhalb der Airplay-Tabelle „weiter blubbern“, also bereits zuvor in der Spalte verzeichnet waren. Die Besprechung ist eine reine Händlerempfehlung ohne kritischen Vorbehalt.
 
 ## Neue Fakten / Anekdoten
 - „Uptown“ (1984) wurde von Geoff Emerick (Beatles-Toningenieur) produziert – in research/ bisher nicht vermerkt.
+
+## Zitate
+> "A big stirring sound for this, the second solo single, from this ex-Doll By Doll singer/songwriter." – Music Week über „Uptown“
+> "With its big production by Geoff Emerick it should receive plenty of exposure." – Music Week, Schlussurteil
+
+## Widersprüche / Anmerkungen
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: pdf).

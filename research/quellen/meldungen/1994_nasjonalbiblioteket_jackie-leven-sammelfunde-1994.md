@@ -17,10 +17,13 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser, tidsskrift), Inhaltssuche je Ausgabe; OCR nur bei frei zugänglichen Ausgaben"
 ---
 
-## Inhalt
-1994 ist das Jahr, in dem Leven in Norwegen als Solokünstler auftaucht: Der Vertrieb Amigo (später Bonnier Amigo) bringt im Frühjahr *Songs from the Argyll Cycle* und im August *The Mystery of Love Is Greater Than the Mystery of Death*. Die NB-Volltextsuche verzeichnet für 1994 rund 45 Ausgaben mit „Jackie Leven“. Neben den einzeln erfassten Kritiken (Fremtiden 09.04., Arbeiderbladet/Haugesunds Avis 10.08., Fremtiden 20.08.) gibt es vor allem Neuerscheinungslisten, eine im August in mindestens acht Lokalzeitungen gleichlautend gedruckte Kurzmeldung („JACKIE LEVEN er kult-figur i Skottland …“) und Jahresbestenlisten im Dezember. Konzerte in Norwegen sind für 1994 nicht belegt. Die Zeitschrift *Beat* (damals führendes norwegisches Rockmagazin) erwähnt Leven 1994 in fünf Heften, nur mit norwegischem Zugang lesbar.
+## Kurz
+1994 taucht Leven in der norwegischen Presse als Solokünstler auf: Der Vertrieb Amigo bringt *Songs from the Argyll Cycle* und *The Mystery of Love…* heraus; es gibt Kritiken, Neuerscheinungslisten, syndizierte Kurzmeldungen und Jahresbestenlisten.
 
-Nicht frei lesbar, aber vermutlich mit Gehalt: Klassekampen 14.04.1994 (3 Nennungen), Adresseavisen 21.12.1994 und Bergens Tidende 27.12.1994 (je 3 Nennungen, vermutlich Jahreslisten/-rückblicke).
+## Inhalt
+1994 ist das Jahr, in dem Leven in Norwegen als Solokünstler auftaucht: Der Vertrieb Amigo (später Bonnier Amigo) bringt im Frühjahr *Songs from the Argyll Cycle* und im August *The Mystery of Love Is Greater Than the Mystery of Death* heraus. Die Volltextsuche der Nationalbibliothek verzeichnet für 1994 rund 45 Ausgaben, in denen „Jackie Leven“ vorkommt.
+
+Neben den Kritiken (Fremtiden 9. April, Arbeiderbladet/Haugesunds Avis 10. August, Fremtiden 20. August) gibt es vor allem Neuerscheinungslisten (Arbeiderbladet und Nordlys im März, Arbeiderbladet und Tønsbergs Blad im August), eine im August in mindestens acht Lokalzeitungen gleichlautend gedruckte Kurzmeldung („JACKIE LEVEN er kult-figur i Skottland …“), eine Notiz im Hamar Arbeiderblad vom 8. Juli (das Mini-Album sei eigentlich nur für Schottland gedacht gewesen, Amigo habe sich wenige Exemplare gesichert), ein Club-Programm in Tromsø, in dem ein DJ Stücke von Levens erster Solo-CD spielt, und im Dezember Jahresbestenlisten: Arbeiderbladet führt *The Mystery of Love* auf Platz 49 seiner 50er-Liste; die Jahresbestenliste der Fremtiden würdigt die Rückkehr des Doll-by-Doll-Chefs nach Jahren der Stille als „eventyrlig vakker“, keltisch. Konzerte in Norwegen sind für 1994 nicht belegt. Die Zeitschrift *Beat*, damals das führende norwegische Rockmagazin, erwähnt Leven 1994 in fünf Heften, ebenso *Puls*; diese Hefte sind nur mit norwegischem Zugang lesbar. Dasselbe gilt für mögliche längere Beiträge in Klassekampen (14. April), Adresseavisen (21. Dezember) und Bergens Tidende (27. Dezember).
 
 ## Übrige Treffer 1994 (ohne eigene Datei)
 
@@ -62,3 +65,7 @@ Zugang: „frei“ = überall lesbar; „Bibliothek“/„nur NB“/„nur Norwe
 | 1994-12-27 | Bergens Tidende | 47 | Bibliothek | nicht frei lesbar (3 Nennungen); vermutlich längerer Artikel | https://urn.nb.no/URN:NBN:no-nb_digavis_bergenstidende_null_null_19941227_127_301_1 |
 | 1994-12-28 | Dagbladet (Oslo: 1869-) | 39 | Bibliothek | nicht frei lesbar (1 Nennung) | https://urn.nb.no/URN:NBN:no-nb_digavis_dagbladet_null_null_19941228_126_350_1 |
 | 1994-12-31 | Fremtiden | 28 | frei | Jahresbestenliste Fremtiden mit Kurztext: Rückkehr des Doll-by-Doll-Chefs nach Jahren der Stille, „eventyrlig vakker“ keltisch | https://urn.nb.no/URN:NBN:no-nb_digavis_fremtiden_null_null_19941231_86_304_1 |
+
+## Zitate
+> "JACKIE LEVEN er kult-figur i Skottland" – Beginn der im August 1994 in mehreren Lokalzeitungen gedruckten Kurzmeldung.
+> "eventyrlig vakker" – Fremtiden in der Jahresbestenliste über das Comeback.

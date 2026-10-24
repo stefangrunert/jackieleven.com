@@ -17,8 +17,14 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Clinton Heylins Geschichte des frühen amerikanischen Punk wird Leven im Zusammenhang mit David Thomas von Pere Ubu als „most consistently original singer-songwriter“ Britanniens erwähnt.
+
 ## Inhalt
-In der Neuausgabe (Erstausgabe 1993) nennt Heylin im Kontext von David Thomas (Pere Ubu) Leven – offenbar als Britanniens „most consistently original singer-songwriter“, mit dem Thomas zusammenarbeitete.
+In der Neuausgabe von 2005 (Erstausgabe 1993) seiner Geschichte des frühen amerikanischen Punk, *From the Velvets to the Voidoids*, nennt Clinton Heylin Jackie Leven im Zusammenhang mit David Thomas von Pere Ubu, mit dem Leven zusammenarbeitete. Der Ausschnitt bezeichnet ihn offenbar als Britanniens „most consistently original singer-songwriter“; der Satzanfang ist im verfügbaren Textauszug abgeschnitten, die Zuschreibung des Superlativs also nicht vollständig gesichert. Heylin gehörte zu Levens Freundeskreis.
+
+## Zitate
+> "most consistently original singer-songwriter" – Wendung bei Heylin, offenbar auf Leven bezogen
 
 ## Widersprüche / Anmerkungen
 - Satzanfang im Snippet abgeschnitten; die Zuschreibung des Superlativs ist erschlossen.

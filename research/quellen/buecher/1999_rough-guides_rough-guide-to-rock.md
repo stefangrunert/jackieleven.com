@@ -17,8 +17,16 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Der gezeichnete Eintrag von Justin Lewis in *Rock: The Rough Guide* skizziert Doll by Doll (London 1977–1983) und Levens Weg vom John-St.-Field-Solisten bis zum produktiven Solokünstler der Neunziger – ein „oft unterschätztes Talent“.
+
 ## Inhalt
-Gezeichneter Eintrag (Justin Lewis), im Register unter Leven S. 257 (1. Aufl.) bzw. S. 291 (2. Aufl.). Kopf: „Formed London, 1977; disbanded 1983“. Inhalt laut Snippets: Leven trat zunächst als Solosänger/Gitarrist unter dem Namen John St Field im Club-Circuit auf (aus dieser Zeit stamme „Strip Show“), gründete 1977 die Gitarrenband mit Jo Shaw, Robin Spreafico und David McIntosh; Tony Waite ersetzte Spreafico; das dritte Album wirke leichter, mit der folkigen Ballade „Main Travelled Roads“; „Grand Passion“; ein weiteres Album wurde aufgenommen, aber nicht veröffentlicht. In den 1980ern spielte Leven mit Ex-Mitgliedern und Glen Matlock; 1994 erschien eine nur in Schottland erhältliche Mini-CD, danach sei er in den 1990ern relativ produktiv gewesen. Lewis nennt Leven ein oft unterschätztes Talent.
+Der Eintrag „Doll By Doll“ in *Rock: The Rough Guide* (1. Aufl. 1996, 2. Aufl. 1999, 3. Aufl. 2003) stammt von Justin Lewis; im Register steht Leven auf S. 257 (1. Aufl.) bzw. S. 291 (2. Aufl.). Der Kopf lautet „Formed London, 1977; disbanded 1983“.
+
+Leven trat danach zunächst als Solosänger und Gitarrist unter dem Namen John St Field im Club-Circuit auf; aus dieser Zeit stamme „Strip Show“. 1977 gründete er die Gitarrenband mit Jo Shaw, Robin Spreafico und David McIntosh; Tony Waite ersetzte Spreafico. Das dritte Album wirke leichter, mit der folkigen Ballade „Main Travelled Roads“; es folgten *Grand Passion* und ein weiteres, aufgenommenes, aber nie veröffentlichtes Album. In den Achtzigern spielte Leven mit früheren Bandmitgliedern und Glen Matlock; 1994 erschien eine nur in Schottland erhältliche Mini-CD, danach sei er in den Neunzigern relativ produktiv gewesen. Lewis nennt ihn ein oft unterschätztes Talent.
+
+## Zitate
+> "Formed London, 1977; disbanded 1983" – Kopfzeile des Eintrags zu Doll By Doll.
 
 ## Widersprüche / Anmerkungen
 - „Strip Show“ als Song aus der John-St.-Field-Zeit ist in research/ nicht erwähnt (prüfen).

@@ -17,10 +17,15 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser, tidsskrift), Inhaltssuche je Ausgabe; OCR nur bei frei zugänglichen Ausgaben"
 ---
 
-## Inhalt
-1995 bringt Levens erste norwegische Solokonzerte: Rockefeller, Oslo, am 26.04.1995 (im Rahmen einer „magischen Woche“ zum Thema Heilung) und Garage, Bergen, am 27.04.1995, laut Fremtiden sein erster Norwegen-Besuch seit über zehn Jahren. Im Herbst folgt *Forbidden Songs of the Dying West* (Cooking Vinyl/Amigo, in BA als BMG) mit vielen Kritiken. Einzeln erfasst sind: Fremtiden 02.02. (Interview), BA 24.04. (Vorbericht), Arbeiderbladet 26.04. (Interview), BA 29.04. (Konzertkritik), Fremtiden 03.05. (Konzertbericht/Interview), Moss Dagblad 28.09., Arbeiderbladet 29.09./Haugesunds Avis 04.10. und BA 22.10. (Albumkritiken). Rund 70 Ausgaben verzeichnen „Jackie Leven“; ein großer Teil (Dagbladet, VG, Aftenposten, Bergens Tidende, Klassekampen) ist nur mit norwegischem Zugang lesbar. *Beat* nennt Leven in sieben Heften, Heft 5/6 mit 8 Nennungen (vermutlich größerer Artikel oder Interview).
+## Kurz
+Norwegische Zeitungen berichten 1995 über Levens erste Solokonzerte im Land (Oslo, 26. April; Bergen, 27. April) und, im Herbst, über das Album *Forbidden Songs of the Dying West*. Rund 70 Ausgaben nennen seinen Namen.
 
-Konzerte 1995 laut Funden: 26.04. Rockefeller, Oslo; 27.04. Garage, Bergen. Ein im Februar angekündigtes Oslo-Konzert Anfang März (mit James Hallawell) ist nicht belegt.
+## Inhalt
+1995 bringt Levens erste norwegische Solokonzerte: im Rockefeller in Oslo am 26. April, eingebettet in eine „magische Woche“ zum Thema Heilung, und im Garage in Bergen am 27. April. Laut Fremtiden war es sein erster Norwegen-Besuch seit über zehn Jahren. Im Herbst folgt das Album *Forbidden Songs of the Dying West* (Cooking Vinyl/Amigo, in der Bergensavisen als BMG genannt) mit zahlreichen Kritiken. Ein im Februar angekündigtes Oslo-Konzert Anfang März (mit James Hallawell) ist nicht belegt.
+
+Als eigene Beiträge liegen vor: ein Interview in Fremtiden (2. Februar), ein Vorbericht in der Bergensavisen (24. April), ein Interview in Arbeiderbladet (26. April), die Konzertkritik der Bergensavisen (29. April), ein Konzertbericht samt Interview in Fremtiden (3. Mai) sowie Albumkritiken in Moss Dagblad (28. September), Arbeiderbladet (29. September), Haugesunds Avis (4. Oktober) und Bergensavisen (22. Oktober). Insgesamt nennen rund 70 Ausgaben „Jackie Leven“, viele davon in großen Blättern wie Dagbladet, VG, Aftenposten, Bergens Tidende und Klassekampen; das Magazin *Beat* erwähnt ihn in sieben Heften, Heft 5/6 mit acht Nennungen, vermutlich in einem größeren Artikel oder Interview.
+
+Aus den Kurznennungen: Im Firda (8. April) nennt ein lokaler Musiker, Geirmund Henjum, Leven als Lieblingskünstler. In Nordlands framtid (1. August) dient Leven als Vergleichsgröße in einer Fremdkritik. Arbeiderbladet (20. November) spricht in der Kritik eines Mike-Scott-Konzerts vom „sjelefrenden Jackie Leven“, und Fremtiden (7. Dezember) erwähnt in der Kritik von Mike Scotts *Bring 'em All In* ein Gespräch mit Leven in einer schottischen Bar. Nordlandsposten weist am 13. Dezember auf eine Beilage-CD des Magazins *Beat* mit einem Leven-Titel hin. Romerikes Blad zählt *Forbidden Songs* am 12. Dezember in einem Jahresrückblick als „mindre kjent, men veldig bra“ auf.
 
 ## Übrige Treffer 1995 (ohne eigene Datei)
 
@@ -78,3 +83,7 @@ Zusätzliche NB-Suche "jackie levens"; diese Ausgaben enthalten die Phrase „Ja
 |---|---|---|---|---|---|
 | 1995-10-18 | Adresseavisen | 39 | Bibliothek | nicht frei lesbar (1 Nennung „Jackie Levens“) | https://urn.nb.no/URN:NBN:no-nb_digavis_adresseavisen_null_null_19951018_229_238_1 |
 | 1995-12-12 | Romerikes Blad | 29 | frei | Nennung in Jahresrückblick/Tipps (Forbidden Songs „mindre kjent, men veldig bra“) | https://urn.nb.no/URN:NBN:no-nb_digavis_romerikesblad_null_null_19951212_0_288_1 |
+
+## Zitate
+> "sjelefrenden Jackie Leven" – Arbeiderbladet, 20.11.1995, in der Kritik eines Mike-Scott-Konzerts
+> "mindre kjent, men veldig bra" – Romerikes Blad, 12.12.1995, über *Forbidden Songs of the Dying West* im Jahresrückblick

@@ -3,6 +3,7 @@ titel: "Gypsies' Brood – Doll By Doll: 'Gypsy Blood' (Automatic K 56755)"
 autor: "Chris Westwood"
 medium: "Record Mirror"
 datum: "1979-11-17"
+stufe: "auswahl"
 kategorie: "rezensionen"
 art: "Albumrezension"
 sprache: "en"
@@ -19,6 +20,11 @@ gefunden_ueber: "WebSearch (allowed_domains worldradiohistory.com) und WRH-Vollt
 
 ## Inhalt
 Zeitgenössische Kritik des zweiten Albums durch Chris Westwood, die zugleich das Debüt verteidigt: „Remember“ sei von formbesessenen Kritikern niedergemacht worden, obwohl es eine sehr kraftvolle Platte von verstörender Ehrlichkeit gewesen sei. „Gypsy Blood“ wirke an der Oberfläche fast entspannt, sei aber subtil und täuschend zugänglich; Westwood hebt Jo Shaws „Endgame“ hervor, das von Shaws Erfahrungen mit der Heroinszene handle. Wertung: hoch (Sterne im Scan nicht lesbar), Tenor begeistert. Im selben Heft (S. 31) Westwoods Livekritik vom Music Machine.
+
+## Beleg
+> Their first album — ‘Remember’ — was harangued by critics
+de: Ihr erstes Album, „Remember“, wurde von den Kritikern verrissen.
+en: Westwood's contemporary confirmation that critics attacked the debut – in a review that defends the band.
 
 ## Widersprüche / Anmerkungen
 - Westwood schreibt „Endgame“ Jo Shaw zu; Head Heritage (2000) nennt es eine akustische Solonummer Levens – Autorschaft am Albumlabel prüfen.

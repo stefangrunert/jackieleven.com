@@ -17,8 +17,16 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Künstlerseite Jackie Leven (öffentliche Metadaten)"
 ---
 
+## Kurz
+Graeme Thomsons Würdigung in der Uncut-Februarausgabe 2012 mit dem Titelzitat „I’m too connected to the pain of other people“ sieht in Leven einen Songwriter, der die rohen Extreme menschlichen Verhaltens mit poetischer Seelenhaftigkeit festhielt. Volltext nur gegen Bezahlung.
+
 ## Inhalt
-Würdigung in Uncut (Februarausgabe 2012) von Graeme Thomson, 2.738 Wörter, laut Rock's Backpages als „Retrospective and Interview“ eingestuft; Volltext nur gegen Bezahlung. Der Anriss beschreibt Leven als Songwriter, der in Leben und Musik die rohen Extreme menschlichen Verhaltens mit poetischer Seelenhaftigkeit dokumentierte; Uncut ehre ein „wildes und brillantes Talent“.
+Die Würdigung von Graeme Thomson erschien in der Februarausgabe 2012 von Uncut und umfasst 2.738 Wörter. Rock’s Backpages führt sie als „Retrospective and Interview“. Der frei sichtbare Anriss beschreibt Leven als Songwriter, der in Leben und Musik die rohen Extreme menschlichen Verhaltens mit poetischer Seelenhaftigkeit dokumentierte; Uncut ehre ein „wildes und brillantes Talent“.
+
+Das Titelzitat „I’m too connected to the pain of other people. It really breaks me up.“ stammt vermutlich aus einem Interview, das Thomson um 2006 mit Leven für den Herald führte und das auch in anderen Nachrufen aufgegriffen wird. Der Volltext war nur gegen Bezahlung abrufbar und wurde nicht gelesen.
+
+## Zitate
+> "I'm too connected to the pain of other people. It really breaks me up." – Leven, Titelzitat der Würdigung
 
 ## Widersprüche / Anmerkungen
 - Nur Metadaten gesehen. Das Titelzitat stammt aus Thomsons Herald-Interview (ca. 2006), das auch im theartsdesk-Nachruf und im Guardian-Blog 2015 verwendet wird; vermutlich greift der Uncut-Text auf dasselbe Gespräch zurück.

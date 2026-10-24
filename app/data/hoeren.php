@@ -7,7 +7,7 @@ return [
         'stuecke' => [
             [
                 'song' => 'Soft Lowland Tongue',
-                'release' => '1973-control',
+                'release' => '1975-control',
             ],
         ],
     ],

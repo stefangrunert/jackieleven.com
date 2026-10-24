@@ -12,13 +12,25 @@ archiv: "https://web.archive.org/web/20230601013341/https://rocksbackpages.com/L
 erreichbarkeit: "paywall"
 sicherheit: "unsicher"
 umfang: "kurz"
+stufe: "verzeichnis"
 abgerufen: "2026-10-23"
 bezug: ["02-doll-by-doll.md"]
 gefunden_ueber: "Rock's Backpages, Artikelliste Library/Artist/doll-by-doll"
 ---
 
+## Kurz
+Dave McCullough verreißt in Sounds das Debüt *Remember* unter der Überschrift „Dull by Doll“, einem Wortspiel mit dem Bandnamen; der Rock's-Backpages-Archivtext nennt zwei Sterne.
+
 ## Inhalt
-Sounds-Verriss des Debüts „Remember“ von Dave McCullough unter der Überschrift „Dull by Doll“; Rock's Backpages führt die Bewertung als zwei Sterne. Die Überschrift ist offenbar die früheste belegte Fundstelle des Spottnamens, den Mick Houghton später als gängig beschreibt („Dull By Dull“, 02-doll-by-doll.md). Volltext hinter Paywall.
+Die Sounds-Kritik von Dave McCullough zu Doll By Dolls Debüt *Remember* (Automatic K56618) trägt die Überschrift „Dull by Doll“, ein Wortspiel, in dem „dull“ (langweilig) an die Stelle von „Doll“ tritt. Das Archiv Rock's Backpages führt die Besprechung mit zwei Sternen. Die Überschrift ist offenbar die früheste belegte Fundstelle des Spottnamens, den der Pressechef Mick Houghton später als gängig beschreibt („Dull By Dull“). Der Volltext der Kritik ist nur Abonnenten zugänglich.
+
+## Beleg
+> Dull by Doll
+de: Wortspiel mit dem Bandnamen: „dull“ heißt langweilig. Öffentlich sichtbarer Anreißer der Kritik, mit zwei Sternen.
+en: Pun on the band's name (“dull” for “Doll”). Publicly visible teaser of the review, with two stars.
+
+## Zitate
+> "Dull by Doll" – Überschrift der Sounds-Kritik
 
 ## Widersprüche / Anmerkungen
 - Die zwei Sterne sind aus der Titelzeile „(AutomaticK56618)**“ erschlossen.

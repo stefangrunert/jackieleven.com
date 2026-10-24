@@ -17,8 +17,17 @@ bezug: ["06-kollaborationen.md", "07-nachrufe-vermaechtnis.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Ian Rankins erster Rebus-Roman nach Levens Tod, *Standing in Another Man’s Grave* (2012), trägt die Widmung „RIP Jackie Leven“; der Titel geht auf Levens „Another Man’s Rain“ zurück, den Rebus zunächst falsch versteht.
+
 ## Inhalt
-Der erste Rebus-Roman nach Levens Tod trägt die Widmung „RIP Jackie Leven“ und einen Copyright-Vermerk für Leven-Liedzeilen (CV Publishing). Der Titel stammt aus einem Leven-Song, den Rebus zunächst falsch versteht (er hört „standing in another man's rain“); im Roman denkt Rebus, Leven sei nun auch tot, ein oder zwei Jahre jünger als er selbst. Die Leven-CD läuft im Auto mehrfach.
+*Standing in Another Man’s Grave* (Orion, London 2012) ist der erste Rebus-Roman nach Levens Tod und trägt die Widmung „RIP Jackie Leven“ sowie einen Copyright-Vermerk für Leven-Liedzeilen (CV Publishing). Der Titel stammt aus einem Leven-Song, den Rebus zunächst falsch versteht: Er hört „standing in another man’s rain“. Rankin selbst hat bestätigt, dass die Szene autobiografisch ist und die Titelwahl auf Levens „Another Man’s Rain“ (Album *Oh What a Blow That Phantom Dealt Me!*, auch Single 2006) zurückgeht; dieser Titel erscheint auch als „Standing in Another Man’s Rain“ auf *The Wanderer* in einer Fassung von Andy White.
+
+Im Roman denkt Rebus, dass Leven nun auch tot sei, ein oder zwei Jahre jünger als er selbst. Die Leven-CD läuft im Auto mehrfach. Das Buch erschien in Übersetzungen, darunter *Mädchengrab* (deutsch, Manhattan), *Debout dans la tombe d’un autre* (französisch, 2014) und *Cold case* (niederländisch, 2013) sowie als US-Ausgabe 2013, jeweils mit Widmung und Stellen. Rankin erklärt die Titelwahl außerdem in einem Orion-Video und in einem Guardian-Text vom 20. Juli 2021.
+
+## Zitate
+> "RIP Jackie Leven" – Widmung in Rankins Roman
+> "standing in another man’s rain" – Was Rebus im Roman zunächst zu hören glaubt
 
 ## Widersprüche / Anmerkungen
 - Übersetzungen mit Widmung und Stellen: „Mädchengrab“ (dt., Manhattan), „Debout dans la tombe d'un autre“ (frz., 2014), „Cold case“ (nl., 2013), US-Ausgabe 2013.

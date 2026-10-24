@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Der schwedische Sammelband *Feber* enthält eine auf den 14. August 2001 datierte Kritik von Lennart Persson, die von Van Morrison zu Leven überleitet, dem Schotten, der Aufmerksamkeit brauche und verdiene.
+
 ## Inhalt
-Schwedische Sammlung von Kritiken; enthalten ist eine auf den 14.08.2001 datierte Besprechung von Lennart Persson, die von Van Morrison zu Leven überleitet: einem Schotten, der die Aufmerksamkeit brauche und verdiene, dessen Leben zur Romantik und Dramatik seiner Musik passe. Persson erzählt den Überfall durch eine Straßengang (hier „Mitte der Achtziger“), danach habe Leven nicht einmal Musik hören können; Doll by Doll als eigentlicher Karrierebeginn; Empfehlung „The Mystery of Love …“.
+Die Sammlung schwedischer Plattenkritiken (Modernista, Stockholm, 2002) enthält einen Beitrag von Lennart Persson, datiert auf den 14. August 2001, der zu Jackie Levens Album *Creatures of Light and Darkness* gehört (im Kopf als „Greetings of Light & Darkness“ verschrieben). Persson beginnt bei Van Morrison und leitet zu Leven über: ein Schotte, der Aufmerksamkeit brauche und verdiene und dessen Leben zur Romantik und Dramatik seiner Musik passe.
+
+Er erzählt den Überfall durch eine Straßengang, den er in die Mitte der Achtziger datiert; danach habe Leven nicht einmal mehr Musik hören können. Als eigentlichen Karrierebeginn sieht Persson die Zeit mit Doll by Doll, und er empfiehlt als Einstieg *The Mystery of Love Is Greater Than the Mystery of Death*. Den ursprünglichen Erscheinungsort der Kritik, vermutlich eine Zeitung, nennt der Ausschnitt nicht.
 
 ## Widersprüche / Anmerkungen
 - Datiert den Überfall auf die Mitte der 1980er.

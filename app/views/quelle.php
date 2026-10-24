@@ -7,6 +7,8 @@ $vor = $mitSeite[$pos - 1] ?? null;
 $nach = $mitSeite[$pos + 1] ?? null;
 [$inhalt, $inhaltSprache] = stimme_text($q['inhalt']);
 $nb = str_contains($q['url'], 'nb.no');
+// Zitate, die schon als Beleg mit Übersetzung stehen, nicht doppelt zeigen.
+$q['zitate'] = array_values(array_filter($q['zitate'], fn($z) => !in_array(trim($z['text'], ' .'), array_map(fn($b) => trim($b['original'], ' .'), $q['beleg'] ?? []), true)));
 ?>
 <main class="stimme-detail">
   <p class="stimme-zurueck"><a href="<?= e(url('stimmen')) ?>#<?= e($q['id']) ?>">← <?= e(t('stimmen.zurueck')) ?></a></p>
@@ -24,21 +26,41 @@ $nb = str_contains($q['url'], 'nb.no');
       </dl>
     </header>
 
+    <?php if ($q['korrektur'] ?? null): ?>
+      <aside class="stimme-korrektur" aria-label="<?= e(t('stimmen.korrektur')) ?>"><p class="stimme-korrektur-titel"><?= e(t('stimmen.korrektur')) ?></p><p><?= md_inline($q['korrektur'][sprache()] ?? $q['korrektur']['de']) ?></p></aside>
+    <?php endif; ?>
+
     <section class="stimme-inhalt" aria-label="<?= e(t('stimmen.inhalt')) ?>">
-      <?php if ($inhaltSprache !== sprache()): ?><p class="stimme-hinweis"><?= e(t('stimmen.nur_deutsch')) ?></p><?php endif; ?>
-      <div<?= $inhaltSprache !== sprache() ? ' lang="de"' : '' ?>>
-        <?php foreach ($inhalt as $absatz): ?><p><?= md_inline($absatz) ?></p><?php endforeach; ?>
-      </div>
-      <p class="stimme-hinweis"><?= e(t('stimmen.eigene_worte')) ?></p>
+      <?php if ($inhalt === null): ?>
+        <p class="stimme-hinweis"><?= e(t('stimmen.in_arbeit')) ?></p>
+      <?php else: ?>
+        <div>
+          <?php foreach ($inhalt as $absatz): ?><p><?= md_inline($absatz) ?></p><?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+      <?php if ($inhalt !== null): ?><p class="stimme-hinweis"><?= e(t('stimmen.eigene_worte')) ?></p><?php endif; ?>
     </section>
+
+    <?php if ($q['beleg'] ?? []): ?>
+      <section class="stimme-beleg" aria-labelledby="beleg">
+        <h2 id="beleg"><?= e(t('stimmen.beleg')) ?></h2>
+        <?php foreach ($q['beleg'] as $beleg): ?>
+          <figure>
+            <blockquote lang="<?= e($q['sprache']) ?>"><p><?= e($beleg['original']) ?></p></blockquote>
+            <figcaption><?= e($beleg[sprache()] ?? $beleg['de']) ?></figcaption>
+          </figure>
+        <?php endforeach; ?>
+        <p class="stimme-hinweis"><?= e(t('stimmen.beleg_hinweis')) ?></p>
+      </section>
+    <?php endif; ?>
 
     <?php if ($q['zitate']): ?>
       <section class="stimme-zitate" aria-label="<?= e(t('stimmen.zitate')) ?>">
         <?php foreach ($q['zitate'] as $zitat): ?>
           <figure>
             <blockquote lang="<?= e($q['sprache']) ?>"><p><?= e($zitat['text']) ?></p></blockquote>
-            <?php $kontext = sprache() === 'en' && ($zitat['kontext_en'] ?? '') !== '' ? $zitat['kontext_en'] : $zitat['kontext']; ?>
-            <?php if ($kontext !== ''): ?><figcaption<?= $kontext === $zitat['kontext'] && sprache() !== 'de' ? ' lang="de"' : '' ?>><?= md_inline($kontext) ?></figcaption><?php endif; ?>
+            <?php $kontext = sprache() === 'de' ? $zitat['kontext'] : ($zitat['kontext_' . sprache()] ?? ''); ?>
+            <?php if ($kontext !== ''): ?><figcaption><?= md_inline($kontext) ?></figcaption><?php endif; ?>
           </figure>
         <?php endforeach; ?>
       </section>

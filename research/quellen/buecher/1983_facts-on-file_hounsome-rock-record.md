@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Die Rock-Record-Verzeichnisse führen „John St Field (Jackie Leven)“ mit *Control* und Doll By Doll mit Leven als Sänger und Gitarrist sowie *Remember* (1979), verknüpft mit weiteren Musikern.
+
 ## Inhalt
-Musikerverzeichnisse mit Album- und Besetzungsangaben: „JOHN ST FIELD (JACKIE LEVEN)“ mit „Control“, Doll By Doll mit Leven (Gesang, Gitarre) und „Remember 1979 Automatic K 56618“, verknüpft mit weiteren Musikern; Rock Record 6 (1995) verknüpft Leven außerdem mit David McIntosh und anderen Studiomusikern.
+Terry Hounsomes Musikerverzeichnisse (*Rock Record*, *New Rock Record*, *Rock Record 6*) mit Album- und Besetzungsangaben enthalten einen Eintrag „JOHN ST FIELD (JACKIE LEVEN)“ mit *Control* und einen zu Doll By Doll, in dem Leven als Sänger und Gitarrist und *Remember* (1979, Automatic K 56618) verzeichnet sind, verknüpft mit weiteren Musikern. Rock Record 6 (1995) verbindet Leven außerdem mit David McIntosh und anderen Studiomusikern.
+
+Es ist eine frühe Verknüpfung des Pseudonyms John St Field mit Leven in einem gedruckten Nachschlagewerk; in welcher Ausgabe der Eintrag erstmals stand, ist nicht gesichert.
 
 ## Widersprüche / Anmerkungen
 - Frühe Verknüpfung des Pseudonyms John St Field mit Leven in einem gedruckten Nachschlagewerk; das Erscheinungsjahr der jeweiligen Ausgabe mit dem John-St-Field-Eintrag ist nicht gesichert.

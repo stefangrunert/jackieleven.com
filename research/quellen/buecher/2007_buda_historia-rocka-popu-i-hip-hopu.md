@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Andrzej Budas polnischer Kompilation von Kritiker-Bestenlisten taucht *The Mystery of Love Is Greater Than the Mystery of Death* in einer Liste der besten Alben auf, neben Blurs *Parklife*.
+
 ## Inhalt
-Polnische Kompilation von Kritiker-Bestenlisten; „The Mystery of Love Is Greater Than the Mystery of Death“ erscheint in einer Liste der besten Alben (offenbar des Jahrgangs 1994/95, neben Blurs „Parklife“). Welche Zeitschrift die Liste aufstellte, ist im Snippet nicht erkennbar.
+Andrzej Budas *Historia rocka, popu i hip-hopu – według krytyków, 1974–2006* (Wydawnictwo Niezależne, Głogów) versammelt Kritiker-Bestenlisten. Levens *The Mystery of Love Is Greater Than the Mystery of Death* erscheint dort in einer Liste der besten Alben, offenbar des Jahrgangs 1994/95, neben Blurs *Parklife*. Welche Zeitschrift die Liste aufstellte, geht aus der Stelle nicht hervor; das Erscheinungsjahr des Buchs liegt nach 2006.
 
 ## Widersprüche / Anmerkungen
 - Erscheinungsjahr nicht ermittelt (nach 2006).

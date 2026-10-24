@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In *The Rolling Stones: All the Songs* wird Leven zu einem Stones-Song als jemand zitiert, für den dies sein liebster Stones-Song sei, mit einem Rhythmus wie ein Fußballgesang; Quelle ist ein Mojo-Interview vom September 2007.
+
 ## Inhalt
-Zu einem Stones-Song wird Leven als jemand zitiert, für den dies sein Lieblings-Stones-Song sei: Der Song habe einen Fußball-Gesangsrhythmus. Quelle laut Endnote 47: ein Mojo-Interview mit Leven vom September 2007.
+In dem Buch von Philippe Margotin und Jean-Michel Guesdon (Black Dog & Leventhal, New York 2016; französisches Original *Les Rolling Stones, la totale*) wird Jackie Leven zu einem Stones-Song als Gewährsmann zitiert: Für ihn sei dies sein Lieblings-Stones-Song, und der Song habe einen Fußball-Gesangsrhythmus. Als Beleg dient laut Endnote 47 ein Mojo-Interview mit Leven vom September 2007. Welcher Song gemeint ist, geht aus dem vorliegenden Ausschnitt nicht hervor.
 
 ## Neue Fakten / Anekdoten
 - Mojo-Beitrag Levens vom September 2007 (Stones-Lieblingssong) – in research/ nicht verzeichnet; welcher Song gemeint ist, zeigt das Snippet nicht.

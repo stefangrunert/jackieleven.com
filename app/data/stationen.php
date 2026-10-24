@@ -36,7 +36,7 @@ return [
   'art'    => 'leben',
   'bild'   => 'jackie-leven-1971-kontrast-mitte.png',
   'bildstil' => 'tusche',
-  'platte' => '1973-control',
+  'platte' => '1975-control',
   'zitat'  => 'Lying there on his back, sensing that there was no approaching car, he saw the full yellow moon seeping across the slumbering village of Sturminster Marshall, and for the first time in a long long time, heard himself think \'it\'s nearly good to be almost alive\'',
   'quelle' => [
     'rubrik' => 'deep-pool',

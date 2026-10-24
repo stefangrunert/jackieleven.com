@@ -17,8 +17,12 @@ bezug: ["05-diskografie.md", "07-nachrufe-vermaechtnis.md", "09-websites.md"]
 gefunden_ueber: "research/05-diskografie.md [21], Direktabruf"
 ---
 
+## Kurz
+Auf der Alumni-Seite von Cooking Vinyl steht Jackie Leven in der alphabetischen Liste ehemaliger Künstler des Labels. Der Eintrag ist nur ein Name mit Foto; einen Biografietext gibt es nicht.
+
 ## Inhalt
-Alphabetische Bildergalerie ehemaliger Künstler des Labels, in der Leven seit September 2026 neben u. a. Glen Matlock, Madness und Roger Waters steht; vorher führte ihn die Seite „Artists“ (2023–2026). Der Eintrag besteht nur aus einem Foto (Bilddatei mit Fotografenvermerk Pat Pope) und dem Namen; Biografietext gibt es keinen. Bedeutung für die Ressourcen-Seite: Beleg für den Statuswechsel nach dem Verkauf des Labels an Exceleration Music (2025), siehe 05-diskografie.md.
+Die Alumni-Seite des Labels Cooking Vinyl führt Jackie Leven in einer alphabetischen Galerie ehemaliger Künstler, neben Namen wie Glen Matlock, James, Ladytron und Kiefer Sutherland. Zu Leven gibt es nur ein Foto (Bildnachweis: Pat Pope) und den Namen, keinen Text. Die Seite zeigt damit, dass Leven, dessen Alben von 1994 an bei Cooking Vinyl erschienen, heute als früherer Künstler des Labels geführt wird.
 
 ## Widersprüche / Anmerkungen
 - Die älteren Cooking-Vinyl-Künstlerseiten mit Biografie (z. B. cookingvinyl.com/artists/jackie-leven/, Wayback 19.07.2011) und die Pressebiografien der 1990er/2000er gehören zum Bereich website-archiv und sind hier nicht doppelt erfasst.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

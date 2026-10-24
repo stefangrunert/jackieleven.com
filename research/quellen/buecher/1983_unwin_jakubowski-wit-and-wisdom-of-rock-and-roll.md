@@ -17,11 +17,16 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Maxim Jakubowskis Zitatsammlung *The Wit and Wisdom of Rock and Roll* ist ein Ausspruch von „Jackie Leven – Doll by Doll“ abgedruckt: Er lebe immer, als sei er in einem Film.
+
 ## Inhalt
-Zitatsammlung mit einem Ausspruch von „Jackie Leven – Doll by Doll“: Er lebe immer, als sei er in einem Film (Fortsetzung nicht sichtbar). Vermutlich aus einem Interview um 1979/80.
+Die Zitatsammlung erschien bei Unwin Paperbacks in London, vermutlich um 1983/84. Unter den Stimmen aus der Rockwelt steht ein Satz von „Jackie Leven – Doll by Doll“: Er lebe immer, als befände er sich in einem Film. Die Fortsetzung des Zitats ist im sichtbaren Ausschnitt nicht zu erkennen.
+
+Der Ausspruch stammt vermutlich aus einem Interview um 1979/80, als Doll by Doll bei Automatic und Magnet Aufmerksamkeit der Musikpresse fanden; die Herkunft ist nicht angegeben.
 
 ## Zitate
-> "I always live as if I'm in a film." – Leven, Herkunft unbekannt.
+> "I always live as if I'm in a film." – Jackie Leven, Herkunft unbekannt
 
 ## Widersprüche / Anmerkungen
 - Erscheinungsjahr nicht im Scan; die Sammlung erschien um 1983/1984 – unsicher.

@@ -17,8 +17,13 @@ bezug: ["01-fruehe-jahre.md"]
 gefunden_ueber: "Open-Library-Volltextsuche „John St Field“"
 ---
 
+## Kurz
+Die Salisbury-Musikchronik *Endless Beat* verzeichnet drei Auftritte von John St Field (1973/74) – darunter mit Man und der JSD Band – und nennt später auch Jackie Leven unter den Künstlern, die dort spielten.
+
 ## Inhalt
-Chronik der Musikszene von Salisbury (Wiltshire) mit einer Konzertliste. Sie verzeichnet drei Auftritte von **John St Field**: am 04.07.1973 in der City Hall zusammen mit der JSD Band, am 17.07.1973 in der City Hall zusammen mit **Man** und am 08.03.1974 im College of Technology. Später erscheint auch „Jackie Leven“ in einer Aufzählung von Künstlern, die in Salisbury spielten.
+Frogg Moody und Mitautoren dokumentieren in *Endless Beat: Voices of the New Sarum Sound, 1970–1999* die Musikszene von Salisbury (Wiltshire), mit einer Konzertliste. Darin stehen drei Auftritte von **John St Field**: am 4. Juli 1973 in der City Hall zusammen mit der JSD Band, am 17. Juli 1973 ebenfalls in der City Hall zusammen mit **Man** und am 8. März 1974 im College of Technology. Später erscheint außerdem „Jackie Leven“ in einer Aufzählung von Künstlern, die in Salisbury gespielt haben.
+
+Die Liste liefert damit frühe, datierte Live-Belege für Levens Frühphase unter dem Namen John St Field und zeigt ihn 1973/74 in Südengland, nicht in Spanien.
 
 ## Neue Fakten / Anekdoten
 - Erste datierte Live-Belege für John St Field (Sommer 1973, Frühjahr 1974) – sie stützen Strongs Angabe, Leven sei unter diesem Namen u. a. mit Man aufgetreten, und zeigen ihn 1973/74 in Südengland, nicht in Spanien.

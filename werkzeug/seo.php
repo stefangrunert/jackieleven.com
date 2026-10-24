@@ -35,7 +35,7 @@ foreach (seo_routen() as [$name, $p]) foreach (SPRACHEN as $lang) {
     seo_pruefe(mb_strlen($seo['beschreibung']) > 30 && mb_strlen($seo['beschreibung']) <= 165, 'Empty/oversize description: ' . $seo['url']);
     seo_pruefe(in_array($seo['url'], $urls, true), 'Metadata/sitemap disagree');
 }
-$paths = ['/de/', '/en/', '/de/stimmen?auswahl=2', '/en/discography/1973-control?von=1973-control', '/en/biography', '/de/zeitreise/1950-kirkcaldy',
+$paths = ['/de/', '/en/', '/de/stimmen?auswahl=2', '/en/discography/1975-control?von=1975-control', '/en/biography', '/de/zeitreise/1950-kirkcaldy',
     url('kolumne', ['slug'=>kolumnen()[0]['slug']], 'en'), url('quelle', ['slug'=>stimmen()[0]['id']], 'de')];
 foreach ($paths as $path) {
     [$html, $status] = seo_anfrage($path);

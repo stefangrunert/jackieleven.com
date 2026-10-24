@@ -17,8 +17,13 @@ bezug: ["02-doll-by-doll.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Vernon Fitchs *Pink Floyd Encyclopedia* (1999) und Glenn Poveys *Echoes* (2010) führen Leven und *Grand Passion* wegen David Gilmours Gastspiel: eigener Personeneintrag, Bandeintrag und vollständige Credits.
+
 ## Inhalt
-Wegen David Gilmours Gastspiel auf „Grand Passion“ (1982) führt Fitch Leven als eigenen Personeneintrag („Scottish musician. Guitar. Vocals. Former …“), einen Eintrag „Doll By Doll – A British band“ und Songeinträge mit vollständigen Credits (produziert von Tom Newman und Leven; Musiker u. a. Tom Norden, Rod Bedall, Graham Broad, Tori Josias). Povey listet das Album (UK: MAGL 5047) in seiner Gilmour-Sessiongrafie.
+Weil David Gilmour 1982 auf *Grand Passion*, dem letzten Album von Doll by Doll, als Gast mitspielte, führt Vernon Fitch in *The Pink Floyd Encyclopedia* (Collector's Guide Publishing, Burlington, Ontario, 1999) Jackie Leven als eigenen Personeneintrag („Scottish musician. Guitar. Vocals. Former …“). Hinzu kommen ein Eintrag „Doll By Doll – A British band“ und Songeinträge mit vollständigen Credits: produziert von Tom Newman und Leven, beteiligt unter anderem Tom Norden, Rod Bedall, Graham Broad und Tori Josias. Glenn Povey listet das Album (UK: MAGL 5047) in seiner Gilmour-Sessiongrafie in *Echoes: The Complete History of Pink Floyd* (Chicago Review Press, 2010).
+
+Die beiden Bücher sind vor allem als Quelle für die Besetzung und die Produktionsangaben von *Grand Passion* brauchbar.
 
 ## Widersprüche / Anmerkungen
 - Brauchbar als Credit-Quelle für „Grand Passion“ (Bereich doll-by-doll).

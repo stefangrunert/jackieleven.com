@@ -17,8 +17,13 @@ bezug: ["06-kollaborationen.md", "07-nachrufe-vermaechtnis.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Ian Rankins Roman *Saints of the Shadow Bible* trägt als Motto Zeilen aus Levens „One Man, One Guitar“; auch der Titel geht laut Rankin auf eine Leven-Zeile zurück.
+
 ## Inhalt
-Der Roman ist mit Zeilen aus Levens „One Man, One Guitar“ als Motto eröffnet (Abdruckgenehmigung CV Publishing); der Prolog folgt unmittelbar.
+Ian Rankins Rebus-Roman *Saints of the Shadow Bible* (Orion, 2013) wird mit Zeilen aus Jackie Levens „One Man, One Guitar“ als Motto eröffnet, abgedruckt mit Genehmigung von CV Publishing. Unmittelbar danach folgt der Prolog. Die französische Ausgabe („On ne réveille pas un chien endormi“, 2015) trägt dasselbe Motto.
+
+Laut Rankin selbst (Guardian, 20. Juli 2021) stammt auch der Buchtitel aus einer Leven-Zeile über die „saints of the shadow bible“; er habe Leven nie gefragt, was sie bedeute.
 
 ## Widersprüche / Anmerkungen
 - Französische Ausgabe „On ne réveille pas un chien endormi“ (2015) mit demselben Motto.

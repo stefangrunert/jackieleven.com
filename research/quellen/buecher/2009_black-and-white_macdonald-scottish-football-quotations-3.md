@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Eine Zitatsammlung zum schottischen Fußball enthält ein Leven-Zitat von 2007 über Doll by Doll und das Gehasstwerden.
+
 ## Inhalt
-Zitatsammlung mit einem Leven-Zitat von 2007 über Doll by Doll und das Gehasstwerden – im Fußballkontext eingeordnet. Ursprungsquelle nicht genannt (vermutlich der Telegraph-Artikel „British rock's lost masterpiece“ von 2007).
+Die Zitatsammlung *Scottish Football Quotations 3* (Black & White Publishing, Edinburgh, 2009) führt ein Zitat von Jackie Leven aus dem Jahr 2007 über Doll by Doll und das Gehasstwerden auf, eingeordnet in einen Fußballzusammenhang. Eine Ursprungsquelle ist dort nicht genannt.
 
 ## Widersprüche / Anmerkungen
 - Ursprungsquelle erschlossen, nicht belegt.

@@ -1,6 +1,6 @@
 ---
 titel: "[Thread: Jackie Leven] (Thema 1)"
-autor: "diverse (u. a. yellowsubmarine, wanderer, feelflows, hasenschnitte, conny, henry-l, stefane, thomas-zimmer)"
+autor: "diverse Forenmitglieder"
 medium: "Rolling Stone Forum (forum.rollingstone.de)"
 datum: "2002-08-23"
 kategorie: "foren"

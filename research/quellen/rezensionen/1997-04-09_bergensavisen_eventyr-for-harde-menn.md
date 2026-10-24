@@ -11,14 +11,26 @@ url: "https://urn.nb.no/URN:NBN:no-nb_digavis_bergensavisen_null_null_19970409_7
 archiv: ""
 erreichbarkeit: "live"
 sicherheit: "belegt"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 35, OCR"
 ---
 
+## Kurz
+Espen Børhaug lobt *Fairy Tales for Hard Men* in der Bergensavisen als poetische, schöne Platte mit keltischen Wurzeln über „harte Männer“, warnt aber vor Levens hoher Produktivität.
+
 ## Inhalt
-Positive Kritik, die vom Cover ausgeht (Peter Howsons Gemälde „The Bodybuilder“): ein harter Mann, der Respekt von Männern und Liebe von einer Frau will, die nie kommt. Leven zitiert seine Formel von Jungen, die in Männerleben gefangen sind und Männer spielen; Inspiration sei wieder Robert Bly („Iron John“, 1990). Trotz der Titel sei es vor allem eine poetische, schöne Platte mit keltischen Wurzeln; „Poortoun“ sei „direkt bildschön“, Doll by Doll spielten auf einigen Stücken. Warnung vor Wiederholung bei so hoher Produktivität; Seitenhieb auf den gescheiterten staatlichen norwegischen Männerrollen-Ausschuss.
+Die Kritik in der Bergensavisen vom 9. April 1997 geht vom Cover aus: Peter Howsons Gemälde „The Bodybuilder“ zeigt einen Kraftprotz, dessen Muskeln von einem harten Mann erzählen. Er wolle Respekt von Männern und Liebe von einer besonderen Frau; die komme nie, weil die Frau in ihm verschwunden sei, und Männer begegneten ihm mit Abscheu statt Respekt. Das, schreibt Børhaug, sei der Ausgangspunkt von Jackie Levens neuer Platte. Leven interessiere sich für harte Männer – „just boys trapped in men’s lives, pretending to be men“, wie er erklärt.
+
+Wie schon zuvor lasse er sich vom Dichter und Philosophen Robert Bly inspirieren, der 1990 mit „Iron John“ sein Manifest zur Männerrolle veröffentlichte. Die Lieder tragen Titel wie „Boy Trapped in a Man“, „Extremely Violent Man“ und „Sexual Danger“; „Likevel“ – dennoch – sei dies „vor allem eine poetische, schöne Platte“. Die Musik habe tiefe keltische Wurzeln, die Melodien seien stark, „Poortoun“ geradezu bildschön. Auf einigen Stücken spiele sein altes Band Doll by Doll mit, andere Lieder lägen „jenseits der befestigten Gitarre-Bass-Schlagzeug-Konstellation des Rock“.
+
+Kritisch merkt der Rezensent an, Leven halte eine „erstaunlich hohe Produktivität“, und die Gefahr, dass er sich wiederhole, sei durchaus gegeben. Dennoch könne jeder einen neuen – „oder sollen wir sagen uralten“ – Blick auf den Mann gebrauchen, zehn Jahre nachdem der norwegische staatliche Männerrollenausschuss gescheitert sei, ohne sichtbare Spuren zu hinterlassen. Eine Bildunterschrift hält fest, die Melodien der neuen Platte seien laut dem Rezensenten zeitweise „umwerfend schön“.
 
 ## Zitate
-> "«Poortoun» direkte smellvakker" – über den Höhepunkt des Albums.
+> "Likevel er dette først og fremst en poetisk, vakker plate. Musikken har dype, keltiske røtter. Melodiene er sterke, «Poortoun» direkte smellvakker." – Børhaug über das Album
+> "just boys trapped in men’s lives, pretending to be men" – Leven über die „harten Männer“ seiner Lieder (im Artikel auf Englisch zitiert)
+> "Leven holder en forbausende høy produktivitet, og faren for at han gjentar seg selv er absolutt til stede." – Einschränkung des Rezensenten
+
+## Widersprüche / Anmerkungen
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

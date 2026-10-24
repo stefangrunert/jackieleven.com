@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Nolans Buch über das Sex-Pistols-Konzert in Manchester 1976 heißt es von einem Zeitzeugen, er habe später mit Leven gearbeitet, dem früheren Sänger der „Scottish New Wave/folk nutcases“ Doll by Doll.
+
 ## Inhalt
-Über das Sex-Pistols-Konzert in Manchester 1976 und seine Folgen. Von einem der Zeitzeugen heißt es, er habe später mit Leven gearbeitet, dem früheren Sänger der „Scottish New Wave/folk nutcases“ Doll by Doll, und mit seiner Band The Philistines getourt.
+In *I Swear I Was There* (Milo Books, 2001), Dave Nolans Buch über das Sex-Pistols-Konzert in Manchester 1976 und seine Folgen, heißt es von einem der Zeitzeugen, er habe später mit Jackie Leven gearbeitet, dem früheren Sänger der „Scottish New Wave/folk nutcases“ Doll by Doll, und sei mit seiner Band The Philistines getourt. Welcher Zeitzeuge gemeint ist, geht aus dem vorliegenden Ausschnitt nicht hervor.
 
 ## Widersprüche / Anmerkungen
 - Wer gemeint ist, zeigt das Snippet nicht.

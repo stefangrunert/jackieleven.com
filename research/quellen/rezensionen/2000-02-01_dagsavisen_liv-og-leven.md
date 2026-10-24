@@ -11,14 +11,25 @@ url: "https://urn.nb.no/URN:NBN:no-nb_digavis_dagsavisen_null_null_20000201_116_
 archiv: ""
 erreichbarkeit: "live"
 sicherheit: "belegt"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 27, OCR"
 ---
 
+## Kurz
+Geir Rakvaag nennt *Defending Ancient Springs* „sehr fein“, aber nicht neu genug gegenüber den beiden Vorgängern – der Preis dafür, so sehr ein Eigener zu sein; Höhepunkt sei der Schluss „Morbid Sky“ mit David Thomas.
+
 ## Inhalt
-Leven sei sich auf dem neuen Album treu: gefühlsgeladene Lieder über Männer, Frauen und die große Einsamkeit danach, eröffnet mit Phil Spectors „You've Lost That Lovin' Feelin'". Dabei sind David Thomas (Pere Ubu) am Akkordeon und eine Band mit früheren Mitgliedern von James, The Christians und Lighthouse Family. Stärkstes Stück sei vielleicht das abschließende „Morbid Sky", eigentlich ein Auftritt mit David Thomas' Pale Orchestra mit Leven in der Besetzung. Tenor: sehr schöne Songs, aber nicht verschieden genug von den beiden „fast formidablen" Vorgängern. Hinweis auf das Oslo-Konzert am 28. Februar und eine anschließende Norwegen-Tour.
+Geir Rakvaag bespricht in der Dagsavisen *Defending Ancient Springs* (Cooking Vinyl/MNW). Leven sei „sich selbst gleich“, mit einer Reihe gefühlsgeladener Lieder über Männer und Frauen und die große Einsamkeit, die danach kommt. Er beginne mit Phil Spectors „You've Lost That Loving Feeling“, um klarzumachen, wo er stehe, und setze mit schmerzhaften, aber sehr poetischen Beobachtungen über die alltäglichsten Plagen des Lebens fort.
+
+Mit dabei sind David Thomas von Pere Ubu am Akkordeon und eine Band aus früheren Mitgliedern von James, The Christians und Lighthouse Family, ohne dass es am Ende um etwas anderes ginge als das Leben Levens in seinem charakteristischen Folkrock. Die einzige Ausnahme sei das Schlusslied „Morbid Sky“, eigentlich ein Mitschnitt aus einem Auftritt von David Thomas' Pale Orchestra mit Leven in den Reihen, vielleicht der stärkste Beitrag des Albums.
+
+Rakvaags Urteil: Die neuen Lieder seien sehr schön, aber nicht anders genug im Verhältnis zu den beiden vorigen, nahezu großartigen Platten – möglicherweise der Preis dafür, so sehr etwas für sich zu sein. Am 28. Februar spielt Leven in Oslo und geht danach auf Tournee durchs Land.
 
 ## Zitate
-> "God grunn til å heve glasset for Jackie Leven en gang til." – Fazit.
+> "De nye sangene til Jackie Leven er svært fine, men ikke annerledes nok i forhold til de nærmest formidable to foregående platene hans. Det er kanskje prisen å betale for å være så til de grader noe for seg selv." – Geir Rakvaags Urteil.
+> "Jackie Leven er seg selv lik på sitt nye album, med en rekke følelsesladede sanger om menn og kvinner og den store ensomheten som kommer etterpå." – Eröffnung der Kritik.
+
+## Widersprüche / Anmerkungen
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

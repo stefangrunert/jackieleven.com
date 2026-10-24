@@ -17,9 +17,13 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Rockols Tagesprogramm für Dienstag, den 16. März 1999, nennt für 20.30 Uhr auf TMC2 die Sendung „Roxy Bar“ mit Jackie Leven, Puertorico, Carmen Consoli und Negrita.
 
-Der Tagesprogrammführer kündigt für 20.30 Uhr auf TMC2 „Roxy Bar“ mit Jackie Leven, Puertorico, Carmen Consoli und Negrita an. Damit liegt ein zeitgenössischer Programmbeleg für einen italienischen Fernsehtermin am 16. März 1999 vor.
+## Inhalt
+Die Meldung ist ein Fernsehprogrammhinweis der italienischen Musikseite Rockol unter dem Titel „La musica in televisione martedì 16 marzo“. Für 20.30 Uhr kündigt sie auf dem Sender TMC2 die Sendung „Roxy Bar“ an, in der neben Jackie Leven die Gruppen und Künstler Puertorico, Carmen Consoli und Negrita auftreten oder zu Gast sind.
+
+Der Eintrag nennt damit einen italienischen Fernsehtermin Levens. Er ist eine reine Ankündigung: Welche Lieder oder Gesprächsbeiträge Leven beisteuerte und ob er tatsächlich auftrat, geht daraus nicht hervor, und ein Mitschnitt der Sendung ist nicht bekannt.
 
 ## Zitate
 

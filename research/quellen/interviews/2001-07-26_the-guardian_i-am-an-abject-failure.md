@@ -30,6 +30,11 @@ Gespräch bei einem Pint im Bahnhof Marylebone. Aizlewood beginnt mit Levens jä
 > "I'm a nutter magnet because I'm a former nutter" – Leven über seltsame Begegnungen.
 > "I'm comfortable down among the dead men" – Leven über fehlenden Erfolg.
 
+## Beleg
+> Doll By Doll was reviled
+de: Doll by Doll wurden geschmäht – Levens eigene Rückschau von 2001, keine zeitgenössische Kritik.
+en: Leven's own retrospective view in 2001, not a contemporary review.
+
 ## Widersprüche / Anmerkungen
 - Überfallversion „slashed across the throat“ in Islington widerspricht der Strangulations-Version anderer Interviews (s. 08-interviews-selbstzeugnisse.md, Widersprüche).
 - Abschrift: Kopfzeile „Jakie Leven talks to John Aislewood“ (Tippfehler); Text ansonsten vollständig.

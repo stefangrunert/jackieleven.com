@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In dem Edinburgher Kochbuch *Cookin’* mit Beiträgen von Musikern und Schriftstellern steuert Leven das Rezept „Leven’s Paxiot Evening Lamb“ bei, ein griechisches Lammgericht, benannt nach der Insel Paxos.
+
 ## Inhalt
-Edinburgher Kochbuch mit Beiträgen von Musikern und Schriftstellern (u. a. Boo Hewerdine, Brian Kellock, Colin MacIntyre). Leven steuert ein eigenes Rezept bei, „Leven's Paxiot Evening Lamb“ – ein griechisches Lammgericht, benannt nach Paxos, wo heute eine Gedenkbank für ihn steht. In einem anderen Beitrag (offenbar von Ian Rankin) erzählt der Autor, Leven habe sich bei ihm gemeldet, nachdem er sich in einem seiner Romane erwähnt fand.
+Das Edinburgher Kochbuch (2006) versammelt Rezepte von Musikern und Schriftstellern, darunter Boo Hewerdine, Brian Kellock und Colin MacIntyre. Jackie Leven steuert ein eigenes Rezept bei, „Leven’s Paxiot Evening Lamb“, ein griechisches Lammgericht, benannt nach der Insel Paxos, auf der heute eine Gedenkbank für ihn steht.
+
+In einem anderen Beitrag, offenbar von Ian Rankin, erzählt der Autor, Leven habe sich bei ihm gemeldet, nachdem er sich in einem seiner Romane erwähnt gefunden hatte. Ob das Buch einem wohltätigen Zweck diente, ist nicht gesichert.
 
 ## Neue Fakten / Anekdoten
 - Levens Rezeptbeitrag mit Paxos-Bezug ist in research/ nicht erwähnt.

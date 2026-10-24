@@ -17,9 +17,11 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Im irischen Forum boards.ie eröffnet ein Nutzer nach Levens Tod einen Gedenk-Thread, würdigt ihn als unterschätzten Sänger, Gitarristen und Songwriter und empfiehlt seinen Katalog einschließlich Doll by Doll.
 
-Der Verfasser würdigt Leven als unterschätzten Sänger, Gitarristen und Songwriter und empfiehlt den Katalog einschließlich Doll by Doll. Die öffentlich aufgerufene Seite zeigt den Ausgangspost, aber keine Antworten.
+## Inhalt
+Der Eröffnungsbeitrag des Threads „Jackie Leven R.I.P.“ im irischen Forum boards.ie, eingestellt am 15. November 2011, einen Tag nach Levens Tod, stammt vom Nutzer „wezzopalooza“. Der Verfasser würdigt Leven als unterschätzten Sänger, Gitarristen und Songwriter und legt den Mitlesern nahe, seinen Katalog zu entdecken, ausdrücklich einschließlich der Alben von Doll by Doll. Die öffentlich abrufbare Seite zeigte nach den vorliegenden Angaben nur diesen Ausgangsbeitrag, keine Antworten. Der Text ist ein kurzer Nachruf im Forenton und enthält keine neuen biografischen Angaben.
 
 ## Zitate
 

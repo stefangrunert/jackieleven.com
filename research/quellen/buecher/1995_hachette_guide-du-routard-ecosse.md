@@ -17,8 +17,13 @@ bezug: ["03-stille-jahre-core-trust.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Der französische Reiseführer Guide du routard: Écosse widmet Leven einen Kasten: Das Leben dieses Mannes aus dem „Königreich Fife“ sei ein Roman; er gründete Doll by Doll und den Core Trust, unterstützt von Eric Clapton, Genesis und Prinzessin Diana.
+
 ## Inhalt
-Der französische Reiseführer bringt im Schottland-Band einen Kasten über Leven: Das Leben dieses Mannes aus dem „royaume de Fife“ sei ein Roman; er habe mit Doll by Doll eine der besten schottischen Rockbands gegründet, deren vielversprechende Karriere nach vier Alben abbrach; um Süchtigen zu helfen, gründete er den Core Trust, unterstützt von Eric Clapton, Genesis und Prinzessin Diana. Ein ungewöhnlich früher und touristischer Ort für ein Leven-Porträt (Mitte der 1990er).
+Der Schottland-Band der Reiseführerreihe *Le Guide du routard* (Hachette, Paris; Ausgaben 1996–1997 und 1999) enthält einen Kasten über Jackie Leven. Das Leben dieses Mannes aus dem „royaume de Fife“ sei ein Roman: Er habe mit Doll by Doll eine der besten schottischen Rockbands gegründet, deren vielversprechende Karriere nach vier Alben abbrach. Um Süchtigen zu helfen, gründete er den Core Trust, unterstützt von Eric Clapton, Genesis und Prinzessin Diana.
+
+Dass ein Reiseführer der Mitte der Neunziger einen Musiker so porträtiert, ist ungewöhnlich; Levens Lebensgeschichte galt offenbar als erzählenswerter Teil Schottlands.
 
 ## Widersprüche / Anmerkungen
 - Auch in der Ausgabe 1999 enthalten.

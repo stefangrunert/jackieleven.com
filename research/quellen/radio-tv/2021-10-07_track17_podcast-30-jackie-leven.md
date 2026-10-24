@@ -17,9 +17,18 @@ bezug: []
 gefunden_ueber: "iTunes-Search-API (Podcast-Episoden) \"jackie leven\""
 ---
 
+## Kurz
+Folge 30 des Podcasts Track17: rund 14 Minuten über die Compilation zu Ehren Jackie Levens (*Straight Outta Caledonia*); angekündigt als „Geschichte über Begeisterung, über Vorurteile und über Ignoranz“.
+
 ## Inhalt
-Deutscher Musikpodcast; der Abschnitt ab 00:57:21 (rund 14 Minuten) behandelt „Jackie Leven // Straight Outta Caledonia (School Daze)“, eine 2021 erschienene Kompilation „zu Ehren des schottischen Songwriters“. Die Shownotes kündigen „eine Geschichte über Begeisterung, über Vorurteile und über Ignoranz“ an. Audio: https://audio.podigee-cdn.net/559964-m-f151dee5d13e00b029b181d6ffac9e16.mp3
+Die 30. Folge des Podcasts „Track17 – Der Musikpodcast“ (7. Oktober 2021, 1 Std. 19 Min.) mit der Gästin Julia Lorenz bespricht fünf Alben: Tirzah (*Colourgrade*), Kedr Livanskiy (*Liminal Soul*), Moor Mother (*Black Encyclopedia of the Air*), Shackleton (*Departing Like Rivers*) und, als letzten Block ab 00:57:21, „Jackie Leven // Straight Outta Caledonia“ (School Daze). Die Shownotes kündigen dazu „eine Geschichte über Begeisterung, über Vorurteile und über Ignoranz“ an: Man spreche über die neue Compilation, die zu Ehren des schottischen Songwriters Jackie Leven kompiliert wurde. Der Abschnitt dauert gut vierzehn Minuten. In der Playlist zum Podcast ist von Leven das Stück „The Sexual Loneliness of Jesus Christ“ aufgeführt.
+
+Mehr als diese Angaben liefert die Episodenbeschreibung nicht; die Audiodatei wurde nicht gehört, Inhalt und Urteil der Sprecher sind deshalb nicht wiedergegeben.
+
+## Zitate
+> "Und dann wäre da noch eine Geschichte über Begeisterung, über Vorurteile und über Ignoranz. Wir sprechen über die neue Compilation, die zu Ehren des schottischen Songwriters Jackie Leven kompiliert wurde." – Aus den Shownotes der Folge.
 
 ## Widersprüche / Anmerkungen
 - Nicht gehört. Die Shownotes nennen die Platte eine Compilation zu Ehren Levens; „Straight Outta Caledonia“ erscheint in der YouTube-Fundliste als Leven-Album (Topic-Kanal) – mit 05-diskografie.md abgleichen; nicht mit dem Tributalbum „The Wanderer“ verwechseln.
 - Überschneidung mit dem Bereich „deutsch“.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

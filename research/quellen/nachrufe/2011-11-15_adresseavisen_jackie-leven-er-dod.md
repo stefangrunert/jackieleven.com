@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "WebSearch \"Jackie Leven\" (Domainfilter adressa.no u. a.); Metadaten per curl (og:description, article:published_time)"
 ---
 
+## Kurz
+Die Trondheimer Zeitung Adresseavisen meldet am 15. November 2011 den Tod des „Trondheimsfreundes“ Jackie Leven; nur der Vorspann ist frei lesbar.
+
 ## Inhalt
-Todesmeldung der Trondheimer Zeitung vom 15.11.2011, 13.38 Uhr, verfasst vom Musikjournalisten Vegard Enlid. Sichtbar ist nur der Vorspann: Der schottische Troubadour und „Trondheimsfreund“ Jackie Leven sei am Montag gestorben. Der Text selbst liegt hinter der Abo-Schranke.
+Die Adresseavisen (Trondheim) meldet am 15. November 2011 um 13.38 Uhr unter der Überschrift „Jackie Leven er død“ den Tod des schottischen Troubadours, den sie einen „Trondheimsfreund“ nennt: Er sei am Montag gestorben. Verfasser ist der Musikjournalist Vegard Enlid.
+
+Sichtbar ist nur der Vorspann; der eigentliche Text liegt hinter der Bezahlschranke der Zeitung und blieb ungelesen. Schon die Bezeichnung „Trondheimsfreund“ deutet an, dass Leven dort als Gast in Erinnerung war.
 
 ## Widersprüche / Anmerkungen
 - Nur Titel, Autor, Zeitstempel und Vorspann aus den Seitenmetadaten gelesen. Die gedruckte Fassung dürfte im NB-Bestand (Adresseavisen 15./16.11.2011) stehen, nur über nb.no mit norwegischem Zugang.

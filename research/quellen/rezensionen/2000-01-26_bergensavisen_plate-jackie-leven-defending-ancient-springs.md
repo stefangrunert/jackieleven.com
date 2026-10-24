@@ -17,11 +17,18 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 32, OCR"
 ---
 
+## Kurz
+Tore Bø nennt *Defending Ancient Springs* melancholisch und resigniert: Das Eröffnungs-Cover reicht nicht an die Righteous Brothers heran, „Single Father“ aber sei wohl Levens schönstes Lied; Hinweis auf das Konzert am 1. März.
+
 ## Inhalt
-Kurze, wohlwollende Plattenkritik: Über dem Album liege eine überwiegend melancholische, resignierte Stimmung. Das eröffnende Cover von „You've Lost That Lovin' Feelin'" klinge gut, halte aber den Vergleich mit den Righteous Brothers nicht aus; „Single Father" sei dagegen wohl der schönste Song, den Leven je geschrieben habe (Grauwetter, Nebel, verlorene Liebe, verschwundene Industriearbeitsplätze), „I Saw My Love Walk Into Clouds" schottischer Soul in Bestform. Hinweis auf das Konzert am 1. März im Bergener Lokal Den Stundesløse („Stundik'en").
+Tore Bø bespricht in Bergensavisen *Defending Ancient Springs* (Cooking Vinyl/MNW) in einer kurzen, wohlwollenden Plattenkritik. Über Levens neuester Platte liege eine überwiegend melancholische und resignierte Stimmung. Den Ton setze das Eröffnungsstück, eine Coverversion von „You've Lost That Loving Feeling“. Sie klinge gut, halte aber dem Vergleich mit der klassischen Fassung der Righteous Brothers nicht stand.
+
+Dagegen sei Levens eigenes „Single Father“ wahrscheinlich das schönste Lied, das er je geschrieben habe: voller Grauwetter, Nebel und verlorener Liebe, es erzähle von verlorenen Industriearbeitsplätzen und von einer Sorte Mensch, die einfach verschwunden sei. „I Saw My Love Walk Into Clouds“ sei schottische Soulmusik in ihrer wirkungsvollsten Form. Zum Schluss der Hinweis, man könne den Mann am 1. März live im Bergener Lokal Stundik'en erleben – „Be there“, wie es auf Neunorwegisch heiße.
 
 ## Zitate
-> "sannsynligvis den nydeligste låt han noensinne har skrevet" – über „Single Father".
+> "Derimot er Levens egen “Single Father” sannsynligvis den nydeligste låt han noensinne har skrevet. En låt full av gråvær, tåke og tapt kjærlighet." – Tore Bø über „Single Father“.
+> "Det er en overveiende melankolsk og resignert stemning over Jackie Levens siste plate." – Tore Bø zum Gesamteindruck des Albums.
 
 ## Widersprüche / Anmerkungen
 - Im OCR „Anclent Springs"; Titel des Songs im Blatt „I Saw My Love Walk Into Clouds".
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

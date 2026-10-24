@@ -91,7 +91,7 @@ foreach (SPRACHEN as $s) {
         );
     }
     foreach ([
-        '1971-dorset' => '1973-control',
+        '1971-dorset' => '1975-control',
         '1977-doll-by-doll' => '1979-remember',
         '1978-bristol-gardens' => '1979-gypsy-blood-album',
         '1983-caledonian-road' => '1982-grand-passion',

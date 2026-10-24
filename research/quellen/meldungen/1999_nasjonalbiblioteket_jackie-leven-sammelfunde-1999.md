@@ -17,12 +17,15 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser, tidsskrift), Inhaltssuche je Ausgabe; OCR nur bei frei zugänglichen Ausgaben"
 ---
 
+## Kurz
+1999 erwähnen norwegische Zeitungen Jackie Leven nur beiläufig: Hörtipps, Rückblicke auf Blues-Kurse und eine Top-10-Liste eines Bodøer Fans, aber kein Konzert und kein neues Album.
+
 ## Inhalt
-1999 verzeichnet die Suche nur 14 Ausgaben, davon 6 frei lesbar – ein deutlicher Rückgang nach den Norwegenjahren 1995–1998. Ein Norwegenkonzert 1999 ist in den Funden nicht belegt; *The Argyll Cycle*-Nachfolger oder ein neues Album erscheinen in der norwegischen Presse nicht. Die frei lesbaren Treffer sind Nennungen: ein Skirennläufer, der Leven hört (NTB, zwei Blätter), ein Rückblick auf die ausgebuchten Ole-Blues-Kurse vom Herbst 1998, die Top 10 des Bodøer Fans Thor-Arne Brekke mit *Forbidden Songs of the Dying West* und zwei Randnennungen. Keine Einzeldatei.
+Nach den starken Norwegen-Jahren 1995 bis 1998 ist 1999 in der norwegischen Presse ein deutlicher Rückgang zu beobachten: Die Volltextsuche der Nationalbibliothek verzeichnet nur 14 Ausgaben, die Jackie Leven nennen. Ein Norwegen-Konzert Levens in diesem Jahr lässt sich daraus nicht belegen, ebenso wenig ein neues Album.
 
-Konzerte 1999 laut Funden: keine.
+Die frei lesbaren Treffer sind Nennungen: Im Februar nennen mehrere Zeitungen (Fremover, Nordlands Framtid) in einem NTB-Sporttext, dass der Skirennläufer Lasse Paulsen zur Entspannung unter anderem Jackie Leven hört. Die Bergensavisen blickt am 17. März auf die ausgebuchten Ole-Blues-Seminare des Herbstes 1998 mit Leven und Nils Lofgren zurück, deren Wartelisten lang waren. Im Juli erwähnt die Lofotposten Cooking Vinyl als Label von XTC und Leven im Zusammenhang mit den Neuauflagen von Andy White. Im Oktober porträtiert die Nordlandsposten einen Leser in Bodø, dessen Top 10 *Forbidden Songs of the Dying West* enthält; im November nennt das Jærbladet Leven als Hörempfehlung einer Sängerin.
 
-Gesperrte Treffer (nur über nb.no mit norwegischem Zugang): sieben LIBRARY-Ausgaben und eine NB-Ausgabe mit je 1–3 Nennungen (u. a. Strilen 22.01.1999); keine mit Hinweis auf längere Artikel.
+Weitere Nennungen in Bergens Tidende, Stavanger Aftenblad, Strilen und Hallingdølen sind nur über die Nationalbibliothek zugänglich und deuten nach Umfang (je ein bis drei Nennungen) nicht auf längere Artikel. Die Summe: Leven blieb im Hintergrund präsent, aber nicht im Mittelpunkt.
 
 ## Übrige Treffer 1999 (ohne eigene Datei)
 
@@ -38,7 +41,7 @@ Zugang: „frei“ = überall lesbar; „Bibliothek“/„nur NB“/„nur Norwe
 | 1999-07-29 | Lofotposten (Svolvær: 1896-) | 26 | frei | Nennung: Cooking Vinyl als Label von XTC und Leven (Andy-White-Reissues) | https://urn.nb.no/URN:NBN:no-nb_digavis_lofotposten_null_null_19990729_104_171_1 |
 | 1999-02-04 | Nordlands framtid | 20 | frei | Nennung: Skirennläufer Lasse Paulsen hört Jackie Leven (syndiziert) | https://urn.nb.no/URN:NBN:no-nb_digavis_nordlandsframtid_null_null_19990204_90_29_1 |
 | 1999-02-11 | Stavanger aftenblad | 69 | Bibliothek | nicht frei lesbar (1 Nennung) | https://urn.nb.no/URN:NBN:no-nb_digavis_stavangeraftenblad_null_null_19990211_107_35_1 |
-| 1999-10-30 | Nordlandsposten | 63 | frei | Leserporträt Thor-Arne Brekke (Bodø): Top 10 mit Forbidden Songs of the Dying West | https://urn.nb.no/URN:NBN:no-nb_digavis_nordlandsposten_null_null_19991030_137_251_1 |
+| 1999-10-30 | Nordlandsposten | 63 | frei | Leserporträt eines Fans aus Bodø: Top 10 mit Forbidden Songs of the Dying West | https://urn.nb.no/URN:NBN:no-nb_digavis_nordlandsposten_null_null_19991030_137_251_1 |
 | 1999-03-17 | Bergens Tidende | 54 | Bibliothek | nicht frei lesbar (1 Nennung) | https://urn.nb.no/URN:NBN:no-nb_digavis_bergenstidende_null_null_19990317_132_75_1 |
 | 1999-11-21 | Bergens Tidende | 26 | Bibliothek | nicht frei lesbar (1 Nennung) | https://urn.nb.no/URN:NBN:no-nb_digavis_bergenstidende_null_null_19991121_132_315_1 |
 | 1999-05-20 | Bergens Tidende | 85 | Bibliothek | nicht frei lesbar (1 Nennung) | https://urn.nb.no/URN:NBN:no-nb_digavis_bergenstidende_null_null_19990520_132_132_1 |

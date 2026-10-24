@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Künstlerseite Jackie Leven (öffentliche Metadaten)"
 ---
 
+## Kurz
+David Burke interviewt Jackie Leven für R2 (Rock’n’Reel), Januar 2009: Leven spricht offen über seine schwierigen frühen Jahre und seine Heroinerfahrung und sagt, er könnte vier Alben im Jahr machen, wenn man ihn ließe.
+
 ## Inhalt
-Interview von David Burke für das britische Folk-/Rockmagazin R2 (Rock'n'Reel), Ausgabe Januar 2009, im Volltext (1.946 Wörter) nur bei Rock's Backpages hinter der Paywall. Laut öffentlichem Anriss erzählt Leven offen von seinen schwierigen frühen Jahren und seiner Heroinerfahrung und erklärt, er könnte vier Alben im Jahr machen, wenn man ihn ließe.
+Das Interview „Outside In“ von David Burke erschien in der Januarausgabe 2009 des britischen Folk- und Rockmagazins R2 (Rock’n’Reel). Es umfasst fast 1.950 Wörter und liegt im Volltext nur beim Archiv Rock’s Backpages hinter einer Bezahlschranke. Laut dem öffentlichen Anriss erzählt Leven offen von seinen schwierigen frühen Jahren und seiner Heroinerfahrung. Er erklärt außerdem, er könnte vier Alben im Jahr machen, wenn man ihn ließe – eine Aussage, die zu seiner bekannten Produktivität passt.
+
+Weitere Einzelheiten des Gesprächs sind nicht bekannt.
 
 ## Widersprüche / Anmerkungen
 - Nur Metadaten und Anriss gesehen; Inhalt nicht geprüft. Zeitlich passend zur Haunted-Year-Reihe 2009 (Themenangabe erschlossen).

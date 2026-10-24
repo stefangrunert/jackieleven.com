@@ -69,7 +69,7 @@ php werkzeug/kolumnen.php              # Bestand, Wortlaut, Chronologie und Navi
 
 ## Diskographie
 
-Die **Diskographie** unter `/de/diskografie` bzw. `/en/discography` führt durch 88 Einträge von 1973 bis 2024: John St. Field, Doll by Doll, Concrete Bulletproof Invisible, Jackie Leven, Sir Vincent Lone und Jackie Balfour, außerdem Haunted Valley, Kooperationen und spätere Ausgaben. Der Jahreszeitstrahl folgt der Leseposition; die Auswahl nach Projekt und Veröffentlichungsart aktualisiert auch die Jahresnavigation. Bestehende Sprunglinks zu einzelnen Einträgen bleiben gültig; Sprachwechsel erhalten die Auswahl. Ohne JavaScript bleibt der gesamte Katalog lesbar.
+Die **Diskographie** unter `/de/diskografie` bzw. `/en/discography` führt durch 88 Einträge von 1975 bis 2024: John St. Field, Doll by Doll, Concrete Bulletproof Invisible, Jackie Leven, Sir Vincent Lone und Jackie Balfour, außerdem Haunted Valley, Kooperationen und spätere Ausgaben. Der Jahreszeitstrahl folgt der Leseposition; die Auswahl nach Projekt und Veröffentlichungsart aktualisiert auch die Jahresnavigation. Bestehende Sprunglinks zu einzelnen Einträgen bleiben gültig; Sprachwechsel erhalten die Auswahl. Ohne JavaScript bleibt der gesamte Katalog lesbar.
 
 Cover und Titel öffnen eine eigene Ausgabenseite, beispielsweise `/de/diskografie/1999-greek-notebook`. Sie zeigt Fakten, Titelliste und belegte Credits ohne Hintergrundtexte. Ihr Zeitstrahl führt zu einzelnen Ausgaben; Vor- und Zurückblättern folgt der aktuellen Filterauswahl. Die Rückkehr zur Übersicht erhält Filter, geöffnete Quellen und Leseposition – auch über den Zurück-Knopf des Browsers. Dafür werden der Verlaufseintrag und der Sitzungsspeicher im Browser verwendet; ohne JavaScript bleiben Detailseiten und Navigation zugänglich.
 
@@ -179,23 +179,27 @@ php werkzeug/livevideos.php --vorschau # alle Vorschaubilder neu erzeugen
 
 ## Stimmen: externe Quellen
 
-`/de/stimmen` bzw. `/en/voices` zeigt, was andere über Jackie geschrieben und gesagt haben: 709 Interviews,
+`/de/stimmen` bzw. `/en/voices` zeigt, was andere über Jackie geschrieben und gesagt haben: 739 Interviews,
 Kritiken, Porträts, Konzertberichte, Nachrufe, Erinnerungen, Sendungen, Foren und Bücher von 1978 bis heute,
 im Zeitstrahl wie die Diskographie und filterbar nach Art, Sprache und Zugang (frei lesbar, online, Webarchiv,
 Bezahlschranke, verloren). Grundlage ist die Recherche in `research/quellen/` (eine Datei je Quelle, eigene
 Inhaltsangabe); das Konzept steht in `research/ressourcen-seite-konzept.md`.
 
-`werkzeug/quellen.php` erzeugt daraus `app/data/quellen.json`. Öffentlich werden nur Kopfdaten, die eigene
-Inhaltsangabe und kurze Zitate im Original; Fundweg, Sicherheit, Widersprüche und Verweise auf Arbeitsdateien
-bleiben intern. Stufen: 27 ausgewählte Quellen (Liste im Werkzeug), das Verzeichnis mit eigener Detailseite und
+`werkzeug/quellen.php` erzeugt daraus `app/data/quellen.json`. Öffentlich werden Kopfdaten, die eigene,
+ausführliche Inhaltsangabe und wörtliche Zitate im Original, auch längere; Fundweg, Sicherheit, Widersprüche und
+Verweise auf Arbeitsdateien bleiben intern. Quellen, die einen verbreiteten Irrtum widerlegen (etwa das
+Erscheinungsjahr von *Control*), tragen zusätzlich einen Abschnitt **Korrektur** und einen **Beleg** mit dem
+Originalwortlaut und einer Übersetzung. Stufen: 32 ausgewählte Quellen (Liste im Werkzeug), das Verzeichnis mit eigener Detailseite und
 „weitere Quellen“, die je Jahr eingeklappt direkt aufs Original verweisen; Quellen, die nur aus zweiter Hand
 bekannt sind, bleiben intern. Ein Feld `stufe:` im YAML-Kopf einer Quelle geht der Regel vor. Rezensionen sind
 über die Albumtitel den Ausgaben zugeordnet und erscheinen dort als „Pressestimmen“.
 
 Norwegische Zeitungsartikel stellt die Nationalbibliothek je Ausgabe teils unter CC BY-NC-ND oder CC BY-NC
 frei. `--lizenzen` fragt das über `api.nb.no` ab und speichert es in `app/data/quellen-lizenzen.json`; frei
-lizenzierte Artikel sind als „frei lesbar“ gekennzeichnet und tragen Namensnennung und Lizenz. Die Inhaltsangaben
-gibt es bisher nur auf Deutsch; die englische Seite zeigt sie mit Hinweis und `lang="de"`. Die Seiten laden
+lizenzierte Artikel sind als „frei lesbar“ gekennzeichnet und tragen Namensnennung und Lizenz. Die englischen
+Fassungen stehen in `app/data/quellen-en.json`, je Quelle mit einer Prüfsumme des deutschen Texts; ändert sich
+dieser, gilt die Übersetzung als veraltet. Die englische Seite fällt nie auf Deutsch zurück, und
+`werkzeug/stimmen.php` schlägt fehl, solange einer Quelle mit eigener Seite die englische Fassung fehlt. Die Seiten laden
 keine Bilder und nichts von außen; die Übersicht ist ungepackt rund 490 KB groß, der Server sollte gzip liefern.
 
 ```sh

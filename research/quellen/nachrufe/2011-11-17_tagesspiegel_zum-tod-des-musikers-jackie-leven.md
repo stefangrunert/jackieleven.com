@@ -17,11 +17,16 @@ bezug: ["07-nachrufe-vermaechtnis.md"]
 gefunden_ueber: "DuckDuckGo \"Jackie Leven\" Nachruf; Nennung in 07-nachrufe-vermaechtnis.md"
 ---
 
+## Kurz
+Der Berliner Musikjournalist H. P. Daniels würdigt im Tagesspiegel Leven als Songschreiber, der auch in den dunkelsten Lebensphasen nie aufhörte zu schreiben und mit den Jahren „immer wuchtiger“ und „immer besser“ wurde.
+
 ## Inhalt
-Nachruf des Berliner Musikjournalisten H.P. Daniels (Stand 17.11.2011, 21.12 Uhr). Frei lesbar sind nur Vorspann und erster Absatz: Leven habe nie aufgehört, Songs zu schreiben, auch in den dunkelsten Lebensphasen; er sei mit den Jahren körperlich wie künstlerisch „immer wuchtiger“ und „immer besser“ geworden. Der Rest liegt hinter der Bezahlschranke (Tagesspiegel Plus). Laut 07-nachrufe-vermaechtnis.md (nach musikreviews.de 2024) betont der Text Kunst, Literatur, Gedichte und die Mischung aus Zorn, Schmerz, Trauer, Trost, Lust und Humor in Levens Liedern.
+Der Nachruf (Stand 17. November 2011, 21.12 Uhr) von H. P. Daniels, Berliner Musikjournalist, ist nur in Vorspann und erstem Absatz frei lesbar; der Rest liegt hinter der Bezahlschranke (Tagesspiegel Plus). Darin heißt es, Leven habe nie aufgehört, Songs zu schreiben, auch nicht in den dunkelsten Phasen seines Lebens, und er sei mit den Jahren körperlich wie künstlerisch „immer wuchtiger“ und „immer besser“ geworden.
+
+Über den ersten Absatz hinaus gibt es nur eine Zweitquelle: Nach einer Besprechung auf musikreviews.de (2024) betont der Text Kunst, Literatur und Gedichte sowie die Mischung aus Zorn, Schmerz, Trauer, Trost, Lust und Humor in Levens Liedern. Der Volltext wurde nicht eingesehen, der Nachruf hat zudem einen Berlin-Bezug (Levens Berliner Konzerte).
 
 ## Zitate
-> "Immer wuchtiger wurde er mit der Zeit, immer besser." – über Levens späte Jahre.
+> "Immer wuchtiger wurde er mit der Zeit, immer besser." – H. P. Daniels über Levens späte Jahre
 
 ## Widersprüche / Anmerkungen
 - Volltext nicht eingesehen (Paywall); Inhaltsangabe über den ersten Absatz hinaus nur aus Zweitquelle (musikreviews.de, Rezension „Live Or Die“, 2024).

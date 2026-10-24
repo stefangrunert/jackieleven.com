@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Wikidata Q432870; GND Linked Data (lds.ttl), id.loc.gov MARCXML"
 ---
 
+## Kurz
+Die Normdatensätze von DNB (GND), Library of Congress und VIAF führen Jackie Leven mit Lebensdaten (18.6.1950 Kirkcaldy – 14.11.2011), der Verbindung zu Doll by Doll und drei eigenen Pseudonymsätzen.
+
 ## Inhalt
-**GND 134444035** (DNB, angelegt 04.04.1998, zuletzt geändert 14.07.2022): differenzierte Person „Leven, Jackie“, 18.06.1950 – 14.11.2011, Geburtsort-Verknüpfung, Beziehung zur Körperschaft **Doll by Doll** (GND 10276696-4, ebenfalls 1998 angelegt) und – seit 09.02.2022 – drei eigene Pseudonymsätze: „Balfour, Jackie“ (1251441432), „Lone, Vincent“ (1251441548) und „St. Field, John“ (125144167X), mit Hinweis „Weitere Titel ggf. unter dem wirklichen Namen bzw. den weiteren Pseudonymen“. Die frühe Anlage 1998 zeigt, dass die DNB Leven-Tonträger schon in der Cooking-Vinyl-Zeit katalogisierte (deutscher Markt). **LCCN no2009121313** (Library of Congress, Name Authority): erstellt aus einem „Cooking Vinyl America sampler“ (199-), Lebensdaten nach der Guardian-Website vom 15.11.2011 („b. 18 June 1950, Kirkcaldy, Fife; d. 14 Nov. 2011; singer-songwriter“). **VIAF 43052884** bündelt diese Sätze mit BnF 141988822, NKC xx0201518 und Canadiana. URLs: https://id.loc.gov/authorities/names/no2009121313.html, https://viaf.org/viaf/43052884.
+Die Gemeinsame Normdatei (GND) der Deutschen Nationalbibliothek führt Leven unter der Nummer 134444035 als differenzierte Person „Leven, Jackie“ mit den Lebensdaten 18. Juni 1950 bis 14. November 2011. Der Datensatz wurde bereits am 4. April 1998 angelegt – die DNB katalogisierte Leven-Tonträger also schon in der Cooking-Vinyl-Zeit – und zuletzt am 14. Juli 2022 geändert. Er verweist auf die Körperschaft Doll by Doll (GND 10276696-4, ebenfalls 1998 angelegt) und seit dem 9. Februar 2022 auf drei eigene Pseudonymsätze: „Balfour, Jackie“, „Lone, Vincent“ und „St. Field, John“, mit dem Hinweis, weitere Titel seien gegebenenfalls unter dem wirklichen Namen oder den übrigen Pseudonymen zu finden.
+
+Der Normdatensatz der Library of Congress (LCCN no2009121313) entstand aus einem „Cooking Vinyl America sampler“ und übernimmt die Lebensdaten aus der Website des Guardian vom 15. November 2011 („b. 18 June 1950, Kirkcaldy, Fife; d. 14 Nov. 2011; singer-songwriter“). Die Virtual International Authority File (VIAF 43052884) bündelt diese Sätze mit denen der französischen Nationalbibliothek, der tschechischen Nationalbibliothek und von Canadiana. Für die Wikidata- und GND-Einträge sind zwei ISNI-Nummern verknüpft, vermutlich eine Dublette. Die Datensätze sind inhaltlich dünn, aber nützlich als Fundament für Katalogrecherchen in Bibliotheken.
 
 ## Widersprüche / Anmerkungen
 - Die GND verknüpft zwei ISNI-Nummern (Wikidata: 0000000119339221; GND: 0000000131852407) – vermutlich Dublette in ISNI.

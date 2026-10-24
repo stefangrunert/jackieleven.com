@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Vic Galloways Buch *Songs in the Key of Fife* über die Fife-Szene um das Fence Collective wird Leven nur in einer Aufzählung von Musikern aus Fife erwähnt, deren Geschichte das Buch ausdrücklich nicht erzählt.
+
 ## Inhalt
-Buch des BBC-Scotland-Moderators über die Fife-Szene um das Fence Collective. Leven erscheint im sichtbaren Ausschnitt nur in einer Aufzählung von Fife-Musikern (neben Nazareth, Skids, Big Country), deren Geschichte das Buch ausdrücklich nicht erzählt.
+Das Buch (Polygon, Edinburgh, 2013) stammt vom BBC-Scotland-Moderator Vic Galloway und handelt von der Verflechtung der Beta Band, King Creosotes, KT Tunstalls, James Yorkstons und des Fence Collective. Jackie Leven erscheint im sichtbaren Ausschnitt nur in einer Aufzählung von Musikern aus Fife, neben Nazareth, den Skids und Big Country, deren Geschichte das Buch ausdrücklich nicht erzählt.
+
+Ein eigener Abschnitt über Leven ist nicht erkennbar. Der Treffer taugt vor allem als Hinweis, dass Leven zu den bekannten Namen der Musik aus Fife gezählt wird.
 
 ## Widersprüche / Anmerkungen
 - Als Kontext für „Leven und Fife“ nützlich, aber ohne eigenen Abschnitt, soweit sichtbar.

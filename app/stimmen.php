@@ -21,6 +21,14 @@ function stimmen(): array
     return $daten;
 }
 
+/** Redaktionelle Einordnungen zu einzelnen Jahren, mit Verweisen auf die Belege. */
+function stimmen_einordnung(string $jahr): ?array
+{
+    static $daten = null;
+    $daten ??= json_decode(file_get_contents(APP_ROOT . '/data/stimmen-einordnungen.json'), true, flags: JSON_THROW_ON_ERROR);
+    return $daten[$jahr] ?? null;
+}
+
 /** Ausgewählte und Verzeichnis-Quellen haben eine eigene Seite, weitere verweisen direkt aufs Original. */
 function stimme_mit_seite(array $q): bool
 {
@@ -119,6 +127,10 @@ function stimme_datum(string $datum): string
 /** Titel, Medium oder Autor; auf Englisch die übersetzte Fassung, wo es eine gibt. */
 function stimme_feld(array $q, string $feld): string
 {
+    if ($feld === 'titel' && sprache() !== 'de' && !isset($q['en']['titel']) && str_starts_with($q['titel'], '[')) {
+        // Eigene deutsche Beschreibung ohne Übersetzung: Art und Medium statt deutschem Text.
+        return t('stimmen.kategorie.' . $q['kategorie']) . ' · ' . $q['medium'];
+    }
     $text = sprache() === 'en' && isset($q['en'][$feld]) ? $q['en'][$feld] : $q[$feld];
     return $feld === 'titel' ? str_replace(['[', ']'], '', $text) : $text;
 }
@@ -126,14 +138,16 @@ function stimme_feld(array $q, string $feld): string
 /** Sprache des angezeigten Titels: übersetzte Beschreibungen stehen in der Seitensprache. */
 function stimme_titelsprache(array $q): string
 {
-    return sprache() === 'en' && isset($q['en']['titel']) ? 'en' : (str_starts_with($q['titel'], '[') ? 'de' : $q['sprache']);
+    if (str_starts_with($q['titel'], '[')) return sprache() === 'de' || isset($q['en']['titel']) ? sprache() : 'en';
+    return sprache() === 'en' && isset($q['en']['titel']) ? 'en' : $q['sprache'];
 }
 
 /** Text in der Seitensprache, sonst Deutsch mit Sprachauszeichnung. */
 function stimme_text(array $texte): array
 {
-    return isset($texte[sprache()]) && $texte[sprache()] !== [] && $texte[sprache()] !== ''
-        ? [$texte[sprache()], sprache()] : [$texte['de'], 'de'];
+    if (isset($texte[sprache()]) && $texte[sprache()] !== [] && $texte[sprache()] !== '') return [$texte[sprache()], sprache()];
+    // Kein Rückfall auf Deutsch: Ohne Übersetzung bleibt der Text auf fremdsprachigen Seiten weg.
+    return sprache() === 'de' ? [$texte['de'], 'de'] : [null, sprache()];
 }
 
 /** Rezensionen und andere Quellen mit eigener Seite zu einer Ausgabe der Diskographie. */

@@ -17,8 +17,15 @@ bezug: ["12-biografie-aus-den-kolumnen.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Ian Rankins Rebus-Roman *Resurrection Men* (2001) taucht Jackie Leven zum ersten Mal auf: Eine Figur tauscht im Auto Led Zeppelin gegen eine Leven-CD, genau das Album, das Rebus gewählt hätte. Daraus entstand die Freundschaft der beiden.
+
 ## Inhalt
-Der Rebus-Roman, in dem Leven zum ersten Mal vorkommt: Eine Figur hat im Auto Led Zeppelin gegen eine Leven-CD getauscht, „genau das Album“, das Rebus gewählt hätte. Nach Rankins und Levens eigener Darstellung entdeckte Leven die Erwähnung zufällig und nahm Kontakt auf – der Anfang der Freundschaft und von „Jackie Leven Said“. Die Greenwood-Enzyklopädie „British Crime Writing“ nennt ausdrücklich dieses Buch als Ausgangspunkt.
+*Resurrection Men* (Orion, London, 2001) ist der Rebus-Roman, in dem Jackie Leven zum ersten Mal vorkommt. Eine Figur wechselt im Auto die CD, nimmt Led Zeppelin heraus und legt eine Platte von Leven ein; es sei „genau das Album“, das auch Rebus gewählt hätte.
+
+Nach der Darstellung von Rankin und von Leven selbst entdeckte der Musiker die Erwähnung zufällig und nahm Kontakt zum Autor auf. Das war der Beginn ihrer Freundschaft und der späteren Zusammenarbeit, aus der Bühnenabende und die Doppel-CD *Jackie Leven Said* (2005) hervorgingen. Die Enzyklopädie *British Crime Writing* (Greenwood) nennt ausdrücklich dieses Buch als Ausgangspunkt. Die Passage steht auch in den Übersetzungen des Romans (französisch *Une dernière chance pour Rebus*, 2008; niederländisch *Lazarus*, 2007).
+
+Eine abweichende Angabe, wonach die erste Erwähnung erst in einem Roman nach *Shining Brother, Shining Sister* (2003) stehe, passt nicht zu dem Erscheinungsjahr dieses Buches.
 
 ## Widersprüche / Anmerkungen
 - Übersetzungen mit derselben Stelle: „Une dernière chance pour Rebus“ (frz., 2008), „Lazarus“ (nl., 2007).

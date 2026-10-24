@@ -17,8 +17,12 @@ bezug: ["youtube-fundliste.md"]
 gefunden_ueber: "research/youtube-fundliste.md (Live-Abschnitt, „Radio FFN Nightline“)"
 ---
 
+## Kurz
+Gut fünfminütiger YouTube-Mitschnitt „Call Mother A Lonely Field“ aus der Sendung „Nightline“ des Senders radio ffn. Datum, Moderator und Inhalt sind nicht überliefert; die Seite nennt nur den Titel.
+
 ## Inhalt
-Gut fünfminütiger Audiomitschnitt „Call Mother a Lonely Field“ aus der Sendung „Nightline“ des niedersächsischen Privatsenders radio ffn; der Zusatz „3“ deutet auf den dritten Teil eines mehrteiligen Uploads. Datum, Moderator und weitere Teile unbekannt (hochgeladen 2011, ohne Beschreibung).
+Auf YouTube liegt ein Audiomitschnitt unter dem Titel „FFN Nightline 3 Jackie Leven – call mother a lonely field“. Er stammt aus der Sendung „Nightline“ des niedersächsischen Privatsenders radio ffn; die „3“ im Titel deutet auf den dritten Teil eines mehrteiligen Uploads. Die Seite enthält keine Beschreibung, und Datum, Moderator und Gesprächsinhalt sind nicht bekannt.
 
 ## Widersprüche / Anmerkungen
 - Weitere Teile („Nightline 1/2“) auf demselben Kanal nicht gefunden.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

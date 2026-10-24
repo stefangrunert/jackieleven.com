@@ -1,5 +1,5 @@
 {
-  "1973-control": {
+  "1975-control": {
     "tracklists": [
       {
         "label": {
@@ -62,6 +62,18 @@
       {
         "label": "Guerssen · Control, GUESS241",
         "url": "https://guerssen.com/product/control/"
+      },
+      {
+        "label": "La Vanguardia Española · 13.12.1975",
+        "url": "http://hemerotecadigital.bne.es/hd/es/results?id=b01eaea8-2a9c-44e2-a5ef-5a8ab058d333"
+      },
+      {
+        "label": "Pueblo · 13.12.1975 (Prensa Histórica)",
+        "url": "https://prensahistorica.mcu.es/es/catalogo_imagenes/grupo.do?path=711259&idImagen=2012563022"
+      },
+      {
+        "label": "Ya (Madrid) · 28.01.1976",
+        "url": "http://hemerotecadigital.bne.es/hd/es/results?id=fa9442a2-b89d-4d65-9c12-15ffc7d9f419"
       }
     ],
     "credits": [
@@ -117,6 +129,16 @@
         "value": {
           "de": "London, 1971",
           "en": "London, 1971"
+        }
+      },
+      {
+        "label": {
+          "de": "Erschienen",
+          "en": "Released"
+        },
+        "value": {
+          "de": "Spanien, Ende 1975 – bisher meist mit 1973 angegeben; belegt durch Kritiken vom 13.12.1975",
+          "en": "Spain, late 1975 – usually given as 1973; established by reviews of 13 December 1975"
         }
       }
     ]

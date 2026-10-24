@@ -17,5 +17,17 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 31, OCR"
 ---
 
+## Kurz
+Kjell Nordeng würdigt Levens Solodebüt in Nordlands Framtid als kraftvoll im Klang und nachdenklich in den Texten, eine der Platten von 1994, die nicht unbemerkt bleiben sollten.
+
 ## Inhalt
-Nachgereichte Kritik des Solodebüts in der Bodøer Zeitung: Leven habe Anfang der 80er die kritikergelobte, kommerziell erfolglose Soul-Rock-Band Doll by Doll geführt; Mike Scott als Helfer zeige die Richtung. Raumgreifender, kräftiger Klang, nachdenkliche Lyrik, Pop, Rock und Folk vereint, Levens Stimme trage die Melodien – eine der 94er-Platten, die nicht übersehen werden sollten.
+Kjell Nordeng bespricht Anfang Januar 1995 in Nordlands Framtid (Bodø) *The Mystery of Love Is Greater Than the Mystery of Death* (Cooking Vinyl). Leven habe zu Beginn der Achtziger die von der Kritik gelobte, kommerziell wenig erfolgreiche britische Soul-Rock-Band Doll By Doll geführt. Auf dieser, „soweit ich weiß“, ersten Solo-CD habe er unter anderem Hilfe vom Waterboy Mike Scott gehabt, und diese Zusammenarbeit sei ein kleiner Fingerzeig, wohin die Musik gehe.
+
+Das Klangbild sei geräumig und kraftvoll, die Lyrik nachdenklich. Man finde Elemente aus Pop, Rock und Folk in schöner Vereinigung, und Levens Gesang trage die Melodien ausgezeichnet in einem Umfeld aus akustischen und elektrischen Instrumenten. Die Lieder hätten Atmosphäre, Gewicht, Nerv und Melodie, sodass dies eine der Platten von 1994 sei, die nicht unbeachtet bleiben sollten.
+
+## Zitate
+> "Lydbildet er romslig og kraftig mens lyrikken er ettertenksom." – Nordeng über Klang und Texte
+> "Jackies vokal bærer melodiene utmerket i omgivelser av både akustiske og elektriske instrumenter" – Nordeng über Levens Gesang
+
+## Widersprüche / Anmerkungen
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

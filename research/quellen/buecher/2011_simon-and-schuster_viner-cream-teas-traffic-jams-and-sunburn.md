@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In seinem Buch über den britischen Urlaub gibt der Journalist Brian Viner eine Geschichte wieder, die ihm Leven erzählte: Dessen Agent habe ihm 2002 einen Auftritt gebucht. Leven steht auch in der Danksagung.
+
 ## Inhalt
-Der Journalist Brian Viner (The Independent) gibt eine Geschichte wieder, die ihm Leven erzählte: Dessen Agent habe ihm 2002 einen Auftritt gebucht (der Rest der Anekdote ist im Snippet nicht sichtbar); Leven steht auch in der Danksagung.
+Der Journalist Brian Viner (*The Independent*) erzählt in *Cream Teas, Traffic Jams and Sunburn: The Great British Holiday* (Simon & Schuster, London 2011) eine Anekdote, die Jackie Leven ihm anvertraut hat: Levens Agent habe ihm 2002 einen Auftritt gebucht. Wie die Geschichte weitergeht, ist nicht überliefert. Leven wird außerdem in der Danksagung des Buches genannt.
 
 ## Widersprüche / Anmerkungen
 - Inhalt der Anekdote offen – lohnender Nachschlagepunkt für die Anekdotensammlung.

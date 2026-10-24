@@ -17,8 +17,16 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Im Rock-Ortsverzeichnis von Pete Frame heißt es unter Glenrothes in Fife, die Neustadt sei Geburtsort von Jackie Leven, dem Kopf der Doll-by-Doll-Herausforderer der späten Siebziger, und Inspiration für die Skids.
+
 ## Inhalt
-Rock-Topografie nach Orten: Unter GLENROTHES (Fife) heißt es, die Neustadt sei Geburtsort von Jackie Leven, „leader of late 70s challengers Doll By Doll“, und Inspiration für die Skids; 1989 mit Foto Levens. Dieselbe Angabe steht in der Neubearbeitung von 1999.
+Das Rock-Ortsverzeichnis nennt unter dem Eintrag GLENROTHES (Fife) die Neustadt als Geburtsort von Jackie Leven, „leader of late 70s challengers Doll By Doll“, und als Inspiration für die Skids. Die Ausgabe von 1989 enthält dazu ein Foto von Leven. Dieselbe Angabe steht in der Neubearbeitung von 1999 (*Rockin' Around Britain*).
+
+Es ist der früheste gefundene gedruckte Beleg für Glenrothes als Geburtsort. Die meisten anderen Quellen nennen Kirkcaldy; in Glenrothes wuchs Leven auf.
+
+## Zitate
+> "leader of late 70s challengers Doll By Doll" – Eintrag Glenrothes über Leven
 
 ## Widersprüche / Anmerkungen
 - Frühester gefundener gedruckter Beleg für Glenrothes als Geburtsort – dieselbe Angabe wie im Store norske leksikon. Alle übrigen Quellen nennen Kirkcaldy; Leven wuchs in Glenrothes auf (11-zeitleiste.md).

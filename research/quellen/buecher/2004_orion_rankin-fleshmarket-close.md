@@ -17,8 +17,13 @@ bezug: ["06-kollaborationen.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Ian Rankins Rebus-Roman *Fleshmarket Close* trommelt Siobhan Clarke am Lenkrad und summt zu einer Jackie-Leven-CD, die Rebus ihr zum Geburtstag geschenkt hat.
+
 ## Inhalt
-Siobhan Clarke trommelt am Lenkrad und summt zu Leven – die CD ist ein Geburtstagsgeschenk von Rebus; an anderer Stelle hat sie Leven, Lou Reed und John Mayall gekauft und noch nicht gehört. Craig Cabell bezieht sich in seiner Rankin-Monografie auf diese Stelle.
+In Rankins Roman (Orion, 2004; US-Titel *Fleshmarket Alley*) trommelt Inspector Siobhan Clarke am Lenkrad und summt zu Leven mit; die CD ist ein Geburtstagsgeschenk von John Rebus. An anderer Stelle hat sie sich Leven, Lou Reed und John Mayall gekauft, aber noch nicht gehört. Craig Cabell bezieht sich in seiner Monografie über Rankin auf diese Stelle.
+
+Der Roman erschien auf Deutsch als *So soll er sterben* (Goldmann, 2007) und 2010 auf Französisch.
 
 ## Widersprüche / Anmerkungen
 - Übersetzungen: „So soll er sterben“ (dt., Goldmann 2007), frz. Ausgabe 2010.

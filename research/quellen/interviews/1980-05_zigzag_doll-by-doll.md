@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Artikelliste Library/Artist/doll-by-doll"
 ---
 
+## Kurz
+Das ZigZag-Interview von Kris Needs mit Doll by Doll (Mai 1980, rund 3000 Wörter) erschien in dem Monat, in dem die Plattenfirma die Option auf ein drittes Album nicht zog; als Anreißer dient Levens trotziges „we’re just not going away“.
+
 ## Inhalt
-ZigZag-Interview von Kris Needs (3.017 Wörter), erschienen im Mai 1980 – genau in dem Monat, in dem Automatic die Option auf ein drittes Album nicht zog (Sounds, 10.05.1980). Der Anreißer ist ein trotziges Leven-Zitat, die Band werde „einfach nicht verschwinden“. Volltext hinter Paywall.
+Das Interview von Kris Needs mit Doll By Doll erschien im Mai 1980 in der Musikzeitschrift ZigZag und umfasst rund 3000 Wörter. Es erschien genau in dem Monat, in dem Automatic die Option auf ein drittes Album nicht zog (Sounds, 10. Mai 1980). Der Anreißer ist ein trotziges Zitat Levens: Die Band werde „einfach nicht verschwinden“.
+
+Der Volltext liegt hinter einer Bezahlschranke; der frei sichtbare Teil gibt nur diesen Anreißer wieder.
 
 ## Zitate
-> "we're just not going away" – Leven, Mai 1980 (Anreißer).
+> "we're just not going away" – Leven im Anreißer des ZigZag-Interviews, Mai 1980

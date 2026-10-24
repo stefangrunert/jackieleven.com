@@ -17,8 +17,13 @@ bezug: ["02-doll-by-doll.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Das Lexikon beschreibt Doll By Doll als Vehikel für Jackie Leven, 1977 gegründet; das selbstbetitelte Album auf Magnet habe einen kleinen Hit mit „Carita“ (gemeint: „Caritas“) gebracht. Es folgt die Albumliste 1979–1982.
+
 ## Inhalt
-Bandeintrag, textgleich mit der Guinness Encyclopedia of Popular Music: Doll by Doll als Vehikel für Leven, 1977 gegründet, das selbstbetitelte Magnet-Album habe einen kleinen Hit mit „Carita“ gebracht; Albumliste 1979–1982. Im Register auch S. 123 und 374; erwähnt wird zudem Marc Duncan (geb. 9.5.1960), Bassist „von Doll By Doll“, der später zu einer anderen Band wechselte.
+Der Eintrag „Doll By Doll“ im *Guinness Who’s Who of Indie and New Wave Music* (herausgegeben von Colin Larkin, 1995) ist inhaltlich gleichlautend mit dem Artikel der *Guinness Encyclopedia of Popular Music*. Er beschreibt die Gruppe als Vehikel für Jackie Leven, 1977 gegründet. Das selbstbetitelte Album auf Magnet habe einen kleinen Hit mit „Carita“ gebracht (gemeint ist die Single „Caritas“ von 1981). Es folgt eine Liste der Alben von 1979 bis 1982.
+
+Das Buch nennt außerdem an anderer Stelle den Bassisten Marc Duncan (geboren am 9. Mai 1960) „von Doll By Doll“, der später zu einer anderen Band wechselte. Diese Angabe findet sich auch in weiteren Nachschlagewerken desselben Herausgebers, ist aber mit anderen Quellen zur Besetzung der Band nicht in Einklang zu bringen.
 
 ## Widersprüche / Anmerkungen
 - „Carita“ ist ein Schreibfehler für „Caritas“ (Single 1981).

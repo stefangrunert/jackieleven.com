@@ -17,9 +17,13 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Kurze Albumvorstellung auf Rockol (Italien) zu *Oh What A Blow That Phantom Dealt Me!*: elf Folkrock-Stücke mit Johnny Dowd und Leon Hunt als Gästen, dazu die Trackliste; kaum eigene Wertung.
 
-Die kurze Vorstellung nennt elf Folkrock-Stücke und Johnny Dowd sowie Leon Hunt als Gäste. Trotz der Einordnung im Rezensionsressort enthält der sichtbare Text keine eigentliche Wertung, sondern eine knappe Einführung und die Trackliste.
+## Inhalt
+Die italienische Musikseite Rockol führt *Oh What A Blow That Phantom Dealt Me!* in ihrer Rubrik für Albumbesprechungen (12. Februar 2007). Nach der verfügbaren Wiedergabe der Seite handelt es sich um eine knappe Einführung mit Trackliste: Das Album enthalte elf Stücke zwischen Folk und Rock, als Gäste werden der Texaner Johnny Dowd und Leon Hunt genannt. Eine eigentliche Wertung oder ausführliche Besprechung enthält der sichtbare Text nicht.
+
+Der direkte Abruf der Seite war gesperrt (HTTP 403), so dass sie hier nicht im Original gelesen werden konnte; die Sperre wurde nicht umgangen.
 
 ## Zitate
 

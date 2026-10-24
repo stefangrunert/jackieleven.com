@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Datenblatt-Eintrag Nr. 207 zu Doll By Doll in *Who's New Wave in Music* (1985): gegründet 1977, Stil „offbeat folk rock“, Besetzung Leven und Joe Shaw, Albumliste mit einigen Verwechslungen.
+
 ## Inhalt
-Kurzer Datenblatt-Eintrag Nr. 207: Doll By Doll, Vereinigtes Königreich, „Formed 1977“, Stil „Offbeat folk rock“ (im Stilregister die einzige Band dieser Kategorie), Besetzung mit Leven (Gesang, Gitarre, Songs) und Joe Shaw, Albumliste.
+Das von Pierian Press (Ann Arbor) herausgegebene Nachschlagewerk *Who's New Wave in Music: An Illustrated Encyclopedia, 1976–1982* führt Doll By Doll unter der Nummer 207. Der Eintrag ist ein knappes Datenblatt: Land Vereinigtes Königreich, „Formed 1977“, Stil „Offbeat folk rock“ – im Stilregister des Bandes die einzige Gruppe dieser Kategorie –, Besetzung mit Jackie Leven (Gesang, Gitarre, Songs) und Joe Shaw sowie eine Albumliste. Dabei datiert das Buch *Gypsy Blood* auf 1980 und nennt das Debüt „Doll By Doll“ statt *Remember*; beides sind offensichtliche Verwechslungen.
 
 ## Widersprüche / Anmerkungen
 - Datiert „Gypsy Blood“ auf 1980 und nennt das Debüt „Doll By Doll“ statt „Remember“ – offensichtliche Verwechslungen.

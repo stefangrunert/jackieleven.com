@@ -17,12 +17,13 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser, tidsskrift), Inhaltssuche je Ausgabe; OCR nur bei frei zugänglichen Ausgaben"
 ---
 
+## Kurz
+2011 verzeichnet die norwegische Presse Leven in 26 Ausgaben, vor allem Nachrufe nach seinem Tod am 14. November und die Ankündigung der nicht mehr verwirklichten Oktobertour; konkrete Konzerte in Norwegen fanden nach den Funden nicht statt.
+
 ## Inhalt
-26 Ausgaben verzeichnen „Jackie Leven“, davon nur 9 frei lesbar. Konzerte in Norwegen fanden 2011 nach den Funden nicht statt; das Buddy-Herbstprogramm in Drammen nannte aber noch einen Termin am **05.10.2011** (Drammens Tidende 12.08.2011) – passend zur im Kalender erwähnten, nicht mehr verwirklichten Skandinavien-Tour im Oktober. *Wayside Shrines and the Code of the Travelling Man* (mit Michael Cosgrave) erscheint im September in Neuerscheinungslisten; eine kurze Kritik in Østlendingen 27.09. ist einzeln erfasst.
+In den digitalisierten norwegischen Zeitungen und Zeitschriften der Nationalbibliothek erscheint „Jackie Leven“ 2011 in 26 Ausgaben, nur 9 davon frei lesbar. Konzerte in Norwegen fanden 2011 nach den Funden nicht statt; das Herbstprogramm des Buddy in Drammen nannte aber noch einen Termin am 5. Oktober 2011 (Drammens Tidende, 12. August) – passend zu der nicht mehr verwirklichten Skandinavien-Tour im Oktober, deren Durchführung nicht belegt ist. *Wayside Shrines and the Code of the Travelling Man* (mit Michael Cosgrave) erscheint im September in Neuerscheinungslisten (u. a. Bergensavisen am 9. September, Tidens Krav am 16. September); eine kurze Kritik in Østlendingen (27. September) bespricht das Album.
 
-Nach Levens Tod am 14.11.2011 folgen Nachrufe, die bis auf die Dagsavisen-Kurzmeldung vom 16.11. (einzeln erfasst) alle gesperrt sind: Bergensavisen 16.11. (5 Nennungen), Nordlys 16.11. (7), Adresseavisen 16., 21. und 22.11. (2/4/3), Lofotposten 22.11. (5), Dagbladet 26.11. (4, Leitartikelseite), Nordlys 17.11. und 07.12., Stavanger Aftenblad 30.12. Die Webfassungen vom 15.11.2011 (Adresseavisen, Bergensavisen, Musikkbloggen) sind bereits unter research/quellen/nachrufe/ erfasst; die gesperrten Druckausgaben von Adresseavisen und Bergensavisen dürften diesen entsprechen oder sie erweitern.
-
-Konzerte 2011 laut Funden: 05.10.2011 Buddy, Drammen (nur angekündigt; Durchführung nicht belegt).
+Nach Levens Tod am 14. November folgen Nachrufe, die bis auf die Kurzmeldung der Dagsavisen vom 16. November alle nicht frei lesbar sind: Bergensavisen (16. November, 5 Nennungen), Nordlys (16. November mit 7 Nennungen, außerdem 17. November und 7. Dezember), Adresseavisen (16., 21. und 22. November), Lofotposten (22. November, 5 Nennungen), Dagbladet (26. November, Kommentarseite, 4 Nennungen) und Stavanger Aftenblad (30. Dezember). Die Druckausgaben von Adresseavisen und Bergensavisen dürften den Web-Nachrufen vom 15. November entsprechen oder sie erweitern. Weitere freie Fundstellen: ein Jahresrückblick der Dagsavisen am 27. Dezember mit Leven in der Liste der Verstorbenen 2011, eine Jahresbilanz von Lasse Skjoldal in Karmsund (15. Dezember) mit *Wayside Shrines* als letztem Album und kurzem Nachrufabsatz, sowie eine Umfrage zur Egersund Visefestival (Dalane Tidende, 29. Juni), in der Leven unter den besten Konzerterlebnissen genannt wird.
 
 ## Übrige Treffer 2011 (ohne eigene Datei)
 

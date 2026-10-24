@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Craig Cabells Rankin-Monografie erwähnt Leven mehrfach: Rankin sei mit ihm getourt, das gemeinsame Album *Jackie Leven Said* (2005) berühre Rankins prägende Jahre, und in einem Rebus-Roman kauft eine Figur Levens CD.
+
 ## Inhalt
-Rankin-Monografie mit mehreren Leven-Stellen: Rankin schreibe zwar keine Songs, sei aber mit Leven getourt und habe dabei eine Kurzgeschichte vorgetragen; „Jackie Leven Said“ sei nicht im engeren Sinn autobiografisch, berühre aber Rankins prägende Jahre (Fußnote mit falschem Titel „Jackie Leven Says“, Cooking Vinyl 2005); erwähnt wird auch die Beerdigung von Rankins Mutter im Kontext der Erzählung; dazu der Verweis auf Siobhans CD-Kauf (Leven, Lou Reed, Mayall) in „Fleshmarket Close“. Eine Fußnote datiert auf den 26.07.2009.
+Craig Cabells Monografie *Ian Rankin and Inspector Rebus* (Metro Publishing, 2010) enthält mehrere Stellen zu Jackie Leven. Rankin schreibe zwar keine Songs, sei aber mit Leven getourt und habe dabei eine Kurzgeschichte vorgetragen. *Jackie Leven Said* (Cooking Vinyl, 2005) sei nicht im engeren Sinn autobiografisch, berühre aber Rankins prägende Jahre; eine Fußnote nennt die CD irrtümlich „Jackie Leven Says“.
+
+Erwähnt wird auch die Beerdigung von Rankins Mutter im Zusammenhang mit der Erzählung sowie der Verweis auf Siobhans CD-Kauf – Leven, Lou Reed, Mayall – in *Fleshmarket Close*. Eine Fußnote trägt das Datum 26. Juli 2009.
 
 ## Widersprüche / Anmerkungen
 - Fußnote nennt die CD „Jackie Leven Says“ statt „Said“.

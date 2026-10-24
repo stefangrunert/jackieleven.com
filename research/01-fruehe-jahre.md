@@ -59,14 +59,14 @@ Darauf folgte eine etwa zehnjährige vagabundierende Phase [7]: Er trampte durch
 
 Wichtige Begegnung: In einem Folkclub in **Bridport, Dorset**, lernte er den Gitarristen **Joe (Jo) Shaw** kennen, den späteren Doll-by-Doll-Mitgründer; ihre gemeinsame Basis waren „not folk songs about young maidens, but Hendrix and Van Morrison“ [3]. Die späteren Bandmitglieder traf er nach Independent-Angabe in den frühen 1970er-Jahren beim Besetzen leerstehender Farmhäuser in Dorset: „He met his Doll by Doll bandmates while squatting Dorset farmhouses in the early '70s. ‚In some respects the best days of our lives, in a wonderful dream of Old England,‘ he recalled.“ [1] Mit Shaw traf er sich später in **Hamburg** wieder, „and spent all our time jamming on guitars“ [3].
 
-## John St. Field und das Album „Control“ (1971/1973)
+## John St. Field und das Album „Control“ (1971/1975)
 
 Unter dem Pseudonym **John St. Field** nahm Leven sein erstes Album auf: **„Control“**. Zum Grund des Pseudonyms sagte er selbst: „I was in a little trouble with the forces of law and order.“ [17][12]
 
 Die Faktenlage zu Aufnahme und Veröffentlichung ist widersprüchlich (Details siehe unten):
 
 - **Aufnahme 1971 in London** (Mayfair Sound), mit Musikern aus dem Umfeld der Band Man – u. a. Phil Ryan (Orgel, Moog), John Haines (Schlagzeug), Joe Kucera (Flöte, Baritonsax), Alex Atterson (Piano) sowie Jesse Ballard und Juliet Lawson (Gesang); Leven selbst spielte Gitarre, Keyboards, Bass und sang [10][18][19].
-- **Veröffentlicht nur in Spanien, 1973** (Label Movie Play); das Album gilt heute als gesuchte psychedelisch-folkige Underground-Rarität [15][18][19]. Cooking Vinyl brachte es 1997 als Wiederveröffentlichung heraus [6][15].
+- **Veröffentlicht nur in Spanien, Ende 1975** (Label Movie Play; die verbreitete Angabe 1973 widerlegen Kritiken vom 13.12.1975 und ein Madrider Konzertbericht vom Januar 1976, siehe `quellen/`); das Album gilt heute als gesuchte psychedelisch-folkige Underground-Rarität [15][18][19]. Cooking Vinyl brachte es 1997 als Wiederveröffentlichung heraus [6][15].
 - Inhaltlich verarbeitete das Album nach Angabe des Reissue-Labels Guerssen seine Wanderjahre und intensiven LSD-Erfahrungen: „a collection of wonderful songs written by Jackie after his experiences wandering away and taking copious amounts of LSD“ [18].
 
 Abweichende Angaben: Times und Independent lassen das Album in **Madrid** entstehen („recording his first album, titled Control, in Madrid in the mid-1970s“ [7]; „Madrid, where he recorded his first album, Control (1971), under the pseudonym John St Field“ [1]); MIG-Music und deutsche Wikipedia nennen 1973 als Aufnahmejahr [16][15]. Die plausibelste Rekonstruktion (Guerssen/Reissue-Liner-Notes und Sammlerquellen): aufgenommen 1971 in London, erschienen 1973 nur in Spanien – Madrid war Wohnort Levens in dieser Zeit, nicht Aufnahmeort [18][19]. Als sicher gilt nur, dass Aufnahme- und Veröffentlichungsjahr auseinanderfallen.

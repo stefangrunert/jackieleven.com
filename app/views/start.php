@@ -6,7 +6,7 @@ $platte = diskografie()['releases'][diskografie_index($start['platte']['id'])];
 $erstesVideo = $start['hoeren'][0];
 $lebenslinie = [
     ['1950', 'fife', url('station', ['slug' => '1950-kirkcaldy'])],
-    ['1973', 'field', diskografie_link('1973-control')],
+    ['1973', 'field', diskografie_link('1975-control')],
     ['1977', 'doll', url('station', ['slug' => '1977-doll-by-doll'])],
     ['1994', 'solo', url('station', ['slug' => '1994-mystery-of-love'])],
     ['2011', 'november', url('station', ['slug' => '2011-november'])],

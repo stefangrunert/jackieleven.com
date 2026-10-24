@@ -17,8 +17,15 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 41, OCR"
 ---
 
+## Kurz
+Kurzkritik in Moss Dagblad: Der frühere Doll-by-Doll-Sänger lege mit *Forbidden Songs of the Dying West* den Nachfolger der „Perle“ des Vorjahres vor, eine Kreuzung aus Bryan Ferry und Van Morrison, der wieder Gedichte vertont.
+
 ## Inhalt
-Kurzkritik: Der frühere Doll-by-Doll-Sänger lege einen Nachfolger zur „Perle“ des Vorjahres vor; Leven sei für Uneingeweihte eine Kreuzung aus Bryan Ferry und Van Morrison und beweise erneut, was für ein guter Sänger er sei. Das meiste Material sei selbst geschrieben, wieder seien Gedichte (James Wright, Emily Dickinson) vertont. Wohlwollend.
+Im Musikteil von Moss Dagblad steht eine kurze, wohlwollende Besprechung von Jackie Levens *Forbidden Songs of the Dying West*. Der frühere Doll-by-Doll-Sänger sei mit einer Fortsetzung zur Perle des Vorjahres, *The Mystery of Love…*, zurück. Für Uneingeweihte lasse sich Leven am besten als eine Art Kreuzung aus Bryan Ferry und Van Morrison beschreiben, und auf dem neuen Album beweise er erneut, was für ein tüchtiger Sänger er ist. Das meiste Material schrieb er selbst. Wie zuletzt habe er wieder Gedichte von Autoren wie James Wright und Emily Dickinson vertont.
+
+## Zitate
+> "For uinnvidde kan Leven kanskje best beskrives som en slags krysning mellom Bryan Ferry og Van Morrison" – Der Rezensent zur Einordnung Levens.
 
 ## Widersprüche / Anmerkungen
 - Autorzeile „VED PÅL ANDREASSEN“ steht im OCR unmittelbar nach dem Text; Zuordnung wahrscheinlich, aber nicht sicher (könnte auch zur Folgespalte gehören).
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

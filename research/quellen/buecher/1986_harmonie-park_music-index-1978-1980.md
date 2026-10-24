@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche „Jackie Leven“ / „Doll by Doll“ (auch Band 1978: musicindexannual0000flor)"
 ---
 
+## Kurz
+Der US-Musikzeitschriftenindex verzeichnet zeitgenössische Presseartikel zu Leven und Doll by Doll, darunter ein Melody-Maker-Interview „The eyes of Jackie Leven“ vom 13. September 1980.
+
 ## Inhalt
-Der US-Musikzeitschriftenindex verzeichnet zeitgenössische Presseartikel: unter „LEVEN, JACKIE“ ein Interview „The eyes of Jackie Leven“ von S. Taylor (Steve Taylor) im **Melody Maker** vom 13.09.1980 (Jg. 55, Nr. 22) mit Biografie und Porträts; unter „DOLL BY DOLL, THE“ u. a. Melody Maker vom 31.03.1979 (Jg. 54, S. 15 f.) und eine Besprechung von „Gypsy Blood“ im Melody Maker vom November 1979. Der Band 1978 (erschienen 1989) führt einen Doll-by-Doll-Artikel mit dem Titel „Entropy is just another word for nothing …“ (Zeitschrift im Snippet nicht lesbar).
+*The Music Index* (Harmonie Park Press, Detroit/Warren) verzeichnet zeitgenössische Presseartikel. Unter „LEVEN, JACKIE“ steht ein Interview „The eyes of Jackie Leven“ von S. Taylor (Steve Taylor) im *Melody Maker* vom 13. September 1980 (Jg. 55, Nr. 22) mit Biografie und Porträts. Unter „DOLL BY DOLL, THE“ finden sich unter anderem der *Melody Maker* vom 31. März 1979 (Jg. 54, S. 15 f.) und eine Besprechung von *Gypsy Blood* im *Melody Maker* vom November 1979.
+
+Der Band für 1978 (erschienen 1989) führt zudem einen Doll-by-Doll-Artikel mit dem Titel „Entropy is just another word for nothing …“, dessen Zeitschrift im Ausschnitt nicht lesbar ist; es handelt sich um einen Presseartikel schon aus dem Jahr 1978. Der *Melody Maker* vom 31. März 1979 ist auch die Quelle des Satzes „a mystery shrouded combo by the name of Doll by Doll“ in Kenneth Hudsons *Dictionary of the Teenage Revolution* (1983).
 
 ## Neue Fakten / Anekdoten
 - Melody-Maker-Interview „The eyes of Jackie Leven“ (13.09.1980) – in research/ nicht verzeichnet; Spur für die Bereiche presse-en/doll-by-doll.

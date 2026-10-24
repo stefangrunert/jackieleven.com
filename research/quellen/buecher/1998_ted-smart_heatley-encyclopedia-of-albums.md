@@ -17,8 +17,16 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Der Albumeintrag zu *The Mystery of Love Is Greater Than the Mystery of Death* in der *Encyclopedia of Albums* (1998) nennt Datenkopf und Besetzung und beschreibt das Album als Wiedergeburt eines Sängers, dessen frühere Band Doll by Doll „perennial underachievers“ gewesen sei.
+
 ## Inhalt
-Albumeintrag mit Datenkopf (Künstler, Label Cooking Vinyl, Produzent, Besetzung mit u. a. James Hallawell und Glen Nightingale, Titelliste bis „I Say A Little Prayer For You“/„Bars Of Dundee“). Text: Das Album bestätige die Wiedergeburt des Sängers und Gitarristen, dessen frühere Band Doll by Doll „perennial underachievers“ gewesen sei; dann folgt der Überfall.
+Der Eintrag in dem 1998 bei Ted Smart in London erschienenen Nachschlagewerk beginnt mit einem Datenkopf: Künstler, Label Cooking Vinyl, Produzent, Besetzung (darunter James Hallawell und Glen Nightingale) und Titelliste bis „I Say a Little Prayer for You“ und „Bars of Dundee“. Als Veröffentlichungsdatum wird „June 1995“ angegeben; das Album erschien tatsächlich 1994.
+
+Der Text bezeichnet das Album als Bestätigung der Wiedergeburt des Sängers und Gitarristen, dessen frühere Band Doll by Doll „perennial underachievers“ gewesen sei, also Dauerversager im Verhältnis zu ihrem Können. Danach schildert er den Überfall, der in Levens Lebensgeschichte eine zentrale Rolle spielt.
+
+## Zitate
+> "perennial underachievers" – Das Nachschlagewerk über Doll by Doll
 
 ## Widersprüche / Anmerkungen
 - Gibt als Veröffentlichungsdatum „June 1995“ an (das Album erschien 1994).

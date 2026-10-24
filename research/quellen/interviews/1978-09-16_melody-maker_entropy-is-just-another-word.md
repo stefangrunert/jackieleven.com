@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Artikelliste Library/Artist/doll-by-doll; nur Metadaten und Anreißer frei"
 ---
 
+## Kurz
+Langes Melody-Maker-Interview von Ian Birch mit Doll by Doll vom September 1978, eines der ersten großen Pressestücke über die Band; der Volltext liegt hinter der Bezahlschranke von Rock’s Backpages.
+
 ## Inhalt
-Langes Melody-Maker-Interview von Ian Birch mit Doll by Doll vom September 1978 (3.353 Wörter laut Rock's Backpages), eines der ersten großen Pressestücke über die Band. Der Anreißer zitiert Textzeilen aus „Teenage Lightning“. Volltext hinter der Paywall von Rock's Backpages.
+Das Interview „Doll By Doll: Entropy Is Just Another Word For Nothing Left To Lose“ von Ian Birch erschien im *Melody Maker* vom 16. September 1978. Laut Rock’s Backpages umfasst es 3.353 Wörter; es ist eines der ersten großen Pressestücke über die Band. Der Anreißer zitiert Textzeilen aus „Teenage Lightning“. Der Volltext liegt hinter der Bezahlschranke des Archivs und wurde nicht eingesehen.
 
 ## Widersprüche / Anmerkungen
 - Möglicherweise identisch mit dem „Melody Maker, 1979“-Interview, das Dave Furgess (Head Heritage) erinnert (Geständnis von LSD-Konsum, Stimmen hören) – Furgess datiert es auf 1979; nicht überprüfbar.

@@ -50,7 +50,7 @@
                      data-projekte="<?= e(implode(' ', $platte['tags'])) ?>" data-format="<?= e($platte['kind']) ?>" aria-labelledby="titel-<?= e($platte['id']) ?>">
               <?php if (isset($platte['cover'])): ?>
                 <figure class="disk-cover">
-                  <a href="<?= e(diskografie_link($platte['id'])) ?>" data-release-link="<?= e($platte['id']) ?>" aria-label="<?= e(t('disk.oeffnen', ['titel' => $platte['title']])) ?>"><img src="<?= e($platte['cover']) ?>" alt="<?= e(t('disk.cover', ['titel' => $platte['title']])) ?>" width="600" height="600" loading="<?= $platte['id'] === '1973-control' ? 'eager' : 'lazy' ?>" decoding="async" referrerpolicy="no-referrer"></a>
+                  <a href="<?= e(diskografie_link($platte['id'])) ?>" data-release-link="<?= e($platte['id']) ?>" aria-label="<?= e(t('disk.oeffnen', ['titel' => $platte['title']])) ?>"><img src="<?= e($platte['cover']) ?>" alt="<?= e(t('disk.cover', ['titel' => $platte['title']])) ?>" width="600" height="600" loading="<?= $platte['id'] === '1975-control' ? 'eager' : 'lazy' ?>" decoding="async" referrerpolicy="no-referrer"></a>
                 </figure>
               <?php endif; ?>
               <div class="disk-plattentext">

@@ -11,20 +11,32 @@ url: "https://urn.nb.no/URN:NBN:no-nb_digavis_vaaganavisa_null_null_20070801_2_3
 archiv: ""
 erreichbarkeit: "live"
 sicherheit: "unsicher"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 28, OCR"
 ---
 
+## Kurz
+Våganavisa stellt den Veranstalter Jan Åge Johansen vor, der „seinen Lieblingskünstler“ Jackie Leven am 26. September 2007 zum sechsten Mal auf die Præstengbrygga in Kabelvåg holt.
+
 ## Inhalt
-Ganzseitiger Vorbericht: Veranstalter Jan Åge Johansen (Præstengbrygga, Kabelvåg) holt seinen Lieblingskünstler am 26. September 2007 für dessen sechstes Konzert auf der Brygga. Johansen beschreibt sein erstes Leven-Erlebnis („Det sa bare pang“) und zitiert einen Lehrer der örtlichen Filmschule, der nach einem Leven-Konzert seinen Schülern gesagt habe, über Vermittlung könne er ihnen nun nichts mehr beibringen. Ein Leven-Zitat (Herkunft nicht angegeben, vermutlich älteres Interview): Er sei seit 20 Jahren nicht mehr heroinabhängig und wolle sich nicht ständig als Süchtiger vorstellen; er glaube an die gute Gesellschaft beim Trinken, sitze aber auch viel still zu Hause, ohne zu trinken. Dazu Zitate aus einer NRK-Sendung von Arne Berg (2005) und einem Dagsavisen-Interview von 2005 (Leven über Männer, deren Innenleben ihnen ein Rätsel ist). Johansen kündigt an, am 10. Oktober nach Schottland zu reisen, um Leven „auf Heimatboden“ zu sehen. Kasten mit Kurzbiografie und Diskografie.
+Der ganzseitige Vorbericht (Våganavisa, 1. August 2007) beginnt mit dem Satz, ab und zu solle man sich etwas Gutes gönnen, deshalb hole Jan Åge Johansen seinen Lieblingskünstler nach Kabelvåg. „Es machte einfach Bumm“, sagt Johansen über sein erstes Leven-Erlebnis; am 26. September gebe der „schottische Legende“ sein sechstes Konzert auf der Præstengbrygga. Leven sei einer der ganz wenigen Künstler, die allein mit Stimme, Texten und Gitarre ein Publikum verzaubern könnten. Ein früherer Lehrer der örtlichen Filmschule habe nach einem Leven-Konzert zu seinen Schülern gesagt: „An alle, die gestern beim Konzert waren: Ich habe euch nichts mehr über Vermittlung beizubringen.“
+
+Ein Leven-Zitat (Quelle nicht genannt): „Ich glaube nicht daran, dass ich ständig aufstehen und sagen soll ‚Ich bin Jackie Leven und ich bin heroinabhängig‘, wenn ich es seit 20 Jahren nicht mehr bin. Ich glaube an die gute Gesellschaft beim Trinken. Aber ich verbringe auch sehr viel Zeit damit, ruhig zu Hause zu sitzen und nicht zu trinken.“ Es gehe nicht so sehr ums Alleintrinken, sondern darum, an öffentlichen Orten allein zu sein.
+
+Unter der Zwischenüberschrift „Kritiker-Favorit“ heißt es, Leven werde von Musikkritikern geliebt, aber vom breiten Publikum übersehen; der Plattenverkauf sei nicht beeindruckend, doch er habe einen starken Namen in der Branche. Der NRK-Journalist Arne Berg habe Leven 2005 in einem Programm so vorgestellt: Nach vier Platten als Frontmann von Doll by Doll sei es bergab gegangen; mit Heroin als Hilfsmittel habe er versucht, seine eigene Angst zu medikamentieren, sich am Ende aber mit sich selbst auseinandersetzen müssen – und das geschafft. Danach sei eine „knallstarke Reihe von Platten“ gefolgt, selbstergründend und ehrlich, aber mit schiefem, humorvollem Blick auf die Welt und auf ihn selbst. Er stelle ständig die Grundfrage: Was heißt es, Mensch zu sein, und nicht zuletzt, was heißt es, Mann zu sein?
+
+Unter „Skriver om mannen“ wird ein Dagsavisen-Interview von 2005 zitiert: Leven sagt, ihn beschäftigten Männer, die erleben, dass das Leben undeutlich wird, alte Erlebnisse rückten immer weiter auseinander, die Persönlichkeit verändere sich, während sie versuchten festzuhalten, wer sie sind. Leute in seinen Liedern hätten oft Probleme, bei Verstand zu bleiben; er schreibe über Männer, die ihr Inneres für ein Rätsel halten und sich stattdessen zu äußeren Rätseln verhalten. Levens Lieder seien voll von gutem Trinken; er sei auch dafür bekannt, seinen eigenen Whisky herzustellen. Johansen will am 10. Oktober nach Schottland reisen: „Ich bin ein Hardcore-Fan … ich sehe Jackie Leven auf Heimatboden. Das wird groß!“ Im Kasten stehen Kurzbiografie (geboren 18. Juni 1950) und Diskografie mit einigen Titelverdrehungen.
 
 ## Zitate
-> "Det sa bare pang" – Johansen über seine erste Leven-Begegnung.
+> "Det sa bare pang" – Jan Åge Johansen über sein erstes Leven-Erlebnis
+> "Jackie Leven er en av svært få artister jeg vet om som er i stand til å trollbinde publikum bare med stemmen, tekstene og en gitar." – Johansen über Leven live
+> "Jeg skriver om menn som synes at deres indre liv er et mysterium." – Leven im Dagsavisen-Interview (2005, zitiert)
 
 ## Widersprüche / Anmerkungen
 - Autorzeile im OCR nicht lesbar.
 - Die Diskografie im Kasten listet *Control* (1971) doppelt, nennt *Revenge of Memory* als Doll-by-Doll-Livealbum 2005 und „Shining Sister Shining Brother“ (2003) – Reihenfolge des Titels verdreht.
 - Johansens Schottland-Reise am 10.10.: vermutlich zu den Konzerten im Famous Bein Inn, Glenfarg (12./13.10.2007 laut 10-konzertkalender.md).
 - Die Zahl „sechstes Konzert“ in Kabelvåg wiederholt Våganavisa am 26.09.2007 (S. 30, „Leven Live“, Lise Maria Knutsen: https://urn.nb.no/URN:NBN:no-nb_digavis_vaaganavisa_null_null_20070926_2_39_1); belegt sind bislang Lofotposten-Kritiken 1997, 2003, 2005.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

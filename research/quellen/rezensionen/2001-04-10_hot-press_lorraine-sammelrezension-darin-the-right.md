@@ -17,14 +17,17 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Duan Stokes bespricht in *Hot Press* zwei Singles in einer Kritik: Jimmy MacCarthys „Lorraine“ und Levens „The Right To Remain Silent“, bei der Leven mit klugen, flüssigen Liedern moderne und alte Klänge „superb“ mische.
 
-Die Doppelbesprechung stellt Jimmy Mac Carthys „Lorraine“ und Levens „The Right To Remain Silent“ gegenüber. Stokes beurteilt Leven deutlich günstiger: Er schätzt die Verbindung älterer und moderner Klangformen und die sprachliche Sicherheit der Songs.
+## Inhalt
+Duan Stokes fasst im irischen *Hot Press* zwei Singles in einer kurzen Kritik zusammen: Jimmy MacCarthys „Lorraine“ (Sony Music) und Jackie Levens „The Right To Remain Silent“ (Cooking Vinyl). Er spricht von „zwei Meistersongschreibern“, die ihr Können zeigten. MacCarthy zeichne ein lebhaftes Bild der Lorraine des Titels und sehne sich nach ihrer Gesellschaft; das Lied sei zwar gut gebaut, leide aber darunter, dass man es schon gehört habe: Balladen über die Abwesenheit einer holden Maid seien „three a penny“, und diese weiche kaum vom Standard ab.
+
+Leven dagegen gelinge es, sich über das Übliche zu erheben, indem er „moderne und alte Klänge“ auf klugen und flüssigen Liedern hervorragend verbinde. Mehr zu Levens Beitrag sagt die Kritik nicht.
 
 ## Zitate
-
-Keine wörtlichen Zitate übernommen.
+> "Jackie Leven meantime manages to rise above the usual fare by superbly blending modern and ancient sounds on songs that are intelligent and fluent." – Duan Stokes über Levens Single
 
 ## Widersprüche / Anmerkungen
-
 Der Seitentitel nennt nur den anderen besprochenen Künstler. Das sichtbare Datum 10.04.2001 wird unverändert übernommen; es wird nicht als Erstveröffentlichungsdatum der Leven-Single interpretiert.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

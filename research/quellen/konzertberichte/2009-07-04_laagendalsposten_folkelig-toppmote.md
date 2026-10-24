@@ -11,17 +11,26 @@ url: "https://urn.nb.no/URN:NBN:no-nb_digavis_laagendalsposten_null_null_2009070
 archiv: ""
 erreichbarkeit: "live"
 sicherheit: "unsicher"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: ["10-konzertkalender.md"]
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 31, OCR"
 ---
 
+## Kurz
+Lars Bryne erlebt Knut Buen und Jackie Leven beim Kongsberg Jazzfestival: Hardingfele trifft Folksänger, der Auftritt sei trotz Publikumsgeplauder „große Kunst“ gewesen.
+
 ## Inhalt
-Kritik des Konzerts von Knut Buen und Leven am Donnerstag, 02.07.2009, im Hinterhof des Christians Kjeller. Hardingfele und Folksänger zu mischen klinge etwas sonderbar, die Begegnung sei aber recht gut gelungen – gemessen an den Umständen (der begründende Satz bricht im OCR ab); Buen sei ebenso Spaßmacher wie fantastischer Musiker, seine philosophische Komik habe den vollen Hof erfasst. Volksmusik gehöre durchaus in einen Jazzfestival-Rahmen, ob mit Wurzeln in Afrika oder im Jondalen. Foto: Lars Bryne.
+Lars Bryne berichtet im Laagendalsposten über das Konzert von Knut Buen und Jackie Leven am Donnerstagabend, 2. Juli 2009, im Hinterhof des Christians Kjeller beim Kongsberg Jazzfestival. Er nennt die beiden „zwei große Musiker aus je einem Lager“; sie hätten zum ersten Mal gemeinsam auf einer Bühne gestanden.
+
+Es klinge etwas sonderbar, Hardingfele mit dem Folksänger Leven zu mischen, aber die Begegnung sei gut gelungen. Volkstöne gehörten durchaus in den Rahmen eines Jazzfestivals, ob mit Wurzeln in Afrika oder im Jondalen. Das Publikum habe sich jedenfalls mitreißen lassen, und Buens philosophischer Humor habe sich auf den Hinterhof voller erwartungsvoller Zuhörer übertragen; Buen sei ebenso ein lustiger Mann wie ein fantastischer Musiker.
+
+Die Festivalleitung habe sich am Tag danach rasch dafür entschuldigt, dass die beiden nicht die richtige Bühne bekommen hätten, denn die Musik verlange einiges von den Zuhörern. Eine Menge Leute in Festivalstimmung bringe leicht Geplauder mit, wovon die zweite Konzerthälfte etwas geprägt gewesen sei. Aber, so das Fazit, es sei dennoch große Kunst gewesen.
 
 ## Zitate
-> "Men bevares, her var det stor kunst likevel." – Fazit nach Einwänden.
+> "Det kan høres litt sært ut å blande hardingfele med folksangeren Jackie Leven, men møtet gikk ganske greit med tanke på at disse herrer ikke har stått på samme scene før." – Bryne über die Begegnung
+> "Men bevares, her var det stor kunst likevel." – Brynes Fazit trotz der Störungen
 
 ## Widersprüche / Anmerkungen
 - OCR lückenhaft (Zeilenanfänge abgeschnitten), Wertung nicht lesbar.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

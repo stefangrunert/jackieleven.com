@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Eintrag zu Leven in der *Virgin Encyclopedia of Nineties Music* (2000, S. 230 f.): Doll by Doll zerfielen 1983 ohne großen Erfolg, *Control* erschien nur in Spanien als John St. Field, *Night Lilies* sei „desperately bleak“.
+
 ## Inhalt
-Eigener Eintrag zu Leven auf S. 230 f. (Registerangabe „Doll By Doll, 230-231“; ebenso Beleg der englischen Wikipedia, ISBN 0-7535-0427-8). Sichtbar ist: Leven, geb. 1950 in Fife, sah Doll by Doll 1983 ohne großen kommerziellen Erfolg zerfallen; „Control“ sei nur in Spanien unter dem Pseudonym John St. Field erschienen; die EP „Songs From The Argyll Cycle“ markiere den Neubeginn; „Night Lilies“ habe ihn wieder mit Joe Shaw zusammengebracht und sei „desperately bleak“.
+Die von Colin Larkin herausgegebene *Virgin Encyclopedia of Nineties Music* (Virgin Books mit Muze UK, London 2000) widmet Jackie Leven einen eigenen Eintrag auf den Seiten 230 f. Aus den sichtbaren Teilen: Leven, 1950 in Fife geboren, habe Doll by Doll 1983 ohne großen kommerziellen Erfolg auseinanderbrechen sehen. Sein Album *Control* sei nur in Spanien unter dem Pseudonym John St. Field erschienen. Die EP *Songs from the Argyll Cycle* markiere den Neubeginn, und *Night Lilies* habe ihn wieder mit Joe Shaw zusammengebracht und sei „desperately bleak“, also verzweifelt düster.
+
+Es handelt sich um einen knappen Nachschlageeintrag. Er liegt nur in Ausschnitten vor; der Text ist ein früher Beleg dafür, dass Leven in einem allgemeinen britischen Musiklexikon der Neunziger berücksichtigt wurde.
 
 ## Widersprüche / Anmerkungen
 - Einleitungssatz der englischen Wikipedia stützt sich auf diesen Eintrag.

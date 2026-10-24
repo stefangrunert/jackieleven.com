@@ -17,8 +17,11 @@ bezug: ["07-nachrufe-vermaechtnis.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Paul Du Noyers Buch *In the City: A Celebration of London Music* (2010) steht ein „großartiger Song“ Levens in einer Liste von London-Songs; Du Noyer nennt ihn den „barrel-chested bard of Fife“.
+
 ## Inhalt
-Du Noyer, Levens Freund und Nachrufautor, nennt in seiner London-Topografie in einer Liste von London-Songs einen „großartigen Song“ Levens und beschreibt ihn als „barrel-chested bard of Fife“; gemeint ist wohl ein Soho-Song (vgl. „Empty in Soho Square“).
+Paul Du Noyer, Musikjournalist, Freund Levens und später Verfasser seines Nachrufs, behandelt in *In the City: A Celebration of London Music* (Virgin Books, London 2010) die Musikgeschichte der Stadt. In einer Liste von London-Songs nennt er einen „großartigen Song“ von Jackie Leven und beschreibt ihn als „barrel-chested bard of Fife“, als Barden aus Fife mit tonnenförmiger Brust. Der Songtitel ist im sichtbaren Ausschnitt nicht zu erkennen; gemeint ist wohl ein Lied über Soho, etwa „Empty in Soho Square“.
 
 ## Widersprüche / Anmerkungen
 - Songtitel im Snippet nicht sichtbar.

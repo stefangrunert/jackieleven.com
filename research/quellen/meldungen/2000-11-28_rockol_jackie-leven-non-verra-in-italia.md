@@ -17,9 +17,11 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Rockol meldet im November 2000 die Absage von Levens zwei Italienkonzerten in Turin (28. November) und Rom (29. November) wegen einer Erkrankung während des vorherigen Norwegenaufenthalts.
 
-Rockol meldet die Absage zweier Italienkonzerte: Zoobar in Turin am 28. November und Big Mama in Rom am 29. November 2000. Als Grund nennt die Meldung eine Erkrankung während des vorherigen Norwegenaufenthalts.
+## Inhalt
+Die kurze Meldung der italienischen Musikseite Rockol vom 28. November 2000 trägt die Überschrift „Jackie Leven non verrà in Italia“ („Jackie Leven kommt nicht nach Italien“) und teilt mit, dass die beiden geplanten Konzerte des Schotten ausfallen: am 28. November im Zoobar in Turin und am 29. November im Big Mama in Rom. Als Grund wird eine Erkrankung genannt, die Leven während seines vorangegangenen Aufenthalts in Norwegen ereilt habe. Die Meldung ist ein zeitgenössischer Beleg dafür, dass diese beiden Termine nicht stattfanden und daher nicht als gespielte Konzerte gezählt werden dürfen.
 
 ## Zitate
 

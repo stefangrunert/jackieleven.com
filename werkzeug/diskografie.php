@@ -170,6 +170,7 @@ $kontext = diskografie_kontext(['projekt' => 'haunted-valley', 'format' => 'albe
 pruefe_disk(count($kontext) === 3, 'Unbekannte Query übernommen.');
 pruefe_disk(diskografie_kontext(['projekt' => ['x'], 'format' => 'x', 'von' => ['x']]) === [], 'Ungültige Query nicht abgefangen.');
 pruefe_disk(diskografie_index('fehlt') === -1, 'Unbekannte Ausgabe gefunden.');
+pruefe_disk(diskografie_alias('1973-control') === '1975-control' && diskografie_index('1975-control') === 0 && diskografie()['releases'][0]['year'] === 1975, 'Control nicht auf Ende 1975 korrigiert oder alte Adresse ohne Weiterleitung.');
 $html = render('platte', ['platte' => $platten[diskografie_index('1999-greek-notebook')], 'kontext' => $kontext]);
 pruefe_disk(str_contains($html, e(diskografie_link('2000-munich-blues', $kontext))), 'Filterkontext geht beim Blättern verloren.');
 pruefe_disk(!str_contains($html, 'href="' . url('platte', ['slug' => '2000-defending-ancient-springs'])), 'Gefilterte Navigation enthält andere Projekte.');
@@ -201,7 +202,7 @@ pruefe_disk(diskografie_youtube('Shadow In My Eye') === diskografie_youtube('Sha
 pruefe_disk(diskografie_liedschluessel('(Spoken) The Butterfly Story') === diskografie_liedschluessel('The Butterfly Story'), 'Gesprochene Zwischenstücke nicht gemeinsam zugeordnet.');
 pruefe_disk(diskografie_youtube('Unbekanntes Lied') === null && diskografie_youtube_fassungen('Unbekanntes Lied') === [], 'Fremder Titel erhält falschen Link.');
 pruefe_disk(diskografie_youtube('Call Mother A Lonely Field') === diskografie_youtube_fassungen('Call Mother A Lonely Field')[0], 'Hörbeispiel ist nicht die erste Aufnahme.');
-foreach (['1973-control', '1997-control', '2023-control', '1979-remember', '1979-gypsy-blood-album', '1981-doll-by-doll', '1982-grand-passion', '2006-revenge-of-memory-live-at-the-sheffield-limits-club', '2007-remember-reissue', '2007-gypsy-blood-reissue', '2007-doll-by-doll-reissue', '2007-grand-passion-reissue'] as $id) {
+foreach (['1975-control', '1997-control', '2023-control', '1979-remember', '1979-gypsy-blood-album', '1981-doll-by-doll', '1982-grand-passion', '2006-revenge-of-memory-live-at-the-sheffield-limits-club', '2007-remember-reissue', '2007-gypsy-blood-reissue', '2007-doll-by-doll-reissue', '2007-grand-passion-reissue'] as $id) {
     pruefe_disk(in_array('spotify', array_column(diskografie_hoerlinks($id)['links'] ?? [], 'service'), true), 'Spotify-Angebot fehlt: ' . $id);
     foreach ($details[$id]['tracklists'] as $liste) foreach ($liste['tracks'] as $track) {
         pruefe_disk(diskografie_youtube($track['title']) !== null, 'Frühwerk ohne YouTube-Beispiel: ' . $id . ' / ' . $track['title']);

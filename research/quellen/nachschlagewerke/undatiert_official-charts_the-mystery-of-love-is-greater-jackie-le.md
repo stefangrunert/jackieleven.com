@@ -17,14 +17,16 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Die Official Charts verzeichnen *The Mystery of Love Is Greater* für den 11. August 2022 in vier Teilcharts: Platz 34 in den Scottish Albums, 19 im Record Store Chart, 40 bei den Independent Albums, 12 bei den Independent Album Breakers.
 
-Die offizielle Datenbank verzeichnet für den 11. August 2022 jeweils eine Chartwoche: Platz 34 in den Scottish Albums, 19 im Record Store Chart, 40 in den Independent Albums und 12 bei den Independent Album Breakers. Sie nennt Cooking Vinyl und die Katalognummer COOKCD064.
+## Inhalt
+Die Chart-Historie der Official Charts Company führt das Album von Jackie Leven (Cooking Vinyl, Katalognummer COOKCD064) mit genau einer Chartwoche, der vom 11. August 2022. In den Official Scottish Albums erreichte es Platz 34, im Official Record Store Chart Platz 19, in den Official Independent Albums Platz 40 und im Official Independent Album Breakers Chart Platz 12. Die Datenbank listet keine weiteren Wochen, keine Nummer-1- oder Top-10-Platzierung und keinen Eintrag in den allgemeinen britischen Album-Charts; sie liefert nur die Fakten zu den Platzierungen, keinen Text über das Album.
 
 ## Zitate
 
 Keine wörtlichen Zitate übernommen.
 
 ## Widersprüche / Anmerkungen
-
 Undatierte Datenbankseite; das Chartdatum ist kein Publikationsdatum. Die vier Spezialcharts belegen keinen Einstieg in die allgemeinen britischen Album-Top-100.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

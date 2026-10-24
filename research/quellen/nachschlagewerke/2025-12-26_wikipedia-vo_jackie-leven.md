@@ -17,5 +17,14 @@ bezug: []
 gefunden_ueber: "Wikidata Q432870 (Sitelinks)"
 ---
 
+## Kurz
+Ein zweizeiliger Stub in der Plansprache Volapük nennt Leven als schottischen Musiker und Liedermacher, geboren am 18. Juni 1950 in Kirkcaldy als Alan Moffatt, gestorben am 14. November 2011.
+
 ## Inhalt
-Zweizeiliger Stub in der Plansprache Volapük, angelegt am 26.12.2025 in einer einzigen Version: schottischer Musiker und Liedermacher, Geburtsname Alan Moffatt, Lebensdaten 18.06.1950 Kirkcaldy – 14.11.2011, einziger Weblink das Discogs-Profil. Für die Ressourcen-Seite nur als Kuriosum relevant.
+Der Artikel der Volapük-Wikipedia, angelegt am 26. Dezember 2025 in einer einzigen Version, besteht aus einem Satz und einem Weblink. Er nennt Jackie Leven, geboren am 18. Juni 1950 in Kirkcaldy als Alan Moffatt, gestorben am 14. November 2011, einen schottischen Musiker und Liedermacher. Als einziger Weblink steht das Discogs-Profil (in englischer Sprache). Kategorien sind Geburten 1950, Todesfälle 2011, schottische Musiker und schottische Liedermacher. Weitere Angaben zu Leben und Werk enthält der Eintrag nicht.
+
+## Zitate
+> "Jackie Leven (pämotöl tü 1950 yunul 18 in Kirkcaldy as: Alan Moffatt – ädeadöl tü 2011 novul 14) äbinom musigan ä kanitilautan Skotänik." – Einziger Satz des Volapük-Artikels
+
+## Widersprüche / Anmerkungen
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

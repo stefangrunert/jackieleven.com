@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Das amerikanische Diskografienwerk über Chart-Künstler führt Doll by Doll unter „Synth-Rock – British“ mit Besetzung und Albumliste 1979–1982.
+
 ## Inhalt
-Eintrag unter der Stilbezeichnung „Synth-Rock — British“ mit Besetzung (Leven: Gesang, Gitarren; Jo Shaw: Gesang, Keyboards u. a.; McIntosh) und Albumliste 1979–1982 einschließlich eines Titels „DXD, 1981“; im Personenregister Leven, McIntosh und Shaw mit Verweis auf die Band.
+Das Nachschlagewerk von Edwards, *Rock ’n’ Roll, 1970 through 1979* (McFarland, 1993) verzeichnet Diskografien aller Interpreten, die es in die Charts schafften. Doll by Doll erscheinen darin mit einem eigenen Eintrag unter der Stilbezeichnung „Synth-Rock – British“, was die Musik der Band nicht trifft. Aufgeführt sind die Besetzung – Jackie Leven (Gesang, Gitarren), Jo Shaw (Gesang, Keyboards u. a.) und David McIntosh – sowie die Alben der Jahre 1979 bis 1982, darunter ein Titel „DXD“ (1981), der sonst nirgends vorkommt und vermutlich ein Irrtum oder eine Kompilation ist.
+
+Im Personenregister des Bandes sind Leven, McIntosh und Shaw mit Verweis auf die Band geführt. Der Eintrag ist ein Beispiel dafür, wie die Band in amerikanischen Nachschlagewerken wahrgenommen wurde: als britische New-Wave-Gruppe mit kleiner Diskografie.
 
 ## Widersprüche / Anmerkungen
 - „Synth-Rock“ ist eine Fehlzuordnung; „DXD“ (1981) ist sonst unbekannt – vermutlich eine Kompilation/Promo oder ein Fehler (prüfen).

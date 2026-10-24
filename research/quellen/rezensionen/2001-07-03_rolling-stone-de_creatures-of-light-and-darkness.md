@@ -11,14 +11,27 @@ url: "https://www.rollingstone.de/reviews/jackie-leven-the-creatures-of-light-an
 archiv: ""
 erreichbarkeit: "live"
 sicherheit: "belegt"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: []
 gefunden_ueber: "Suchfeed der Website rollingstone.de/search/Jackie+Leven/feed/rss2/"
 ---
 
+## Kurz
+Positive Kritik in der deutschen Rolling-Stone-Ausgabe: Leven, „gehetzter Eisenhans und König der Ruhelosen“, liefere ein ruhiges, stimmiges Album mit distanzierteren Texten, auch über den toten Vater; ganz erschließe es sich nur mit dem Booklet.
+
 ## Inhalt
-Leven als „gehetzter Eisenhans und König der Ruhelosen“: ein ruhiges, stimmig produziertes Album mit distanzierteren Texten, darunter Erinnerungen an den verstorbenen Vater („My Spanish Dad“, „Rainy Day Bergen Women“) und „Exit Wounds“ mit einem Zitat Elisabeths I. Lob für das Songwriting, Spott über „Kunst-Poser“ David Thomas; ganz erschließe sich das Album nur mit Booklet. Tenor: positiv.
+Die anonyme Redaktionskritik beginnt: „Der Adler fliegt wieder.“ Jackie Leven, „gehetzter Eisenhans und König der Ruhelosen“, habe mal wieder etwas Ordnung in die Hütte gebracht. Im „kleinen schottischen Dorf Agryll“ (so die Kritik) habe er einst den „befreienden“ *Argyll Cycle* geschrieben; der letzte Lebensfunke zündete, die Welt war wieder in den Fugen. Doch noch immer sei Leven mehr Gejagter als Jäger – wovon die nur in kleinster Auflage veröffentlichten Live-Alben, oft mehr Lesung als Konzert, „Bände sprechen“.
+
+Seine durch erheblichen Drogenmissbrauch und persönliche Schicksalsschläge geschundene Seele scheine etwas Linderung erfahren zu haben; die Textmotive seien diesmal distanzierter als sonst. „My Spanish Dad“ und „Rainy Day Bergen Women“ entstammten Levens Erinnerungen an seinen verstorbenen Vater, für „Exit Wounds“ sei gar in den Büchern der Ahnen gewildert worden – mit einem Zitat aus dem Mund von Königin Elisabeth I.: „If you could look inside my heart, you’d see a body without a soul.“
+
+Es gehe um den Ernst des kaputten Lebens, um das Wechselspiel aus hoffnungsvollem Vertrauen und barmender Mutlosigkeit. Das Händchen für durchdachtes, ausgereiftes Songwriting habe sich Leven bewahrt. Die durchweg ruhigen Stücke, kaum eines unter fünf Minuten lang, „leben, fauchen, zirpen und kämpfen“ und seien, trotz erneuter Mitwirkung des „Kunst-Posers“ David Thomas, sehr stimmig produziert: kein unnötiger Pomp, überlegt gesetzte Akzente – „eine aufreibende Schlacht, nur dieses Mal ohne Krieg“. Vollständig erschließen werde sich die Platte nur dem, der die im Booklet abgedruckten Texte und Linernotes aufmerksam studiere. Die Kritik schließt mit der Pointe: „Lesen bildet.“
+
+## Zitate
+> "Der Adler fliegt wieder. Jackie Leven, gehetzter Eisenhans und König der Ruhelosen, hat mal wieder etwas Ordnung in die Hütte gebracht." – Eröffnung der Kritik
+> "Die durchweg ruhigen Stücke, kaum eines unter fünf Minuten lang, leben, fauchen, zirpen und kämpfen." – Urteil über die Songs
+> "Vollständig erschließen wird sich diese Platte trotzdem nur demjenigen, der die im Booklet abgedruckten Texte und Linernotes aufmerksam studiert. Lesen bildet." – Schluss der Kritik
 
 ## Widersprüche / Anmerkungen
 - Online ohne Autorennamen; OCR-Fehler im Archivtext („Agryll“). Bestätigt zeitlich die Aussage im Gaesteliste-Interview 2001, der Vater sei kürzlich gestorben.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

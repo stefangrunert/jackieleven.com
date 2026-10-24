@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Durchsicht der Music-Week-Artikelnummern um Mitte November 2011 (ID 047378), per curl; Text nur als Anriss frei"
 ---
 
+## Kurz
+Music Week meldet am 18.11.2011 Levens Tod: geboren am 18. Juni 1950 in Kirkcaldy, Erfolge mit Doll By Doll (vier Alben, auf dem letzten spielte David Gilmour), Neustart 1994 mit zwei Alben.
+
 ## Inhalt
-Meldung des britischen Branchenblatts Music Week vom 18.11.2011 (16.15 Uhr). Frei sichtbar sind nur die ersten Absätze: geboren am 18. Juni 1950 in Kirkcaldy, Erfolg mit Doll by Doll, vier Alben (auf dem letzten spielte David Gilmour), Trennung 1983; Neustart 1994 mit zwei Alben, Songs from the Argyll Cycle Volume 1 (laut Hülle nur in Schottland veröffentlicht) und The Mystery of Love. Der Rest ist Abonnenten vorbehalten.
+Das britische Branchenblatt *Music Week* meldet am 18. November 2011 (16.15 Uhr) unter der Überschrift „Jackie Leven dies following battle with cancer“ den Tod des Musikers. Im frei lesbaren Anfang heißt es, Leven sei am 18. Juni 1950 in Kirkcaldy geboren worden und habe mit Doll By Doll Erfolg gehabt; die Band habe vier Alben veröffentlicht, auf dem letzten habe David Gilmour gespielt, 1983 trennte sie sich. Seinen Neustart habe Leven 1994 mit zwei Alben gemacht: *Songs from the Argyll Cycle Volume 1* (laut Hülle nur in Schottland veröffentlicht) und *The Mystery of Love*. Der Rest des Artikels ist Abonnenten vorbehalten.
 
 ## Widersprüche / Anmerkungen
 - Nur Anriss gelesen; Autor nicht sichtbar.

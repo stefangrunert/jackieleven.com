@@ -17,11 +17,18 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 35, OCR"
 ---
 
+## Kurz
+Helge O. Svela nennt Leven in der *Rogalands Avis* „enigmatisch“ und lobt *Elegy for Johnny Cash*: selbst merkwürdige Produktionsentscheidungen könnten Levens klassisches Songwriting nicht zerstören; eine große Platte, die etwas Eingewöhnung verlange.
+
 ## Inhalt
-Kurze, positive Kritik mit Vorfreude auf Levens Konzert im Checkpoint (Stavanger) „in knapp einem Monat": Selbst merkwürdige Produktionsentscheidungen könnten Levens klassisches Songwriting nicht verderben. Auf dem Titelsong und „The Law of Tide" lehne sich Leven eng an Cashs Gesang an; die im Libanon entstandene Platte enthalte Klänge aus nahöstlicher und britischer Volksmusik. Eine große Platte, die etwas Gewöhnung verlange. Laut Rogalands Avis 18.10.2005 Würfel 5; Spielzeit 49:53.
+Helge O. Svela schreibt unter der Überschrift „Enigmatisk“ über *Elegy for Johnny Cash* (Cooking Vinyl/Bonnier Amigo). Der „enigmatische schottische Künstler“ komme in knapp einem Monat zum Checkpoint in Stavanger, und das sei ein Konzert, das er sich nicht entgehen lassen wolle. Das Album zeige, dass selbst merkwürdige Produktionsentscheidungen Levens klassisches Songwriting und seine Lyrik nicht ruinieren könnten.
+
+Es sei eine Hommage an den verstorbenen Johnny Cash; im Titelstück und in „The Law Of Tide“ lehne sich Leven eng an den stimmlichen Ausdruck des Countrykönigs an. Auch wenn mehrere Songs als Americana gelten könnten, stecke mehr in dem Album: Der Rezensent nennt den Libanon als Aufnahmeort und hört Klänge der Volksmusik des Nahen Ostens und der Britischen Inseln. Sein Urteil: „En stor plate som krever litt tilvenning“ – eine große Platte, die etwas Eingewöhnung braucht.
 
 ## Zitate
-> "En stor plate som krever litt tilvenning." – Schlussurteil.
+> "«Elegy For Johnny Cash» er en plate som demonstrerer at selv ikke merkelige produksjonsvalg kan ødelegge for Levens klassiske låtskriving og lyrikk." – Helge O. Svela über das Album
+> "En stor plate som krever litt tilvenning." – Schlussurteil
 
 ## Widersprüche / Anmerkungen
 - Vorbericht zum Checkpoint-Konzert (Donnerstag 20.10.2005) von hos@ (= Helge O. Svela) in Rogalands Avis 18.10.2005, S. 41 (https://urn.nb.no/URN:NBN:no-nb_digavis_rogalandsavis_null_null_20051018_107_281_1): Leven habe früher schon in Stavanger gespielt und für ein Konzert im „Sting" sehr gute Kritiken bekommen; am selben Abend spielt Viking im UEFA-Cup gegen Monaco.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

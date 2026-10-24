@@ -17,8 +17,11 @@ bezug: ["02-doll-by-doll.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Der Musikjournalist Tony Fletcher erzählt in seiner Autobiografie *Boy About Town*, wie er als Jugendlicher „Jackie Levan“, den Sänger von Doll By Doll, traf, einer Band mit gutem Ruf in der Musikpresse.
+
 ## Inhalt
-Der Musikjournalist Tony Fletcher (Fanzine „Jamming!“) erzählt, wie er als Jugendlicher „Jackie Levan“, den Sänger von Doll by Doll, traf, die sich bei der Musikpresse einen Ruf erworben hatten (Fortsetzung nicht sichtbar).
+In *Boy About Town* (William Heinemann, London 2013) erinnert sich der Musikjournalist Tony Fletcher, Gründer des Fanzines *Jamming!*, an seine Jugend. In einer Passage berichtet er, wie er „Jackie Levan“ traf, den Sänger von Doll By Doll – eine Band, die sich bei der Musikpresse einen Ruf erworben hatte. Der Name ist im Buch falsch geschrieben; wie die Begegnung weitergeht, ist im verfügbaren Ausschnitt nicht zu sehen.
 
 ## Widersprüche / Anmerkungen
 - Name als „Levan“ verschrieben.

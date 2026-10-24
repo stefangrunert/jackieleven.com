@@ -17,8 +17,13 @@ bezug: ["02-doll-by-doll.md"]
 gefunden_ueber: "peel.fandom.com, MediaWiki-API-Suche \"Doll By Doll\""
 ---
 
+## Kurz
+Die Fan-Dokumentation der Peel-Sendungen verzeichnet für den 28. Februar 1979 die Doll-by-Doll-Single „The Palace Of Love“ im Programm von John Peels BBC-Radio-1-Show.
+
 ## Inhalt
-Die Fan-Dokumentation der John-Peel-Sendungen (aus Mitschnittbändern rekonstruiert) verzeichnet für den 28. Februar 1979 die Single „The Palace Of Love“ von Doll by Doll (Automatic K17330) zwischen Alan Libert's Parabola und den Glaxo Babies. Derselbe Ausschnitt steht auf dem Fan-Band „PM142“ (peel.fandom.com/wiki/PM142). Eine Peel-Session von Doll by Doll ist im Wiki nicht verzeichnet.
+Die Fan-Dokumentation der John-Peel-Sendungen, aus Mitschnitten rekonstruiert, verzeichnet für den 28. Februar 1979 die Single „The Palace Of Love“ von Doll by Doll (Automatic K17330) zwischen Alan Libert's Parabola und den Glaxo Babies. Derselbe Ausschnitt steht auf dem Fan-Band „PM142“. Eine Peel-Session von Doll by Doll ist nicht verzeichnet.
+
+Die Eintragung belegt, dass Peel die Band zumindest gelegentlich spielte, was einer verbreiteten Darstellung widerspricht, er habe sie gehasst.
 
 ## Widersprüche / Anmerkungen
 - Relativiert die Houghton-Aussage „John Peel positively hated them“ (02-doll-by-doll.md): Peel spielte die Band zumindest gelegentlich (siehe auch 22.11.1979).

@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "WebSearch \"Core Trust\" addiction charity London holistic 1980s founded; Seite live abgerufen, nur Anreißer frei (doi:10.7748/ns.5.3.11.s20)"
 ---
 
+## Kurz
+Eine Kurzmeldung in Nursing Standard (10. Oktober 1990) berichtet von der Eröffnung eines CORE-Trust-Tageszentrums in London, das Akupunktur, Pflanzenheilmittel und Meditation mit herkömmlichen Entgiftungsmethoden verbindet.
+
 ## Inhalt
-Kurzmeldung der britischen Pflegefachzeitschrift: In London habe eine neue Rehabilitationseinrichtung mit ganzheitlicher Behandlung für Drogenabhängige eröffnet; das Programm des CORE Trust Day Centre verbinde Akupunktur, Pflanzenheilmittel und Meditation mit herkömmlichen Entgiftungsmethoden. Einer der wenigen zeitgenössischen Belege für die Arbeit des von Leven und Carol Wolf gegründeten Trusts; Leven wird im frei sichtbaren Teil nicht genannt.
+Die Kurzmeldung der britischen Pflegefachzeitschrift Nursing Standard (Bd. 5, Heft 3, S. 11) berichtet, dass in London eine neue Rehabilitationseinrichtung für Drogenabhängige mit ganzheitlicher Behandlung eröffnet habe. Das Programm des CORE Trust Day Centre verbinde Akupunktur, Pflanzenheilmittel und Meditation mit herkömmlichen Entgiftungsmethoden.
+
+Die Meldung ist einer der wenigen zeitgenössischen Belege für die Arbeit des von Jackie Leven und Carol Wolf gegründeten Trusts. Leven wird im frei sichtbaren Teil nicht genannt; ob er oder Carol Wolf zitiert werden, ist offen. Die Eröffnung des Tageszentrums fällt in den Herbst 1990.
 
 ## Neue Fakten / Anekdoten
 - Eröffnung eines Tageszentrums des CORE Trust im Herbst 1990 (vgl. 03-stille-jahre-core-trust.md: Gründung 1985 bzw. 1986/87).

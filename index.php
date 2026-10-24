@@ -152,6 +152,7 @@ if ($seite === 'pool') {
 
 // Jede im Katalog geführte Ausgabe hat ihre eigene Detailseite.
 if ($seite === 'diskografie' && count($teile) === 2) {
+    if ($neu = diskografie_alias($teile[1])) weiter(diskografie_link($neu, diskografie_kontext($_GET)));
     $i = diskografie_index($teile[1]);
     if ($i < 0) nicht_gefunden();
     $kontext = diskografie_kontext($_GET);

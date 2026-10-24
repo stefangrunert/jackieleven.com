@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Im deutschen Rock-Jahrbuch *Rock Session 5* (Rowohlt, 1981) wird Doll by Doll mit *Gypsy Blood* unter den Musikern genannt, die die Rockmusik der Achtziger prägen würden.
+
 ## Inhalt
-Im deutschsprachigen Rock-Jahrbuch wird Leven von Doll by Doll („Gypsy Blood“, WEA 56 755) unter den Musikern genannt, die die Rockmusik der 1980er prägen würden – ein früher deutscher Beleg für Levens Wahrnehmung hierzulande.
+Das Jahrbuch *Rock Session 5* (Rowohlt, Reinbek 1981) erwähnt Jackie Leven mit Doll by Doll und dem Album *Gypsy Blood* (WEA 56 755) unter den Musikern, die nach Einschätzung des Beitrags die Rockmusik der 1980er-Jahre prägen würden. Der Verfasser des Beitrags ist im sichtbaren Ausschnitt nicht zu erkennen. Der Eintrag ist ein früher deutschsprachiger Beleg dafür, dass Leven und seine Band schon zu Beginn der Achtziger auch in Deutschland wahrgenommen wurden.
 
 ## Widersprüche / Anmerkungen
 - Autor des Beitrags nicht sichtbar.

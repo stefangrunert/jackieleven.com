@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Pearsons Eisenbahn-Reisebuch taucht Leven mehrfach auf: als Sänger der Orte Fifes, der Bars, Zeit und Ort besingt, und als Song, der mit dem Geräusch eines Dampfzugs endet.
+
 ## Inhalt
-Eisenbahn-Reisebuch mit mehreren Leven-Bezügen: Bei der Durchfahrt durch Fife verbindet Pearson die Papiermacher-Geschichte der Gegend mit Leven, der von diesen Orten gesungen habe; er bewundert an ihm – neben der Zahl der Bars, die er zu kennen scheine – den Bezug auf Zeit und Ort; an anderer Stelle erinnert ihn die Fahrt durch die Lammermuir Hills an einen Leven-Song, der mit dem Geräusch eines Dampfzugs endet.
+*Railway Holiday in Scotland* (J. M. Pearson & Son) ist ein Eisenbahn-Reisebuch mit mehreren Verweisen auf Leven. Bei der Durchfahrt durch Fife verbindet der Autor die Papiermacher-Geschichte der Gegend mit Leven, der von diesen Orten gesungen habe. Er bewundert an ihm – neben der Zahl der Bars, die er zu kennen scheine – den Bezug auf Zeit und Ort. An anderer Stelle erinnert ihn die Fahrt durch die Lammermuir Hills an einen Leven-Song, der mit dem Geräusch eines Dampfzugs endet.
 
 ## Widersprüche / Anmerkungen
 - Gemeint sein dürften u. a. Songs über die Papiermühlen von Fife (vgl. „I'm Always A Prinlaws Boy“ auf „Control“).

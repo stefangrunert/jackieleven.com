@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Ian Rankins Rebus-Roman *Exit Music* legt der Kommissar zweimal Jackie Leven auf: nach Rory Gallagher und in einem Gespräch über seine Plattensammlung neben John Martyn.
+
 ## Inhalt
-Im (damals als letzter geplanten) Rebus-Roman kommt Leven zweimal vor: Nach Rory Gallagher legt Rebus Leven auf, danach Page und Plant; in einem Dialog über Rebus' Plattensammlung fallen John Martyn und Leven, und Rebus spricht von seiner „exit music“. In research/ bisher nicht verzeichnet.
+In *Exit Music* (Orion, 2007), dem damals als letzten geplanten Rebus-Roman von Ian Rankin, kommt Jackie Leven zweimal vor. Zunächst legt Rebus nach Rory Gallagher Leven auf, danach Jimmy Page und Robert Plant. In einem Dialog über Rebus' Plattensammlung fallen die Namen John Martyn und Leven, und Rebus spricht von seiner „exit music“, der Musik zum Abschied.
+
+Das Buch erschien in Übersetzungen, etwa auf Niederländisch („Laatste ronde“, 2008), Italienisch („Partitura finale“, 2011) und Französisch (2010).
 
 ## Widersprüche / Anmerkungen
 - Übersetzungen mit den Stellen: „Laatste ronde“ (nl., 2008), „Partitura finale“ (it., 2011), frz. 2010.

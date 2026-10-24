@@ -17,8 +17,14 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In einem selbstverlegten Musikermemoir erinnert sich der Autor an Bands, mit denen er zu tun hatte, darunter „Doll by Doll, a band fronted by Jackie Leven“.
+
 ## Inhalt
-Musikermemoir: In einem Probenraum- oder Bandkontext erinnert sich der Autor an Musiker, darunter eine Band mit Hits Anfang der 1970er und „Doll by Doll, a band fronted by Jackie Leven“; die eigenen Proben seien chaotisch gewesen.
+Das selbstverlegte Memoir *How NOT to Make It in the Pop World (Diary of an Almost Has-Been)* (Trafford Publishing, 2006) erwähnt in einem Band- oder Probenraumzusammenhang Musiker, darunter eine Band mit Hits Anfang der 1970er und „Doll by Doll, a band fronted by Jackie Leven“. Die eigenen Proben des Autors schildert er als chaotisch. Der Text bietet kaum mehr als diese Namensnennung.
+
+## Zitate
+> "Doll by Doll, a band fronted by Jackie Leven" – Erwähnung im Memoir
 
 ## Widersprüche / Anmerkungen
 - Selbstverlag; geringe Quellenqualität.

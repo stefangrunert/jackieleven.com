@@ -17,14 +17,18 @@ bezug: []
 gefunden_ueber: "Websuche „Jackie Leven“; Originalseite aufgerufen"
 ---
 
-## Inhalt
+## Kurz
+Kurzbesprechung von *Lovers At The Gun Club* in The List: überwiegend positiv, Songs von Erlösung und Traurigkeit, Gastgesang von Johnny Dowd, nur das abschließende David-Childers-Cover wirft eine Frage auf.
 
-Die überwiegend positive Kurzbesprechung hebt die melancholischen Erlösungsgeschichten und Johnny Dowds Gastgesang hervor. Sie nennt mehrere gelungene Stücke, hält aber den abschließenden David-Childers-Song stilistisch für fragwürdig.
+## Inhalt
+Die Kurzbesprechung in der Rubrik Singer-Songwriter beschreibt den aus Kirkcaldy stammenden Leven als „inzwischen so etwas wie einen keltischen und Romany-Troubadour“, der mit seinem „x-ten“ Soloalbum zurückkehrt. Der Titelsong eröffnet das Album; Gastsänger ist sein „absinth-schluckender“ Freund, der amerikanische Countrystar Johnny Dowd. Auf einer von Willie Dixon inspirierten Nummer erwähnt Leven einen „gewissen englischen Schauspieler“ – gemeint ist „Olivier Blues“.
+
+Die Lieder handelten vor allem von Erlösung und Traurigkeit und warfen einen Schatten, so lang wie Levens 58 Jahre auf Erden. Als weitere Höhepunkte nennt der Text „I’ve Passed Away from Human Love“ und „The Dent in the Fender and the Wheel of Fate“. Offen bleibt für den Kritiker nur, warum Leven und seine Mitstreiter am Ende noch das Springsteen-artige David-Childers-Stück „Heart In My Soul“ anhängten. Die Altersangabe von 58 Jahren verweist auf 2008/09.
 
 ## Zitate
-
-Keine wörtlichen Zitate übernommen.
+> "Now something of a Celtic/Romany troubadour, the Kirkcaldy-born Leven returns with his umpteenth solo album." – Einleitung der Besprechung
+> "They are primarily songs of redemption and sadness, casting a shadow as long as Jackie’s 58 years on earth." – Urteil des Kritikers zu den Songs
 
 ## Widersprüche / Anmerkungen
-
 Die migrierte Originalseite nennt weder Autor noch Publikationsdatum. Die Altersangabe 58 passt zu 2008/09, erlaubt aber keine verlässliche Datierung; daher undatiert und unsicher. „Archived article“ bezeichnet hier den internen Altbestand des live lesbaren Mediums.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

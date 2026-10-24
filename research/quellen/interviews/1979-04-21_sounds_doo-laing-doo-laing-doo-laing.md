@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Artikelliste Library/Artist/doll-by-doll"
 ---
 
+## Kurz
+Sounds-Porträt mit Interview von Hugh Fielder (21. April 1979) über Doll by Doll: Der Vorspann fordert dazu auf, das Etikett „R. D. Laing / Musik für Psychotiker“ zu vergessen und der Band eine Chance zu geben.
+
 ## Inhalt
-Sounds-Porträt mit Interview von Hugh Fielder (1.716 Wörter). Der Vorspann fordert dazu auf, das Etikett „R. D. Laing / Musik für Psychotiker“ zu vergessen und der Band eine Chance zu geben – Fielder schreibt also gegen das damals gängige Image an, das aus den Benefizkonzerten für Laings Philadelphia Association entstanden war. Volltext hinter Paywall.
+Das Porträt mit Interview von Hugh Fielder (rund 1.700 Wörter) erschien am 21. April 1979 in der britischen Musikzeitung Sounds und ist heute über die Plattform Rock's Backpages archiviert; der Volltext ist nur Abonnenten zugänglich. Der Vorspann fordert dazu auf, das Etikett „R. D. Laing / Musik für Psychotiker“ zu vergessen und der Band eine Chance zu geben. Fielder schreibt damit gegen das damals gängige Image von Doll by Doll an, das aus den Benefizkonzerten für Laings Philadelphia Association entstanden war. Über den weiteren Inhalt des Gesprächs liegt nichts vor.
 
 ## Widersprüche / Anmerkungen
 - Mick Houghtons Anekdote, Jo Shaw habe bei einem Sounds-Interview im Fish-and-Chips-Lokal „I'm leaving“ gerufen, könnte zu diesem Termin gehören – nicht belegt.

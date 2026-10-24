@@ -17,12 +17,15 @@ bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser, tidsskrift), Inhaltssuche je Ausgabe; OCR nur bei frei zugänglichen Ausgaben"
 ---
 
+## Kurz
+Im Oktober 2021 häufen sich in norwegischen Zeitungen Hinweise auf Jackie Leven: das Tribute-Album *The Wanderer*, die Kompilation *Straight Outta Caledonia*, Geir Rakvaags Doppelseite in Dagsavisen und eine NRK-Radiosendung zu seinem zehnten Todestag.
+
 ## Inhalt
-24 Ausgaben verzeichnen 2021 „Jackie Leven“, fast alle im Oktober rund um den zehnten Todestag, das Tribute-Album *The Wanderer* und die Kompilation *Straight Outta Caledonia* (Cooking Vinyl). Einzeln erfasst ist die frei lesbare Druckfassung von Geir Rakvaags Doppelseite in Dagsavisen vom 09.10.2021 (rezensionen/2021-10-09_dagsavisen_jackie-leven-var-en-av-verdens-beste-kulthelter-2.md), syndiziert in Demokraten, Moss Dagblad und Rogalands Avis; die Webfassung (Plus-Artikel) war schon erfasst.
+24 Ausgaben norwegischer Zeitungen nennen 2021 Jackie Leven, fast alle im Oktober, rund um den zehnten Todestag, das Tribute-Album *The Wanderer* und die Kompilation *Straight Outta Caledonia* (Cooking Vinyl). Herausgehoben ist die Doppelseite von Geir Rakvaag in der Dagsavisen vom 9. Oktober 2021, die auch in Demokraten, Moss Dagblad und Rogalands Avis erschien.
 
-Die übrigen Oktober-Treffer sind überwiegend Abdrucke des NRK-Radioprogramms: Am Samstag, 23.10.2021, sendete NRK P2 in „Musikklivet“ eine Jackie-Leven-Würdigung („Jackie Leven-hyllest“, 14:03, Wiederholung 00:05 und am 30.10. um 07:03). Die Programmseiten in Aftenposten, VG, Bergens Tidende, Adresseavisen, Stavanger Aftenblad und Fædrelandsvennen sind gesperrt, in Harstad Tidende und Innherred frei lesbar. Dag og Tid vom 01.10.2021 (5 Nennungen) ist die Druckfassung der bereits erfassten Archivrubrik (erinnerungen/2021-10-01_dag-og-tid_arkivet-jackie-leven.md). Konzerte: keine.
+Die übrigen Oktober-Treffer sind überwiegend Radioprogramm-Hinweise: Am Samstag, dem 23. Oktober 2021, sendete NRK P2 im Magazin „Musikklivet“ (14.03 Uhr, Wiederholung um 0.05 Uhr und am 30. Oktober um 7.03 Uhr) eine Würdigung für Jackie Leven – eine „Jackie Leven-hyllest“ – neben einem Beitrag zu „Stjernekamp“ und dem Rostrum-Wettbewerb. Die Programmseiten erscheinen in Aftenposten, VG, Bergens Tidende, Adresseavisen, Stavanger Aftenblad, Fædrelandsvennen, Harstad Tidende und Innherred. Dag og Tid brachte am 1. Oktober eine Archivrubrik über Leven (fünf Nennungen).
 
-Spur: Der NRK-P2-Beitrag „Musikklivet“ vom 23.10.2021 ist ein eigener Radiobeitrag zur Leven-Würdigung (radio-tv), über die Programmabdrucke hinaus hier nicht greifbar.
+Konzerte gab es 2021 nicht. Der Radiobeitrag selbst ist hier nicht greifbar. Die Funde zeigen, dass Levens Name in Norwegen ein Jahrzehnt nach seinem Tod noch ausreichte, um Zeitungen und den Rundfunk zu einer Würdigung zu bewegen.
 
 ## Übrige Treffer 2021 (ohne eigene Datei)
 

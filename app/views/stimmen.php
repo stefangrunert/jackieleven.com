@@ -71,11 +71,22 @@ $meta = fn(array $q) => implode(' · ', [stimme_datum($q['datum']), stimme_feld(
         $weitereAnzahl = count(array_filter($weitere, fn($q) => stimme_passt($q, $filter))); ?>
         <section class="disk-jahr stimmen-jahr" id="<?= $anker($jahr) ?>" aria-labelledby="titel-<?= $anker($jahr) ?>"<?= !isset($jahre[$jahr]) ? ' hidden' : '' ?>>
           <h2 id="titel-<?= $anker($jahr) ?>"><?= e($jahrlabel($jahr)) ?></h2>
+          <?php if (!$filter && ($einordnung = stimmen_einordnung($jahr))): ?>
+            <aside class="stimmen-einordnung" aria-label="<?= e($einordnung['titel'][sprache()]) ?>">
+              <p class="stimmen-einordnung-titel"><?= e($einordnung['titel'][sprache()]) ?></p>
+              <p><?= md_inline($einordnung['text'][sprache()]) ?></p>
+              <ul>
+                <?php foreach ($einordnung['quellen'] as $id): if (($n = stimme_index($id)) < 0) continue; $beleg = stimmen()[$n]; ?>
+                  <li><a href="<?= e(stimme_link($id)) ?>"><?= e(stimme_datum($beleg['datum']) . ' · ' . stimme_feld($beleg, 'medium')) ?></a></li>
+                <?php endforeach; ?>
+              </ul>
+            </aside>
+          <?php endif; ?>
           <?php foreach ($quellen as $q): if (!stimme_mit_seite($q)) continue; [$kurz, $kurzSprache] = stimme_text($q['kurz']); ?>
             <article class="stimme stimme--<?= e($q['stufe']) ?>" id="<?= e($q['id']) ?>" data-quellen-gewicht="<?= stimme_gewicht($q) ?>" data-art="<?= e($q['kategorie']) ?>" data-sprache="<?= e($q['sprache'] === 'nn' ? 'no' : $q['sprache']) ?>" data-zugang="<?= e($q['zugang']) ?>"<?= !stimme_passt($q, $filter) ? ' hidden' : '' ?>>
               <p class="stimme-meta"><?php if ($q['stufe'] === 'auswahl'): ?><span class="stimme-ausgewaehlt"><?= e(t('stimmen.ausgewaehlt')) ?></span> · <?php endif; ?><?= e($meta($q)) ?></p>
               <h3 lang="<?= e(stimme_titelsprache($q)) ?>"><a href="<?= e(stimme_link($q['id'])) ?>"><?= e(stimme_feld($q, 'titel')) ?></a></h3>
-              <p class="stimme-kurz"<?= $kurzSprache !== sprache() ? ' lang="de"' : '' ?>><?= md_inline($kurz) ?></p>
+              <?php if ($kurz !== null): ?><p class="stimme-kurz"><?= md_inline($kurz) ?></p><?php endif; ?>
               <p class="stimme-merkmale"><span><?= e(stimme_sprache($q['sprache'])) ?></span><span class="stimme-zugang stimme-zugang--<?= e($q['zugang']) ?>"><?= e(t('stimmen.zugang.' . $q['zugang'])) ?></span></p>
             </article>
           <?php endforeach; ?>

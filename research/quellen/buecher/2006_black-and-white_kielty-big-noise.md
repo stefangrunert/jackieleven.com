@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In Martin Kieltys Oral-History-Buch über schottische Popmusik erwähnen zwei Zeitzeugen Jackie Leven: einmal als Helfer beim Abbau der Ausrüstung einer anderen Band, einmal mit einer „brillanten“ Version von „I’d Rather Go Blind“.
+
 ## Inhalt
-Oral-History-Buch über schottische Popmusik. Zwei Zeitzeugenerinnerungen erwähnen Leven: Einmal habe „Doll By Doll's Jackie Leven“ geholfen, die Ausrüstung einer anderen Band von der Bühne zu schaffen; an anderer Stelle wird ein Abend erinnert, an dem Leven eine „brillante“ Version von „I'd Rather Go Blind“ sang (neben Clare Grogan).
+*Big Noise: The Sound of Scotland* (Black & White Publishing, Edinburgh 2006) von Martin Kielty ist ein Oral-History-Buch über schottische Popmusik. Zwei Erinnerungen von Zeitzeugen erwähnen Leven: In der einen habe „Doll By Doll’s Jackie Leven“ geholfen, die Ausrüstung einer anderen Band von der Bühne zu schaffen; in der anderen wird ein Abend erinnert, an dem Leven neben Clare Grogan eine „brillante“ Version von „I’d Rather Go Blind“ sang. Wer sich jeweils erinnert und bei welchem Anlass, ist nicht bekannt.
 
 ## Widersprüche / Anmerkungen
 - Erzähler und Anlass der Erinnerungen im Snippet nicht erkennbar.

@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Das niederländische Standardlexikon der Zeitschrift Oor führt Leven in der Ausgabe 2004 mit eigenem Eintrag; sichtbar ist nur eine Diskografiezeile mit *Defending Ancient Springs*.
+
 ## Inhalt
-Das niederländische Standardlexikon der Musikzeitschrift Oor führt Leven in der Ausgabe 2004 mit eigenem Eintrag; sichtbar ist nur die Diskografiezeile mit „(97) Defending Ancient Springs (Cooking Vinyl …)“, offenbar mit Oor-eigener Zählung bzw. Jahresangabe.
+Oor's Pop-encyclopedie, das niederländische Standardlexikon der Musikzeitschrift Oor, führt Jackie Leven in der Ausgabe 2004 mit einem eigenen Eintrag. Vom Eintrag ist nur die Diskografiezeile mit „(97) Defending Ancient Springs (Cooking Vinyl …)“ bekannt. Die Zahl vor dem Titel bleibt unklar: Das Album erschien im Jahr 2000, es könnte also ein Irrtum oder eine Wertungsziffer sein.
 
 ## Widersprüche / Anmerkungen
 - Die Angabe „(97)“ vor „Defending Ancient Springs“ (2000) ist unklar – Jahresfehler oder Wertungsziffer.

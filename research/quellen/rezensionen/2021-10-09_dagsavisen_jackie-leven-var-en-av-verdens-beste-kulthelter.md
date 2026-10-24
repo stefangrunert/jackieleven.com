@@ -17,11 +17,14 @@ bezug: []
 gefunden_ueber: "WebSearch \"Jackie Leven\" (Domainfilter norwegische Zeitungen)"
 ---
 
+## Kurz
+Geir Rakvaag in Dagsavisen (Nye Takter, 9. Oktober 2021) zum zehnten Todestag: Freude, die Lieder „eines der besten Kulthelden der Welt“ wieder zu hören, anlässlich von *The Wanderer* und der Kompilation *Straight Outta Caledonia*.
+
 ## Inhalt
-Musikkolumne zum zehnten Todestag anlässlich des Tribute-Albums *The Wanderer* und der ersten Kompilation (*Straight Outta Caledonia*). Sichtbar sind nur Vorspann und Bildunterschrift: Rakvaag freut sich, die Lieder „eines der besten Kulthelden der Welt“ wieder zu hören; das Foto zeigt Leven 1998 bei einem seiner vielen Norwegen-Besuche, wo er mit melancholischen Liedern viele Freunde gewann. Der Haupttext ist Abonnenten vorbehalten; Wertung unbekannt.
+Die Musikkolumne „Nye Takter“ in Dagsavisen erschien zum zehnten Todestag Levens und bespricht das Tribute-Album *The Wanderer* sowie die erste Kompilation *Straight Outta Caledonia*. Sichtbar sind nur der Vorspann und eine Bildunterschrift; der Haupttext ist Abonnenten vorbehalten. Der Autor Geir Rakvaag schreibt im Vorspann: „Det er godt å høre sangene til en av verdens beste kulthelter igjen“ – es sei gut, die Lieder eines der besten Kulthelden der Welt wieder zu hören. Das Foto zeigt Leven 1998 bei einem seiner vielen Norwegen-Besuche, bei denen er mit melancholischen Liedern viele Freunde gewann. Die Wertung ist unbekannt.
 
 ## Zitate
-> "Det er godt å høre sangene til en av verdens beste kulthelter igjen." – Vorspann.
+> "Det er godt å høre sangene til en av verdens beste kulthelter igjen." – Vorspann der Kolumne von Geir Rakvaag.
 
 ## Widersprüche / Anmerkungen
 - Nur Anriss gelesen (Plus-Artikel). Die NB-Volltextsuche verzeichnet für den 09.10.2021 denselben Text in mehreren Amedia-Blättern (u. a. Moss Dagblad, Rogalands Avis) – vermutlich syndiziert.

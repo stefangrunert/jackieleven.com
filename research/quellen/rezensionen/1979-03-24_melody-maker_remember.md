@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Artikelliste Library/Artist/doll-by-doll; WebSearch \"Doll By Doll\" Melody Maker 1979 review Remember"
 ---
 
+## Kurz
+Ian Birch bespricht im Melody Maker das Debütalbum *Remember*; sein erster Satz deutet nach anfänglichem Hype auf ein abgewogenes Urteil.
+
 ## Inhalt
-Melody-Maker-Kritik des Debütalbums „Remember“ von Ian Birch, der die Band ein halbes Jahr zuvor ausführlich interviewt hatte. Der erste Satz spricht davon, dass die „Rock-'n'-Roll-Romanze“ erst heiß, dann kalt werde, bevor sie sich zu einer realistischen Beziehung setze – deutet also auf ein abgewogenes Urteil nach anfänglichem Hype. Volltext und Wertung hinter Paywall.
+Ian Birch, der die Band ein halbes Jahr zuvor ausführlich interviewt hatte, bespricht im Melody Maker (24. März 1979) das Debütalbum *Remember* von Doll By Doll (Automatic Record Co.). Sein erster Satz spricht davon, dass die „Rock'n'Roll-Romanze“ erst heiß, dann kalt werde, bevor sie sich zu einer realistischen Beziehung setze – was auf ein abgewogenes Urteil nach anfänglichem Hype hindeutet. Volltext und Wertung sind nicht frei zugänglich.
 
 ## Widersprüche / Anmerkungen
 - Tenor nur aus dem ersten Satz erschlossen.

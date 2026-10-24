@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In einem Filmverzeichnis über Komponisten auf der Leinwand taucht in der Besetzungsliste ein „Jackie Leven“ auf; ob es sich um den Musiker handelt, ist offen.
+
 ## Inhalt
-In einem Filmeintrag mit Musik von Richard Strauss – vermutlich Ken Russells BBC-Film „Dance of the Seven Veils“ (1970) – steht in der Besetzungsliste neben Murray Melvin, Sally Bryant und Ken Russell ein „Jackie Leven“.
+Das Buch *The Great Composers Portrayed on Film, 1913 through 2002* (McFarland, 2004, Mitchell) listet Filme über Komponisten. In einem Eintrag zu einem Film mit Musik von Richard Strauss – vermutlich Ken Russells BBC-Film „Dance of the Seven Veils“ von 1970 – steht in der Besetzungsliste neben Murray Melvin, Sally Bryant und Ken Russell auch ein „Jackie Leven“.
+
+Das wäre ein möglicher Hinweis auf einen Kleinstauftritt des späteren Musikers in einem Ken-Russell-Film um 1970. Es kann ebenso eine Namensgleichheit sein; der Filmtitel ist im verfügbaren Ausschnitt nicht sichtbar, die Zuordnung ist erschlossen.
 
 ## Neue Fakten / Anekdoten
 - Möglicher Hinweis auf einen Kleinstauftritt Levens als Darsteller in einem Ken-Russell-Film um 1970; in research/ nirgends erwähnt. Ebenso gut kann es sich um eine Namensgleichheit handeln.

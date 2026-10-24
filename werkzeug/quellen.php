@@ -100,13 +100,36 @@ function zitate(string $text): array
     foreach (preg_split('/\n(?=>)/', $text) as $block) {
         if (!str_starts_with(ltrim($block), '>')) continue;
         $zeile = trim(preg_replace('/^>\s?/m', '', $block));
-        if (preg_match('/^[„"“«»](.+?)[“"”«»]\s*(?:[–—-]\s*(.+))?$/su', $zeile, $m)) {
+        // Gedankenstrich vor Bindestrich als Trenner, sonst endet „“Rebus”-bøker“ oder „«Hurt» - og“ das Zitat.
+        if (preg_match('/^[„"“«»](.+?)[“"”«»]\s*[–—]\s*(.+)$/su', $zeile, $m) || preg_match('/^[„"“«»](.+?)[“"”«»]\s*(?:-\s*(.+))?$/su', $zeile, $m)) {
             $zitate[] = ['text' => trim($m[1]), 'kontext' => trim($m[2] ?? '')];
         } elseif ($zeile !== '') {
             $zitate[] = ['text' => $zeile, 'kontext' => ''];
         }
     }
     return $zitate;
+}
+
+/**
+ * Wörtliche Belege für eine Korrektur: `> Original` mit Zeilen `de:` und `en:` je Block.
+ * Nur für Quellen, die einen verbreiteten Irrtum widerlegen (Zitatrecht: Beleg).
+ */
+function belege(string $text): array
+{
+    $belege = [];
+    foreach (preg_split('/\n\s*\n/', trim($text)) as $block) {
+        if (!preg_match('/^>\s?(.+)$/m', $block, $o)) continue;
+        preg_match('/^de:\s*(.+)$/m', $block, $de);
+        preg_match('/^en:\s*(.+)$/m', $block, $en);
+        $belege[] = ['original' => trim($o[1]), 'de' => trim($de[1] ?? ''), 'en' => trim($en[1] ?? '')];
+    }
+    return $belege;
+}
+
+function korrektur(string $text): ?array
+{
+    if (!preg_match('/^de:\s*(.+)$/m', $text, $de) || !preg_match('/^en:\s*(.+)$/m', $text, $en)) return null;
+    return ['de' => trim($de[1]), 'en' => trim($en[1])];
 }
 
 /** Ein bis zwei Sätze für Listen, an Satzgrenzen gekürzt. */
@@ -123,8 +146,11 @@ function liedfrei(string $s): string
     return preg_replace('/[^a-z0-9]/', '', strtolower(iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $s) ?: $s));
 }
 
-/** Diskographie-Ausgaben, deren Titel im Feld `thema` vorkommt: das Original vor Neuauflagen. */
-function ausgaben(array $thema, string $datum): array
+/**
+ * Diskographie-Ausgaben, deren Titel im Feld `thema` vorkommt. Steht ein Album im Titel der
+ * Kritik, zählen nur diese; je Album die Ausgabe, die zur Zeit der Kritik die jüngste war.
+ */
+function ausgaben(array $thema, string $datum, string $titel): array
 {
     $treffer = [];
     $jahr = (int) substr($datum, 0, 4) ?: 9999;
@@ -134,10 +160,11 @@ function ausgaben(array $thema, string $datum): array
         if (in_array(liedfrei($t), $projekte, true) && !($jahr >= 1980 && $jahr <= 1982)) continue;
         $kandidaten = array_filter(diskografie()['releases'], fn($p) => liedfrei($p['title']) === liedfrei($t) && $p['year'] <= $jahr + 1);
         if (!$kandidaten) continue;
-        usort($kandidaten, fn($a, $b) => [in_array($a['kind'], ['single', 'ep', 'reissue'], true), -$a['year']] <=> [in_array($b['kind'], ['single', 'ep', 'reissue'], true), -$b['year']]);
-        $treffer[] = $kandidaten[0]['id'];
+        usort($kandidaten, fn($a, $b) => [-$a['year'], in_array($a['kind'], ['single', 'ep'], true)] <=> [-$b['year'], in_array($b['kind'], ['single', 'ep'], true)]);
+        $treffer[$kandidaten[0]['id']] = str_contains(liedfrei($titel), liedfrei($t));
     }
-    return array_values(array_unique($treffer));
+    $imTitel = array_keys(array_filter($treffer));
+    return $imTitel ?: array_keys($treffer);
 }
 
 function nb_urn(string $url): ?string
@@ -186,7 +213,8 @@ foreach ($index as $q) {
         default => 'verloren',
     };
     $id = str_replace('_', '-', basename($q['datei'], '.md'));
-    $kurz = $inhalt ? kurztext($inhalt[0]) : '';
+    // Eigener Kurztext (Abschnitt „Kurz“) geht der automatischen Kürzung vor.
+    $kurz = trim($teile['Kurz'] ?? '') !== '' ? trim(preg_replace('/\s+/', ' ', $teile['Kurz'])) : ($inhalt ? kurztext($inhalt[0]) : '');
     $zitate = zitate($teile['Zitate'] ?? '');
     $en = $englisch[$id] ?? null;
     if ($en !== null && $en['quelle'] !== sha1(implode("\n", $inhalt) . $kurz)) { $en = null; $veraltet++; }
@@ -209,10 +237,12 @@ foreach ($index as $q) {
         'kurz' => ['de' => $kurz] + (isset($en['kurz']) ? ['en' => $en['kurz']] : []),
         'inhalt' => ['de' => $inhalt] + (isset($en['inhalt']) ? ['en' => $en['inhalt']] : []),
         'zitate' => $zitate,
+        'beleg' => belege($teile['Beleg'] ?? ''),
+        'korrektur' => korrektur($teile['Korrektur'] ?? ''),
         // Übersetzte Angaben in eckigen Klammern (eigene Beschreibungen) und deutsche Medien-/Autorangaben.
         'en' => array_filter(['titel' => $en['titel'] ?? null, 'medium' => $en['medium'] ?? $angaben[$q['medium']] ?? null, 'autor' => $en['autor'] ?? $angaben[$q['autor']] ?? null]),
         // Nur Rezensionen: In anderen Arten nennt `thema` auch Whisky, Lieder oder Ereignisse gleichen Namens.
-        'ausgaben' => $q['kategorie'] === 'rezensionen' ? ausgaben($q['thema'], $q['datum']) : [],
+        'ausgaben' => $q['kategorie'] === 'rezensionen' ? ausgaben($q['thema'], $q['datum'], $q['titel']) : [],
     ];
 }
 // Undatierte Quellen stehen am Ende; sonst chronologisch, gleiches Datum nach Stufe.

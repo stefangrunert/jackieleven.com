@@ -31,6 +31,12 @@ function diskografie_projekte(): array
     ];
 }
 
+/** Frühere Adressen einzelner Ausgaben, etwa nach einer korrigierten Datierung. */
+function diskografie_alias(string $id): ?string
+{
+    return ['1973-control' => '1975-control'][$id] ?? null;
+}
+
 function diskografie_index(string $id): int
 {
     foreach (diskografie()['releases'] as $i => $platte) {

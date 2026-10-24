@@ -4,18 +4,18 @@ Recherchestand: 17. September 2026; ergänzt am 23. Oktober 2026 um den Abschnit
 
 Hinweis zur Quellenlage: Discogs sperrt den direkten Abruf, die Angaben von dort wurden über Suchmaschinen-Snippets und Drittseiten verifiziert. Die detaillierteste Gesamtliste stammt von der Fan-/Begleitseite des Illustrators Stuart Briers [6], die mit Tracklisten und Katalognummern arbeitet; sie wurde gegen MusicBrainz [3][4][5] und Wikipedia [1][2] abgeglichen. Abweichungen sind im Abschnitt „Widersprüche und Unsicherheiten" aufgeführt.
 
-## John St. Field (1971–1973)
+## John St. Field (1971–1975)
 
 Levens erstes Album erschien unter dem Pseudonym John St. Field – laut Leven selbst „because I was in a little trouble with the forces of law and order" (weil er Ärger mit den Ordnungskräften hatte) [14]. Es wurde 1971 aufgenommen, erschien aber erst 1973 und nur in Spanien auf dem Madrider Label Movieplay [11][12].
 
 | Jahr | Titel | Format | Label | Kat.-Nr. | Anmerkung |
 |---|---|---|---|---|---|
-| 1973 | Control | LP | Movieplay (Spanien) | S-32.738 [6] | Aufgenommen 1971; nur in Spanien veröffentlicht [1][11][12] |
+| 1975 | Control | LP | Movieplay (Spanien) | S-32.738 [6] | Aufgenommen 1971; nur in Spanien veröffentlicht, Ende 1975 (früher meist 1973 angegeben, siehe Widersprüche) [1][11][12] |
 | 1997 | Control | CD | Cooking Vinyl | COOK CD 131 [3] | Erste Wiederveröffentlichung, unter „Jackie Leven" [1] |
 | 2001 | Control | CD (im 4-CD-Set) | Cooking Vinyl | COOK CD 212 | Teil von *Great Songs From Eternal Bars* [1][6] |
 | 2023 | Control | LP | Guerssen Records (Spanien) | 241LP | Wiederveröffentlichung der Original-LP [14] |
 
-Eine spanische Fanzine-Quelle (Efe Eme) datiert die Movieplay-Edition auf 1975 [11]; El País und die meisten anderen Quellen nennen 1973 [11][12].
+Eine spanische Fanzine-Quelle (Efe Eme) datiert die Movieplay-Edition auf 1975 [11]; El País und die meisten anderen Quellen nennen 1973 [11][12]. **Geklärt (24.10.2026):** Zeitgenössische spanische Presse belegt das Erscheinen Ende 1975 – La Vanguardia und Pueblo vom 13.12.1975 sowie Marca (09.01.1976) und Ya (28.01.1976, Konzert in La Boîte, Madrid) – `research/quellen/` (Nachsuche 24.10.2026). Zwischen 1972 und 1974 findet sich in den durchsuchten Archiven keine Nennung.
 
 ## Doll by Doll (1979–1982)
 
@@ -201,7 +201,7 @@ Ab 2008 hat Leven seine neuen Aufnahmen also selbst behalten und nur noch lizenz
 - **For Peace Comes Dropping Slow:** als Fanclub-Release bei Wikipedia und Briers 1997 [1][6]; MusicBrainz führt eine Cooking-Vinyl-Edition mit Datum 01.01.1998 und die Haunted-Valley-Edition 1997 [3]. Die Cooking-Vinyl-Neuauflage 2004 (COOKCD282) gilt als gesichert [6].
 - **Live Or Die (2024):** Briers übertitelt die Box „Live in Bremen 1994 & 2004", beschreibt aber selbst Aufnahmen von 1999 und 2004 [6]; Label (MIG) und Rezensionen bestätigen „1999 & 2004" [15][16]. Briers' „1994" ist ein Fehler.
 - **Live at Rockpalast:** Es existieren offenbar zwei verschiedene Releases: die DVD (2011, Intergroove; Briers: MIG90377) [1][6] und die CD *Live at Rockpalast 2004* (2024, MIG90370) [3]. Ob die DVD denselben Mitschnitt (2004) enthält, ist nicht zweifelsfrei geklärt.
-- **Control (Original):** El País und die Mehrheit der Quellen: Movieplay, 1973 [11][12]; Efe Eme: 1975 [11]; Briers nennt „1971 Movie Play S-32.738" [6] – 1971 ist das Aufnahmejahr.
+- **Control (Original):** El País und die Mehrheit der Quellen: Movieplay, 1973 [11][12]; Efe Eme: 1975 [11]; **zeitgenössisch belegt: Ende 1975** (La Vanguardia und Pueblo vom 13.12.1975 sowie Marca (09.01.1976) und Ya (28.01.1976, Konzert in La Boîte, Madrid) – `research/quellen/` (Nachsuche 24.10.2026)); Briers nennt „1971 Movie Play S-32.738" [6] – 1971 ist das Aufnahmejahr.
 - **Neuauflage *The Mystery of Love* (Expanded Edition):** [07-nachrufe-vermaechtnis.md](07-nachrufe-vermaechtnis.md) datiert die Doppel-CD auf 11/2021, MusicBrainz auf 2022 (COOKCD064X) [3], jpc die Doppel-LP auf den 09.09.2022 [23]; Apple Music führt die digitale Expanded Edition mit dem Originaldatum 04.07.1994 [19]. Möglich ist eine CD-Ausgabe Ende 2021 und die Vinyl-Ausgabe im September 2022; nicht abschließend geklärt.
 - **The Robberies of the Rain:** Nur Briers führt dieses 1983er-Soloalbum mit der Angabe „released 2005" [6]; bei MusicBrainz und in den Wikipedia-Diskografien fehlt es. Veröffentlichung unsicher.
 

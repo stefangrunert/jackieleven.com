@@ -17,8 +17,17 @@ bezug: []
 gefunden_ueber: "WebSearch \"Doll By Doll\" Hawkwind (allowed_domains worldradiohistory.com); Scan S. 6 per pypdf gelesen"
 ---
 
+## Kurz
+Record Mirror meldet am 28. Juni 1980, Doll by Doll verhandelten über einen neuen Plattenvertrag, gäben im Juli ein einziges Londoner Konzert (Half Moon, Herne Hill) und gingen im August auf eine lange US-Tournee.
+
 ## Inhalt
-Kurzmeldung: Doll by Doll verhandelten derzeit über einen neuen Plattenvertrag und spielten im Juli ein einziges London-Konzert (Half Moon, Herne Hill, 5. Juli 1980) vor einer längeren US-Tour im August. Belegt die Zwischenphase zwischen Automatic und Magnet.
+Die Kurzmeldung steht in der Tourdaten-Rubrik des Record Mirror vom 28. Juni 1980, zwischen Ankündigungen anderer Bands. Sie besagt, dass Doll by Doll „derzeit über einen neuen Plattenvertrag verhandeln“. Vor einer „langen Tournee durch die Staaten“ im August spielt die Band im folgenden Monat ein einziges Konzert in London, am 5. Juli im Half Moon in Herne Hill.
+
+Die Meldung bestätigt eine Zwischenphase zwischen den beiden Automatic-Alben und dem späteren Wechsel zu Magnet (Vertragsunterschrift laut einer anderen Quelle im September 1980). Ob die angekündigte US-Tournee stattfand, geht aus der Meldung nicht hervor.
+
+## Zitate
+> "DOLL BY DOLL: who are currently negotiating a new record deal play one London date next month, prior to a lengthy Stateside tour in August. The band will be appearing at the Herne Hill Half Moon on July 5." – Wortlaut der Meldung
 
 ## Widersprüche / Anmerkungen
 - Ob die US-Tour stattfand, ist offen; keine weitere Quelle gefunden.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: pdf).

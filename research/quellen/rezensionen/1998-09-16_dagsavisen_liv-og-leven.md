@@ -11,18 +11,28 @@ url: "https://urn.nb.no/URN:NBN:no-nb_digavis_dagsavisenarbeiderbladet_null_null
 archiv: ""
 erreichbarkeit: "live"
 sicherheit: "belegt"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: []
 gefunden_ueber: "Nasjonalbiblioteket API, Volltextsuche \"jackie leven\" (aviser), S. 28, OCR"
 ---
 
+## Kurz
+Geir Rakvaag lobt *Night Lilies* in der Dagsavisen als fast so stark wie den Vorgänger: persönliche Geschichten, vertraute und doch eigene Melodien, keltische Erdung – und Leven bleibe einer der meistunterschätzten Rocksänger der Welt.
+
 ## Inhalt
-Sehr positive Kritik: Geruch könne Zeit und Ort noch stärker heraufbeschwören als Musik; Leven habe sich vom Duft der Nachtlilien inspirieren lassen, die nach seiner Aussage sein Leben geprägt hätten. Das Album sei kaum schwächer als der Vorgänger, einer der Höhepunkte von 1997: ungewöhnlich starke, schmerzlich persönliche Geschichten über das schwierige Verhältnis von Frauen und Männern, Melodien, die vertraut wirken und doch ganz seine sind, erdige keltische Stimmung und geschmackvolles Spiel; manchmal erscheine er als „Roy Orbison unserer Zeit“. Leven sei in Norwegen in kleinen Kreisen groß geworden – dass das Vorgängeralbum Platz 40 einer norwegischen Verkaufsliste erreichte, habe in der britischen Rockpresse Aufsehen erregt –, bleibe aber einer der meistunterschätzten Rocksänger der Welt. Bildtext: Konzert in Oslo am 29. Oktober.
+Die Kritik beginnt mit einer Beobachtung: Geruch sei wohl das einzige Phänomen, das ein Gefühl von Zeit und Ort noch stärker heraufbeschwören könne als Musik. Leven habe sich vom Duft der Nachtlilien inspirieren lassen, der nach eigener Aussage sein Leben geprägt und ihn zu dem Mann gemacht habe, der er heute sei – „nicht der schlimmste Einfluss, dem er ausgesetzt war“, schreibt Rakvaag.
+
+Das vorige Album (im Text fälschlich „Ballad Of The Hard Men“ genannt; gemeint ist *Fairy Tales for Hard Men*) sei eines der Highlights des Vorjahres gewesen, und die neue Platte sei kaum schlechter. Leven erzähle ungewöhnlich starke Geschichten in schmerzlich persönlichen Liedern über das schwierige Verhältnis von Frauen und Männern, getragen von Melodien, die so gut seien, dass sie vertraut klängen und doch ganz seine eigenen. Eine erdige keltische Stimmung liege über den Stücken, das Instrumentalspiel von Leven und seinen Freunden sei durchweg ausgesprochen geschmackvoll. Manchmal erscheine er fast als „Roy Orbison unserer Zeit“.
+
+Der Kritiker ordnet Leven in Norwegen ein: In den letzten Jahren sei der „Kultheld“ in kleinen Kreisen groß geworden – dass sein voriges Album Platz 40 einer norwegischen Verkaufsliste erreichte, habe in der britischen Rockpresse Aufsehen erregt –, doch er müsse weiterhin einer der am meisten unterschätzten Rocksänger der Welt sein. Dass *Night Lilies* daran etwas ändere, sei unwahrscheinlich, „und das ist vielleicht am besten so. Manchmal sind große Geheimnisse gut zu haben.“ Ein Bild zeigt Leven mit dem Hinweis, er spiele am 29. Oktober wieder in Oslo.
 
 ## Zitate
-> "Av og til er store hemmeligheter gode å ha." – Schlusssatz.
+> "Av og til synes jeg nesten han står fram som vår tids Roy Orbison." – Geir Rakvaag über Leven auf *Night Lilies*.
+> "Lukt er vel den eneste fenomenet som kan mane fram en følelse av tid og sted enda sterkere enn musikk." – Rakvaag zu Beginn seiner Kritik.
+> "Det er nok liten sjanse for at «Night Lilies» forandrer på dette, og det er kanskje best sånn. Av og til er store hemmeligheter gode å ha." – Schluss der Kritik, über Levens Unbekanntheit.
 
 ## Widersprüche / Anmerkungen
 - Im OCR steht vor dem Text die Zeile „MODE STEINKJER“, die zur vorangehenden Kritik gehört; die Kritik selbst ist mit „GEIR RAKVAAG“ gezeichnet. Der Vorgänger heißt im Text falsch „Ballad Of The Hard Men“.
 - Neue Angabe: *Fairy Tales for Hardmen* erreichte Platz 40 einer norwegischen Verkaufsliste (vgl. Arbeiderbladet 18.04.1997: Neueinstieg auf Platz 20 einer im Arbeiderbladet abgedruckten Albumliste, „endlich eine Art Verkaufserfolg“, Sammeldatei 1997).
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: nb).

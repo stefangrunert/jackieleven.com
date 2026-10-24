@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In *The Naming of the Dead* denkt John Rebus an ein paar Zeilen aus einem Leven-Song über ein kleines Boot und ein riesiges Meer.
+
 ## Inhalt
-Rebus denkt an ein paar Zeilen aus einem Leven-Song über ein kleines Boot und ein riesiges Meer (zitiert als Songtext, hier nicht wiedergegeben). In research/ bisher nicht als Leven-Stelle verzeichnet.
+In Rankins Rebus-Roman (Orion, 2006) erinnert sich Rebus an einige Zeilen aus einem Song von Jackie Leven über ein kleines Boot auf einem riesigen Meer; die Zeilen werden im Buch als Songtext zitiert und hier nicht wiedergegeben. Welcher Song gemeint ist, ist unklar. Die Bildwelt erinnert an das alte bretonische Fischergebet. Die niederländische Ausgabe *Gedenk de doden* (2007) enthält dieselbe Stelle.
 
 ## Widersprüche / Anmerkungen
 - Niederländische Ausgabe „Gedenk de doden“ (2007) mit derselben Stelle.

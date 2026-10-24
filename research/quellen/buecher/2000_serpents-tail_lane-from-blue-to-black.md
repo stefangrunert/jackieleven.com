@@ -17,8 +17,14 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Joel Lane erwähnt in der Nachbemerkung seines Musikromans *From Blue to Black* (2000) Erfahrungen von einer Tour mit „the blues singer Jackie Leven“, darunter komisch-trostlose Geschichten.
+
 ## Inhalt
-Der Birminghamer Schriftsteller Joel Lane erzählt in seinem Musikroman von einer Band; in der Nachbemerkung/Danksagung erwähnt er Erfahrungen von einer Tour mit „the blues singer Jackie Leven“, einschließlich einiger komisch-trostloser Geschichten.
+Der Birminghamer Schriftsteller Joel Lane erzählt in seinem Musikroman *From Blue to Black* (Serpent’s Tail, London 2000) von einer Band. In der Nachbemerkung bzw. Danksagung erwähnt er Erfahrungen von einer Tour mit „the blues singer Jackie Leven“, einschließlich einiger komisch-trostloser Geschichten. Ob Lane selbst mit Leven unterwegs war oder Erzählungen anderer verwendete, geht aus dem erhaltenen Ausschnitt nicht eindeutig hervor.
+
+## Zitate
+> "the blues singer Jackie Leven" – Joel Lane in seiner Nachbemerkung
 
 ## Widersprüche / Anmerkungen
 - Ob Lane selbst mit Leven tourte oder jemandes Erzählungen verwendete, ist im Snippet nicht eindeutig.

@@ -17,8 +17,11 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Im Eintrag zu Ian Rankin heißt es, Literatur und Musik hätten sich überschnitten, als Leven im Rebus-Roman *Resurrection Men* erwähnt wurde; daraus entstand die Kurzgeschichte mit Musik „Jackie Leven Said“ (2005).
+
 ## Inhalt
-Im Rankin-Artikel (Band 2, Register S. 628) heißt es, Literatur und Musik hätten sich überschnitten, als Leven sich im Rebus-Roman „Resurrection Men“ erwähnt fand; daraus sei „Jackie Leven Said“ (2005) entstanden, eine von Rankin geschriebene und gelesene Kurzgeschichte mit Musik von Leven; Rankin habe außerdem Songtexte geschrieben.
+Das Nachschlagewerk *British Crime Writing: An Encyclopedia* (Hrsg. Barry Forshaw, Greenwood 2009) beschreibt im Eintrag zu Ian Rankin, wie sich in dessen Arbeit Literatur und Musik berührten. Anlass war, dass Jackie Leven sich im Rebus-Roman *Resurrection Men* erwähnt fand. Daraus sei „Jackie Leven Said“ (2005) entstanden, eine von Rankin geschriebene und gelesene Kurzgeschichte mit Musik von Leven. Rankin habe außerdem Songtexte geschrieben.
 
 ## Widersprüche / Anmerkungen
 - Erscheinungsjahr nach der Erstausgabe (2009) angesetzt; der Scan trägt kein Datum.

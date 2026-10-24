@@ -17,8 +17,13 @@ bezug: []
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+In dem Sammelband *Every Sound There Is* über die Beatles-Platte *Revolver* wird in einem Beitrag zu „She Said She Said“ Jackie Leven von Doll by Doll zitiert: Er liebe die Verwirrung, die der Song auslöse.
+
 ## Inhalt
-Wissenschaftlicher Sammelband zu „Revolver“; in einem Beitrag über „She Said She Said“ wird (nach einer Musikerumfrage, vermutlich aus Mojo) Leven „(Doll By Doll)“ zitiert, der die Verwirrung liebe, die der Song erzeuge.
+Der wissenschaftliche Sammelband (Ashgate, Aldershot, 2002), herausgegeben von Russell Reising, behandelt *Revolver* und seine Bedeutung für den Rock ’n’ Roll. In einem Beitrag über „She Said She Said“ wird nach einer Umfrage unter Musikern, vermutlich aus der Zeitschrift Mojo, auch Leven „(Doll By Doll)“ zitiert. Er liebe die Verwirrung, die der Song auslöse.
+
+Die Ursprungsquelle der Äußerung ist im sichtbaren Ausschnitt nicht angegeben; der Wortlaut ist nicht überliefert.
 
 ## Widersprüche / Anmerkungen
 - Ursprungsquelle des Leven-Zitats (Zeitschriftenumfrage) nicht sichtbar.

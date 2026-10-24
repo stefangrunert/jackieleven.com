@@ -17,8 +17,14 @@ bezug: []
 gefunden_ueber: "Rock's Backpages, Artikelliste Library/Artist/doll-by-doll"
 ---
 
+## Kurz
+Sounds-Livekritik von Hugh Fielder zu einem Doll-By-Doll-Konzert im Londoner Marquee unter der Überschrift „Shattered Dolls“; der Text selbst war nicht einsehbar.
+
 ## Inhalt
-Sounds-Livekritik eines Doll-by-Doll-Konzerts im Londoner Marquee, Februar 1980, unter der Überschrift „Shattered Dolls“ (456 Wörter). Inhalt und Urteil hinter Paywall; die Überschrift lässt auf einen zerfahrenen oder erschöpften Auftritt schließen – Spekulation. Zeitlich fällt das Konzert in die Phase nach dem Hawkwind-Tour-Abbruch und vor dem Ende bei Automatic (Mai 1980).
+Das Musikblatt Sounds druckte am 23. Februar 1980 unter der Überschrift „Shattered Dolls“ eine Live-Kritik zu einem Konzert von Doll By Doll im Londoner Marquee. Der Autor ist Hugh Fielder; der Text umfasst 456 Wörter. Inhalt und Urteil sind nicht einsehbar, über den Ton der Besprechung lässt sich daher nichts sagen.
+
+## Zitate
+> "Shattered Dolls" – Überschrift der Sounds-Kritik
 
 ## Widersprüche / Anmerkungen
 - Leven nannte das Marquee später als Ort, an dem Zuschauer fürchteten, verrückt zu werden (Independent-Nachruf, 02-doll-by-doll.md) – Zusammenhang offen.

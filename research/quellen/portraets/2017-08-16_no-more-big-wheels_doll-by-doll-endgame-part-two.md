@@ -32,3 +32,5 @@ Keine wörtlichen Zitate übernommen.
 ## Widersprüche / Anmerkungen
 
 Der Text ist mit „KN“ unterzeichnet; keine ausgeschriebene Autorenangabe gesichert. Die Reihenfolge Bandende 1983 / „Grand Passion“ ist chronologisch irreführend: Das Album erschien 1982. Gesundheits- und Privatangaben Dritter sowie Liedtextzitate nicht übernommen.
+
+- Weiterer Fundort (ergänzt 24.10.2026): Kris Needs hat die Reihe 2026 auf seinem Substack neu veröffentlicht – „Jackie Leven & Doll By Doll: Endgame“, 08.02.2026, https://krisoverthetopneeds.substack.com/p/jackie-leven-and-doll-by-doll-endgame (Teil 1, bezahlpflichtig; nur der Vorspann sichtbar). Damit ist „KN“ als Kris Needs bestätigt. Ein eigenständiger erster Teil auf nomorebigwheelsdotcom.wordpress.com wurde nicht gefunden.

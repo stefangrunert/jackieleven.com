@@ -23,6 +23,8 @@ foreach ($quellen as $q) {
     $text = json_encode([$q['kurz'], $q['inhalt'], $q['zitate']], JSON_UNESCAPED_UNICODE);
     pruefe_stimmen(!preg_match('~research/|\.md\b|gefunden_ueber|\bsicherheit:~', $text), 'Interner Verweis im öffentlichen Text: ' . $q['id']);
     foreach ($q['ausgaben'] as $id) pruefe_stimmen(in_array($id, $releases, true), 'Unbekannte Ausgabe bei ' . $q['id']);
+    foreach ($q['beleg'] ?? [] as $beleg) pruefe_stimmen($beleg['original'] !== '' && $beleg['de'] !== '' && $beleg['en'] !== '', 'Beleg ohne Übersetzung: ' . $q['id']);
+    pruefe_stimmen(($q['korrektur'] ?? null) === null || (($q['korrektur']['de'] ?? '') !== '' && ($q['korrektur']['en'] ?? '') !== ''), 'Korrektur unvollständig: ' . $q['id']);
     if (stimme_mit_seite($q)) {
         pruefe_stimmen(($q['kurz']['en'] ?? '') !== '' && count($q['inhalt']['en'] ?? []) === count($q['inhalt']['de']), 'Englische Fassung fehlt oder ist veraltet (werkzeug/quellen.php): ' . $q['id']);
         foreach ($q['zitate'] as $zitat) pruefe_stimmen($zitat['kontext'] === '' || ($zitat['kontext_en'] ?? '') !== '', 'Zitathinweis ohne Übersetzung: ' . $q['id']);
@@ -31,6 +33,10 @@ foreach ($quellen as $q) {
     pruefe_stimmen(isset($q['en']['titel']) || !preg_match('/\b(und|mit|vor|nach|über|ohne|Konzert\w*|Vorbericht|Bericht|Kurzkritik|Rezension|Kommentare|Gästebuch|Sammeldatei|Ausgabe)\b/u', $klammer), 'Beschreibender Titel ohne Übersetzung: ' . $q['id']);
 }
 pruefe_stimmen(count(array_filter($quellen, fn($q) => $q['stufe'] === 'auswahl')) >= 20, 'Zu wenige ausgewählte Quellen.');
+foreach (json_decode(file_get_contents(APP_ROOT . '/data/stimmen-einordnungen.json'), true, flags: JSON_THROW_ON_ERROR) as $jahr => $einordnung) {
+    foreach (SPRACHEN as $s) pruefe_stimmen(($einordnung['titel'][$s] ?? '') !== '' && ($einordnung['text'][$s] ?? '') !== '', 'Einordnung unvollständig: ' . $jahr);
+    foreach ($einordnung['quellen'] as $id) pruefe_stimmen(stimme_index($id) >= 0, 'Einordnung verweist auf eine Quelle ohne Seite: ' . $id);
+}
 pruefe_stimmen(stimmen_filter(['art' => 'interviews', 'sprache' => ['x'], 'zugang' => 'gibtsnicht', 'fremd' => 1]) === ['auswahl' => '1', 'art' => 'interviews'], 'Filter übernimmt unbekannte Werte.');
 $norwegisch = array_filter($quellen, fn($q) => stimme_passt($q, ['sprache' => 'no']));
 pruefe_stimmen($norwegisch !== [] && array_filter($norwegisch, fn($q) => !in_array($q['sprache'], ['no', 'nn'], true)) === [], 'Sprachfilter Norwegisch falsch.');
@@ -64,6 +70,7 @@ foreach (SPRACHEN as $s) {
     }
     pruefe_stimmen($xp->query('//nav//a[@aria-current="page" and @href="' . url('stimmen') . '"]')->length === 1, 'Navigation markiert die Seite nicht.');
     pruefe_stimmen(!preg_match('/>stimmen\.[a-z_.-]+</', $html), 'Unübersetzter Text auf der Übersicht.');
+    if ($s !== 'de') pruefe_stimmen($xp->query('//p[@lang="de"] | //div[@lang="de"] | //figcaption[@lang="de"] | //li[@lang="de"]')->length === 0, 'Deutscher Text auf der englischen Übersicht.');
     pruefe_stimmen(alternativ_url($s === 'de' ? 'en' : 'de') === url('stimmen', [], $s === 'de' ? 'en' : 'de'), 'Sprachwechsel verliert die Übersicht.');
 
     $dom->loadHTML('<?xml encoding="UTF-8">' . render('stimmen', ['filter' => ['auswahl' => '2']]));
@@ -89,7 +96,7 @@ foreach (SPRACHEN as $s) {
             pruefe_stimmen($lizenz->length === 1 && str_starts_with($lizenz[0]->getAttribute('href'), 'https://creativecommons.org/licenses/by-nc'), 'Namensnennung oder Lizenz fehlt: ' . $q['id']);
             pruefe_stimmen(str_contains($html, e(stimme_feld($q, 'medium'))), 'Medium fehlt in der Namensnennung: ' . $q['id']);
         }
-        if ($s === 'en') pruefe_stimmen(!str_contains($html, e(t('stimmen.nur_deutsch'))) && $xp->query('//div[@lang="de"]')->length === 0, 'Englische Seite zeigt die deutsche Zusammenfassung: ' . $q['id']);
+        if ($s !== 'de') pruefe_stimmen($xp->query('//p[@lang="de"] | //div[@lang="de"] | //figcaption[@lang="de"] | //li[@lang="de"]')->length === 0 && !str_contains($html, 'Zusammenfassung'), 'Deutscher Text auf der englischen Seite: ' . $q['id']);
         pruefe_stimmen(alternativ_url('de') === stimme_link($q['id']) || $s === 'en', 'Sprachwechsel verliert die Quelle.');
         $seiten++;
     }

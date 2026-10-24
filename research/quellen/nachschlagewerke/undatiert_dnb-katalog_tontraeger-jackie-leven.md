@@ -11,14 +11,19 @@ url: "https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%
 archiv: "https://web.archive.org/web/20260714151130/https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D134444035"
 erreichbarkeit: "live"
 sicherheit: "belegt"
-umfang: "kurz"
+umfang: "ausfuehrlich"
 abgerufen: "2026-10-23"
 bezug: ["05-diskografie.md"]
 gefunden_ueber: "DNB-SRU-Abfrage „Leven and Jackie“ (44 Datensätze), ausgehend von GND 134444035"
 ---
 
+## Kurz
+Der Katalog der Deutschen Nationalbibliothek zeigt rund vierzig Tonträger von und mit Leven. Sie belegen vor allem den deutschen Vertrieb: Teldec 1983, Public Propaganda (Hamburg) in den Cooking-Vinyl-Jahren, Normal Records 2004, MIG Music ab 2011.
+
 ## Inhalt
-Das Deutsche Musikarchiv verzeichnet 44 Datensätze, fast alle Pflichtexemplare deutscher Ausgaben. Sie zeigen, über wen Leven in Deutschland vertrieben wurde: „Grand Passion“ 1983 über **Teldec**, Hamburg; die Cooking-Vinyl-Alben 1994–2001 (von „The Mystery of Love …“ und „The Right to Remain Silent“ bis „Creatures of Light & Darkness“, dazu Singles/EPs wie „I Say A Little Prayer“, „Leven's Lament“, „Some Ancient Misty Morning“, „Universal Blue“ und „Control“ 1997) über den Hamburger Lizenznehmer **Public Propaganda** (Vertrieb Indigo); **„Songs for Lonely Americans“ 2004 bei Normal Records, Bonn** (Interpret „Vincent Lone“); David Thomas' „Mirror Man – Act 1: Jack & the General“ (1999) mit Leven, Robert Kidney u. a.; zwei Sampler „Vol. 1“ und „Vol. 5“ (1995/96); die MIG-Veröffentlichungen 2011 und 2024 (Rockpalast, „Live Or Die“), 2025/26 auch als Online-Ressource; dazu Einzeltitel-Datensätze der Alben 2000/2001.
+Im Katalog der Deutschen Nationalbibliothek (Deutsches Musikarchiv) finden sich rund vierzig Datensätze zu Jackie Leven, überwiegend Pflichtexemplare deutscher Ausgaben. Sie zeigen, über wen Levens Musik in Deutschland erschien. *Grand Passion* kam 1983 bei Teldec in Hamburg heraus. Die Cooking-Vinyl-Alben der Jahre 1994 bis 2001 – von *The Mystery of Love Is Greater Than the Mystery of Death* und *The Right to Remain Silent* über *Forbidden Songs of the Dying West*, *Fairy Tales for Hard Men* und *Night Lilies* bis *Creatures of Light & Darkness* – erschienen beim Hamburger Lizenznehmer Public Propaganda, der teils über Indigo vertrieben wurde. Das gilt auch für Singles und EPs wie *I Say A Little Prayer*, *Leven’s Lament*, *Some Ancient Misty Morning*, *Universal Blue* und *Control* (1997).
+
+Weitere Einträge: *Songs for Lonely Americans* kam 2004 bei Normal Records in Bonn heraus, mit dem Interpreten „Vincent Lone“. Für David Thomas’ Album *Act 1. Jack & the General* (1999, Public Propaganda) ist Leven als Mitwirkender verzeichnet. Dazu kommen zwei Sampler (Vol. 1 von 1996 und ein weiterer) sowie Einzeltitel-Datensätze zu Stücken der Alben von 2000 und 2001. Die jüngsten Einträge betreffen die Veröffentlichungen von MIG Music (Hannover): die DVD *Live at Rockpalast* (2011, aufgenommen 2004 in der Bonner Harmonie mit Michael Cosgrave und Kevin Foster) und *Live or Die – live in Bremen, 1999 & 2004* (2024), teils auch als Online-Ressource in den Jahren 2025 und 2026 nachgewiesen.
 
 ## Neue Fakten / Anekdoten
 - Public Propaganda (Hamburg) als deutscher Lizenznehmer/Vertrieb der Cooking-Vinyl-Jahre ist in research/ nicht erwähnt.
@@ -26,3 +31,4 @@ Das Deutsche Musikarchiv verzeichnet 44 Datensätze, fast alle Pflichtexemplare 
 
 ## Widersprüche / Anmerkungen
 - Die Sampler „Vol. 1“/„Vol. 5“ sind ohne Reihentitel im Kurzformat; Reihentitel über die DNB-Detailansicht zu ermitteln.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: original).

@@ -1136,6 +1136,10 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
 .stimmen-jahr > .stimme, .stimmen-jahr > .stimmen-weitere { border-top: 0; }
 .stimmen-jahr > .stimme:not([hidden]) ~ .stimme:not([hidden]),
 .stimmen-jahr > .stimme:not([hidden]) ~ .stimmen-weitere:not([hidden]) { border-top: 1px solid var(--line); }
+.stimmen-einordnung { margin: .4rem 0 1.4rem; padding: 1.1rem 1.3rem; border: 1px solid var(--accent); border-radius: 2px; }
+.stimmen-einordnung-titel { margin: 0 0 .5rem; color: var(--accent); font-family: var(--rough); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.stimmen-einordnung p { font-size: 18px; line-height: 1.6; }
+.stimmen-einordnung ul { list-style: none; display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin-top: .8rem; font-family: var(--rough); font-size: 12px; letter-spacing: .04em; }
 .stimme { padding: 1.1rem 0; border-top: 1px solid var(--line); }
 .stimme-meta { color: var(--ink-dim); font-family: var(--rough); font-size: 11px; letter-spacing: .06em; line-height: 1.6; margin: 0; }
 .stimme-ausgewaehlt { color: var(--accent); text-transform: uppercase; letter-spacing: .12em; }
@@ -1162,6 +1166,12 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
 .stimme-inhalt p { font-size: 19px; line-height: 1.65; }
 .stimme-inhalt p + p { margin-top: 1rem; }
 .stimme-detail .stimme-hinweis { color: var(--ink-dim); font-size: 14px; }
+.stimme-detail .stimme-korrektur { margin-top: 2rem; padding: 1rem 1.2rem; border: 1px solid var(--accent); border-radius: 2px; }
+.stimme-korrektur-titel { margin: 0 0 .4rem; color: var(--accent); font-family: var(--rough); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.stimme-korrektur p:last-child { margin: 0; font-size: 18px; line-height: 1.55; }
+.stimme-beleg figure { margin: 0 0 1.4rem; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
+.stimme-beleg blockquote p { font-size: 21px; line-height: 1.5; }
+.stimme-beleg figcaption { margin-top: .4rem; color: var(--ink-soft); font-size: 16px; font-style: italic; }
 .stimme-zitate figure { margin: 0 0 1.4rem; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
 .stimme-zitate blockquote p { font-size: 21px; font-style: italic; line-height: 1.5; }
 .stimme-zitate figcaption { margin-top: .4rem; color: var(--ink-dim); font-size: 14px; }

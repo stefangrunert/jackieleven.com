@@ -17,9 +17,19 @@ bezug: []
 gefunden_ueber: "WebSearch allowed_domains westzeit.de; Original am 2026-10-23 mit HTTP 500, gelesen über Wayback-CDX"
 ---
 
+## Kurz
+Klaus Hübner bespricht *Lovers At The Gun Club* in Westzeit: nie sei Leven so wertvoll gewesen, seine Interpretationen so schräg und ruppig – eine leichtfüßige Souveränität à la Tom Waits und Lambchop.
+
 ## Inhalt
-Begeisterte Kurzkritik: Nie seien Levens Interpretationen „so rotzig, schräg, ruppig“ gewesen; im von Johnny Dowd gesungenen Titelstück zitiere Leven Van Morrisons „Gloria“. Hübner lobt eine leichtfüßige Souveränität wie bei Tom Waits, den Go-Betweens oder Lambchop. Wertung: 4 (Skala der Westzeit, vermutlich von 5).
+Klaus Hübner hält Levens neues Album für sein wertvollstes: Nie seien seine Interpretationen so „rotzig, schräg, ruppig“ gewesen. Leven habe sich als „Liebhaber aus dem Schießclub“ geoutet – ohne Blatt vor dem Mund, aber mit genau beobachteten Alltagsszenen. Im Titelstück, gesungen von Johnny Dowd, zitiere er Van Morrisons „Gloria“; Leven wisse genau, wo er sich Zitate leisten dürfe und wo die eigene Stärke zählt.
+
+Überraschend gelinge ihm eine leichtfüßige Souveränität wie bei Tom Waits, den Go-Betweens oder Lambchop (im Text steht „Karl“ statt Kurt Wagner) – „unbeschwert“ würde man seine Musik nennen, wäre das Wort nicht so oberflächlich besetzt, mit allen Haken und Ösen zeitgemäßer Blues-, Country- und Underground-Musik.
+
+## Zitate
+> "Nie war er so wertvoll wie heute, nie waren seine Interpretationen so rotzig, schräg, ruppig." – Klaus Hübner zu Levens Album.
+> "Überraschend gelingt Jackie Leven eine leichtfüßige Souveränität, wie sie von Tom Waits, den Go-Betweens oder Karl Wagners Lambchop vorgelebt wurden." – Hübner über Levens neue Souveränität.
 
 ## Widersprüche / Anmerkungen
 - Nennt Leven „in eine schottische Roma-Familie hinein geboren“ (Labelbiografie-Tradition).
 - Westzeit.de lieferte am Abrufdatum HTTP 500; ob das Original wieder erreichbar wird, ist offen.
+- Inhaltsangabe und Zitate am 24.10.2026 anhand des Originals ausgebaut (gelesen über: archiv).

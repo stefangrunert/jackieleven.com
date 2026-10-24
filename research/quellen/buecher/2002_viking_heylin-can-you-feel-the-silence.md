@@ -17,11 +17,14 @@ bezug: ["09-websites.md"]
 gefunden_ueber: "Open-Library-Volltextsuche (openlibrary.org/search/inside) nach „Jackie Leven“ bzw. „Doll by Doll“"
 ---
 
+## Kurz
+Clinton Heylin widmet seine Van-Morrison-Biografie *Can You Feel the Silence?* Jackie Leven, „der weiter die Highlights stiehlt“ – ein Beleg für die Freundschaft zwischen dem Rockhistoriker und Leven.
+
 ## Inhalt
-Heylin widmet seine Van-Morrison-Biografie Leven – mit dem Zusatz, Leven stehle (Van Morrison) weiterhin die Höhepunkte. Beleg für die Freundschaft zwischen dem Rockhistoriker und Leven; Heylin war auch Beiträger von Levens Fanclub (09-websites.md).
+Heylins Biografie *Can You Feel the Silence? Van Morrison: A New Biography* (Viking, London 2002; Chicago Review Press 2003) trägt eine Widmung an Jackie Leven, die mit den Worten beginnt, er sei derjenige, der (Van Morrison) weiterhin die Highlights stehle. Die Widmung belegt die Freundschaft zwischen dem Rockhistoriker und Leven; Heylin gehörte auch zu den Beiträgern des Leven-Fanclubs. Ob Leven im Haupttext des Buches vorkommt, ist aus den Suchausschnitten nicht ersichtlich.
 
 ## Zitate
-> "To Jackie Leven, who continues to steal the highlights" – Beginn der Widmung.
+> "To Jackie Leven, who continues to steal the highlights" – Beginn der Widmung in Heylins Van-Morrison-Biografie
 
 ## Widersprüche / Anmerkungen
 - Ob Leven im Text selbst vorkommt, ist aus den Snippets nicht ersichtlich.

@@ -17,8 +17,15 @@ bezug: []
 gefunden_ueber: "WebSearch \"Doll by Doll\" \"Gypsy Blood\" reissue review 2007; Seite live abgerufen, nur Anreißer frei"
 ---
 
+## Kurz
+Kris Needs bespricht in Record Collector die 2007 bei Rhino erschienenen CD-Ausgaben der vier Doll-by-Doll-Alben. Der frei sichtbare Anfang beschreibt die Band als Gewächs der West-Londoner Squat-Szene mit psychedelischen Soulballaden und beängstigend intensiven Live-Auftritten.
+
 ## Inhalt
-Sammelkritik der 2007 bei Rhino erschienenen CD-Ausgaben aller vier Doll-by-Doll-Studioalben, geschrieben von Kris Needs, der die Band schon 1978–1981 in ZigZag begleitet hatte. Der frei sichtbare Anfang beschreibt die Band als Gewächs der West-Londoner Squat-Szene, zeitlich quer zur Punk-Explosion, mit einer Mischung aus epischen psychedelischen Soul-Balladen und aufgedrehten Gitarrenkakophonien, die live beängstigende Intensität erreichte; nach drei Alben habe Leven einen bodenständigeren Weg eingeschlagen. Der Rest (inkl. Wertung) ist nur für Abonnenten/registrierte Nutzer sichtbar.
+Die Sammelkritik (Heft 336) gilt den CD-Neuausgaben von *Remember*, *Gypsy Blood*, *Doll by Doll* und *Grand Passion* bei Rhino. Autor ist Kris Needs, der die Band schon 1978–1981 im Magazin ZigZag begleitet hatte.
+
+Der frei zugängliche Anfang beschreibt Doll by Doll als Gewächs der West-Londoner Squat-Szene, zeitlich quer zur Punk-Explosion. Die Band habe epische psychedelische Soulballaden mit aufgedrehten Gitarrenkakophonien gemischt, die live beängstigende Intensität erreichten. Nach drei Alben habe Leven einen bodenständigeren Weg eingeschlagen.
+
+Der Rest des Textes samt Wertung ist nur für registrierte Nutzer sichtbar und war nicht zugänglich.
 
 ## Widersprüche / Anmerkungen
 - Das Datum 29.08.2007 ist das Online-Datum der Website; das Heft Nr. 336 erschien etwa im Spätsommer 2007. Sternewertung nicht sichtbar – daher „unsicher“.
