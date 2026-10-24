@@ -79,7 +79,7 @@ foreach (SPRACHEN as $s) {
     pruefe(count($namen[1]) === count(array_unique($namen[1])), 'Auch gleich datierte Beiträge brauchen eindeutige Navigationsnamen.');
     $html = render('pool');
     pruefe(!str_contains($html, 'pool-auswahl'), 'Die redaktionelle Auswahl wurde entfernt.');
-    pruefe(str_contains(render('kolumne', ['i' => 0]), e(url('pool_archiv')) . '#jahr-2002'), 'Das Archiv ist vom ersten Text aus nicht erreichbar.');
+    pruefe(!str_contains(render('kolumne', ['i' => 0]), 'pool-archivlink'), 'Die Kolumnen-Navigation verweist nicht mehr eigens aufs Archiv.');
     foreach ($liste as $k) {
         pruefe(str_contains($html, e(url('kolumne', ['slug' => $k['slug']]))), 'Text fehlt in der Übersicht.');
     }
