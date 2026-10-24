@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 /** Public identity is fixed; never build canonical URLs from an untrusted Host header. */
 const SEO_ORIGIN = 'https://jackieleven.com';
+/** Cloudflare Web Analytics: cookieless page counts, only on the live host. The token is public. */
+const ANALYTICS_TOKEN = 'a04a23aa95f4461e93097b9a51e528fc';
 
 function seo_live(): bool
 {

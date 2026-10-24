@@ -75,5 +75,8 @@
 <?php if ($nav === 'hoeren'): ?>
 <script src="/assets/js/hoeren.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/hoeren.js') ?>" defer></script>
 <?php endif; ?>
+<?php if (seo_live()): ?>
+<script src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "<?= ANALYTICS_TOKEN ?>"}' defer></script>
+<?php endif; ?>
 </body>
 </html>

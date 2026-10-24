@@ -60,4 +60,9 @@ seo_pruefe(str_contains(seo_anfrage('/robots.txt')[0], 'Sitemap: ' . SEO_ORIGIN 
 $chapter = url('kapitel', ['slug'=>kapitelliste()[0]['slug']], 'en');
 seo_pruefe(!in_array(SEO_ORIGIN . $chapter, $urls, true) && str_contains(seo_anfrage($chapter)[0], 'noindex'), 'Fictional chapter indexable');
 seo_pruefe(str_contains(seo_anfrage('/en/biography')[0], 'class="pastiche-text" data-nosnippet'), 'Fictional prose allowed in search snippets');
+$beacon = '//script[@src="https://static.cloudflareinsights.com/beacon.min.js"]';
+$doc = new DOMDocument(); $doc->loadHTML(seo_anfrage('/en/')[0], LIBXML_NOERROR); $live = new DOMXPath($doc);
+seo_pruefe($live->query($beacon)->length === 1 && str_contains($live->query($beacon)[0]->getAttribute('data-cf-beacon'), ANALYTICS_TOKEN), 'Analytics beacon missing on live host');
+$doc = new DOMDocument(); $doc->loadHTML(seo_anfrage('/en/', 'localhost:8765')[0], LIBXML_NOERROR); $dev = new DOMXPath($doc);
+seo_pruefe($dev->query($beacon)->length === 0, 'Analytics beacon on dev host');
 echo count($urls) . " sitemap URLs checked; metadata, languages, structured data, filters, 404, staging and pastiche checks passed.\n";
