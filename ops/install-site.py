@@ -32,6 +32,14 @@ key = payload['key'].strip()
 if not re.fullmatch(r're_[A-Za-z0-9_-]+', key):
     raise SystemExit('Invalid Resend key format')
 pool = payload['pool'].replace('@RESEND_API_KEY@', key)
+for name in ('sitekey', 'secret'):
+    value = payload['turnstile_' + name]
+    if not isinstance(value, str) or not re.fullmatch(r'[A-Za-z0-9_-]{20,100}', value):
+        raise SystemExit('Invalid Turnstile credential format')
+    # Test credentials must never reach the public production pool.
+    if value.startswith(('1x', '2x', '3x')):
+        raise SystemExit('Turnstile test credentials are not allowed in production')
+    pool = pool.replace('@TURNSTILE_' + name.upper() + '@', value)
 nginx = payload['nginx']
 if 'server_name jackieleven.com' not in nginx or '[jackieleven]' not in pool:
     raise SystemExit('Wrong site configuration')

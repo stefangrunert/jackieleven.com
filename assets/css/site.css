@@ -1031,6 +1031,7 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
 .home-mitmachen p { max-width: 46rem; color: var(--ink-soft); margin-bottom: 1rem; }
 .kontakt { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1rem; }
 .kontakt-formular { display: grid; gap: 1.3rem; position: relative; }
+.kontakt-formular .cf-turnstile { width: 100%; max-width: 360px; }
 .kontakt-feld { display: grid; gap: .4rem; }
 .kontakt-feld label { color: var(--ink-soft); }
 .kontakt-feld small { color: var(--ink-dim); font-size: .8em; }

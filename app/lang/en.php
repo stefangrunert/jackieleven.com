@@ -119,6 +119,10 @@ return [
     'mit.fehler.warten' => 'Please wait a little before sending another message.',
     'mit.fehler.versand' => 'Your message could not be sent just now. Your text is still in the form. You can also write to me directly by email.',
     'mit.fehler.konfiguration' => 'The form is still being set up. Please write to me by email in the meantime.',
+    'mit.fehler.pruefung' => 'The security check could not be confirmed. Please complete the check again and resend. Your text is still here. You can also write to me directly by email.',
+    'mit.turnstile' => 'Cloudflare Turnstile protects this form from spam.',
+    'mit.turnstile.datenschutz' => 'Privacy information',
+    'mit.turnstile.noscript' => 'The security check requires JavaScript. You can also email me directly at stefan@jackieleven.com.',
     'mit.home' => 'If you would like to share memories of Jackie, add something or help with this tribute, I would love to hear from you.',
 
     'sprache.name'       => 'English',

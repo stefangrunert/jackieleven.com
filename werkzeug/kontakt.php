@@ -22,6 +22,25 @@ $payload = kontakt_payload($valid, $config);
 kontakt_test($payload['to'] === ['stefan@jackieleven.com'], 'Recipient changed');
 kontakt_test($payload['reply_to'] === $valid['email'] && str_contains($payload['from'], '@unpubli.sh>'), 'Sender/reply address incorrect');
 kontakt_test(!kontakt_senden($payload, '', 'test'), 'Empty key accepted');
+$verified = ['success' => true, 'hostname' => 'jackieleven.com', 'action' => 'contact'];
+$calls = 0;
+$verify = function(array $response) use (&$calls): callable {
+    return function(array $payload) use ($response, &$calls): array {
+        $calls++;
+        kontakt_test(array_keys($payload) === ['secret', 'response'], 'Unexpected visitor data sent to Turnstile');
+        return $response;
+    };
+};
+kontakt_test(kontakt_turnstile('valid', 'test-secret', $verify($verified)), 'Valid Turnstile token rejected');
+foreach ([['success' => false, 'error-codes' => ['timeout-or-duplicate']], ['success' => 'true'],
+    ['hostname' => 'evil.example'], ['action' => 'other']] as $override) {
+    kontakt_test(!kontakt_turnstile('token', 'test-secret', $verify(array_replace($verified, $override))), 'Invalid verification accepted');
+}
+kontakt_test(!kontakt_turnstile('token', 'test-secret', fn() => null), 'Invalid API response accepted');
+kontakt_test(!kontakt_turnstile('token', 'test-secret', fn() => throw new RuntimeException('offline')), 'Verification outage accepted');
+$before = $calls;
+foreach (['', str_repeat('x', 2049)] as $token) kontakt_test(!kontakt_turnstile($token, 'secret', $verify($verified)), 'Invalid token accepted');
+kontakt_test(!kontakt_turnstile('token', '', $verify($verified)) && $calls === $before, 'Invalid configuration called API');
 $dir = sys_get_temp_dir() . '/jackie-contact-test-' . bin2hex(random_bytes(6));
 mkdir($dir, 0700);
 try {
@@ -30,10 +49,12 @@ try {
     kontakt_test(kontakt_limit($dir, '192.0.2.2', time()), 'Other IP blocked');
     kontakt_test(kontakt_limit($dir, '192.0.2.1', time() + 3601), 'Rate limit did not expire');
     $sid = 'test' . bin2hex(random_bytes(12));
-    $request = function(string $method, array $post = []) use ($dir, $sid): array {
+    $request = function(string $method, array $post = [], bool $configured = false) use ($dir, $sid): array {
         $code = 'ini_set("session.save_path", ' . var_export($dir, true) . ');'
             . 'session_id(' . var_export($sid, true) . ');'
-            . 'putenv("JACKIE_RESEND_API_KEY=");'
+            . 'putenv(' . var_export('JACKIE_RESEND_API_KEY=' . ($configured ? 'test-no-mail' : ''), true) . ');'
+            . 'putenv("JACKIE_TURNSTILE_SITEKEY=test-sitekey"); putenv("JACKIE_TURNSTILE_SECRET=test-secret");'
+            . 'putenv(' . var_export('JACKIE_CONTACT_STATE_DIR=' . $dir . '/limits', true) . ');'
             . 'require ' . var_export(APP_ROOT . '/bootstrap.php', true) . ';'
             . 'require APP_ROOT . "/kontakt.php"; sprache("de");'
             . '$_SERVER["REQUEST_METHOD"]=' . var_export($method, true) . ';'
@@ -58,16 +79,25 @@ try {
     $post = $request('POST', $valid + ['token' => $get['token']]);
     kontakt_test($post['status'] === 503 && $post['global'] === 'konfiguration', 'Unconfigured send must fail clearly');
     kontakt_test($post['felder'] === $valid && $post['token'] === $get['token'], 'Failed send lost text or retry identity');
+    foreach (['', ['array-input']] as $token) {
+        $blocked = $request('POST', $valid + ['token' => $get['token'], 'cf-turnstile-response' => $token], true);
+        kontakt_test($blocked['status'] === 422 && $blocked['global'] === 'pruefung', 'Missing Turnstile token reached mail transport');
+        kontakt_test($blocked['felder'] === $valid, 'Failed Turnstile check lost message');
+    }
     foreach (SPRACHEN as $lang) {
         sprache($lang);
         $html = render('mitmachen', $get);
         kontakt_test(str_contains($html, 'mailto:stefan@jackieleven.com') && str_contains($html, 'method="post"'), 'Form missing');
         kontakt_test(!str_contains($html, '>mit.'), 'Missing translation');
+        kontakt_test(str_contains($html, 'data-action="contact"') && str_contains($html, 'data-language="' . $lang . '"'), 'Localized Turnstile widget missing');
+        kontakt_test(!str_contains($html, 'test-secret'), 'Turnstile secret exposed');
         $evil = $get;
         $evil['felder']['nachricht'] = '</textarea><script>alert(1)</script>';
         kontakt_test(!str_contains(render('mitmachen', $evil), '<script>alert'), 'Message HTML not escaped');
     }
 } finally {
+    foreach (glob($dir . '/limits/*') ?: [] as $file) unlink($file);
+    if (is_dir($dir . '/limits')) rmdir($dir . '/limits');
     foreach (glob($dir . '/*') ?: [] as $file) unlink($file);
     rmdir($dir);
 }

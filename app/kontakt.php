@@ -7,10 +7,44 @@ function kontakt_config(): array
     $local = is_file(APP_ROOT . '/config.local.php') ? require APP_ROOT . '/config.local.php' : [];
     return [
         'key' => getenv('JACKIE_RESEND_API_KEY') !== false ? getenv('JACKIE_RESEND_API_KEY') : ($local['resend_api_key'] ?? ''),
+        'turnstile_sitekey' => getenv('JACKIE_TURNSTILE_SITEKEY') !== false ? getenv('JACKIE_TURNSTILE_SITEKEY') : ($local['turnstile_sitekey'] ?? ''),
+        'turnstile_secret' => getenv('JACKIE_TURNSTILE_SECRET') !== false ? getenv('JACKIE_TURNSTILE_SECRET') : ($local['turnstile_secret'] ?? ''),
         'from' => 'Jackie Leven · Hommage <jackieleven@unpubli.sh>',
         'to' => 'stefan@jackieleven.com',
         'state' => getenv('JACKIE_CONTACT_STATE_DIR') ?: sys_get_temp_dir() . '/jackieleven-contact-' . substr(hash('sha256', APP_ROOT), 0, 12),
     ];
+}
+
+/** Only a verified token for our hostname and form action may reach Resend. */
+function kontakt_turnstile(string $token, string $secret, ?callable $transport = null): bool
+{
+    if ($secret === '' || $token === '' || strlen($token) > 2048) return false;
+    $transport ??= static function(array $payload): ?array {
+        if (!function_exists('curl_init')) return null;
+        $curl = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
+        curl_setopt_array($curl, [
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_TIMEOUT => 8,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
+            CURLOPT_POSTFIELDS => http_build_query($payload),
+        ]);
+        $body = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+        curl_close($curl);
+        $result = is_string($body) ? json_decode($body, true) : null;
+        return $status === 200 && is_array($result) ? $result : null;
+    };
+    try {
+        // Form contents and visitor IP are not included in this server request.
+        $result = $transport(['secret' => $secret, 'response' => $token]);
+        return is_array($result) && ($result['success'] ?? false) === true
+            && in_array($result['hostname'] ?? '', ['jackieleven.com', 'www.jackieleven.com'], true)
+            && ($result['action'] ?? '') === 'contact';
+    } catch (Throwable $e) {
+        return false;
+    }
 }
 
 function kontakt_felder(array $post): array
@@ -126,12 +160,14 @@ function kontakt_bearbeiten(): array
             $global = 'warten'; $status = 429;
         } elseif (($fehler = kontakt_pruefen($felder)) !== []) {
             $status = 422;
-        } elseif ($config['key'] === '') {
+        } elseif ($config['key'] === '' || $config['turnstile_sitekey'] === '' || $config['turnstile_secret'] === '') {
             $global = 'konfiguration'; $status = 503;
         } else {
             try {
                 if (!kontakt_limit($config['state'], $_SERVER['REMOTE_ADDR'] ?? 'unknown', $jetzt)) {
                     $global = 'warten'; $status = 429;
+                } elseif (!kontakt_turnstile(is_string($_POST['cf-turnstile-response'] ?? null) ? $_POST['cf-turnstile-response'] : '', $config['turnstile_secret'])) {
+                    $global = 'pruefung'; $status = 422;
                 } else {
                     // Keep one idempotency key for identical retries after a timeout.
                     $hash = hash('sha256', json_encode($felder, JSON_THROW_ON_ERROR));
@@ -162,5 +198,8 @@ function kontakt_bearbeiten(): array
     $_SESSION['kontakt_formulare'] = $formulare;
     session_write_close();
     if ($status === 429) header('Retry-After: 60');
-    return compact('felder', 'fehler', 'global', 'status', 'erfolg', 'token') + ['bereit' => $config['key'] !== ''];
+    return compact('felder', 'fehler', 'global', 'status', 'erfolg', 'token') + [
+        'bereit' => $config['key'] !== '' && $config['turnstile_sitekey'] !== '' && $config['turnstile_secret'] !== '',
+        'turnstile_sitekey' => $config['turnstile_sitekey'],
+    ];
 }

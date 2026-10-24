@@ -298,18 +298,34 @@ Der aktive nginx-VHost verwendet `ops/nginx-site.conf` mit dem DocumentRoot
 `/var/www/jackieleven/site-current/public` und dem eigenen PHP-8.3-FPM-Pool
 `jackieleven` (`/run/php/jackieleven.sock`). Der Systembenutzer `jackieleven` besitzt
 die privaten Session- und Kontaktlimit-Verzeichnisse unter `/var/lib/jackieleven/`.
-Der Resend-Schlüssel steht ausschließlich in der root-lesbaren Poolkonfiguration
+Die Resend- und Turnstile-Schlüssel stehen ausschließlich in der root-lesbaren Poolkonfiguration
 `/etc/php/8.3/fpm/pool.d/jackieleven.conf`, außerhalb der Releases.
 
 Für die erste Aktivierung oder bewusste Konfigurationsänderungen:
 `python3 ops/activate-site.py --activate`. Das Skript liest den lokal ignorierten
-Schlüssel aus `.dev/resend-api-key` und übergibt ihn über SSH-stdin, ohne Ausgabe
+Resend-Schlüssel aus `.dev/resend-api-key` und die Turnstile-Werte aus
+`.dev/turnstile.json` (`sitekey` und `secret`, Dateimodus 0600). Es übergibt sie über SSH-stdin, ohne Ausgabe
 oder Kommandozeilenargument. `ops/install-site.py` sichert Konfigurationen unter
 `/var/backups/jackieleven-site/`, prüft PHP-FPM und nginx und kontrolliert die
 Seiten am Origin. Bei einem Fehler stellt es die vorherigen Konfigurationen wieder
 her. Cloudflare-Netze werden über die offizielle IP-API abgerufen; nur deren
 Besucher-IP-Header werden für das Kontaktlimit vertraut. Andere VHosts und
 E-Mail-DNS-Einträge werden nicht geändert.
+
+Das Mitmachen-Formular benötigt zusätzlich zum Resend-Schlüssel
+`JACKIE_TURNSTILE_SITEKEY` und `JACKIE_TURNSTILE_SECRET` (lokal alternativ
+`turnstile_sitekey` und `turnstile_secret` in der ignorierten `app/config.local.php`).
+Das Widget ist bei Cloudflare auf `jackieleven.com` im Managed-Modus eingerichtet,
+ohne Pre-clearance. Der Server prüft Siteverify, Hostname und die Aktion `contact`
+vor jedem Versand; fehlende Nachweise und Ausfälle werden abgewiesen, der Text bleibt
+erhalten. Token-Erneuerung erfolgt automatisch, schmale Formulare nutzen das kompakte
+Widget. Die Browser-Sicherheitsrichtlinie erlaubt dafür `challenges.cloudflare.com`
+als Skript- und Frame-Quelle. Das Widget wird nur auf der Kontaktseite geladen.
+Tests: `php werkzeug/kontakt.php` (ohne E-Mail-Versand). Öffentliche Cloudflare-Testschlüssel
+sind nur für lokale UI-Tests bestimmt und werden vom Produktionsinstaller abgelehnt.
+`python3 ops/check-turnstile.py` prüft live beide Sprachen, CSP und die Ablehnung
+fehlender/ungültiger Nachweise mit Texterhalt; keine gültige Nachricht wird eingereicht.
+Nicht gleichzeitig mit anderen Kontakt-Limittests ausführen.
 
 Die vorherige Interimsseite bleibt unter `/var/www/jackieleven/current` erhalten.
 Die Konfigurationssicherung vor dem ersten Livegang liegt unter

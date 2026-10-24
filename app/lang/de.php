@@ -119,6 +119,10 @@ return [
     'mit.fehler.warten' => 'Bitte warte einen Moment, bevor du eine weitere Nachricht sendest.',
     'mit.fehler.versand' => 'Die Nachricht konnte gerade nicht verschickt werden. Dein Text steht noch im Formular. Du kannst mir auch direkt per E-Mail schreiben.',
     'mit.fehler.konfiguration' => 'Das Formular wird noch eingerichtet. Bitte schreib mir in der Zwischenzeit per E-Mail.',
+    'mit.fehler.pruefung' => 'Die Sicherheitsprüfung konnte nicht bestätigt werden. Bitte führe die Prüfung erneut durch und sende noch einmal. Dein Text bleibt erhalten. Alternativ kannst du mir direkt per E-Mail schreiben.',
+    'mit.turnstile' => 'Cloudflare Turnstile schützt dieses Formular vor Spam.',
+    'mit.turnstile.datenschutz' => 'Datenschutzhinweise',
+    'mit.turnstile.noscript' => 'Die Sicherheitsprüfung benötigt JavaScript. Du kannst mir auch direkt an stefan@jackieleven.com schreiben.',
     'mit.home' => 'Wenn du Erinnerungen an Jackie teilen, etwas ergänzen oder an dieser Hommage mitarbeiten möchtest, freue ich mich, von dir zu hören.',
 
     'sprache.name'       => 'Deutsch',

@@ -8,6 +8,7 @@ import sys
 if sys.argv[1:] != ['--activate']:
     raise SystemExit('Usage: python3 ops/activate-site.py --activate')
 root = Path(__file__).resolve().parent.parent
+turnstile = json.loads((root / '.dev/turnstile.json').read_text())
 payload = {
     'nginx': (root / 'ops/nginx-site.conf').read_text(),
     'pool': (root / 'ops/php-fpm-site.conf').read_text(),
@@ -16,6 +17,8 @@ payload = {
     'cleanup_service': (root / 'ops/jackieleven-clean-state.service').read_text(),
     'cleanup_timer': (root / 'ops/jackieleven-clean-state.timer').read_text(),
     'key': (root / '.dev/resend-api-key').read_text().strip(),
+    'turnstile_sitekey': turnstile['sitekey'],
+    'turnstile_secret': turnstile['secret'],
 }
 installer = (root / 'ops/install-site.py').read_text()
 result = subprocess.run(

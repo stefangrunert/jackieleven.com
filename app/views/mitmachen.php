@@ -31,7 +31,16 @@
         </div>
       <?php endforeach; ?>
       <p class="kontakt-hinweis"><?= e(t('mit.datenschutz')) ?></p>
+      <?php if ($turnstile_sitekey !== ''): ?>
+        <div class="cf-turnstile" data-sitekey="<?= e($turnstile_sitekey) ?>" data-action="contact" data-theme="dark" data-size="flexible" data-language="<?= e(sprache()) ?>" data-refresh-expired="auto" data-refresh-timeout="auto"></div>
+        <p class="kontakt-hinweis"><?= e(t('mit.turnstile')) ?> <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer"><?= e(t('mit.turnstile.datenschutz')) ?></a></p>
+        <noscript><p class="kontakt-fehler"><?= e(t('mit.turnstile.noscript')) ?></p></noscript>
+      <?php endif; ?>
       <button type="submit"<?= !$bereit ? ' disabled' : '' ?>><?= e(t('mit.senden')) ?></button>
     </form>
   </section>
 </main>
+<?php if ($turnstile_sitekey !== ''): ?>
+<script src="/assets/js/kontakt.js?v=<?= filemtime(PUBLIC_ROOT . '/assets/js/kontakt.js') ?>" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+<?php endif; ?>
