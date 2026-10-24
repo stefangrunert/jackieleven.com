@@ -32,6 +32,10 @@
   and blog posts from 2002 to 2011, along with the announcement of his death in November 2011.
   The texts are presented in their original English, with links to the surviving archive copies.</p>
 
+  <p>I have taken the liberty of digging Jackie’s columns out of the web archive and
+  republishing them here. I know this requires the permission of the rights holders.
+  If they ask me to remove the texts, I will of course do so immediately.</p>
+
   <p>The <a href="<?= e(url('zeitreise')) ?>">timeline</a> places excerpts from this writing
   alongside events in his life. These quotations remain in English on both versions of the site.
   Some biographical accounts disagree; where a year is approximate, the entry says so.</p>

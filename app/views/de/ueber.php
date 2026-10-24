@@ -34,6 +34,11 @@
   November 2011. Sie sind hier im englischen Wortlaut zu lesen. Die Links zu den Archivseiten
   führen zu den erhaltenen Fassungen.</p>
 
+  <p>Ich habe mir die Freiheit genommen, Jackies Kolumnen im Webarchiv auszugraben und hier
+  erneut zu veröffentlichen. Mir ist bewusst, dass dafür die Zustimmung der Rechteinhaber
+  nötig ist. Sollten sie die Entfernung der Texte wünschen, werde ich diese selbstverständlich
+  umgehend entfernen.</p>
+
   <p>Die <a href="<?= e(url('zeitreise')) ?>">Zeitreise</a> verbindet Stationen seines Lebens
   mit Auszügen aus diesen Texten. Auch die Zitate bleiben auf Englisch. Manche biografischen
   Angaben widersprechen sich; wo ein Jahr nur ungefähr feststeht, ist das bei der jeweiligen
