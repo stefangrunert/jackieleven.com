@@ -1,0 +1,344 @@
+{
+  "created": "2026-10-24",
+  "description": "Redaktionell hinzugefuegte rote Rahmen; Rechtecke als [links, oben, rechts, unten], normierte Koordinaten ab oberer linker Ecke; keine Fuellung.",
+  "pdf": "jackie-leven-faksimiles-markiert.pdf",
+  "pdf_sha256": "24f22dd6fe52aba248aaa36704bbdef9ed88e9aad0d5c3d368b3d4b5398785be",
+  "items": [
+    {
+      "page": 1,
+      "source": "vor-1975/1971-11-06_sounds_s25.png",
+      "output": "vor-1975/1971-11-06_sounds_s25.png",
+      "note": "Samplerkritik Debut mit Fortsetzung in der naechsten Spalte",
+      "rects": [
+        [
+          0.513,
+          0.756,
+          0.665,
+          0.907
+        ],
+        [
+          0.663,
+          0.473,
+          0.81,
+          0.528
+        ]
+      ],
+      "source_sha256": "3fc6598108659fb1eb330fade87ad0130094580ab2c95afa1fb223aa2dc06690",
+      "output_sha256": "a54d41bdf015b3b4a03fed6bf0d759a1754a0d8c113a6f422cec91fee63c6996"
+    },
+    {
+      "page": 2,
+      "source": "vor-1975/1972-10-28_nme_s24.png",
+      "output": "vor-1975/1972-10-28_nme_s24.png",
+      "note": "Portsmouth: John St Field und Helen Woodall",
+      "line_width": 0.0012,
+      "rects": [
+        [
+          0.312,
+          0.8851,
+          0.527,
+          0.8952
+        ]
+      ],
+      "source_sha256": "d183b5087cd9eb705a357e51cb2c0df1522336e5a8b1b486ebcef730647cbed4",
+      "output_sha256": "3bf4c91279d2e6a107c45b7a5db82248376f30b0c94c14568923c42016918214"
+    },
+    {
+      "page": 3,
+      "source": "vor-1975/1972-10-28_nme_s33.png",
+      "output": "vor-1975/1972-10-28_nme_s33.png",
+      "note": "Bournemouth und Shirley: John St Field und Alex Atterson",
+      "line_width": 0.0012,
+      "rects": [
+        [
+          0.013,
+          0.6693,
+          0.238,
+          0.6805
+        ],
+        [
+          0.491,
+          0.2613,
+          0.708,
+          0.273
+        ]
+      ],
+      "source_sha256": "0d2e5816ba907911ff28df8ab8f0e8eb5c3ea3aa99fb2378a36ef7171f235e99",
+      "output_sha256": "c959ba84498fe7d844c10cc3f74a442cdab6c8ef863a60149449a67c8b48a219"
+    },
+    {
+      "page": 4,
+      "source": "doll-by-doll-musikkritik/1979-03-31_music-week_s30.png",
+      "output": "doll-by-doll-musikkritik/1979-03-31_music-week_s30.png",
+      "note": "Vollstaendige Remember-Kurzkritik mit Wertung",
+      "rects": [
+        [
+          0.394,
+          0.432,
+          0.568,
+          0.496
+        ]
+      ],
+      "source_sha256": "c70fd5d16b09a43ba7c5183a93ee4f34122f0fe3885487ca394a0258fa3e044e",
+      "output_sha256": "131d414e97c0f6c2579a17d89429e601b847efa0012bb64a51f89965d700e4b6"
+    },
+    {
+      "page": 5,
+      "source": "doll-by-doll-musikkritik/1979-11-17_record-mirror_s15.png",
+      "output": "doll-by-doll-musikkritik/1979-11-17_record-mirror_s15.png",
+      "note": "Albumidentifikation und Rueckblick auf die Ablehnung von Remember",
+      "rects": [
+        [
+          0.053,
+          0.144,
+          0.18,
+          0.177
+        ],
+        [
+          0.053,
+          0.404,
+          0.179,
+          0.498
+        ]
+      ],
+      "source_sha256": "7a2c2b757bc490c0cef5464cb130dd2d31eaadbdcfa5058c368efe67aaadc320",
+      "output_sha256": "3394f655a6dd5bfb4d3d5e27bfce096197619fb1fba62c6fe59a3be3c3e119d1"
+    },
+    {
+      "page": 6,
+      "source": "doll-by-doll-musikkritik/1979-12-22_record-mirror_s15.png",
+      "output": "doll-by-doll-musikkritik/1979-12-22_record-mirror_s15.png",
+      "note": "Fuenf Album-Jahreslisten; Hoffnungen fuer die Achtziger und Westwoods Konzertwahl",
+      "rects": [
+        [
+          0.645,
+          0.207,
+          0.895,
+          0.277
+        ],
+        [
+          0.079,
+          0.512,
+          0.329,
+          0.583
+        ],
+        [
+          0.366,
+          0.52,
+          0.611,
+          0.593
+        ],
+        [
+          0.651,
+          0.519,
+          0.891,
+          0.59
+        ],
+        [
+          0.079,
+          0.804,
+          0.33,
+          0.882
+        ],
+        [
+          0.082,
+          0.333,
+          0.326,
+          0.344
+        ],
+        [
+          0.651,
+          0.629,
+          0.892,
+          0.64
+        ]
+      ],
+      "source_sha256": "637965756bf8d23ce2a669954e822b2766ad1846d81a515f2c56c8ebbb658426",
+      "output_sha256": "49603c03d975093e7ee8b9a91491e6f63ad9a9757be6c9ef70836ac50a57e0b3"
+    },
+    {
+      "page": 7,
+      "source": "doll-by-doll-musikkritik/1980-09-13_melody-maker_s22.png",
+      "output": "doll-by-doll-musikkritik/1980-09-13_melody-maker_s22.png",
+      "note": "Doll-by-Doll-Konzertkritik mit Fortsetzung in der rechten Spalte",
+      "rects": [
+        [
+          0.717,
+          0.716,
+          0.844,
+          0.975
+        ],
+        [
+          0.845,
+          0.578,
+          0.972,
+          0.975
+        ]
+      ],
+      "source_sha256": "8bf9c8ab04411b447434db8e599da7ff47fadb2c1a557901d9932d858334fed7",
+      "output_sha256": "3d45a148762dda6a63f529478eabd8cb4c58a599fd139341293d61141e6ad8c5"
+    },
+    {
+      "page": 8,
+      "source": "doll-by-doll-musikkritik/1981-05-23_record-mirror_s23.png",
+      "output": "doll-by-doll-musikkritik/1981-05-23_record-mirror_s23.png",
+      "note": "Vollstaendige Doll-by-Doll-Albumkritik von Mark Cooper",
+      "rects": [
+        [
+          0.074,
+          0.257,
+          0.244,
+          0.797
+        ]
+      ],
+      "source_sha256": "5a18aab856a108ffab4911c1ab14825c34d3420de26c2136cce1774137534ae9",
+      "output_sha256": "f521876e81d762a12a119c43d5e87069a9194966308f340e08e7ab9128c076d1"
+    },
+    {
+      "page": 9,
+      "source": "doll-by-doll-musikkritik/1981-06-20_record-mirror_s18.png",
+      "output": "doll-by-doll-musikkritik/1981-06-20_record-mirror_s18.png",
+      "note": "Doll-by-Doll-Konzertkritik von Robin Smith in zwei Textspalten",
+      "rects": [
+        [
+          0.237,
+          0.777,
+          0.409,
+          0.95
+        ],
+        [
+          0.411,
+          0.774,
+          0.583,
+          0.859
+        ]
+      ],
+      "source_sha256": "c285a567685dcd515924f9d55b48e3d993f7f6aa5790e30315d25acf15480052",
+      "output_sha256": "082e649eb917c28f24c4a5c243d5a3b25878cc611864fdf6ffc66cdcd74c52d2"
+    },
+    {
+      "id": "Q2-Foto-1",
+      "source": "vor-1975/1971_take-off-your-head-and-listen_vorderseite.jpg",
+      "output": "vor-1975/1971_take-off-your-head-and-listen_vorderseite.png",
+      "source_sha256": "2a7d11ddb640910ef5152462c064c535d5e8988acdf53cc28f09cec8a61e7572",
+      "output_sha256": "2c366d5ca2824851507fa26bd66e597f16726c5e29f184a2b16dbb2ec309379d",
+      "note": "Titel der Originalhuelle",
+      "rects": [
+        [
+          0.055,
+          0.008,
+          0.946,
+          0.085
+        ]
+      ]
+    },
+    {
+      "id": "Q2-Foto-2",
+      "source": "vor-1975/1971_take-off-your-head-and-listen_rueckseite-mit-aufkleber.jpg",
+      "output": "vor-1975/1971_take-off-your-head-and-listen_rueckseite-mit-aufkleber.png",
+      "source_sha256": "e65c8ec35d5c1870be4714a13ba90d0fb491e2968a7f3822a24e71dc1f2d4df9",
+      "output_sha256": "96f51ded9aa98689a8f384d3895f3bab7cfa5c03927c4785ebfad8a4e7dc3f8a",
+      "note": "Finest Hour / Alan Moffatt; Livekennzeichnung und Danksagung an das Rex-Hotel-Publikum",
+      "rects": [
+        [
+          0.108,
+          0.482,
+          0.439,
+          0.526
+        ],
+        [
+          0.108,
+          0.762,
+          0.682,
+          0.806
+        ]
+      ]
+    },
+    {
+      "id": "Q2-Foto-3",
+      "source": "vor-1975/1971_take-off-your-head-and-listen_etikett-seite-a.jpg",
+      "output": "vor-1975/1971_take-off-your-head-and-listen_etikett-seite-a.png",
+      "source_sha256": "9a552bd40dee89d1599e3516cce7a0dc0eb75f63533b3e21d4e778c64bcd210a",
+      "output_sha256": "35a892312f6c9444a508b3be6c03743d9f24a68b8b1976df8abb26f3b19fc6bf",
+      "note": "Finest Hour / Alan Moffatt, P 1971 und Livekennzeichnung",
+      "rects": [
+        [
+          0.798,
+          0.52,
+          0.903,
+          0.559
+        ],
+        [
+          0.315,
+          0.716,
+          0.65,
+          0.766
+        ]
+      ],
+      "polygons": [
+        [
+          [
+            0.177,
+            0.539
+          ],
+          [
+            0.808,
+            0.582
+          ],
+          [
+            0.806,
+            0.608
+          ],
+          [
+            0.175,
+            0.565
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "Q2-Foto-4",
+      "source": "vor-1975/1971_take-off-your-head-and-listen_etikett-seite-b.jpg",
+      "output": "vor-1975/1971_take-off-your-head-and-listen_etikett-seite-b.png",
+      "source_sha256": "10f84f6332190c03dcece9395828fd5ef89536d59d0b22c75f234d901be851d9",
+      "output_sha256": "1ed86ca0b376b4841ab6db9ecee19fdb43665e1860d269950df5d59e6500aa59",
+      "note": "P 1971 und Livekennzeichnung auf Seite B",
+      "rects": [
+        [
+          0.8,
+          0.467,
+          0.915,
+          0.505
+        ],
+        [
+          0.305,
+          0.742,
+          0.675,
+          0.781
+        ]
+      ]
+    },
+    {
+      "id": "Q2-Foto-5",
+      "source": "vor-1975/1971_take-off-your-head-and-listen_rueckseite-ohne-aufkleber.jpg",
+      "output": "vor-1975/1971_take-off-your-head-and-listen_rueckseite-ohne-aufkleber.png",
+      "source_sha256": "8e671ca802b08a4a82e4498296d594365cca8ea75b07b913b9d9fa85e22a7990",
+      "output_sha256": "a7a6ddae50e7e2c5b56bbe320f358e7034e084dcadbdc271d3616b5a76f101a9",
+      "note": "Finest Hour / Alan Moffatt; Livekennzeichnung und Danksagung an das Rex-Hotel-Publikum",
+      "rects": [
+        [
+          0.108,
+          0.482,
+          0.439,
+          0.527
+        ],
+        [
+          0.108,
+          0.761,
+          0.682,
+          0.804
+        ]
+      ]
+    }
+  ]
+}

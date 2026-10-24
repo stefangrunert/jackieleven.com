@@ -1,0 +1,287 @@
+[
+  {
+    "id": "Q5",
+    "title": "Sounds 6 November 1971 - Samplerkritik",
+    "url": "https://worldradiohistory.com/UK/Sounds/70s/Sounds-1971-11-06.pdf",
+    "pages": [
+      26
+    ],
+    "printed": [
+      "25"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "bb2485f486c48fb2e8120ecc1ccf55aee2278bafe2f42f6498dc02e90a8b73a7",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "vor-1975/1971-11-06_sounds_s25.png",
+        "original_pdf_page": 26,
+        "printed_page": "25",
+        "sha256": "3fc6598108659fb1eb330fade87ad0130094580ab2c95afa1fb223aa2dc06690"
+      }
+    ],
+    "collection_pages": [
+      1
+    ]
+  },
+  {
+    "id": "Q6",
+    "title": "NME 28 October 1972 - John St Field Konzertankuendigungen",
+    "url": "https://www.worldradiohistory.com/UK/New-Musical-Express/1972/NME%201972-10-28.pdf",
+    "pages": [
+      35,
+      36
+    ],
+    "printed": [
+      "24",
+      "33"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "d45c4d7c30cc45a71998cfcbc2016e764a1e2b19b550bc5b55956b47bd03aeb3",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "vor-1975/1972-10-28_nme_s24.png",
+        "original_pdf_page": 35,
+        "printed_page": "24",
+        "sha256": "d183b5087cd9eb705a357e51cb2c0df1522336e5a8b1b486ebcef730647cbed4"
+      },
+      {
+        "path": "vor-1975/1972-10-28_nme_s33.png",
+        "original_pdf_page": 36,
+        "printed_page": "33",
+        "sha256": "0d2e5816ba907911ff28df8ab8f0e8eb5c3ea3aa99fb2378a36ef7171f235e99"
+      }
+    ],
+    "collection_pages": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "DBP-02",
+    "title": "Music Week 31 March 1979 - Remember",
+    "url": "https://www.worldradiohistory.com/UK/Music-Week/1979/Music-Week-1979-03-31.pdf",
+    "pages": [
+      30
+    ],
+    "printed": [
+      "30"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "8dd40f2fe9df5078f1e13ce00643679e0294168b0c61fa0a7076a47e413608bc",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "doll-by-doll-musikkritik/1979-03-31_music-week_s30.png",
+        "original_pdf_page": 30,
+        "printed_page": "30",
+        "sha256": "c70fd5d16b09a43ba7c5183a93ee4f34122f0fe3885487ca394a0258fa3e044e"
+      }
+    ],
+    "collection_pages": [
+      4
+    ]
+  },
+  {
+    "id": "DBP-03",
+    "title": "Record Mirror 17 November 1979 - Gypsies Brood",
+    "url": "https://worldradiohistory.com/UK/Record-Mirror/70s/79/Record-Mirror-1979-11-17.pdf",
+    "pages": [
+      15
+    ],
+    "printed": [
+      "15"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "0539c4020ffea7afb993e2473284907db453dc2771b1c698d91753dd0a24b1d7",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "doll-by-doll-musikkritik/1979-11-17_record-mirror_s15.png",
+        "original_pdf_page": 15,
+        "printed_page": "15",
+        "sha256": "7a2c2b757bc490c0cef5464cb130dd2d31eaadbdcfa5058c368efe67aaadc320"
+      }
+    ],
+    "collection_pages": [
+      5
+    ]
+  },
+  {
+    "id": "DBP-04",
+    "title": "Record Mirror 22 December 1979 - Mitarbeiter Jahreslisten",
+    "url": "https://www.worldradiohistory.com/UK/Record-Mirror/70s/79/Record-Mirror-1979-12-22-OCR.pdf",
+    "pages": [
+      15
+    ],
+    "printed": [
+      "15"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "6b4bd7483e120721ae4708d94a40b1cbb361c1a3eb93899103414479173cb143",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "doll-by-doll-musikkritik/1979-12-22_record-mirror_s15.png",
+        "original_pdf_page": 15,
+        "printed_page": "15",
+        "sha256": "637965756bf8d23ce2a669954e822b2766ad1846d81a515f2c56c8ebbb658426"
+      }
+    ],
+    "collection_pages": [
+      6
+    ]
+  },
+  {
+    "id": "DBP-Ergaenzung-MM1980",
+    "title": "Melody Maker 13 September 1980 - The Castle Richmond",
+    "url": "https://www.worldradiohistory.com/UK/Melody-Maker/80s/80/Melody-Maker-1980-09-13.pdf",
+    "pages": [
+      22
+    ],
+    "printed": [
+      "22"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "721d81ae9b04d8fbe697e30814d343b731ea8ce18c4ad542331af7132d7215bd",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "doll-by-doll-musikkritik/1980-09-13_melody-maker_s22.png",
+        "original_pdf_page": 22,
+        "printed_page": "22",
+        "sha256": "8bf9c8ab04411b447434db8e599da7ff47fadb2c1a557901d9932d858334fed7"
+      }
+    ],
+    "collection_pages": [
+      7
+    ]
+  },
+  {
+    "id": "DBP-05",
+    "title": "Record Mirror 23 May 1981 - Eternal Warriors Make Good",
+    "url": "https://www.worldradiohistory.com/UK/Record-Mirror/80s/81/Record-Mirror-1981-05-23-OCR.pdf",
+    "pages": [
+      23
+    ],
+    "printed": [
+      "23"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "7062d2957a69699b3e784df3d4daebe1dcfab5786c4ad06f53f8fa9c5e1cd4f2",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "doll-by-doll-musikkritik/1981-05-23_record-mirror_s23.png",
+        "original_pdf_page": 23,
+        "printed_page": "23",
+        "sha256": "5a18aab856a108ffab4911c1ab14825c34d3420de26c2136cce1774137534ae9"
+      }
+    ],
+    "collection_pages": [
+      8
+    ]
+  },
+  {
+    "id": "DBP-Ergaenzung-RM1981",
+    "title": "Record Mirror 20 June 1981 - Doll by Doll Venue London",
+    "url": "https://www.worldradiohistory.com/UK/Record-Mirror/80s/81/Record-Mirror-1981-06-20-OCR.pdf",
+    "pages": [
+      17
+    ],
+    "printed": [
+      "18"
+    ],
+    "kind": "extracted_original_pages",
+    "retrieved": "2026-10-24",
+    "pdf": "jackie-leven-faksimiles.pdf",
+    "source_sha256": "c129861bb0769d9fdd9b4659908edc73f42e390e5f17609c5337fcebcb39ac56",
+    "pdf_sha256": "89dc487585d4f57ff01b86ab4759354a0da30900a6c5f1f39ad540142482fb7d",
+    "images": [
+      {
+        "path": "doll-by-doll-musikkritik/1981-06-20_record-mirror_s18.png",
+        "original_pdf_page": 17,
+        "printed_page": "18",
+        "sha256": "c285a567685dcd515924f9d55b48e3d993f7f6aa5790e30315d25acf15480052"
+      }
+    ],
+    "collection_pages": [
+      9
+    ]
+  },
+  {
+    "id": "Q2-Foto-1",
+    "kind": "photograph_of_original_record",
+    "title": "Take Off Your Head And Listen - vorderseite",
+    "source_page": "https://www.discogs.com/release/2298445-Various-Take-Off-Your-Head-And-Listen",
+    "url": "https://i.discogs.com/kxIKXKYSfWvRrsx9vc79UMAQnrEuoFsrQfftnSzP6xI/rs:fit/g:sm/q:90/h:563/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTg0/NDUtMTUwMjg5MjA3/MC0yNjY3LmpwZWc.jpeg",
+    "retrieved": "2026-10-24",
+    "image": "vor-1975/1971_take-off-your-head-and-listen_vorderseite.jpg",
+    "width": 600,
+    "height": 563,
+    "sha256": "2a7d11ddb640910ef5152462c064c535d5e8988acdf53cc28f09cec8a61e7572"
+  },
+  {
+    "id": "Q2-Foto-2",
+    "kind": "photograph_of_original_record",
+    "title": "Take Off Your Head And Listen - rueckseite-mit-aufkleber",
+    "source_page": "https://www.discogs.com/release/2298445-Various-Take-Off-Your-Head-And-Listen",
+    "url": "https://i.discogs.com/vu383g07NY8gIFJ_Q33aMPGkf0Fi1nhbvM5lCopYFSA/rs:fit/g:sm/q:90/h:571/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTg0/NDUtMTUwMjg5MjA3/MC01NDEyLmpwZWc.jpeg",
+    "retrieved": "2026-10-24",
+    "image": "vor-1975/1971_take-off-your-head-and-listen_rueckseite-mit-aufkleber.jpg",
+    "width": 600,
+    "height": 571,
+    "sha256": "e65c8ec35d5c1870be4714a13ba90d0fb491e2968a7f3822a24e71dc1f2d4df9"
+  },
+  {
+    "id": "Q2-Foto-3",
+    "kind": "photograph_of_original_record",
+    "title": "Take Off Your Head And Listen - etikett-seite-a",
+    "source_page": "https://www.discogs.com/release/2298445-Various-Take-Off-Your-Head-And-Listen",
+    "url": "https://i.discogs.com/BbO-6rTSmu9A-atItsik6TEko3zFXOsmlZ1EDtwLIsg/rs:fit/g:sm/q:90/h:600/w:588/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTg0/NDUtMTUwNDc5OTY3/Ny03OTU4LmpwZWc.jpeg",
+    "retrieved": "2026-10-24",
+    "image": "vor-1975/1971_take-off-your-head-and-listen_etikett-seite-a.jpg",
+    "width": 588,
+    "height": 600,
+    "sha256": "9a552bd40dee89d1599e3516cce7a0dc0eb75f63533b3e21d4e778c64bcd210a"
+  },
+  {
+    "id": "Q2-Foto-4",
+    "kind": "photograph_of_original_record",
+    "title": "Take Off Your Head And Listen - etikett-seite-b",
+    "source_page": "https://www.discogs.com/release/2298445-Various-Take-Off-Your-Head-And-Listen",
+    "url": "https://i.discogs.com/4Rg2tkPDYhfJgv34MTFr5gwYtMVZZOJbJNBl1k_RMsQ/rs:fit/g:sm/q:90/h:600/w:592/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTg0/NDUtMTUwNDc5OTY3/Ny00OTU3LmpwZWc.jpeg",
+    "retrieved": "2026-10-24",
+    "image": "vor-1975/1971_take-off-your-head-and-listen_etikett-seite-b.jpg",
+    "width": 592,
+    "height": 600,
+    "sha256": "10f84f6332190c03dcece9395828fd5ef89536d59d0b22c75f234d901be851d9"
+  },
+  {
+    "id": "Q2-Foto-5",
+    "kind": "photograph_of_original_record",
+    "title": "Take Off Your Head And Listen - rueckseite-ohne-aufkleber",
+    "source_page": "https://www.discogs.com/release/2298445-Various-Take-Off-Your-Head-And-Listen",
+    "url": "https://i.discogs.com/-LIKyJ0yBTIYvrLdI8wRvgvxeGy0hXO-1EnfK8dkWX8/rs:fit/g:sm/q:90/h:579/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTg0/NDUtMTUwNDc5OTcw/NC01NDkxLmpwZWc.jpeg",
+    "retrieved": "2026-10-24",
+    "image": "vor-1975/1971_take-off-your-head-and-listen_rueckseite-ohne-aufkleber.jpg",
+    "width": 600,
+    "height": 579,
+    "sha256": "8e671ca802b08a4a82e4498296d594365cca8ea75b07b913b9d9fa85e22a7990"
+  }
+]
