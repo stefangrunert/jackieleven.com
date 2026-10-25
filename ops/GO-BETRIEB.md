@@ -91,8 +91,8 @@ in beiden Sprachen weisen fehlende/ungültige Nachweise ab und erhalten den Text
 
 Genau eine ausdrücklich autorisierte Testnachricht wurde im Browser durch das
 reguläre Formular gesendet. Turnstile wurde akzeptiert, Resend bestätigte die
-Annahme und die Seite zeigte die Erfolgsnachricht. Der Eingang im Postfach ist
-zum Zeitpunkt dieses Eintrags noch nicht vom Nutzer bestätigt. Nachweisbild:
+Annahme und die Seite zeigte die Erfolgsnachricht. Der Nutzer hat den Eingang im Postfach am 25. Oktober 2026 bestätigt.
+Damit ist der vollständige Formularweg einschließlich Zustellung abgenommen. Nachweisbild:
 `.dev/migration-state/production-form-success.png` (lokal, ignoriert).
 
 ### Erhaltener Rückfall

@@ -73,7 +73,8 @@ Seit dem 25. Oktober 2026 bedient Go die Hauptdomain `jackieleven.com`, einschli
 Formular. Runtime-Release `ba3224f`, Installer `e1d159a`. Öffentliche Seiten-, SEO-,
 Asset-, Cookie- und Originprüfungen sowie negative Turnstiletests bestanden. Eine
 vom Nutzer autorisierte Nachricht wurde über das echte Browserformular von Resend
-angenommen; die Empfangsbestätigung aus dem Postfach steht noch aus.
+angenommen; der Nutzer hat den Eingang im Postfach am 25. Oktober 2026 bestätigt.
+Der vollständige Formularweg einschließlich Zustellung ist damit abgenommen.
 
 PHP-FPM, bisheriges Release und Sicherung bleiben als Rückfall erhalten.
 Rückfallkommando und Deploymentnachweise stehen in `ops/GO-BETRIEB.md`.
