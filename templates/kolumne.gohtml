@@ -1,0 +1,35 @@
+{{$captureText := get . "captureText"}}{{$i := get . "i"}}{{$k := get . "k"}}{{$liste := get . "liste"}}{{$nach := get . "nach"}}{{$vor := get . "vor"}}
+
+<div class="pool-raum">
+  {{(render "pool-zeitstrahl" (dict "liste" $liste "aktiv" $i))}}
+<main class="pool-leseseite">
+  {{if (truth (equal $i 0))}}
+    <p class="pool-intro">{{(t "pool.intro")}}</p>
+  {{end}}
+  {{(render "pool-navigation" (dict "vor" $vor "nach" $nach "k" $k "oben" true))}}
+  <article>
+    <header class="pool-lesekopf">
+      <p class="pool-rubrik" lang="en">{{(kolumnen_rubrik $k)}}</p>
+      <h1><time datetime="{{(get $k "datum")}}">{{(kolumnen_datum $k)}}</time></h1>
+      <p class="pool-verfasser">{{(choose (equal (get $k "autor") "Jackie Leven") "Jackie Leven" (t "pool.webmaster"))}}{{if (truth (equal (get $k "datierung") "archivdatum"))}} · <a href="#quellenhinweis">{{(t "pool.archivdatum")}}</a>{{end}}</p>
+    </header>
+
+    <div class="pool-original" lang="en">{{(kolumnen_html (kolumnen_lesetext $k))}}</div>
+
+  </article>
+
+  {{(render "pool-navigation" (dict "vor" $vor "nach" $nach "k" $k "oben" false))}}
+
+  <aside class="pool-quellennotiz" id="quellenhinweis" role="note">
+    <p>{{(t "pool.quelle")}} {{(get $k "website")}}.
+      <a href="{{(get $k "archiv")}}" rel="noopener noreferrer">{{(t "pool.archivlink")}}</a>
+    </p>
+    <details>
+      <summary>{{(t "pool.hinweis_titel")}}</summary>
+      <p>{{(t "pool.hinweis")}}</p>
+      {{if (truth (equal (get $k "datierung") "archivdatum"))}}<p>{{(t "pool.datum_unsicher")}}</p>{{end}}
+      <p>{{(t "pool.gesichert" (dict "datum" $captureText))}}</p>
+    </details>
+  </aside>
+</main>
+</div>

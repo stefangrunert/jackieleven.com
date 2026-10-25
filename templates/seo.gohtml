@@ -1,0 +1,27 @@
+{{$noindex := get . "noindex"}}{{$s := get . "s"}}{{$seo := get . "seo"}}
+
+<title>{{(get $seo "titel")}}</title>
+<meta name="description" content="{{(get $seo "beschreibung")}}">
+<meta name="robots" content="{{(choose $noindex "noindex, follow" "index, follow, max-image-preview:large")}}">
+{{if (truth (unequal (get $seo "url") nilValue))}}
+<link rel="canonical" href="{{(get $seo "url")}}">
+{{range $pair1 := pairs (list "de" "en")}}{{$s = $pair1.Value}}
+<link rel="alternate" hreflang="{{$s}}" href="{{(absolut (alternativ_url $s))}}">
+{{end}}
+<link rel="alternate" hreflang="x-default" href="{{(absolut (alternativ_url "de"))}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jackie Leven">
+<meta property="og:title" content="{{(get $seo "titel")}}">
+<meta property="og:description" content="{{(get $seo "beschreibung")}}">
+<meta property="og:url" content="{{(get $seo "url")}}">
+<meta property="og:locale" content="{{(choose (equal (sprache) "de") "de_DE" "en_GB")}}">
+<meta property="og:locale:alternate" content="{{(choose (equal (sprache) "de") "en_GB" "de_DE")}}">
+<meta property="og:image" content="{{(get $seo "bild")}}">
+<meta property="og:image:alt" content="Jackie Leven">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{(get $seo "titel")}}">
+<meta name="twitter:description" content="{{(get $seo "beschreibung")}}">
+<meta name="twitter:image" content="{{(get $seo "bild")}}">
+
+<script type="application/ld+json">{{jsonld}}</script>
+{{end}}

@@ -1,0 +1,24 @@
+{{$aktiv := get . "aktiv"}}{{$liste := get . "liste"}}{{$mehrfach := get . "mehrfach"}}{{$n := get . "n"}}{{$neuesJahr := get . "neuesJahr"}}{{$text := get . "text"}}
+
+<nav class="pool-zeitstrahl" aria-label="{{(t "pool.zeitstrahl")}}">
+  <div class="pool-zeitfenster">
+    <ol class="pool-spur">
+      {{range $pair1 := pairs $liste}}{{$n = $pair1.Key}}{{$text = $pair1.Value}}
+        {{$neuesJahr = (and (greater $n 0) (unequal (substr (get $text "datum") 0 4) (substr (get (get $liste (sub $n 1)) "datum") 0 4)))}}{{$mehrfach = (or (equal (coalesce (get (get $liste (sub $n 1)) "datum") nilValue) (get $text "datum")) (equal (coalesce (get (get $liste (add $n 1)) "datum") nilValue) (get $text "datum")))}}
+        <li{{(attrs (choose $neuesJahr " class=\"pool-jahreswechsel\"" ""))}}>
+          <a class="g-marker pool-marker{{(choose $mehrfach " pool-mehrfach" "")}}{{(choose (equal $n $aktiv) " active" "")}}"
+             href="{{(url "kolumne" (dict "slug" (get $text "slug")))}}"
+             data-art="wort"
+             aria-label="{{(cat (cat (cat (kolumnen_datum $text) ", ") (kolumnen_rubrik $text)) (choose (equal (get $text "datierung") "archivdatum") (cat ", " (t "pool.archivdatum")) ""))}}"
+             {{(attrs (choose (equal $n $aktiv) "aria-current=\"page\"" ""))}}>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="g-label">
+              <time class="g-year" datetime="{{(get $text "datum")}}">{{(kolumnen_datum $text)}}</time>
+              <span class="g-era" lang="en">{{(kolumnen_rubrik $text)}}</span>
+            </span>
+          </a>
+        </li>
+      {{end}}
+    </ol>
+  </div>
+</nav>

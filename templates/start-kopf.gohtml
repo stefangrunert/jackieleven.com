@@ -1,0 +1,17 @@
+{{$rubrik := get . "rubrik"}}{{$s := get . "s"}}
+<header class="home-kopf">
+  <a class="home-wortmarke" href="{{(url "start")}}" aria-label="{{(t "nav.start")}}" aria-current="page">Jackie Leven</a>
+  <div class="home-kopfwerkzeuge">
+    <nav class="home-sprachen" aria-label="{{(t "sprache.wahl")}}">
+      {{range $pair1 := pairs (list "de" "en")}}{{$s = $pair1.Value}}{{if (truth (equal $s (sprache)))}}{{continue}}{{end}}
+        <a href="{{(alternativ_url $s)}}" hreflang="{{$s}}" lang="{{$s}}" title="{{(t "sprache.name" (list) $s)}}">{{(strtoupper $s)}}</a>
+      {{end}}
+    </nav>
+    <button class="home-menuknopf" type="button" aria-label="{{(t "home.menue")}}" aria-expanded="false" aria-controls="home-menu" hidden><span></span><span></span></button>
+  </div>
+  <nav class="home-menu" id="home-menu" aria-label="{{(t "nav.label")}}">
+    {{range $pair2 := pairs (list "hoeren" "diskografie" "zeitreise" "biografie" "pool" "ueber" "mitmachen")}}{{$rubrik = $pair2.Value}}
+      <a href="{{(url $rubrik)}}"{{(attrs (choose (equal $rubrik "mitmachen") " class=\"nav-mitmachen\"" ""))}}>{{(t (cat "nav." $rubrik))}}</a>
+    {{end}}
+  </nav>
+</header>

@@ -1,0 +1,14 @@
+package site
+
+var descriptions = map[string][2]string{
+	"start":       {"Jackie Leven (1950–2011): Musik, Lebensstationen und eigene Texte. Eine persönliche Hommage mit Hörbeispielen, Diskografie und Erinnerungen.", "Jackie Leven (1950–2011): music, life and his own writing. A personal tribute with listening selections, a discography and memories."},
+	"hoeren":      {"Eine kurze Einführung in Jackie Levens Musik: ausgewählte Videos von Doll by Doll, Soloauftritte und Erinnerungen an ihn.", "A short introduction to Jackie Leven’s music: selected videos of Doll by Doll, solo performances and tributes."},
+	"diskografie": {"Jackie Levens Diskografie: Alben, Singles und Liveaufnahmen, auch von John St. Field und Doll by Doll. Mit Titellisten, Quellen und Hörlinks.", "Jackie Leven’s discography: albums, singles and live recordings, including John St. Field and Doll by Doll. Track lists, sources and listening links."},
+	"zeitreise":   {"Stationen aus Jackie Levens Leben, von seiner Kindheit in Fife bis zu den letzten Aufnahmen. Mit Auszügen aus seinen eigenen Texten.", "Moments in Jackie Leven’s life, from his childhood in Fife to his final recordings, with excerpts from his own writing."},
+	"biografie":   {"Jackie Levens Leben als Pastiche: eine literarische Annäherung auf Grundlage seiner Texte, mit erfundenen Szenen und Gesprächen.", "Jackie Leven’s life as a pastiche: a literary interpretation drawing on his writing, with imagined scenes and conversations."},
+	"stimmen":     {"Texte und Erinnerungen an Jackie Leven. Interviews, Kritiken und Nachrufe mit Auszügen, Faksimiles und Links zu den Quellen.", "Writing and memories about Jackie Leven. Interviews, reviews and obituaries with excerpts, facsimiles and links to the sources."},
+	"pool_archiv": {"Jackie Levens eigene Texte: The Deep Pool, Blogeinträge und weitere Kolumnen aus den Jahren 2002 bis 2011 im Archiv.", "Jackie Leven’s own writing: an archive of The Deep Pool, blog entries and other columns from 2002 to 2011."},
+	"ueber":       {"Warum diese persönliche Hommage an Jackie Leven entstanden ist. Über den Autor, die Geschichte der Adresse und die Arbeit an der Seite.", "Why this personal tribute to Jackie Leven came about. About its author, the history of the address and the work on the site."},
+	"mitmachen":   {"Erinnerungen, Informationen und Ergänzungen zu Jackie Leven beitragen. Persönlicher Kontakt zur Arbeit an dieser unabhängigen Hommage.", "Contribute memories, information and additions about Jackie Leven. Get in touch to help with this independent tribute."},
+	"impressum":   {"Impressum und Kontakt dieser unabhängigen Hommage an Jackie Leven. Hinweise zu Inhalten, Quellen und zum Einsatz von KI.", "Legal notice and contact for this independent tribute to Jackie Leven. Information about content, sources and the use of AI."},
+}

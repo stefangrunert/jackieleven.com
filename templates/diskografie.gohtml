@@ -1,0 +1,87 @@
+{{$jahr := get . "jahr"}}{{$jahre := get . "jahre"}}{{$key := get . "key"}}{{$name := get . "name"}}{{$platte := get . "platte"}}{{$platten := get . "platten"}}{{$quellen := get . "quellen"}}
+
+<div class="disk-raum">
+  <nav class="disk-zeitstrahl" aria-label="{{(t "disk.zeitstrahl")}}">
+    <div class="disk-zeitfenster">
+      <ol class="disk-spur">
+        {{range $pair1 := pairs $jahre}}{{$jahr = $pair1.Key}}{{$platten = $pair1.Value}}
+          <li data-jahr="{{$jahr}}">
+            <a class="g-marker disk-marker{{(choose (equal $jahr (array_key_first $jahre)) " active" "")}}" href="#jahr-{{$jahr}}" data-art="werk"{{(attrs (choose (equal $jahr (array_key_first $jahre)) " aria-current=\"location\"" ""))}}>
+              <span class="dot" aria-hidden="true"></span>
+              <span class="g-label"><span class="g-year">{{$jahr}}</span><span class="g-era">{{(t (choose (equal (count $platten) 1) "disk.eintrag" "disk.eintraege") (dict "n" (count $platten)))}}</span></span>
+            </a>
+          </li>
+        {{end}}
+      </ol>
+    </div>
+  </nav>
+
+  <main class="disk-katalog" id="diskografie">
+    <header class="disk-kopf">
+      <p class="disk-intro">{{(t "disk.intro")}}</p>
+    </header>
+
+    <form class="disk-auswahl" hidden>
+      <label>{{(t "disk.projekt")}}
+        <select name="projekt">
+          <option value="alle">{{(t "disk.alle_projekte")}}</option>
+          {{range $pair2 := pairs (diskografie_projekte)}}{{$key = $pair2.Key}}{{$name = $pair2.Value}}<option value="{{$key}}">{{$name}}</option>{{end}}
+        </select>
+      </label>
+      <label>{{(t "disk.ausgabe")}}
+        <select name="format">
+          <option value="alle">{{(t "disk.alle_formate")}}</option>
+          <option value="alben">{{(t "disk.alben")}}</option>
+          <option value="kleine">{{(t "disk.singles")}}</option>
+          <option value="reissue">{{(t "disk.type.reissue")}}</option>
+          <option value="video">{{(t "disk.type.video")}}</option>
+          <option value="unreleased">{{(t "disk.type.unreleased")}}</option>
+        </select>
+      </label>
+      <button type="reset" hidden>{{(t "disk.zuruecksetzen")}}</button>
+    </form>
+    <p class="disk-filterstatus" role="status" aria-live="polite"></p>
+
+    <div class="disk-jahre">
+      {{range $pair3 := pairs $jahre}}{{$jahr = $pair3.Key}}{{$platten = $pair3.Value}}
+        <section class="disk-jahr" id="jahr-{{$jahr}}" aria-labelledby="titel-{{$jahr}}" data-jahr="{{$jahr}}">
+          <h2 id="titel-{{$jahr}}">{{$jahr}}</h2>
+          {{range $pair4 := pairs $platten}}{{$platte = $pair4.Value}}
+            <article id="{{(get $platte "id")}}" class="disk-platte{{(choose (isset (get $platte "cover")) " disk-mit-cover" "")}}{{(choose (in_array (get $platte "kind") (list "single" "ep") true) " disk-kleine-ausgabe" "")}}"
+                     data-projekte="{{(implode " " (get $platte "tags"))}}" data-format="{{(get $platte "kind")}}" aria-labelledby="titel-{{(get $platte "id")}}">
+              {{if (truth (isset (get $platte "cover")))}}
+                <figure class="disk-cover">
+                  <a href="{{(diskografie_link (get $platte "id"))}}" data-release-link="{{(get $platte "id")}}" aria-label="{{(t "disk.oeffnen" (dict "titel" (get $platte "title")))}}"><img src="{{(get $platte "cover")}}" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" loading="{{(choose (equal (get $platte "id") "1975-control") "eager" "lazy")}}" decoding="async" referrerpolicy="no-referrer"></a>
+                </figure>
+              {{end}}
+              <div class="disk-plattentext">
+                <p class="disk-kuenstler">{{(get $platte "artist")}}</p>
+                <h3 id="titel-{{(get $platte "id")}}"><a href="{{(diskografie_link (get $platte "id"))}}" data-release-link="{{(get $platte "id")}}">{{(get $platte "title")}}</a></h3>
+                <p class="disk-metadaten">{{(implode " · " (array_filter (list (t (cat "disk.type." (get $platte "kind"))) (get $platte "format") (get $platte "label"))))}}</p>
+                {{if (truth (unequal (get (get $platte "notes") (sprache)) ""))}}<p class="disk-notiz">{{(get (get $platte "notes") (sprache))}}</p>{{end}}
+                {{if (truth (unequal (diskografie_hoerlinks (get $platte "id")) (list)))}}
+                  <p class="disk-hoeren-kurz"><a href="{{(diskografie_link (get $platte "id"))}}#hoeren" data-release-link="{{(get $platte "id")}}">{{(t "disk.hoeren")}}</a></p>
+                {{end}}
+                <details class="disk-details">
+                  <summary>{{(t "disk.details")}}</summary>
+                  {{if (truth (unequal (get $platte "catalog") ""))}}<p>{{(t "disk.katalognummer")}} {{(get $platte "catalog")}}</p>{{end}}
+                  {{if (truth (unequal (get $platte "tracks") (list)))}}<p>{{(t "disk.weitere_titel")}} {{(implode " / " (get $platte "tracks"))}}</p>{{end}}
+                  <ul>
+                    {{range $pair5 := pairs (get $platte "sources")}}{{$key = $pair5.Value}}<li><a href="{{(get (get $quellen $key) "url")}}" target="_blank" rel="noopener noreferrer">{{(get (get $quellen $key) "label")}}</a></li>{{end}}
+                    {{if (truth (isset (get $platte "coverSource")))}}<li><a href="{{(get $platte "coverSource")}}" target="_blank" rel="noopener noreferrer">{{(t "disk.coverquelle")}}</a></li>{{end}}
+                  </ul>
+                </details>
+              </div>
+            </article>
+          {{end}}
+        </section>
+      {{end}}
+    </div>
+    <p class="disk-leer" hidden>{{(t "disk.leer")}}</p>
+    <aside class="disk-hinweis">
+      <p>{{(t "disk.hinweis")}}</p>
+      <p>{{(t "disk.quellenhinweis")}}</p>
+    </aside>
+    <a class="disk-nach-oben" href="#diskografie">{{(t "disk.nach_oben")}} ↑</a>
+  </main>
+</div>

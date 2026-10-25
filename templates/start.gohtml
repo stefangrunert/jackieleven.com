@@ -1,0 +1,101 @@
+{{$erstesVideo := get . "erstesVideo"}}{{$index := get . "index"}}{{$jahr := get . "jahr"}}{{$key := get . "key"}}{{$lebenQuelle := get . "lebenQuelle"}}{{$lebenslinie := get . "lebenslinie"}}{{$platte := get . "platte"}}{{$poolQuelle := get . "poolQuelle"}}{{$rubrik := get . "rubrik"}}{{$start := get . "start"}}{{$video := get . "video"}}{{$weg := get . "weg"}}{{$ziel := get . "ziel"}}
+
+<main class="home">
+  <section class="home-auftakt" aria-labelledby="home-titel">
+    <div class="home-buehne">
+      <figure class="home-portraet">
+        <img src="/assets/bilder/startseite/portrait-graphic.png" alt="{{(t "home.portraet_alt")}}" width="1536" height="1024" fetchpriority="high">
+      </figure>
+      <header class="home-name">
+        <h1 id="home-titel" aria-label="Jackie Leven"><span aria-hidden="true">1950–2011</span></h1>
+      </header>
+      <figure class="home-vers">
+        <blockquote lang="en">{{(nl2br (get $start "vers") false)}}</blockquote>
+        <figcaption lang="en">My Philosophy · Jackie Leven, 2003</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="home-hoeren" aria-labelledby="home-hoeren-titel">
+    <div class="home-hoeren-inner">
+      <div class="home-video-raum">
+        <div class="home-video" data-youtube-id="{{(get $erstesVideo "video")}}" data-youtube-title="{{(cat (cat (get $erstesVideo "kuenstler") ": ") (get $erstesVideo "titel"))}}">
+          <button class="hoer-video-laden" type="button" aria-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $erstesVideo "titel")))}}">
+            <img class="hoer-video-bild" src="{{(get $erstesVideo "preview")}}" alt="" width="1672" height="941" loading="eager" decoding="async">
+            <span class="hoer-play" aria-hidden="true"></span>
+            <span class="hoer-video-text">{{(t "hoeren.video_laden")}}<small>{{(get $erstesVideo "kuenstler")}} · {{(get $erstesVideo "kontext")}}</small></span>
+          </button>
+          <a id="home-hoeren-youtube" class="hoer-youtube-link" href="https://www.youtube.com/watch?v={{(get $erstesVideo "video")}}" target="_blank" rel="noopener noreferrer" data-music-link>{{(t "hoeren.youtube")}}</a>
+        </div>
+      </div>
+      <nav class="home-playlist" aria-labelledby="home-hoeren-titel">
+        <div class="home-playlist-kopf">
+          <h2 id="home-hoeren-titel">{{(t "nav.hoeren")}}</h2>
+          <a class="home-hoeren-link" href="{{(url "hoeren")}}">{{(t "home.hoeren.mehr")}}</a>
+        </div>
+        <ol>
+          {{range $pair1 := pairs (get $start "hoeren")}}{{$index = $pair1.Key}}{{$video = $pair1.Value}}
+            <li{{(attrs (choose (equal (get $video "video") "") " class=\"home-playlist-offen\"" ""))}}>
+              {{if (truth (unequal (get $video "video") ""))}}
+                <button type="button" data-youtube-id="{{(get $video "video")}}" data-youtube-title="{{(cat (cat (get $video "kuenstler") ": ") (get $video "titel"))}}" data-youtube-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $video "titel")))}}" data-youtube-preview="{{(get $video "preview")}}" data-youtube-meta="{{(cat (cat (get $video "kuenstler") " · ") (get $video "kontext"))}}" aria-pressed="{{(choose (equal $index 0) "true" "false")}}">
+                  <span class="home-playlist-nummer">{{(str_pad (str (add $index 1)) 2 "0" 0)}}</span>
+                  <span class="home-playlist-titel" lang="en">{{(get $video "titel")}}</span>
+                  <span class="home-playlist-meta">{{(get $video "kuenstler")}} · {{(get $video "kontext")}}</span>
+                </button>
+              {{else}}
+                <span class="home-playlist-platz" aria-hidden="true"><span class="home-playlist-nummer">{{(str_pad (str (add $index 1)) 2 "0" 0)}}</span><span>—</span></span>
+              {{end}}
+            </li>
+          {{end}}
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <div class="home-inhalte">
+    <nav class="home-lebenslinie" aria-label="{{(t "home.lebenslinie")}}">
+      <ol>
+        {{range $pair2 := pairs $lebenslinie}}{{$weg = $pair2.Value}}{{$jahr = (get $weg 0)}}{{$key = (get $weg 1)}}{{$ziel = (get $weg 2)}}
+          <li><a href="{{$ziel}}"><span class="home-jahr">{{$jahr}}</span><span class="home-station">{{(t (cat "home.weg." $key))}}</span></a></li>
+        {{end}}
+      </ol>
+    </nav>
+
+    <div class="home-auszuege">
+      <article class="home-auszug">
+        <span class="home-anfuhrung" aria-hidden="true">“</span>
+        <figure>
+          <blockquote lang="{{(sprache)}}" cite="{{(get $poolQuelle "archiv")}}">{{(get (get (get $start "pool") "zitat") (sprache))}}</blockquote>
+          <figcaption><a href="{{(url "kolumne" (dict "slug" (get $poolQuelle "slug")))}}">The Deep Pool · {{(kolumnen_datum $poolQuelle)}} · <span lang="en">{{(get (get $start "pool") "titel")}}</span></a></figcaption>
+        </figure>
+      </article>
+      <article class="home-auszug">
+        <span class="home-anfuhrung" aria-hidden="true">“</span>
+        <figure>
+          <blockquote lang="{{(sprache)}}" cite="{{(get $lebenQuelle "archiv")}}">{{(get (get (get $start "leben") "zitat") (sprache))}}</blockquote>
+          <figcaption><a href="{{(url "station" (dict "slug" (get (get $start "leben") "station")))}}">{{(t "nav.zeitreise")}} · 2011</a></figcaption>
+        </figure>
+      </article>
+      <article class="home-platte">
+        <a class="home-cover" href="{{(diskografie_link (get $platte "id"))}}" aria-label="{{(t "disk.oeffnen" (dict "titel" (get $platte "title")))}}">
+          <img src="/assets/bilder/startseite/cover-mystery-of-love.png" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <p class="home-plattenjahr">{{(t "nav.diskografie")}} · {{(str (get $platte "year"))}}</p>
+          <h2 lang="en"><a href="{{(diskografie_link (get $platte "id"))}}">{{(get $platte "title")}}</a></h2>
+          <p class="home-liedzeile" lang="en">{{(get (get $start "platte") "zeile")}}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+  <section class="home-mitmachen" aria-labelledby="mitmachen-titel">
+    <h2 id="mitmachen-titel"><a href="{{(url "mitmachen")}}">{{(t "mit.titel")}}</a></h2>
+    <p>{{(t "mit.home")}}</p>
+    <a href="{{(url "mitmachen")}}">{{(t "nav.mitmachen")}}</a>
+  </section>
+  <nav class="home-fussnav" aria-label="{{(t "nav.label")}}">
+    {{range $pair3 := pairs (list "hoeren" "diskografie" "zeitreise" "biografie" "pool" "ueber" "mitmachen")}}{{$rubrik = $pair3.Value}}
+      <a href="{{(url $rubrik)}}">{{(t (cat "nav." $rubrik))}}</a>
+    {{end}}
+  </nav>
+</main>

@@ -1,0 +1,10 @@
+{{$k := get . "k"}}{{$nach := get . "nach"}}{{$oben := get . "oben"}}{{$vor := get . "vor"}}
+
+<nav class="pool-navigation{{(choose $oben " pool-navigation--oben" "")}}" aria-label="{{(t "pool.blaettern")}}">
+  {{if (truth $vor)}}
+    <a href="{{(url "kolumne" (dict "slug" (get $vor "slug")))}}" rel="prev" aria-label="{{(cat (cat (cat (cat (t "pool.vorher") ": ") (kolumnen_datum $vor)) ", ") (kolumnen_rubrik $vor))}}"><span aria-hidden="true">←</span> {{(t "pool.zurueck_blaettern")}}</a>
+  {{else}}<span></span>{{end}}
+  {{if (truth $nach)}}
+    <a href="{{(url "kolumne" (dict "slug" (get $nach "slug")))}}" rel="next" aria-label="{{(cat (cat (cat (cat (t "pool.naechster") ": ") (kolumnen_datum $nach)) ", ") (kolumnen_rubrik $nach))}}">{{(t "pool.weiter_blaettern")}} <span aria-hidden="true">→</span></a>
+  {{else}}<span></span>{{end}}
+</nav>

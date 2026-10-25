@@ -1,0 +1,47 @@
+{{$aria := get . "aria"}}{{$bereit := get . "bereit"}}{{$erfolg := get . "erfolg"}}{{$fehler := get . "fehler"}}{{$feld := get . "feld"}}{{$felder := get . "felder"}}{{$global := get . "global"}}{{$token := get . "token"}}{{$turnstile_sitekey := get . "turnstile_sitekey"}}
+<main class="text-seite mitmachen">
+  <p class="lead">{{(t "mit.intro")}}</p>
+  <p>{{(t "mit.mitarbeit")}}</p>
+  <p>{{(t "mit.absprache")}}</p>
+  <p>{{(t "mit.mail")}} <a href="mailto:stefan@jackieleven.com">stefan@jackieleven.com</a>.<br>{{(t "mit.fotos")}}</p>
+
+  <section id="nachricht" class="kontakt" aria-labelledby="kontakt-titel">
+    <h2 id="kontakt-titel">{{(t "mit.formular")}}</h2>
+    {{if (truth $erfolg)}}
+      <p class="kontakt-erfolg" role="status">{{(t "mit.erfolg")}}</p>
+    {{end}}
+    {{if (truth (or $global (not (truth $bereit))))}}
+      <p class="kontakt-fehler" role="alert">{{(t (cat "mit.fehler." (coalesce $global "konfiguration")))}}</p>
+    {{end}}
+    <form action="{{(url "mitmachen")}}#nachricht" method="post" class="kontakt-formular">
+      <input type="hidden" name="token" value="{{$token}}">
+      <div class="kontakt-fang" aria-hidden="true" inert>
+        <label for="kontakt-website">Website</label>
+        <input id="kontakt-website" type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      {{range $pair1 := pairs (list "name" "email" "nachricht")}}{{$feld = $pair1.Value}}
+        <div class="kontakt-feld">
+          <label for="kontakt-{{$feld}}">{{(t (cat "mit." $feld))}}{{if (truth (equal $feld "name"))}} <small>({{(t "mit.optional")}})</small>{{end}}</label>
+          {{$aria = (choose (isset (get $fehler $feld)) (cat (cat " aria-invalid=\"true\" aria-describedby=\"fehler-" $feld) "\"") "")}}
+          {{if (truth (equal $feld "nachricht"))}}
+            <textarea id="kontakt-nachricht" name="nachricht" rows="9" maxlength="10000" required{{(attrs $aria)}}>{{(get $felder $feld)}}</textarea>
+          {{else}}
+            <input id="kontakt-{{$feld}}" type="{{(choose (equal $feld "email") "email" "text")}}" name="{{$feld}}" autocomplete="{{$feld}}" maxlength="{{(choose (equal $feld "email") "254" "120")}}" value="{{(get $felder $feld)}}"{{(attrs (choose (equal $feld "email") " required" ""))}}{{(attrs $aria)}}>
+          {{end}}
+          {{if (truth (isset (get $fehler $feld)))}}<p class="kontakt-fehler" id="fehler-{{$feld}}">{{(t (cat "mit.fehler." (get $fehler $feld)))}}</p>{{end}}
+        </div>
+      {{end}}
+      <p class="kontakt-hinweis">{{(t "mit.datenschutz")}}</p>
+      {{if (truth (unequal $turnstile_sitekey ""))}}
+        <div class="cf-turnstile" data-sitekey="{{$turnstile_sitekey}}" data-action="contact" data-theme="dark" data-size="flexible" data-language="{{(sprache)}}" data-refresh-expired="auto" data-refresh-timeout="auto"></div>
+        <p class="kontakt-hinweis">{{(t "mit.turnstile")}} <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">{{(t "mit.turnstile.datenschutz")}}</a></p>
+        <noscript><p class="kontakt-fehler">{{(t "mit.turnstile.noscript")}}</p></noscript>
+      {{end}}
+      <button type="submit"{{(attrs (choose (not (truth $bereit)) " disabled" ""))}}>{{(t "mit.senden")}}</button>
+    </form>
+  </section>
+</main>
+{{if (truth (unequal $turnstile_sitekey ""))}}
+<script src="/assets/js/kontakt.js?v={{(filemtime (cat "" "/assets/js/kontakt.js"))}}" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+{{end}}

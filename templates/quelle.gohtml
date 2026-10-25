@@ -1,0 +1,88 @@
+{{$absatz := get . "absatz"}}{{$beleg := get . "beleg"}}{{$id := get . "id"}}{{$inhalt := get . "inhalt"}}{{$kontext := get . "kontext"}}{{$lizenz := get . "lizenz"}}{{$nach := get . "nach"}}{{$nb := get . "nb"}}{{$platte := get . "platte"}}{{$q := get . "q"}}{{$vor := get . "vor"}}{{$zitat := get . "zitat"}}
+
+<main class="stimme-detail">
+  <p class="stimme-zurueck"><a href="{{(url "stimmen")}}#{{(get $q "id")}}">← {{(t "stimmen.zurueck")}}</a></p>
+  <article>
+    <header class="stimme-kopf">
+      <p class="disk-kicker">{{(t (cat "stimmen.kategorie." (get $q "kategorie")))}}{{if (truth (equal (get $q "stufe") "auswahl"))}} · {{(t "stimmen.ausgewaehlt")}}{{end}}</p>
+      <h1 lang="{{(stimme_titelsprache $q)}}">{{(stimme_feld $q "titel")}}</h1>
+      <dl class="disk-fakten">
+        <div><dt>{{(t "stimmen.medium")}}</dt><dd>{{(stimme_feld $q "medium")}}</dd></div>
+        {{if (truth (unequal (get $q "autor") ""))}}<div><dt>{{(t "stimmen.autor")}}</dt><dd>{{(stimme_feld $q "autor")}}</dd></div>{{end}}
+        <div><dt>{{(t "stimmen.datum")}}</dt><dd>{{(stimme_datum (get $q "datum"))}}</dd></div>
+        {{if (truth (unequal (get (get $q "scan") "pages") ""))}}<div><dt>{{(t "stimmen.seite")}}</dt><dd>{{(get (get $q "scan") "pages")}}</dd></div>{{end}}
+        <div><dt>{{(t "stimmen.sprache")}}</dt><dd>{{(stimme_sprache (get $q "sprache"))}}</dd></div>
+        <div><dt>{{(t "stimmen.zugang")}}</dt><dd>{{(t (cat "stimmen.zugang." (get $q "zugang")))}}</dd></div>
+      </dl>
+    </header>
+
+    {{if (truth (coalesce (get $q "korrektur") nilValue))}}
+      <aside class="stimme-korrektur" aria-label="{{(t "stimmen.korrektur")}}"><p class="stimme-korrektur-titel">{{(t "stimmen.korrektur")}}</p><p>{{(md_inline (coalesce (get (get $q "korrektur") (sprache)) (get (get $q "korrektur") "de")))}}</p></aside>
+    {{end}}
+
+    <section class="stimme-inhalt" aria-label="{{(t "stimmen.inhalt")}}">
+      {{if (truth (equal $inhalt nilValue))}}
+        <p class="stimme-hinweis">{{(t "stimmen.in_arbeit")}}</p>
+      {{else}}
+        <div>
+          {{range $pair1 := pairs $inhalt}}{{$absatz = $pair1.Value}}<p>{{(md_inline $absatz)}}</p>{{end}}
+        </div>
+      {{end}}
+      {{if (truth (unequal $inhalt nilValue))}}<p class="stimme-hinweis">{{(t "stimmen.eigene_worte")}}</p>{{end}}
+    </section>
+
+    {{if (truth (coalesce (get $q "beleg") (list)))}}
+      <section class="stimme-beleg" aria-labelledby="beleg">
+        <h2 id="beleg">{{(t "stimmen.beleg")}}</h2>
+        {{range $pair2 := pairs (get $q "beleg")}}{{$beleg = $pair2.Value}}
+          <figure>
+            <blockquote lang="{{(get $q "sprache")}}"><p>{{(get $beleg "original")}}</p></blockquote>
+            <figcaption>{{(coalesce (get $beleg (sprache)) (get $beleg "de"))}}</figcaption>
+          </figure>
+        {{end}}
+        <p class="stimme-hinweis">{{(t "stimmen.beleg_hinweis")}}</p>
+      </section>
+    {{end}}
+
+    {{if (truth (get $q "zitate"))}}
+      <section class="stimme-zitate" aria-label="{{(t "stimmen.zitate")}}">
+        {{range $pair3 := pairs (get $q "zitate")}}{{$zitat = $pair3.Value}}
+          <figure>
+            <blockquote lang="{{(get $q "sprache")}}"><p>{{(get $zitat "text")}}</p></blockquote>
+            {{$kontext = (choose (equal (sprache) "de") (get $zitat "kontext") (coalesce (get $zitat (cat "kontext_" (sprache))) ""))}}
+            {{if (truth (unequal $kontext ""))}}<figcaption>{{(md_inline $kontext)}}</figcaption>{{end}}
+          </figure>
+        {{end}}
+      </section>
+    {{end}}
+
+    <section class="stimme-quelle" aria-labelledby="quelle">
+      <h2 id="quelle">{{(t "stimmen.lesen")}}</h2>
+      {{(render "quellen-faksimile" (dict "q" $q))}}
+      {{(render "quellen-auszuege" (dict "q" $q))}}
+      <ul>
+        {{if (truth (unequal (get $q "url") ""))}}<li><a href="{{(get $q "url")}}" target="_blank" rel="noopener noreferrer">{{(t (choose $nb "stimmen.nb" "stimmen.original"))}}</a></li>{{end}}
+        {{if (truth (and (unequal (get $q "archiv") "") (unequal (get $q "archiv") (get $q "url"))))}}<li><a href="{{(get $q "archiv")}}" target="_blank" rel="noopener noreferrer">{{(t "stimmen.archiv")}}</a></li>{{end}}
+      </ul>
+      {{if (truth (and (get $q "lizenz") (empty (get (get $q "scan") "facsimiles"))))}}{{$lizenz = (stimme_lizenz (get $q "lizenz"))}}
+        <p class="stimme-lizenz">{{(licenseNotice $q $lizenz)}}</p>
+      {{end}}
+    </section>
+
+    {{if (truth (get $q "ausgaben"))}}
+      <section class="stimme-bezuege" aria-labelledby="bezuege">
+        <h2 id="bezuege">{{(t "stimmen.ausgaben")}}</h2>
+        <ul>
+          {{range $pair4 := pairs (get $q "ausgaben")}}{{$id = $pair4.Value}}{{$platte = (get (get (diskografie) "releases") (diskografie_index $id))}}
+            <li><a href="{{(diskografie_link $id)}}">{{(get $platte "title")}}</a> <span>{{(get $platte "year")}} · {{(get $platte "artist")}}</span></li>
+          {{end}}
+        </ul>
+      </section>
+    {{end}}
+  </article>
+
+  <nav class="stimme-blaettern" aria-label="{{(t "stimmen.blaettern")}}">
+    {{if (truth $vor)}}<a rel="prev" href="{{(stimme_link (get $vor "id"))}}"><span>← {{(t "stimmen.vorher")}}</span><span lang="{{(stimme_titelsprache $vor)}}">{{(stimme_feld $vor "titel")}}</span></a>{{else}}<span></span>{{end}}
+    {{if (truth $nach)}}<a rel="next" href="{{(stimme_link (get $nach "id"))}}"><span>{{(t "stimmen.naechste")}} →</span><span lang="{{(stimme_titelsprache $nach)}}">{{(stimme_feld $nach "titel")}}</span></a>{{end}}
+  </nav>
+</main>

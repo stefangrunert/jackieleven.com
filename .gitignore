@@ -24,3 +24,8 @@ sketches.zip
 # Python-Zwischendateien
 __pycache__/
 *.pyc
+
+# Lokale Go-Builds
+/jackieleven
+/bin/
+/dist/

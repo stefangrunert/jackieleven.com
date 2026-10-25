@@ -1,0 +1,38 @@
+{{$jahr := get . "jahr"}}{{$jahre := get . "jahre"}}{{$k := get . "k"}}{{$texte := get . "texte"}}
+
+<main class="pool-index" id="textarchiv">
+  <header class="pool-archivkopf">
+    <a class="pool-textlink" href="{{(url "pool")}}">{{(t "pool.von_anfang")}} <span aria-hidden="true">→</span></a>
+    <h1 id="archiv-titel">{{(t "pool.alle")}}</h1>
+  </header>
+
+  <section class="pool-archiv" id="alle-texte" aria-labelledby="archiv-titel">
+    <nav class="pool-jahreswahl" aria-label="{{(t "pool.jahre")}}">
+      {{range $pair1 := pairs $jahre}}{{$jahr = $pair1.Key}}{{$texte = $pair1.Value}}<a href="#jahr-{{(str $jahr)}}">{{(str $jahr)}}</a>{{end}}
+    </nav>
+    <p class="pool-datierung">{{(t "pool.datierung")}}</p>
+    {{range $pair2 := pairs $jahre}}{{$jahr = $pair2.Key}}{{$texte = $pair2.Value}}
+      <section class="pool-jahr" id="jahr-{{(str $jahr)}}" aria-labelledby="jahr-titel-{{(str $jahr)}}">
+        <div class="pool-jahreskopf">
+          <h2 id="jahr-titel-{{(str $jahr)}}">{{(str $jahr)}}</h2>
+          <span class="pool-label">{{(t "pool.anzahl" (dict "anzahl" (count $texte)))}}</span>
+        </div>
+        <ol class="pool-liste">
+          {{range $pair3 := pairs $texte}}{{$k = $pair3.Value}}
+            <li>
+              <a href="{{(url "kolumne" (dict "slug" (get $k "slug")))}}">
+                <span class="pool-listendatum"><time datetime="{{(get $k "datum")}}">{{(kolumnen_datum $k)}}</time>{{if (truth (equal (get $k "datierung") "archivdatum"))}}<small>{{(t "pool.archivdatum")}}</small>{{end}}</span>
+                <span class="pool-listenrubrik"><span lang="en">{{(kolumnen_rubrik $k)}}</span>{{if (truth (unequal (get $k "autor") "Jackie Leven"))}}<small>{{(t "pool.webmaster")}}</small>{{end}}</span>
+              </a>
+            </li>
+          {{end}}
+        </ol>
+      </section>
+    {{end}}
+  </section>
+
+  <aside class="pool-provenienz" role="note">
+    <h2>{{(t "pool.hinweis_titel")}}</h2>
+    <p>{{(t "pool.hinweis")}}</p>
+  </aside>
+</main>

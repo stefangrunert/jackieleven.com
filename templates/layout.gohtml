@@ -1,0 +1,83 @@
+{{$inhalt := get . "inhalt"}}{{$nav := get . "nav"}}{{$noindex := get . "noindex"}}{{$s := get . "s"}}{{$titel := get . "titel"}}
+
+<!DOCTYPE html>
+<html lang="{{(sprache)}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{(render "seo" (dict "seo" (seo_daten $titel) "noindex" $noindex))}}
+{{if (truth (equal $nav "start"))}}
+<link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/home.css">
+{{end}}
+<link rel="stylesheet" href="/assets/css/site.css?v={{(filemtime (cat "" "/assets/css/site.css"))}}">
+</head>
+<body{{(attrs (choose (equal $nav "start") " class=\"home-page\"" ""))}}>
+
+<header class="topbar">
+  <a class="name" href="{{(url "start")}}" aria-label="{{(t "nav.start")}}"{{(attrs (choose (equal $nav "start") " aria-current=\"page\"" ""))}}>
+    <img class="site-logo" src="/assets/bilder/jackie-leven-logo-originalnah.png" alt="" width="56" height="56">
+    <span>Jackie Leven</span>
+  </a>
+  <div class="kopf-rechts">
+    <nav aria-label="{{(t "nav.label")}}">
+      <a href="{{(url "hoeren")}}"{{(attrs (choose (equal $nav "hoeren") " class=\"hier\" aria-current=\"page\"" ""))}}>{{(t "nav.hoeren")}}</a>
+      <a href="{{(url "zeitreise")}}"{{(attrs (choose (equal $nav "zeitreise") " class=\"hier\" aria-current=\"page\"" ""))}}>{{(t "nav.zeitreise")}}</a>
+      <a href="{{(url "diskografie")}}"{{(attrs (choose (equal $nav "diskografie") " class=\"hier\" aria-current=\"page\"" ""))}}>{{(t "nav.diskografie")}}</a>
+      <a href="{{(url "biografie")}}"{{(attrs (choose (equal $nav "biografie") " class=\"hier\"" ""))}}>{{(t "nav.biografie")}}</a>
+      <a href="{{(url "pool")}}"{{(attrs (choose (equal $nav "pool") " class=\"hier\" aria-current=\"page\"" ""))}}>{{(t "nav.pool")}}</a>
+      <a href="{{(url "stimmen")}}"{{(attrs (choose (equal $nav "stimmen") " class=\"hier\" aria-current=\"page\"" ""))}}>{{(t "nav.stimmen")}}</a>
+      <a href="{{(url "ueber")}}"{{(attrs (choose (equal $nav "ueber") " class=\"hier\"" ""))}}>{{(t "nav.ueber")}}</a>
+      <a class="nav-mitmachen" href="{{(url "mitmachen")}}"{{(attrs (choose (equal $nav "mitmachen") " aria-current=\"page\"" ""))}}>{{(t "nav.mitmachen")}}</a>
+    </nav>
+    <nav class="sprachen" aria-label="{{(t "sprache.wahl")}}">
+      {{range $pair1 := pairs (list "de" "en")}}{{$s = $pair1.Value}}
+        {{if (truth (equal $s (sprache)))}}
+          <span lang="{{$s}}" aria-current="true">{{(strtoupper $s)}}</span>
+        {{else}}
+          <a href="{{(alternativ_url $s)}}" hreflang="{{$s}}" lang="{{$s}}" title="{{(t "sprache.name" (list) $s)}}">{{(strtoupper $s)}}</a>
+        {{end}}
+      {{end}}
+    </nav>
+  </div>
+</header>
+
+{{$inhalt}}
+
+<footer{{(attrs (choose (equal $nav "start") " class=\"home-footer\"" ""))}}>
+  <a class="fuss-impressum" href="{{(url "impressum")}}"{{(attrs (choose (equal $nav "impressum") " aria-current=\"page\"" ""))}}>{{(t "nav.impressum")}}</a>
+  <div class="fuss-text">
+    <span>{{(t "fuss.hommage")}}</span>
+    <span>{{(t "fuss.unabhaengig")}}</span>
+  </div>
+</footer>
+{{if (truth (equal $nav "start"))}}
+<script src="/assets/js/startseite.js?v={{(filemtime (cat "" "/assets/js/startseite.js"))}}" defer></script>
+{{end}}
+
+{{if (truth (equal $nav "zeitreise"))}}
+<script src="/assets/js/zeitgraph.js?v={{(filemtime (cat "" "/assets/js/zeitgraph.js"))}}" defer></script>
+{{end}}
+{{if (truth (equal $nav "pool"))}}
+<script src="/assets/js/kolumnen.js?v={{(filemtime (cat "" "/assets/js/kolumnen.js"))}}" defer></script>
+{{end}}
+{{if (truth (in_array $nav (list "start" "diskografie" "hoeren") true))}}
+<script src="/assets/js/musiklinks.js?v={{(filemtime (cat "" "/assets/js/musiklinks.js"))}}" defer></script>
+{{end}}
+{{if (truth (equal $nav "diskografie"))}}
+<script src="/assets/js/diskografie.js?v={{(filemtime (cat "" "/assets/js/diskografie.js"))}}" defer></script>
+{{end}}
+{{if (truth (equal $nav "biografie"))}}
+<script src="/assets/js/biografie.js?v={{(filemtime (cat "" "/assets/js/biografie.js"))}}" defer></script>
+{{end}}
+{{if (truth (equal $nav "stimmen"))}}
+<script src="/assets/js/stimmen.js?v={{(filemtime (cat "" "/assets/js/stimmen.js"))}}" defer></script>
+{{end}}
+{{if (truth (equal $nav "hoeren"))}}
+<script src="/assets/js/hoeren.js?v={{(filemtime (cat "" "/assets/js/hoeren.js"))}}" defer></script>
+{{end}}
+{{if (truth (seo_live))}}
+<script src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{"a04a23aa95f4461e93097b9a51e528fc"}}"}' defer></script>
+{{end}}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{{$i := get . "i"}}{{$k := get . "k"}}
+<ol class="kapitel-liste">
+  {{range $pair1 := pairs (kapitelliste)}}{{$i = $pair1.Key}}{{$k = $pair1.Value}}
+    <li>
+      <a href="{{(url "kapitel" (dict "slug" (get $k "slug")))}}">
+        <span class="nr">{{(add $i 1)}}</span>
+        <span class="titel" lang="en">{{(get $k "titel")}}</span>
+      </a>
+    </li>
+  {{end}}
+</ol>

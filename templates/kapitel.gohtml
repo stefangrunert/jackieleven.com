@@ -1,0 +1,60 @@
+{{$anm := get . "anm"}}{{$anmSprache := get . "anmSprache"}}{{$app := get . "app"}}{{$appSprache := get . "appSprache"}}{{$i := get . "i"}}{{$intro := get . "intro"}}{{$k := get . "k"}}{{$liste := get . "liste"}}{{$nach := get . "nach"}}{{$startseite := get . "startseite"}}{{$text := get . "text"}}{{$textSprache := get . "textSprache"}}{{$vor := get . "vor"}}
+
+<div class="bio-raum bio-detailraum">
+{{(render "kapitel-zeitstrahl" (dict "aktiv" $i "startseite" $startseite))}}
+<article class="text-seite kapitel bio-inhalt">
+
+  {{if (truth $intro)}}
+    {{(render_lokal "biografie-intro")}}
+  {{end}}
+
+  {{if (truth (not (truth $intro)))}}
+    <aside class="pastiche-hinweis" role="note">
+      <span class="etikett">{{(t "pastiche.etikett")}}</span>
+      <p>{{(t "pastiche.erklaerung")}}
+        <a href="{{(url "biografie")}}">{{(t "pastiche.ueber_buch")}}</a></p>
+    </aside>
+  {{end}}
+
+  <p class="kicker">{{(t "pastiche.kapitel_von" (dict "nr" (add $i 1) "gesamt" (count $liste)))}} <span aria-hidden="true">·</span> {{(get $k "zeit")}}</p>
+  {{if (truth $intro)}}
+    <h2 class="kapitel-titel" lang="en">{{(get $k "titel")}}</h2>
+  {{else}}
+    <h1 class="kapitel-titel" lang="en">{{(get $k "titel")}}</h1>
+  {{end}}
+
+  {{if (truth (unequal $anm ""))}}
+    <div class="anmerkung"{{(attrs (lang $anmSprache))}}>{{(md $anm)}}</div>
+  {{end}}
+
+  {{if (truth (unequal $textSprache (sprache)))}}
+    <p class="teil-fremd">{{(t "pastiche.text_fremd" (dict "sprache" (t (cat "sprachname." $textSprache))))}}</p>
+  {{else if (truth (unequal $textSprache "en"))}}
+    <p class="teil-fremd">{{(t "pastiche.uebersetzt")}} ·
+      <a href="{{(url "kapitel" (dict "slug" (get $k "slug")) "en")}}" hreflang="en">{{(t "pastiche.zum_original")}}</a></p>
+  {{end}}
+  <div class="pastiche-text" data-nosnippet lang="{{$textSprache}}">
+    {{(md $text)}}
+  </div>
+
+  {{if (truth (unequal $app ""))}}
+    <section class="apparat">
+      {{if (truth (unequal $appSprache (sprache)))}}
+        <p class="teil-fremd">{{(t "pastiche.apparat_fremd" (dict "sprache" (t (cat "sprachname." $appSprache))))}}</p>
+      {{end}}
+      <div{{(attrs (lang $appSprache))}}>{{(md $app)}}</div>
+    </section>
+  {{end}}
+
+  <nav class="kapitel-nav" aria-label="{{(t "pastiche.kapitelnav")}}">
+    {{if (truth $vor)}}
+      <a href="{{(url "kapitel" (dict "slug" (get $vor "slug")))}}" rel="prev">&larr; <span lang="en">{{(get $vor "titel")}}</span></a>
+    {{else}}<span></span>{{end}}
+    <a href="{{(url "biografie")}}">{{(t "pastiche.inhalt")}}</a>
+    {{if (truth $nach)}}
+      <a href="{{(url "kapitel" (dict "slug" (get $nach "slug")))}}" rel="next"><span lang="en">{{(get $nach "titel")}}</span> &rarr;</a>
+    {{else}}<span></span>{{end}}
+  </nav>
+
+</article>
+</div>

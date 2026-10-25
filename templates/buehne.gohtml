@@ -1,0 +1,41 @@
+{{$bildtext := get . "bildtext"}}{{$platte := get . "platte"}}{{$quelltext := get . "quelltext"}}{{$st := get . "st"}}{{$tusche := get . "tusche"}}
+
+<div class="stage-visual{{(choose $tusche " stage-visual--tusche" "")}}">
+  <img src="/assets/bilder/{{(get $st "bild")}}" alt="{{$bildtext}}">
+  {{if (truth (unequal $bildtext ""))}}<span class="bildtext">{{(sfeld_html $st "bildtext")}}</span>{{end}}
+</div>
+
+<div class="stage-body" data-art="{{(get $st "art")}}">
+  <p class="stage-year">{{(get $st "jahr")}}</p>
+  <p class="stage-kind">{{(sfeld_html $st "label")}}</p>
+
+  {{if (truth (unequal (get $st "zitat") ""))}}
+    <blockquote lang="en">
+      <p>{{(get $st "zitat")}}</p>
+      <cite lang="{{(sprache)}}">
+        {{if (truth (unequal $quelltext nilValue))}}
+          <a href="{{(url "kolumne" (dict "slug" (get $quelltext "slug")))}}">{{(t "station.zitat_von" (dict "quelle" (quelle_text (get $st "quelle"))))}}</a>
+        {{else}}
+          <a href="{{(get (get $st "quelle") "archiv")}}" rel="noopener noreferrer" target="_blank">{{(t "station.zitat_von" (dict "quelle" (quelle_text (get $st "quelle"))))}}</a>
+        {{end}}
+      </cite>
+    </blockquote>
+  {{else}}
+    <p class="kein-zitat">{{(t "station.kein_zitat")}}</p>
+  {{end}}
+
+  <p class="stage-text">{{(sfeld_html $st "text")}}</p>
+
+  {{if (truth (unequal $platte nilValue))}}
+    <a class="stage-werk" href="{{(diskografie_link (get $platte "id"))}}">
+      {{if (truth (isset (get $platte "cover")))}}
+        <img src="{{(get $platte "cover")}}" alt="" width="600" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      {{end}}
+      <span class="stage-werk-text">
+        <span class="stage-werk-meta">{{(t "nav.diskografie")}} · {{(str (get $platte "year"))}}</span>
+        <span class="stage-werk-titel" lang="en">{{(get $platte "title")}}</span>
+        <span class="stage-werk-kuenstler">{{(get $platte "artist")}}</span>
+      </span>
+    </a>
+  {{end}}
+</div>

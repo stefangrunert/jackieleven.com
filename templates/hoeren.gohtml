@@ -1,0 +1,38 @@
+{{$gruppe := get . "gruppe"}}{{$kapitel := get . "kapitel"}}{{$kapitelIndex := get . "kapitelIndex"}}{{$nummer := get . "nummer"}}{{$platte := get . "platte"}}{{$stueck := get . "stueck"}}{{$video := get . "video"}}{{$videoId := get . "videoId"}}
+
+<main class="hoer-seite">
+  <h1 class="hoer-seitentitel">{{(t "nav.hoeren")}}</h1>
+  <p class="hoer-intro">{{(t "hoeren.intro_anfang")}} <a href="{{(url "diskografie")}}">{{(t "nav.diskografie")}}</a>{{(t "hoeren.intro_ende")}}</p>
+
+  {{range $pair1 := pairs $kapitel}}{{$kapitelIndex = $pair1.Key}}{{$gruppe = $pair1.Value}}
+    <section class="hoer-kapitel" aria-labelledby="hoer-kapitel-{{(add $kapitelIndex 1)}}">
+      <header class="hoer-kapitelkopf">
+        <span>{{(str_pad (str (add $kapitelIndex 1)) 2 "0" 0)}}</span>
+        <h2 id="hoer-kapitel-{{(add $kapitelIndex 1)}}">{{(get (get $gruppe "titel") (sprache))}}</h2>
+      </header>
+      <div class="hoer-stuecke">
+        {{range $pair2 := pairs (get $gruppe "stuecke")}}{{$stueck = $pair2.Value}}{{$nummer = add $nummer 1}}{{$platte = (get (get (diskografie) "releases") (diskografie_index (get $stueck "release")))}}{{$video = (diskografie_youtube (get $stueck "song"))}}{{$videoId = (choose $video (youtube_video_id (get $video "url")) "")}}
+          <article class="hoer-stueck" id="{{(diskografie_liedschluessel (get $stueck "song"))}}">
+            <div class="hoer-stuecktext">
+              <p class="hoer-laufnummer">{{(str_pad (str $nummer) 2 "0" 0)}} <span>· {{(str (get $platte "year"))}}</span></p>
+              <h3 lang="en">{{(get $stueck "song")}}</h3>
+              <p class="hoer-ausgabe">{{(t "hoeren.aus")}} <a href="{{(diskografie_link (get $platte "id"))}}"><span lang="en">{{(get $platte "title")}}</span></a> · {{(get $platte "artist")}}</p>
+            </div>
+            {{if (truth (and $video (unequal $videoId "")))}}
+              <div class="hoer-video" data-youtube-id="{{$videoId}}" data-youtube-title="{{(get $video "title")}}">
+                <button class="hoer-video-laden" type="button" aria-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $stueck "song")))}}">
+                  {{if (truth (not (truth (empty (get $platte "cover")))))}}<img class="hoer-video-bild" src="{{(get $platte "cover")}}" alt="" width="600" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{end}}
+                  <span class="hoer-video-nummer" aria-hidden="true">{{(str_pad (str $nummer) 2 "0" 0)}}</span>
+                  <span class="hoer-play" aria-hidden="true"></span>
+                  <span class="hoer-video-text">{{(t "hoeren.video_laden")}}<small>{{(get $video "channel")}}</small></span>
+                </button>
+                <a class="hoer-youtube-link" href="{{(get $video "url")}}" target="_blank" rel="noopener noreferrer" data-music-link>{{(t "hoeren.youtube")}}</a>
+                <noscript><p><a href="{{(get $video "url")}}" target="_blank" rel="noopener noreferrer">{{(t "hoeren.youtube")}}</a></p></noscript>
+              </div>
+            {{end}}
+          </article>
+        {{end}}
+      </div>
+    </section>
+  {{end}}
+</main>

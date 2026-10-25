@@ -1,0 +1,28 @@
+{{$erstes := get . "erstes"}}{{$i := get . "i"}}{{$konzert := get . "konzert"}}{{$konzerte := get . "konzerte"}}{{$sichtbar := get . "sichtbar"}}{{$stueck := get . "stueck"}}
+
+<section class="disk-livevideos" id="live-videos" aria-labelledby="livevideos-titel" data-fehler="{{(t "disk.video_fehler")}}" data-youtube="{{(t "disk.video_youtube")}}">
+  <h2 id="livevideos-titel">{{(t "disk.livevideos")}}</h2>
+  <p class="disk-livevideos-hinweis">{{(t "disk.livevideos_hinweis")}}</p>
+  {{range $pair1 := pairs $konzerte}}{{$i = $pair1.Key}}{{$konzert = $pair1.Value}}{{$erstes = (get (get $konzert "stuecke") 0)}}
+    {{if (truth (equal $i $sichtbar))}}<details class="disk-livevideos-mehr"><summary>{{(t "disk.weitere_konzerte" (dict "n" (sub (count $konzerte) $sichtbar)))}}</summary>{{end}}
+    <article class="disk-konzert">
+      <div class="disk-konzert-player">
+        <a class="disk-konzert-vorschau" href="{{(watch $erstes)}}" target="_blank" rel="noopener noreferrer" data-livevideo="{{(get (get $erstes "video") "id")}}" data-start="{{(num (get $erstes "start"))}}" aria-label="{{(t "disk.video_laden" (dict "titel" (get $erstes "title") "ort" (get $konzert "title")))}}">
+          <img src="/assets/bilder/live/{{(get (get $erstes "video") "id")}}.webp" alt="" width="480" height="270" loading="lazy" decoding="async" fetchpriority="low">
+          <span class="disk-konzert-play" aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="disk-konzert-text">
+        <h3 lang="en">{{(get $konzert "title")}}</h3>
+        <p class="disk-konzert-meta">{{(diskografie_konzertdatum (get $konzert "date"))}} · {{(t (choose (equal (get $konzert "source") "official") "disk.video_offiziell" "disk.video_fan"))}}</p>
+        <ol class="disk-konzert-stuecke">
+          {{range $pair2 := pairs (get $konzert "stuecke")}}{{$stueck = $pair2.Value}}
+            <li><a href="{{(watch $stueck)}}" target="_blank" rel="noopener noreferrer" data-livevideo="{{(get (get $stueck "video") "id")}}" data-start="{{(num (get $stueck "start"))}}" title="{{(cat (cat (cat "YouTube · " (get (get $stueck "video") "title")) " · ") (get (get $stueck "video") "channel"))}}"><span lang="en">{{(get $stueck "title")}}</span><span class="disk-konzert-zeit">{{(choose (get $stueck "start") (diskografie_zeitmarke (get $stueck "start")) (get (get $stueck "video") "duration"))}}</span></a></li>
+          {{end}}
+        </ol>
+      </div>
+    </article>
+  {{end}}
+  {{if (truth (greater (count $konzerte) $sichtbar))}}</details>{{end}}
+  <script src="/assets/js/livevideos.js?v={{(filemtime (cat "" "/assets/js/livevideos.js"))}}" defer></script>
+</section>

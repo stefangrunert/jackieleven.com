@@ -1,0 +1,22 @@
+{{$aktiv := get . "aktiv"}}{{$i := get . "i"}}{{$k := get . "k"}}{{$startseite := get . "startseite"}}
+
+<nav class="bio-zeitstrahl" aria-label="{{(t "pastiche.kapitelnav")}}">
+  <div class="bio-zeitfenster">
+    <ol class="bio-spur">
+      {{range $pair1 := pairs (kapitelliste)}}{{$i = $pair1.Key}}{{$k = $pair1.Value}}
+        <li>
+          <a class="g-marker bio-marker{{(choose (equal $aktiv $i) " active" "")}}"
+             data-art="leben"
+             href="{{(choose (and $startseite (equal $i 0)) (url "biografie") (url "kapitel" (dict "slug" (get $k "slug"))))}}"
+             {{(attrs (choose (equal $aktiv $i) "aria-current=\"page\"" ""))}}>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="g-label">
+              <span class="g-year">{{(get $k "zeit")}}</span>
+              <span class="g-era" lang="en">{{(get $k "titel")}}</span>
+            </span>
+          </a>
+        </li>
+      {{end}}
+    </ol>
+  </div>
+</nav>

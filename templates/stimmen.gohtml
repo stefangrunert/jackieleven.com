@@ -1,0 +1,89 @@
+{{$alleJahre := get . "alleJahre"}}{{$art := get . "art"}}{{$auswahl := get . "auswahl"}}{{$code := get . "code"}}{{$filter := get . "filter"}}{{$gezeigt := get . "gezeigt"}}{{$jahr := get . "jahr"}}{{$jahre := get . "jahre"}}{{$kurz := get . "kurz"}}{{$kurzSprache := get . "kurzSprache"}}{{$q := get . "q"}}{{$quellen := get . "quellen"}}{{$stufe := get . "stufe"}}{{$weitere := get . "weitere"}}{{$weitereAnzahl := get . "weitereAnzahl"}}{{$zugang := get . "zugang"}}
+
+<div class="disk-raum stimmen-raum" data-eintrag="{{(t "disk.eintrag" (dict "n" "{n}"))}}" data-eintraege="{{(t "disk.eintraege" (dict "n" "{n}"))}}">
+  <nav class="disk-zeitstrahl" aria-label="{{(t "stimmen.zeitstrahl")}}">
+    <div class="disk-zeitfenster">
+      <ol class="disk-spur">
+        {{range $pair1 := pairs $alleJahre}}{{$jahr = $pair1.Key}}{{$quellen = $pair1.Value}}
+          <li data-quellen-jahr="{{(anker (str $jahr))}}"{{(attrs (choose (not (truth (isset (get $jahre $jahr)))) " hidden" ""))}}>
+            <a class="g-marker disk-marker" href="#{{(anker (str $jahr))}}" data-art="werk">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="g-label"><span class="g-year">{{(jahrlabel (str $jahr))}}</span><span class="g-era">{{(t (choose (equal (count (coalesce (get $jahre $jahr) (list))) 1) "disk.eintrag" "disk.eintraege") (dict "n" (count (coalesce (get $jahre $jahr) (list)))))}}</span></span>
+            </a>
+          </li>
+        {{end}}
+      </ol>
+    </div>
+  </nav>
+
+  <main class="disk-katalog stimmen" id="stimmen">
+    <header class="disk-kopf">
+      <p class="disk-intro">{{(t "stimmen.intro")}}</p>
+    </header>
+
+    <form class="stimmen-filter" method="get" action="{{(url "stimmen")}}">
+      <div class="stimmen-auswahl">
+        <label for="quellen-auswahl">{{(t "stimmen.auswahl_label")}}</label>
+        <input id="quellen-auswahl" type="range" name="auswahl" min="0" max="2" step="1" value="{{$auswahl}}" aria-valuetext="{{(t (cat "stimmen.auswahl_" $auswahl))}}" aria-describedby="quellen-auswahl-stufen">
+        <div class="stimmen-auswahl-stufen" id="quellen-auswahl-stufen">
+          {{range $pair2 := pairs (list 2 1 0)}}{{$stufe = $pair2.Value}}<span data-auswahl-stufe="{{$stufe}}"{{(attrs (choose (equal $auswahl $stufe) " class=\"aktiv\"" ""))}}>{{(t (cat "stimmen.auswahl_" $stufe))}}</span>{{end}}
+        </div>
+      </div>
+      <label>{{(t "stimmen.art")}}
+        <select name="art">
+          <option value="">{{(t "stimmen.alle_arten")}}</option>
+          {{range $pair3 := pairs (stimmen_kategorien)}}{{$art = $pair3.Value}}<option value="{{$art}}"{{(attrs (choose (equal (coalesce (get $filter "art") "") $art) " selected" ""))}}>{{(t (cat "stimmen.kategorie." $art))}}</option>{{end}}
+        </select>
+      </label>
+      <label>{{(t "stimmen.sprache")}}
+        <select name="sprache">
+          <option value="">{{(t "stimmen.alle_sprachen")}}</option>
+          {{range $pair4 := pairs (list "en" "no" "de" "andere")}}{{$code = $pair4.Value}}<option value="{{$code}}"{{(attrs (choose (equal (coalesce (get $filter "sprache") "") $code) " selected" ""))}}>{{(choose (equal $code "andere") (t "stimmen.andere_sprachen") (stimme_sprache $code))}}</option>{{end}}
+        </select>
+      </label>
+      <label>{{(t "stimmen.zugang")}}
+        <select name="zugang">
+          <option value="">{{(t "stimmen.alle_zugaenge")}}</option>
+          {{range $pair5 := pairs (stimmen_zugaenge)}}{{$zugang = $pair5.Value}}<option value="{{$zugang}}"{{(attrs (choose (equal (coalesce (get $filter "zugang") "") $zugang) " selected" ""))}}>{{(t (cat "stimmen.zugang." $zugang))}}</option>{{end}}
+        </select>
+      </label>
+      <button type="submit">{{(t "stimmen.anwenden")}}</button>
+    </form>
+    <div class="stimmen-ergebnis">
+      <p class="stimmen-treffer" role="status" data-vorlage="{{(t "stimmen.treffer" (dict "n" "{n}" "gesamt" (count (stimmen))))}}">{{(t "stimmen.treffer" (dict "n" $gezeigt "gesamt" (count (stimmen))))}}</p>
+      <a class="stimmen-zuruecksetzen"{{(attrs (choose (equal $filter (dict "auswahl" "0")) " hidden" ""))}} href="{{(cat (url "stimmen") "?auswahl=0")}}">{{(t "stimmen.zuruecksetzen")}}</a>
+    </div>
+    <p class="disk-leer"{{(attrs (choose (unequal $jahre (list)) " hidden" ""))}}>{{(t "stimmen.leer")}}</p>
+
+    <div class="disk-jahre">
+      {{range $pair6 := pairs $alleJahre}}{{$jahr = $pair6.Key}}{{$quellen = $pair6.Value}}{{$jahr = (str $jahr)}}{{$weitere = (weitere $quellen)}}{{$weitereAnzahl = (matchedCount $weitere $filter)}}
+        <section class="disk-jahr stimmen-jahr" id="{{(anker $jahr)}}" aria-labelledby="titel-{{(anker $jahr)}}"{{(attrs (choose (not (truth (isset (get $jahre $jahr)))) " hidden" ""))}}>
+          <h2 id="titel-{{(anker $jahr)}}">{{(jahrlabel $jahr)}}</h2>
+          {{range $pair7 := pairs $quellen}}{{$q = $pair7.Value}}{{if (truth (not (truth (stimme_mit_seite $q))))}}{{continue}}{{end}}{{$tuple124 := (stimme_text (get $q "kurz"))}}{{$kurz = get $tuple124 0}}{{$kurzSprache = get $tuple124 1}}
+            <article class="stimme stimme--{{(get $q "stufe")}}" id="{{(get $q "id")}}" data-quellen-gewicht="{{(stimme_gewicht $q)}}" data-art="{{(get $q "kategorie")}}" data-sprache="{{(choose (equal (get $q "sprache") "nn") "no" (get $q "sprache"))}}" data-zugang="{{(get $q "zugang")}}"{{(attrs (choose (not (truth (stimme_passt $q $filter))) " hidden" ""))}}>
+              <p class="stimme-meta">{{if (truth (equal (get $q "stufe") "auswahl"))}}<span class="stimme-ausgewaehlt">{{(t "stimmen.ausgewaehlt")}}</span> · {{end}}{{(meta $q)}}</p>
+              <h3 lang="{{(stimme_titelsprache $q)}}"><a href="{{(stimme_link (get $q "id"))}}">{{(stimme_feld $q "titel")}}</a></h3>
+              {{if (truth (unequal $kurz nilValue))}}<p class="stimme-kurz">{{(md_inline $kurz)}}</p>{{end}}
+              <p class="stimme-merkmale"><span>{{(stimme_sprache (get $q "sprache"))}}</span><span class="stimme-zugang stimme-zugang--{{(get $q "zugang")}}">{{(t (cat "stimmen.zugang." (get $q "zugang")))}}</span></p>
+            </article>
+          {{end}}
+          {{if (truth $weitere)}}
+            <details class="stimmen-weitere"{{(attrs (choose (equal $weitereAnzahl 0) " hidden" ""))}}>
+              <summary data-vorlage="{{(t "stimmen.weitere" (dict "n" "{n}"))}}">{{(t "stimmen.weitere" (dict "n" $weitereAnzahl))}}</summary>
+              <ul>
+                {{range $pair8 := pairs $weitere}}{{$q = $pair8.Value}}
+                  <li id="{{(get $q "id")}}" data-quellen-gewicht="{{(stimme_gewicht $q)}}" data-art="{{(get $q "kategorie")}}" data-sprache="{{(choose (equal (get $q "sprache") "nn") "no" (get $q "sprache"))}}" data-zugang="{{(get $q "zugang")}}"{{(attrs (choose (not (truth (stimme_passt $q $filter))) " hidden" ""))}}>
+                    <p class="stimme-meta">{{(meta $q)}} · {{(t (cat "stimmen.zugang." (get $q "zugang")))}}</p>
+                    <a lang="{{(stimme_titelsprache $q)}}" href="{{(stimme_ziel $q)}}"{{(attrs (choose (str_starts_with (stimme_ziel $q) "http") " target=\"_blank\" rel=\"noopener noreferrer\"" ""))}}>{{(stimme_feld $q "titel")}}</a>
+                    {{if (truth (unequal (get (get $q "scan") "pages") ""))}}<p class="stimme-merkmale">{{(cat (cat (t "stimmen.seite") " ") (get (get $q "scan") "pages"))}}</p>{{end}}
+                    {{(render "quellen-faksimile" (dict "q" $q))}}
+                  </li>
+                {{end}}
+              </ul>
+            </details>
+          {{end}}
+        </section>
+      {{end}}
+    </div>
+  </main>
+</div>

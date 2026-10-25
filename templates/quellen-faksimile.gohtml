@@ -1,0 +1,15 @@
+{{$q := get . "q"}}{{$scan := get . "scan"}}{{$scanLizenz := get . "scanLizenz"}}
+{{if (truth (not (truth (empty (get (get $q "scan") "facsimiles")))))}}
+  <div class="quellen-faksimiles">
+    {{range $pair1 := pairs (get (get $q "scan") "facsimiles")}}{{$scan = $pair1.Value}}
+      <figure>
+        <a href="{{(get $scan "full")}}" target="_blank" rel="noopener noreferrer" title="{{(t "stimmen.scan_gross")}}">
+          <img src="{{(get $scan "image")}}" width="{{(num (get $scan "width"))}}" height="{{(num (get $scan "height"))}}" loading="lazy" alt="{{(cat (cat (cat (cat (cat (cat (stimme_feld $q "medium") " · ") (stimme_datum (get $q "datum"))) " · ") (t "stimmen.seite")) " ") (get $scan "page"))}}">
+        </a>
+        <figcaption><a href="{{(get $scan "url")}}" target="_blank" rel="noopener noreferrer">{{(cat (cat (t "stimmen.seite") " ") (get $scan "page"))}}</a></figcaption>
+      </figure>
+    {{end}}
+  </div>
+  {{$scanLizenz = (stimme_lizenz (dict "name" (get (get $q "scan") "license")))}}
+  <p class="quellen-scan-credit">{{(implode " · " (array_filter (list (stimme_feld $q "autor") (stimme_feld $q "medium") (stimme_datum (get $q "datum")))))}} · Nasjonalbiblioteket · <a href="{{(get $scanLizenz "url")}}" target="_blank" rel="noopener noreferrer license">{{(get $scanLizenz "name")}}</a></p>
+{{end}}

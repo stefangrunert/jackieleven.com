@@ -1,0 +1,103 @@
+{{$aktiv := get . "aktiv"}}{{$anbieter := get . "anbieter"}}{{$credit := get . "credit"}}{{$details := get . "details"}}{{$dienst := get . "dienst"}}{{$eintrag := get . "eintrag"}}{{$fakt := get . "fakt"}}{{$fassung := get . "fassung"}}{{$hoeren := get . "hoeren"}}{{$j := get . "j"}}{{$key := get . "key"}}{{$kontext := get . "kontext"}}{{$konzerte := get . "konzerte"}}{{$kurz := get . "kurz"}}{{$kurzSprache := get . "kurzSprache"}}{{$link := get . "link"}}{{$liste := get . "liste"}}{{$live := get . "live"}}{{$navigation := get . "navigation"}}{{$platte := get . "platte"}}{{$platten := get . "platten"}}{{$q := get . "q"}}{{$quelle := get . "quelle"}}{{$quellen := get . "quellen"}}{{$stimmen := get . "stimmen"}}{{$titel := get . "titel"}}{{$track := get . "track"}}{{$video := get . "video"}}{{$videos := get . "videos"}}
+
+<div class="disk-raum disk-detailraum" data-release="{{(get $platte "id")}}" data-origin="{{(coalesce (get $kontext "von") (get $platte "id"))}}">
+  <nav class="disk-zeitstrahl" aria-label="{{(t "disk.zeitstrahl")}}">
+    <div class="disk-zeitfenster">
+      <ol class="disk-spur">
+        {{range $pair1 := pairs $platten}}{{$eintrag = $pair1.Value}}{{$aktiv = (equal (get $platte "id") (get $eintrag "id"))}}
+          <li>
+            <a class="g-marker disk-marker{{(choose $aktiv " active" "")}}" href="{{(diskografie_link (get $eintrag "id") $kontext)}}" data-art="werk"{{(attrs (choose $aktiv " aria-current=\"page\"" ""))}}>
+              <span class="dot" aria-hidden="true"></span>
+              <span class="g-label"><span class="g-year">{{(get $eintrag "year")}}</span><span class="g-era">{{(get $eintrag "title")}}</span></span>
+            </a>
+          </li>
+        {{end}}
+      </ol>
+    </div>
+  </nav>
+  <main class="disk-katalog disk-detail" id="platte">
+    {{(render "platte-navigation" (add $navigation (dict "oben" true)))}}
+    <article>
+      <header class="disk-albumkopf{{(choose (isset (get $platte "cover")) " disk-albumkopf--cover" "")}}">
+        {{if (truth (isset (get $platte "cover")))}}
+          <figure class="disk-cover">
+            <img src="{{(get $platte "cover")}}" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" decoding="async" referrerpolicy="no-referrer">
+          </figure>
+        {{end}}
+        <div>
+          <p class="disk-kuenstler">{{(get $platte "artist")}}</p>
+          <h1>{{(get $platte "title")}}</h1>
+          <p class="disk-ausgabenjahr">{{(get $platte "year")}} <span>· {{(t (cat "disk.type." (get $platte "kind")))}}</span></p>
+          <dl class="disk-fakten">
+            {{range $pair2 := pairs (releaseFacts)}}{{$key = $pair2.Key}}{{$titel = $pair2.Value}}
+              {{if (truth (unequal (get $platte $key) ""))}}<div><dt>{{(t $titel)}}</dt><dd>{{(get $platte $key)}}</dd></div>{{end}}
+            {{end}}
+          </dl>
+        </div>
+      </header>
+
+      {{if (truth (not (truth (empty (get $details "facts")))))}}
+        <dl class="disk-fakten disk-aufnahmefakten">
+          {{range $pair3 := pairs (get $details "facts")}}{{$fakt = $pair3.Value}}<div><dt>{{(get (get $fakt "label") (sprache))}}</dt><dd>{{(get (get $fakt "value") (sprache))}}</dd></div>{{end}}
+        </dl>
+      {{end}}
+
+      {{if (truth (unequal $hoeren (list)))}}
+        <section class="disk-hoeren" id="hoeren" aria-labelledby="hoeren-titel">
+          <h2 id="hoeren-titel">{{(t "disk.album_hoeren")}}</h2>
+          <ul>
+            {{range $pair4 := pairs (get $hoeren "links")}}{{$link = $pair4.Value}}{{$anbieter = (get (diskografie_musikdienste) (get $link "service"))}}{{$dienst = (get $anbieter "name")}}
+              <li><a class="musik-dienst" href="{{(get $link "url")}}" target="_blank" rel="noopener noreferrer" data-music-link title="{{(get $anbieter "tooltip")}}" aria-label="{{(t "disk.hoerlink" (dict "titel" (get $platte "title") "dienst" $dienst))}}">{{(render "musik-icon" (dict "dienst" (get $link "service")))}}</a></li>
+            {{end}}
+          </ul>
+          {{if (truth (not (truth (empty (get (get $hoeren "note") (sprache))))))}}<p>{{(get (get $hoeren "note") (sprache))}}</p>{{end}}
+        </section>
+      {{end}}
+
+      <section class="disk-titelliste" aria-labelledby="titelliste">
+        <h2 id="titelliste">{{(t "disk.titelliste")}}</h2>
+        {{if (truth (empty (get $details "tracklists")))}}
+          <p class="disk-fehlende-angaben">{{(t "disk.titelliste_fehlt")}}</p>
+        {{else}}
+          {{range $pair5 := pairs (get $details "tracklists")}}{{$liste = $pair5.Value}}
+            {{if (truth (not (truth (empty (get $liste "label")))))}}<h3>{{(get (get $liste "label") (sprache))}}</h3>{{end}}
+            <ol class="disk-tracks">
+              {{range $pair6 := pairs (get $liste "tracks")}}{{$track = $pair6.Value}}
+                {{$videos = (diskografie_youtube_fassungen (get $track "title"))}}{{$video = (coalesce (get $videos 0) nilValue)}}{{$live = (array_slice $videos 1)}}
+                <li><span class="disk-tracknummer" aria-hidden="true">{{(get $track "number")}}</span><span class="disk-tracktitel">{{(get $track "title")}}{{if (truth (not (truth (empty (get $track "artist")))))}}<small>{{(get $track "artist")}}</small>{{end}}{{if (truth $live)}}<small class="disk-track-live"><span>{{(t "disk.live")}}</span> {{range $pair7 := pairs $live}}{{$j = $pair7.Key}}{{$fassung = $pair7.Value}}{{(choose $j " · " "")}}<a href="{{(get $fassung "url")}}" target="_blank" rel="noopener noreferrer" data-music-link title="{{(diskografie_fassung_tooltip $fassung)}}" aria-label="{{(t "disk.youtube_live" (dict "titel" (get $track "title") "ort" (diskografie_fassung_ort $fassung)))}}">{{(diskografie_fassung_ort $fassung)}}</a>{{end}}</small>{{end}}</span>{{if (truth $video)}}<a class="disk-track-youtube" href="{{(get $video "url")}}" target="_blank" rel="noopener noreferrer" data-music-link title="{{(diskografie_fassung_tooltip $video)}}" aria-label="{{(t "disk.youtube_lied" (dict "titel" (get $track "title")))}}">{{(render "musik-icon" (dict "dienst" "youtube"))}}</a>{{end}}{{if (truth (not (truth (empty (get $track "duration")))))}}<span class="disk-trackdauer">{{(get $track "duration")}}</span>{{end}}</li>
+              {{end}}
+            </ol>
+          {{end}}
+        {{end}}
+      </section>
+
+      {{$konzerte = (diskografie_livevideos (get $platte "id"))}}{{if (truth $konzerte)}}{{(render "livevideos" (dict "konzerte" $konzerte))}}{{end}}
+
+      {{$stimmen = (stimmen_zur_ausgabe (get $platte "id"))}}{{if (truth $stimmen)}}
+        <section class="disk-pressestimmen" aria-labelledby="pressestimmen">
+          <h2 id="pressestimmen">{{(t "disk.pressestimmen")}}</h2>
+          <ul>
+            {{range $pair8 := pairs $stimmen}}{{$q = $pair8.Value}}{{$tuple55 := (stimme_text (get $q "kurz"))}}{{$kurz = get $tuple55 0}}{{$kurzSprache = get $tuple55 1}}
+              <li><p class="stimme-meta">{{(cat (cat (cat (cat (stimme_datum (get $q "datum")) " · ") (stimme_feld $q "medium")) " · ") (t (cat "stimmen.kategorie." (get $q "kategorie"))))}}</p><a lang="{{(stimme_titelsprache $q)}}" href="{{(stimme_link (get $q "id"))}}">{{(stimme_feld $q "titel")}}</a>{{if (truth (unequal $kurz nilValue))}}<p class="stimme-kurz">{{(md_inline $kurz)}}</p>{{end}}</li>
+            {{end}}
+          </ul>
+        </section>
+      {{end}}
+
+      {{if (truth (not (truth (empty (get $details "credits")))))}}
+        <section class="disk-beteiligte" aria-labelledby="beteiligte">
+          <h2 id="beteiligte">{{(t "disk.beteiligte")}}</h2>
+          <dl class="disk-fakten">
+            {{range $pair9 := pairs (get $details "credits")}}{{$credit = $pair9.Value}}<div><dt>{{(get (get $credit "role") (sprache))}}</dt><dd>{{(get $credit "name")}}</dd></div>{{end}}
+          </dl>
+        </section>
+      {{end}}
+
+      <section class="disk-quellen" aria-labelledby="quellen">
+        <h2 id="quellen">{{(t "disk.quellen")}}</h2>
+        <ul>{{range $pair10 := pairs $quellen}}{{$quelle = $pair10.Value}}<li><a href="{{(get $quelle "url")}}" target="_blank" rel="noopener noreferrer">{{(get $quelle "label")}}</a></li>{{end}}</ul>
+      </section>
+    </article>
+    {{(render "platte-navigation" (add $navigation (dict "oben" false)))}}
+  </main>
+</div>

@@ -2,7 +2,24 @@
 
 Eine private Hommage an den schottischen Songwriter **Jackie Leven** (18. Juni 1950, Kirkcaldy – 14. November 2011, Hampshire). Keine offizielle Seite, kein Nachlass, keine Plattenfirma.
 
-Das Projekt besteht aus drei Teilen: einer Recherchegrundlage, einer erfundenen Autobiografie in seiner Stimme und einer PHP-Website, die beides zugänglich macht.
+Das Projekt besteht aus drei Teilen: einer Recherchegrundlage, einer erfundenen Autobiografie in seiner Stimme und einer Website, die beides zugänglich macht. Der Branch `go-migration` ersetzt ihre serverseitige PHP-Laufzeit durch Go.
+
+## Go-Migration lokal starten
+
+```sh
+go run ./cmd/jackieleven -root "$PWD" -listen 127.0.0.1:8080
+go test -race ./...
+go vet ./...
+```
+
+Die Go-Version ist unter `http://127.0.0.1:8080/de/` erreichbar. Sie verwendet ausschließlich die Go-Standardbibliothek. JSON-Daten und Go-Templates werden beim Start geladen, Markdown bleibt die Inhaltsquelle. Der separate PHP-Worktree bleibt die eingefrorene Vergleichsreferenz.
+
+- [Migrationsstand und Wiederaufnahme](docs/go-migration.md)
+- [Architektur und bewusste Entscheidungen](docs/go-architecture.md)
+- [HTTP-Abgleich und Normalisierungen](werkzeug/parity.md)
+- [Release, Linux-Betrieb und PHP-Rückfall](ops/GO-BETRIEB.md)
+
+Die folgenden Fach- und Inhaltsnotizen stammen aus der PHP-Fassung. Darin genannte `app/`-Dateien und PHP-Prüfkommandos bleiben als historische Referenz erhalten; für Go gelten die Einstiegspunkte oben. Insbesondere sind `ops/deploy.sh` und `ops/activate-site.py` weiterhin die alten PHP-Werkzeuge. Das neue Go-Release entsteht ausschließlich mit `ops/prepare-go-release.py` und enthält keine PHP-Dateien.
 
 ## Die Grundlage: seine eigenen Texte
 

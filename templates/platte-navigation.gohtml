@@ -1,0 +1,11 @@
+{{$kontext := get . "kontext"}}{{$nach := get . "nach"}}{{$oben := get . "oben"}}{{$platte := get . "platte"}}{{$vor := get . "vor"}}
+
+<nav class="disk-blaettern{{(choose $oben " disk-blaettern--oben" "")}}" aria-label="{{(t "disk.blaettern")}}">
+  {{if (truth $vor)}}
+    <a href="{{(diskografie_link (get $vor "id") $kontext)}}" rel="prev" aria-label="{{(cat (cat (t "disk.vorher") ": ") (get $vor "title"))}}"><span aria-hidden="true">←</span><span><small>{{(t "disk.vorher")}}</small>{{(get $vor "title")}}</span></a>
+  {{else}}<span></span>{{end}}
+  <a class="disk-uebersichtlink" href="{{(diskografie_zurueck (get $platte "id") $kontext)}}" data-overview-return>{{(t "disk.uebersicht")}}</a>
+  {{if (truth $nach)}}
+    <a href="{{(diskografie_link (get $nach "id") $kontext)}}" rel="next" aria-label="{{(cat (cat (t "disk.naechste") ": ") (get $nach "title"))}}"><span><small>{{(t "disk.naechste")}}</small>{{(get $nach "title")}}</span><span aria-hidden="true">→</span></a>
+  {{else}}<span></span>{{end}}
+</nav>
