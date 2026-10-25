@@ -8,7 +8,7 @@
     <article class="disk-konzert">
       <div class="disk-konzert-player">
         <a class="disk-konzert-vorschau" href="{{(watch $erstes)}}" target="_blank" rel="noopener noreferrer" data-livevideo="{{(get (get $erstes "video") "id")}}" data-start="{{(num (get $erstes "start"))}}" aria-label="{{(t "disk.video_laden" (dict "titel" (get $erstes "title") "ort" (get $konzert "title")))}}">
-          <img src="/assets/bilder/live/{{(get (get $erstes "video") "id")}}.webp" alt="" width="480" height="270" loading="lazy" decoding="async" fetchpriority="low">
+          <img src="{{base_path}}/assets/bilder/live/{{(get (get $erstes "video") "id")}}.webp" alt="" width="480" height="270" loading="lazy" decoding="async" fetchpriority="low">
           <span class="disk-konzert-play" aria-hidden="true"></span>
         </a>
       </div>
@@ -24,5 +24,5 @@
     </article>
   {{end}}
   {{if (truth (greater (count $konzerte) $sichtbar))}}</details>{{end}}
-  <script src="/assets/js/livevideos.js?v={{(filemtime (cat "" "/assets/js/livevideos.js"))}}" defer></script>
+  <script src="{{base_path}}/assets/js/livevideos.js?v={{(filemtime (cat "" "/assets/js/livevideos.js"))}}" defer></script>
 </section>

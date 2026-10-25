@@ -21,7 +21,7 @@
             {{if (truth (and $video (unequal $videoId "")))}}
               <div class="hoer-video" data-youtube-id="{{$videoId}}" data-youtube-title="{{(get $video "title")}}">
                 <button class="hoer-video-laden" type="button" aria-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $stueck "song")))}}">
-                  {{if (truth (not (truth (empty (get $platte "cover")))))}}<img class="hoer-video-bild" src="{{(get $platte "cover")}}" alt="" width="600" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{end}}
+                  {{if (truth (not (truth (empty (get $platte "cover")))))}}<img class="hoer-video-bild" src="{{(asset (get $platte "cover"))}}" alt="" width="600" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{end}}
                   <span class="hoer-video-nummer" aria-hidden="true">{{(str_pad (str $nummer) 2 "0" 0)}}</span>
                   <span class="hoer-play" aria-hidden="true"></span>
                   <span class="hoer-video-text">{{(t "hoeren.video_laden")}}<small>{{(get $video "channel")}}</small></span>

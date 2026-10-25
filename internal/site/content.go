@@ -28,7 +28,9 @@ func (c *request) tr(key string, args ...any) string {
 	}
 	return s
 }
-func (c *request) url(name string, args ...any) string {
+
+// routePath describes the production route independently of its deployment mount.
+func (c *request) routePath(name string, args ...any) string {
 	p := M{}
 	l := c.lang
 	if len(args) > 0 {
@@ -51,6 +53,16 @@ func (c *request) url(name string, args ...any) string {
 	default:
 		return base + c.tr("pfad."+name, M{}, l)
 	}
+}
+func (c *request) url(name string, args ...any) string {
+	return c.app.basePath + c.routePath(name, args...)
+}
+func (c *request) canonicalAlternative(l string) string {
+	name := c.route
+	if name == "" {
+		name = "start"
+	}
+	return origin + c.routePath(name, M{"slug": c.slug}, l)
 }
 func (c *request) alternative(l string) string {
 	name := c.route

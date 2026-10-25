@@ -1,0 +1,32 @@
+[Unit]
+Description=Jackie Leven Go preview at unpubli.sh/jackieleven
+After=network.target
+
+[Service]
+Type=simple
+User=jackieleven-preview
+Group=jackieleven-preview
+ExecStart=@RELEASE_ROOT@/bin/jackieleven -root @RELEASE_ROOT@ -listen 127.0.0.1:18766 -base-path /jackieleven -trust-proxy
+Environment=JACKIE_CONTACT_STATE_DIR=/var/lib/jackieleven-go-preview/contact
+Environment=JACKIE_RESEND_API_KEY=
+Environment=JACKIE_TURNSTILE_SITEKEY=
+Environment=JACKIE_TURNSTILE_SECRET=
+StateDirectory=jackieleven-go-preview
+StateDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=35
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+ReadWritePaths=/var/lib/jackieleven-go-preview
+
+[Install]
+WantedBy=multi-user.target

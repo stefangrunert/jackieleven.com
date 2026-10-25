@@ -6,9 +6,9 @@
 {{if (truth (unequal (get $seo "url") nilValue))}}
 <link rel="canonical" href="{{(get $seo "url")}}">
 {{range $pair1 := pairs (list "de" "en")}}{{$s = $pair1.Value}}
-<link rel="alternate" hreflang="{{$s}}" href="{{(absolut (alternativ_url $s))}}">
+<link rel="alternate" hreflang="{{$s}}" href="{{(canonical_alternative $s)}}">
 {{end}}
-<link rel="alternate" hreflang="x-default" href="{{(absolut (alternativ_url "de"))}}">
+<link rel="alternate" hreflang="x-default" href="{{(canonical_alternative "de")}}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Jackie Leven">
 <meta property="og:title" content="{{(get $seo "titel")}}">

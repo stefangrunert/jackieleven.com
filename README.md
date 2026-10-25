@@ -18,6 +18,7 @@ Die Go-Version ist unter `http://127.0.0.1:8080/de/` erreichbar. Sie verwendet a
 - [Architektur und bewusste Entscheidungen](docs/go-architecture.md)
 - [HTTP-Abgleich und Normalisierungen](werkzeug/parity.md)
 - [Release, Linux-Betrieb und PHP-Rückfall](ops/GO-BETRIEB.md)
+- [Separate Live-Testinstanz unter unpubli.sh/jackieleven](ops/GO-PREVIEW.md)
 
 Die folgenden Fach- und Inhaltsnotizen stammen aus der PHP-Fassung. Darin genannte `app/`-Dateien und PHP-Prüfkommandos bleiben als historische Referenz erhalten; für Go gelten die Einstiegspunkte oben. Insbesondere sind `ops/deploy.sh` und `ops/activate-site.py` weiterhin die alten PHP-Werkzeuge. Das neue Go-Release entsteht ausschließlich mit `ops/prepare-go-release.py` und enthält keine PHP-Dateien.
 

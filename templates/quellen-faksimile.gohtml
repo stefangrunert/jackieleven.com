@@ -3,8 +3,8 @@
   <div class="quellen-faksimiles">
     {{range $pair1 := pairs (get (get $q "scan") "facsimiles")}}{{$scan = $pair1.Value}}
       <figure>
-        <a href="{{(get $scan "full")}}" target="_blank" rel="noopener noreferrer" title="{{(t "stimmen.scan_gross")}}">
-          <img src="{{(get $scan "image")}}" width="{{(num (get $scan "width"))}}" height="{{(num (get $scan "height"))}}" loading="lazy" alt="{{(cat (cat (cat (cat (cat (cat (stimme_feld $q "medium") " · ") (stimme_datum (get $q "datum"))) " · ") (t "stimmen.seite")) " ") (get $scan "page"))}}">
+        <a href="{{(asset (get $scan "full"))}}" target="_blank" rel="noopener noreferrer" title="{{(t "stimmen.scan_gross")}}">
+          <img src="{{(asset (get $scan "image"))}}" width="{{(num (get $scan "width"))}}" height="{{(num (get $scan "height"))}}" loading="lazy" alt="{{(cat (cat (cat (cat (cat (cat (stimme_feld $q "medium") " · ") (stimme_datum (get $q "datum"))) " · ") (t "stimmen.seite")) " ") (get $scan "page"))}}">
         </a>
         <figcaption><a href="{{(get $scan "url")}}" target="_blank" rel="noopener noreferrer">{{(cat (cat (t "stimmen.seite") " ") (get $scan "page"))}}</a></figcaption>
       </figure>

@@ -52,3 +52,76 @@ python3 werkzeug/contact_parity.py \
 The tool aborts before any POST if either rendered form exposes a public sitekey. With empty configuration, verification and send branches are unreachable. It checks German and English GET, parsed cookie attributes, 48-hex form tokens, missing/invalid/array CSRF, fresh-token timing, scalar and array honeypots, escaped validation echo, array fields, empty-configuration 503, token retention, Retry-After and expiry induced only by editing the isolated state files. It never stores raw cookies or CSRF tokens in the report.
 
 Final isolated result: 15/15 cases passed with zero differences. Report: `/tmp/jackie-contact-http-parity-final.json`; durable ignored copy: `.dev/migration-state/jackie-contact-http-parity-final.json`. The configured PHP reference received no POST, and the temporary PHP isolation server was stopped after the run.
+
+## Mounted preview prefix
+
+`prefix_parity.py` compares the optional mounted preview with the same immutable
+v2 PHP baseline. It does not create or refresh a baseline. Pass the candidate
+origin separately from its mount path:
+
+```sh
+python3 werkzeug/prefix_parity.py \
+  --baseline .dev/migration-state/php-baseline-v2 \
+  --candidate http://127.0.0.1:PORT \
+  --prefix /jackieleven \
+  --assets \
+  --report /tmp/jackie-prefix-parity.json
+```
+
+All 1,613 requests are made below the prefix. The comparator requires the
+prefix on root-relative `href`, `src`, `action` and
+`data-youtube-preview` values, on the internal URLs in
+`data-alternativen`, and on relative redirect `Location` values. It removes the
+prefix only after verifying it. An accidentally unprefixed internal URL is a
+failure, not an equivalent normalized value. The contact GETs additionally
+require `Set-Cookie` paths to equal `/jackieleven/`; no cookie or CSRF value is
+stored, and the prefix harness never sends POST.
+
+Canonical and alternate production URLs, the canonical `Link` header,
+`data-seo`, XML sitemap locations, robots text and JSON-LD are not prefix
+normalized. They must remain identical to the production contract. Every
+mounted preview response must also carry `X-Robots-Tag: noindex`; the expected
+preview-only header is asserted and reported before it is removed for the
+underlying PHP content comparison.
+
+An internal CSS `url(...)` may be changed from a root URL to an equivalent
+relative URL. The checker resolves both forms to their logical unprefixed asset
+path and still records every CSS byte difference with both SHA-256 hashes,
+sizes, URL forms and whether that targeted resolution made the content equal.
+The only permitted JavaScript byte difference is also exact rather than broad:
+the two known `zeitgraph.js` transformations that separate mounted navigation
+alternatives from immutable production canonical alternatives. The candidate
+must reduce to the baseline hash and length after reversing exactly those two
+edits. Other CSS and JavaScript changes remain failures.
+
+Local mounted result (`http://127.0.0.1:8084/jackieleven/`): 1,613 of
+1,613 page contracts and all 11 asset contracts passed, with zero unexplained
+differences. `X-Robots-Tag: noindex` passed on all 1,613 page responses and all
+11 asset responses. All 600 prefix-only `data-canonical-alternativen` values
+equalled the immutable prefix-free production alternatives. German and English
+contact GET cookies both used `Path=/jackieleven/`; no POST was sent.
+
+Nine assets remained byte-identical. The two explicit byte differences were:
+
+- `/assets/fonts/home.css`: 1,562 → 1,506 bytes,
+  `88562b8828c74416d7b02dbd28bc8ee2e72863d898f5aacdc15539dad0f4e3c2`
+  → `a412098d7008cc41065486b9d53c01fa71b46537ca20a35d5d1b2cd75fec0578`.
+  The only semantic transformation is four root-relative font URLs to the same
+  four files via stylesheet-relative URLs.
+- `/assets/js/zeitgraph.js`: 8,596 → 8,817 bytes,
+  `2c7421a84b5e89a1f200409744b79f750775d018a1f826e461cc2f46146599bd`
+  → `e44ebfec3b3a1e04a963ff5bb8ec2af6d43fb4a7b91f9ee8167fdad32136cd7d`.
+  The candidate reduces exactly to the reference hash and length after reversing
+  the two declared mount transforms.
+
+Full report: `/tmp/jackie-prefix-parity-full.json`; durable ignored copy:
+`.dev/migration-state/jackie-prefix-parity-full.json`. The existing unmounted
+page comparison must still independently pass all 1,613 cases; its current
+asset expectation is nine byte-identical files plus these same two explicit,
+strictly verified changes.
+
+Prefix normalizer regressions:
+
+```sh
+python3 -B -m unittest -v werkzeug/test_prefix_parity.py werkzeug/test_parity.py
+```

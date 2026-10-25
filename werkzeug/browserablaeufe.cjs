@@ -7,22 +7,25 @@ const source = name => fs.readFileSync(path.join(__dirname, '../assets/js', name
 const tick = () => new Promise(resolve => setImmediate(resolve));
 const classes = () => ({ add() {}, remove() {}, toggle() {} });
 
-async function timeline() {
+async function timeline(prefix = '') {
+  const navigationOrigin = prefix ? 'https://preview.example' : 'https://example.org';
   const events = {}, windowEvents = {}, requests = [];
-  const location = new URL('https://example.org/de/zeitreise/a');
-  const urls = slug => JSON.stringify({ de: '/de/zeitreise' + slug, en: '/en/timeline' + slug, 'x-default': '/de/zeitreise' + slug });
+  const location = new URL(navigationOrigin + prefix + '/de/zeitreise/a');
+  const canonicalURLs = slug => JSON.stringify({ de: '/de/zeitreise' + slug, en: '/en/timeline' + slug, 'x-default': '/de/zeitreise' + slug });
+  const urls = slug => JSON.stringify({ de: prefix + '/de/zeitreise' + slug, en: prefix + '/en/timeline' + slug, 'x-default': prefix + '/de/zeitreise' + slug });
   const seo = (slug, titel) => JSON.stringify({ titel, url: 'https://example.org/de/zeitreise' + slug, beschreibung: 'Text ' + titel });
   const links = ['en', 'de', 'x-default'].map(lang => ({
-    href: 'https://example.org/' + (lang === 'en' ? 'en/timeline/a' : 'de/zeitreise/a'), getAttribute: () => lang
+    tagName: lang === 'x-default' ? 'LINK' : 'A',
+    href: (lang === 'x-default' ? 'https://example.org' : navigationOrigin + prefix) + '/' + (lang === 'en' ? 'en/timeline/a' : 'de/zeitreise/a'), getAttribute: () => lang
   }));
   const markers = ['a', 'b', 'c'].map((slug, i) => ({
-    dataset: { jahr: String(1950 + i), alternativen: urls('/' + slug), seo: seo('/' + slug, slug.toUpperCase()) }, style: {},
+    dataset: { jahr: String(1950 + i), alternativen: urls('/' + slug), ...(prefix ? { canonicalAlternativen: canonicalURLs('/' + slug) } : {}), seo: seo('/' + slug, slug.toUpperCase()) }, style: {},
     classList: { contains: () => i === 0, toggle() {} },
-    getAttribute: () => '/de/zeitreise/' + slug, setAttribute() {}, removeAttribute() {}, scrollIntoView() {},
+    getAttribute: () => prefix + '/de/zeitreise/' + slug, setAttribute() {}, removeAttribute() {}, scrollIntoView() {},
     querySelector: () => ({ textContent: slug }), closest() { return this; }
   }));
   const viewport = { addEventListener() {} };
-  const track = { style: {}, dataset: { alternativen: urls(''), seo: seo('', 'Zeitreise') },
+  const track = { style: {}, dataset: { alternativen: urls(''), ...(prefix ? { canonicalAlternativen: canonicalURLs('') } : {}), seo: seo('', 'Zeitreise') },
     querySelectorAll: () => markers, addEventListener: (name, fn) => events[name] = fn };
   const stage = { style: {}, innerHTML: 'A' };
   const canonical = { href: 'https://example.org/de/zeitreise/a' }, ogUrl = { content: '' }, description = { content: '' };
@@ -43,12 +46,13 @@ async function timeline() {
   });
   const click = i => events.click({ target: markers[i], button: 0, preventDefault() {} });
   const finish = async (request, html) => { request.resolve({ ok: true, text: () => Promise.resolve(html) }); await tick(); };
-  const back = slug => { location.pathname = '/de/zeitreise' + slug; windowEvents.popstate(); };
+  const back = slug => { location.pathname = prefix + '/de/zeitreise' + slug; windowEvents.popstate(); };
 
   click(1);
+  assert.equal(requests[0].url, prefix + '/de/zeitreise/b?fragment=1');
   await finish(requests[0], 'B');
   assert.equal(stage.innerHTML, 'B');
-  assert.equal(links[0].href, 'https://example.org/en/timeline/b');
+  assert.equal(links[0].href, navigationOrigin + prefix + '/en/timeline/b');
   assert.equal(links[2].href, 'https://example.org/de/zeitreise/b');
   assert.equal(document.title, 'B');
   assert.equal(canonical.href, 'https://example.org/de/zeitreise/b');
@@ -62,18 +66,18 @@ async function timeline() {
   await finish(requests[1], 'STALE C'); // Also reject responses that arrive despite abort.
   await finish(requests[2], 'A');
   assert.equal(stage.innerHTML, 'A');
-  assert.equal(location.pathname, '/de/zeitreise/a');
+  assert.equal(location.pathname, prefix + '/de/zeitreise/a');
   assert.equal(pushes, 1);
-  assert.equal(links[0].href, 'https://example.org/en/timeline/a');
+  assert.equal(links[0].href, navigationOrigin + prefix + '/en/timeline/a');
 
   click(2);
   back('/a'); // The destination is already rendered: cancel without another fetch.
   assert.equal(stage.style.opacity, '1');
   await finish(requests[3], 'STALE C');
   assert.equal(stage.innerHTML, 'A');
-  assert.equal(location.pathname, '/de/zeitreise/a');
+  assert.equal(location.pathname, prefix + '/de/zeitreise/a');
   back('');
-  assert.equal(links[0].href, 'https://example.org/en/timeline');
+  assert.equal(links[0].href, navigationOrigin + prefix + '/en/timeline');
   assert.equal(document.title, 'Zeitreise');
   assert.equal(canonical.href, 'https://example.org/de/zeitreise');
   assert.equal(webpage().name, 'Zeitreise');
@@ -83,13 +87,13 @@ async function timeline() {
   await finish(requests[5], 'C');
   await finish(requests[4], 'STALE B');
   assert.equal(stage.innerHTML, 'C');
-  assert.equal(location.pathname, '/de/zeitreise/c');
-  assert.equal(links[0].href, 'https://example.org/en/timeline/c');
+  assert.equal(location.pathname, prefix + '/de/zeitreise/c');
+  assert.equal(links[0].href, navigationOrigin + prefix + '/en/timeline/c');
   click(1);
   back('/c');
   requests[6].reject(new Error('Late network error'));
   await tick();
-  assert.equal(location.pathname, '/de/zeitreise/c');
+  assert.equal(location.pathname, prefix + '/de/zeitreise/c');
 }
 
 async function videos() {
@@ -149,6 +153,7 @@ async function videos() {
 
 (async () => {
   await timeline();
+  await timeline('/jackieleven');
   await videos();
-  console.log('Browserabläufe: Sprachwechsel, Verlauf, überholte Antworten und Video-Mehrfachklicks geprüft.');
+  console.log('Browserabläufe: Sprachwechsel/SEO mit und ohne Mount-Pfad, Verlauf, überholte Antworten und Video-Mehrfachklicks geprüft.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

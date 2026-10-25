@@ -3,8 +3,8 @@
   <div class="quellen-auszuege">
     {{range $pair1 := pairs (get $q "auszuege")}}{{$auszug = $pair1.Value}}
       <figure>
-        <a href="{{(get $auszug "image")}}" target="_blank" rel="noopener noreferrer" title="{{(t "stimmen.auszug_gross")}}">
-          <img src="{{(get $auszug "image")}}" width="{{(num (get $auszug "width"))}}" height="{{(num (get $auszug "height"))}}" loading="lazy" decoding="async" alt="{{(get (get $auszug "caption") (sprache))}}">
+        <a href="{{(asset (get $auszug "image"))}}" target="_blank" rel="noopener noreferrer" title="{{(t "stimmen.auszug_gross")}}">
+          <img src="{{(asset (get $auszug "image"))}}" width="{{(num (get $auszug "width"))}}" height="{{(num (get $auszug "height"))}}" loading="lazy" decoding="async" alt="{{(get (get $auszug "caption") (sprache))}}">
         </a>
         <figcaption>
           {{(get (get $auszug "caption") (sprache))}}

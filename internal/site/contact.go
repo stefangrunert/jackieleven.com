@@ -27,6 +27,7 @@ import (
 // service. Production credentials are supplied by the process environment only.
 type ContactConfig struct {
 	Key, SiteKey, Secret, StateDir string
+	CookiePath                     string
 	TrustProxy                     bool
 	Now                            func() time.Time
 	Verify                         func(context.Context, string, string) bool
@@ -51,6 +52,9 @@ func ContactConfigFromEnv() ContactConfig {
 	return ContactConfig{Key: os.Getenv("JACKIE_RESEND_API_KEY"), SiteKey: os.Getenv("JACKIE_TURNSTILE_SITEKEY"), Secret: os.Getenv("JACKIE_TURNSTILE_SECRET"), StateDir: os.Getenv("JACKIE_CONTACT_STATE_DIR")}
 }
 func NewContact(config ContactConfig) *Contact {
+	if config.CookiePath == "" {
+		config.CookiePath = "/"
+	}
 	if config.StateDir == "" {
 		config.StateDir = filepath.Join(os.TempDir(), "jackieleven-contact-go")
 	}
@@ -155,7 +159,7 @@ func (c *Contact) session(w http.ResponseWriter, r *http.Request) (*os.File, *co
 		if err != nil {
 			return nil, nil, err
 		}
-		http.SetCookie(w, &http.Cookie{Name: "jackie_contact", Value: id, Path: "/", HttpOnly: true, Secure: c.secure(r), SameSite: http.SameSiteLaxMode})
+		http.SetCookie(w, &http.Cookie{Name: "jackie_contact", Value: id, Path: c.config.CookiePath, HttpOnly: true, Secure: c.secure(r), SameSite: http.SameSiteLaxMode})
 	}
 	s := &contactSession{Forms: map[string]*contactForm{}}
 	b, err := io.ReadAll(io.LimitReader(f, 1<<20))

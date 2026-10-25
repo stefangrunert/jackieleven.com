@@ -4,7 +4,7 @@
 
   <nav class="graph" aria-label="{{(t "graph.label")}}">
     <div class="graph-viewport" id="g-viewport">
-      <div class="graph-track" id="g-track" data-seo="{{(seoAttribut "zeitreise" (list) (t "titel.zeitreise"))}}" data-alternativen="{{(alternativen)}}" data-titel="{{(t "titel.zeitreise")}}">
+      <div class="graph-track" id="g-track" data-seo="{{(seoAttribut "zeitreise" (list) (t "titel.zeitreise"))}}" data-alternativen="{{(alternativen)}}"{{if base_path}} data-canonical-alternativen="{{(canonical_alternativen)}}"{{end}} data-titel="{{(t "titel.zeitreise")}}">
         {{range $pair1 := pairs $alle}}{{$i = $pair1.Key}}{{$s = $pair1.Value}}
           <a class="g-marker{{(choose (equal $i $aktiv) " active" "")}}"
              href="{{(url "station" (dict "slug" (get $s "slug")))}}"
@@ -12,7 +12,7 @@
              data-seo="{{(seoAttribut "station" (dict "slug" (get $s "slug")) (t "titel.station" (dict "jahr" (get $s "jahr") "titel" (get (sfeld $s "titel") 0))))}}"
              data-art="{{(get $s "art")}}"
              data-jahr="{{(get $s "jahr")}}"
-             data-alternativen="{{(alternativen (get $s "slug"))}}"
+             data-alternativen="{{(alternativen (get $s "slug"))}}"{{if base_path}} data-canonical-alternativen="{{(canonical_alternativen (get $s "slug"))}}"{{end}}
              {{(attrs (choose (equal $i $aktiv) "aria-current=\"true\"" ""))}}>
             <span class="dot"></span>
             <span class="g-label">

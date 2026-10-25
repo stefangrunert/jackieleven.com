@@ -130,9 +130,12 @@
   function seitenangaben(i, pushen, uebersicht) {
     var url = marken[i].getAttribute('href');
     if (pushen && window.location.pathname !== url) history.pushState({ i: i }, '', url);
-    var alternativen = JSON.parse((uebersicht ? track : marken[i]).dataset.alternativen);
+    var element = uebersicht ? track : marken[i];
+    var alternativen = JSON.parse(element.dataset.alternativen);
+    var canonicalAlternativen = JSON.parse(element.dataset.canonicalAlternativen || element.dataset.alternativen);
     document.querySelectorAll('.sprachen a[hreflang], link[rel="alternate"][hreflang]').forEach(function (link) {
-      var ziel = alternativen[link.getAttribute('hreflang')];
+      var adressen = link.tagName === 'LINK' ? canonicalAlternativen : alternativen;
+      var ziel = adressen[link.getAttribute('hreflang')];
       if (ziel) link.href = new URL(ziel, link.tagName === 'LINK' ? document.querySelector('link[rel=canonical]').href : window.location.href).href;
     });
     var seo = JSON.parse((uebersicht ? track : marken[i]).dataset.seo);

@@ -49,3 +49,15 @@ Turnstile und Resend wurden mit kontrollierten Transporten beziehungsweise injiz
 Die lokale Prüfung ersetzt kein `nginx -t`, `systemd-analyze verify` und keine Start-/Rückfallprobe auf dem tatsächlichen Linuxserver. Rechte, reale Proxykette, Netzwerkerreichbarkeit und Restartverhalten müssen dort vor Freigabe bestätigt werden. Der Go-Betrieb ist vorbereitet, aber dieser Review hat keinen Live-Deploy vorgenommen.
 
 Eine abschließende Freigabe muss den vollständigen HTTP-/Inhaltsvergleich, die Browserprüfung und das tatsächlich gebaute Releasepaket berücksichtigen. Von diesem unabhängigen Review wird keine ungeprüfte pauschale 100%-Parität behauptet.
+
+## Ergänzung: Live-Vorschau unter `/jackieleven`
+
+Die optionale Bereitstellung unter `https://unpubli.sh/jackieleven` wurde unabhängig hinsichtlich Basispfad und Betriebsvorbereitung geprüft. Im geprüften Stand wurden keine neuen konkreten Defekte gefunden. Der öffentliche Canonical-Ursprung bleibt `https://jackieleven.com`; die Vorschau erhält auch bei versehentlich weitergeleitetem Produktions-Host `noindex`.
+
+Eine isolierte unabhängige Testsuite unter dem Race-Detector bestätigte die Mountgrenze, ähnliche und doppelte Präfixe, Traversalabwehr und Redirects. Navigation, Formaktionen, Fragment-Assets und ein vollständig gemockter erfolgreicher Kontaktredirect bleiben unter `/jackieleven`. Canonical, hreflang, Sitemap und Fragment-Linkheader enthalten den Vorschaupfad dagegen nicht. Das Sitzungscookie trägt `Path=/jackieleven/` sowie Secure, HttpOnly und SameSite=Lax. Alle vier Fontdateien werden über die relativen CSS-Adressen innerhalb des Mounts gefunden.
+
+Zusätzlich wurde die tatsächlich geänderte JavaScript-Funktion `seitenangaben()` isoliert für den Standardbetrieb und die Vorschau ausgeführt. Sichtbare Sprachlinks und History-Adressen bleiben jeweils in der laufenden Instanz; hreflang, Canonical und JSON-LD bleiben auf der öffentlichen Adresse. Die Vorlage liefert dafür getrennte Navigations- und Canonical-Daten.
+
+Die Preview-Betriebsdateien wurden gelesen: eigener Benutzer, eigener Zustand, Port 18766 nur an Loopback, ausdrücklich leere Kontaktzugänge, überschreibende Proxyheader und eigene nginx-Limits. Der Installer begrenzt die Änderung am vorhandenen HTTPS-VHost durch einen erwarteten SHA-256-Wert und einen eindeutigen Einfügepunkt; er sichert vorherige Inhalte und Dateimodi. Der unabhängig erneut ausgeführte Test `ops/test_go_preview.py` bestand: Ein simulierter Dienststartfehler stellt die ursprünglichen Konfigurationsbytes und Dateimodi wieder her und entfernt neu angelegte Snippets. Die PHP-Site wird von diesem Ablauf nicht umgestellt.
+
+Die reale Installation, `nginx -t`, systemd-Prüfung und Live-HTTP-/Browserkontrollen werden anschließend durch den koordinierenden Agenten durchgeführt. Dieser Abschnitt bescheinigt die vorab ausgeführten Code- und Simulationstests, keine bereits erfolgte Liveabnahme. Der Reviewer hat keine Deploymentaktion ausgeführt.

@@ -51,7 +51,7 @@
                      data-projekte="{{(implode " " (get $platte "tags"))}}" data-format="{{(get $platte "kind")}}" aria-labelledby="titel-{{(get $platte "id")}}">
               {{if (truth (isset (get $platte "cover")))}}
                 <figure class="disk-cover">
-                  <a href="{{(diskografie_link (get $platte "id"))}}" data-release-link="{{(get $platte "id")}}" aria-label="{{(t "disk.oeffnen" (dict "titel" (get $platte "title")))}}"><img src="{{(get $platte "cover")}}" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" loading="{{(choose (equal (get $platte "id") "1975-control") "eager" "lazy")}}" decoding="async" referrerpolicy="no-referrer"></a>
+                  <a href="{{(diskografie_link (get $platte "id"))}}" data-release-link="{{(get $platte "id")}}" aria-label="{{(t "disk.oeffnen" (dict "titel" (get $platte "title")))}}"><img src="{{(asset (get $platte "cover"))}}" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" loading="{{(choose (equal (get $platte "id") "1975-control") "eager" "lazy")}}" decoding="async" referrerpolicy="no-referrer"></a>
                 </figure>
               {{end}}
               <div class="disk-plattentext">

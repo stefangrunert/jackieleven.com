@@ -16,9 +16,10 @@ import (
 func main() {
 	listen := flag.String("listen", "127.0.0.1:8080", "HTTP listen address")
 	root := flag.String("root", ".", "directory containing data, templates, assets and Markdown")
+	basePath := flag.String("base-path", "", "optional URL mount path, for example /jackieleven")
 	trust := flag.Bool("trust-proxy", false, "trust X-Real-IP and X-Forwarded-Proto only from loopback peers")
 	flag.Parse()
-	app, err := site.New(site.Config{Root: *root, TrustProxy: *trust, Contact: site.ContactConfigFromEnv()})
+	app, err := site.New(site.Config{Root: *root, BasePath: *basePath, TrustProxy: *trust, Contact: site.ContactConfigFromEnv()})
 	if err != nil {
 		log.Fatal(err)
 	}

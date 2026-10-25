@@ -78,27 +78,12 @@ func (c *request) functions() template.FuncMap {
 			}
 			return attrs(` lang="` + l + `"`)
 		},
+		"base_path": func() string { return c.app.basePath }, "asset": c.assetURL, "canonical_alternative": c.canonicalAlternative, "canonical_alternativen": func(slug ...string) string { return c.alternativesJSON(true, slug...) },
 		"t": c.tr, "url": c.url, "sprache": func() string { return c.lang }, "alternativ_url": c.alternative, "absolut": func(s string) string { return origin + s }, "seo_live": func() bool { return c.live }, "seo_daten": c.seo, "jsonld": c.jsonLD, "seoAttribut": func(name string, p any, title string) string {
 			b, _ := json.Marshal(c.seoFor(title, name, str(get(p, "slug"))))
 			return string(b)
-		}, "alternativen": func(slug ...string) string {
-			m := M{}
-			for _, l := range []string{"de", "en", "x-default"} {
-				lang := l
-				if lang == "x-default" {
-					lang = "de"
-				}
-				name := "zeitreise"
-				p := M{}
-				if len(slug) > 0 {
-					name = "station"
-					p["slug"] = slug[0]
-				}
-				m[l] = c.url(name, p, lang)
-			}
-			b, _ := json.Marshal(m)
-			return string(b)
-		},
+		}, "alternativen": func(slug ...string) string { return c.alternativesJSON(false, slug...) },
+
 		"render": c.render, "render_lokal": func(view string, args ...M) (template.HTML, error) { return c.render(c.lang+"/"+view, args...) }, "filemtime": func(p string) int64 {
 			if s, e := os.Stat(filepath.Join(c.app.root, p)); e == nil {
 				return s.ModTime().Unix()

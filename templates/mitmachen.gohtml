@@ -42,6 +42,6 @@
   </section>
 </main>
 {{if (truth (unequal $turnstile_sitekey ""))}}
-<script src="/assets/js/kontakt.js?v={{(filemtime (cat "" "/assets/js/kontakt.js"))}}" defer></script>
+<script src="{{base_path}}/assets/js/kontakt.js?v={{(filemtime (cat "" "/assets/js/kontakt.js"))}}" defer></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 {{end}}

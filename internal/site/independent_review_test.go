@@ -43,7 +43,7 @@ func TestIndependentContactReflectsOnlyEscapedInput(t *testing.T) {
 	r.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	w := httptest.NewRecorder()
 	a.ServeHTTP(w, r)
-	if w.Code != 400 || w.Header().Get("Cache-Control") != "no-store" || w.Header().Get("X-Robots-Tag") != "noindex" {
+	if w.Code != 400 || w.Header().Get("Cache-Control") != "no-store, no-cache, must-revalidate" || w.Header().Get("X-Robots-Tag") != "noindex" {
 		t.Fatalf("unsafe contact error response: status=%d headers=%v", w.Code, w.Header())
 	}
 	body := w.Body.String()

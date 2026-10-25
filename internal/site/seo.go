@@ -67,7 +67,7 @@ func (c *request) seoFor(title, name, slug string) M {
 	}
 	var canonical any
 	if name != "" {
-		canonical = origin + c.url(name, M{"slug": slug})
+		canonical = origin + c.routePath(name, M{"slug": slug})
 	}
 	return M{"titel": title, "beschreibung": shortDescription(desc), "url": canonical, "bild": origin + "/assets/bilder/startseite/portrait-graphic.png"}
 }
@@ -99,13 +99,13 @@ func (c *request) sitemap() string {
 	b.WriteString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">")
 	for _, r := range routes {
 		for _, l := range []string{"de", "en"} {
-			b.WriteString("\n<url><loc>" + html.EscapeString(origin+c.url(r[0], M{"slug": r[1]}, l)) + "</loc>")
+			b.WriteString("\n<url><loc>" + html.EscapeString(origin+c.routePath(r[0], M{"slug": r[1]}, l)) + "</loc>")
 			for _, a := range []string{"de", "en", "x-default"} {
 				lang := a
 				if a == "x-default" {
 					lang = "de"
 				}
-				b.WriteString(`<xhtml:link rel="alternate" hreflang="` + a + `" href="` + html.EscapeString(origin+c.url(r[0], M{"slug": r[1]}, lang)) + `"/>`)
+				b.WriteString(`<xhtml:link rel="alternate" hreflang="` + a + `" href="` + html.EscapeString(origin+c.routePath(r[0], M{"slug": r[1]}, lang)) + `"/>`)
 			}
 			b.WriteString("</url>")
 		}

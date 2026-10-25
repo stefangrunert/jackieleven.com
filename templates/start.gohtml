@@ -4,7 +4,7 @@
   <section class="home-auftakt" aria-labelledby="home-titel">
     <div class="home-buehne">
       <figure class="home-portraet">
-        <img src="/assets/bilder/startseite/portrait-graphic.png" alt="{{(t "home.portraet_alt")}}" width="1536" height="1024" fetchpriority="high">
+        <img src="{{base_path}}/assets/bilder/startseite/portrait-graphic.png" alt="{{(t "home.portraet_alt")}}" width="1536" height="1024" fetchpriority="high">
       </figure>
       <header class="home-name">
         <h1 id="home-titel" aria-label="Jackie Leven"><span aria-hidden="true">1950–2011</span></h1>
@@ -21,7 +21,7 @@
       <div class="home-video-raum">
         <div class="home-video" data-youtube-id="{{(get $erstesVideo "video")}}" data-youtube-title="{{(cat (cat (get $erstesVideo "kuenstler") ": ") (get $erstesVideo "titel"))}}">
           <button class="hoer-video-laden" type="button" aria-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $erstesVideo "titel")))}}">
-            <img class="hoer-video-bild" src="{{(get $erstesVideo "preview")}}" alt="" width="1672" height="941" loading="eager" decoding="async">
+            <img class="hoer-video-bild" src="{{(asset (get $erstesVideo "preview"))}}" alt="" width="1672" height="941" loading="eager" decoding="async">
             <span class="hoer-play" aria-hidden="true"></span>
             <span class="hoer-video-text">{{(t "hoeren.video_laden")}}<small>{{(get $erstesVideo "kuenstler")}} · {{(get $erstesVideo "kontext")}}</small></span>
           </button>
@@ -37,7 +37,7 @@
           {{range $pair1 := pairs (get $start "hoeren")}}{{$index = $pair1.Key}}{{$video = $pair1.Value}}
             <li{{(attrs (choose (equal (get $video "video") "") " class=\"home-playlist-offen\"" ""))}}>
               {{if (truth (unequal (get $video "video") ""))}}
-                <button type="button" data-youtube-id="{{(get $video "video")}}" data-youtube-title="{{(cat (cat (get $video "kuenstler") ": ") (get $video "titel"))}}" data-youtube-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $video "titel")))}}" data-youtube-preview="{{(get $video "preview")}}" data-youtube-meta="{{(cat (cat (get $video "kuenstler") " · ") (get $video "kontext"))}}" aria-pressed="{{(choose (equal $index 0) "true" "false")}}">
+                <button type="button" data-youtube-id="{{(get $video "video")}}" data-youtube-title="{{(cat (cat (get $video "kuenstler") ": ") (get $video "titel"))}}" data-youtube-label="{{(t "hoeren.video_laden_titel" (dict "titel" (get $video "titel")))}}" data-youtube-preview="{{(asset (get $video "preview"))}}" data-youtube-meta="{{(cat (cat (get $video "kuenstler") " · ") (get $video "kontext"))}}" aria-pressed="{{(choose (equal $index 0) "true" "false")}}">
                   <span class="home-playlist-nummer">{{(str_pad (str (add $index 1)) 2 "0" 0)}}</span>
                   <span class="home-playlist-titel" lang="en">{{(get $video "titel")}}</span>
                   <span class="home-playlist-meta">{{(get $video "kuenstler")}} · {{(get $video "kontext")}}</span>
@@ -78,7 +78,7 @@
       </article>
       <article class="home-platte">
         <a class="home-cover" href="{{(diskografie_link (get $platte "id"))}}" aria-label="{{(t "disk.oeffnen" (dict "titel" (get $platte "title")))}}">
-          <img src="/assets/bilder/startseite/cover-mystery-of-love.png" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" loading="lazy" decoding="async">
+          <img src="{{base_path}}/assets/bilder/startseite/cover-mystery-of-love.png" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" loading="lazy" decoding="async">
         </a>
         <div>
           <p class="home-plattenjahr">{{(t "nav.diskografie")}} · {{(str (get $platte "year"))}}</p>

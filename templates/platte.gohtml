@@ -21,7 +21,7 @@
       <header class="disk-albumkopf{{(choose (isset (get $platte "cover")) " disk-albumkopf--cover" "")}}">
         {{if (truth (isset (get $platte "cover")))}}
           <figure class="disk-cover">
-            <img src="{{(get $platte "cover")}}" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" decoding="async" referrerpolicy="no-referrer">
+            <img src="{{(asset (get $platte "cover"))}}" alt="{{(t "disk.cover" (dict "titel" (get $platte "title")))}}" width="600" height="600" decoding="async" referrerpolicy="no-referrer">
           </figure>
         {{end}}
         <div>

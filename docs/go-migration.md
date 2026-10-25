@@ -9,7 +9,8 @@ Die serverseitige Go-Umsetzung ist fertig. PHP/main wurden dabei nicht geändert
 | Prüfung | Ergebnis |
 |---|---|
 | Vollständiger HTTP-Abgleich einschließlich Sprachen, Aliasse, Filter, Fragmente, Metadaten und Fehlerfälle | 1.613 Fälle, keine ungeklärte Abweichung |
-| Referenzierte CSS-/JavaScriptdateien | 11 von 11 mit identischem Inhalt und passendem HTTP-Vertrag |
+| Referenzierte CSS-/JavaScriptdateien | 9 von 11 byteidentisch; `home.css` und `zeitgraph.js` weichen ausschließlich in den separat hashdokumentierten, streng geprüften Mount-Transformationen ab |
+| Separater `/jackieleven`-Mount | 1.613 von 1.613 Seitenverträgen und 11 von 11 Assets ohne ungeklärte Abweichung; 600 Canonical-Alternativen, Noindex und Kontakt-Cookiepfad geprüft |
 | Derselbe Vollabgleich gegen das isolierte Releasepaket | 1.613 Fälle und 11 Assets bestanden |
 | Desktop 1440×1000 und Mobil 390×844 | Neun Seitentypen je Größe: DOM-Geometrie identisch, alle 18 Screenshots pixelgleich |
 | Dynamische Zeitreise | Stationswechsel, Titel/Canonical, Sprachlink und Browser-Zurück geprüft |
@@ -25,6 +26,13 @@ Die serverseitige Go-Umsetzung ist fertig. PHP/main wurden dabei nicht geändert
 Ein Kontakt-HTTP-Vergleich mit leeren Zugangsschlüsseln ergänzt die Paket- und Mocktests. Sein Ergebnis steht im zugehörigen lokalen Bericht und in `werkzeug/parity.md`. Es wurden keine echten Nachrichten versandt.
 
 Das Ziel ist gleiche Inhalte, Darstellung und Verhalten. Die Nachweise belegen den beschriebenen Prüfumfang. Zufällige CSRF-Werte, Asset-Zeitstempel und semantisch gleichwertige Serialisierung werden ausdrücklich normalisiert. Inline-Leerzeichen und geschützte Leerzeichen bleiben erhalten. JSON-Attribute werden nur dort strukturiert verglichen, wo JavaScript sie tatsächlich als JSON konsumiert.
+
+Der optionale Vorschau-Mount wurde zusätzlich gegen denselben unveränderten
+PHP-v2-Snapshot geprüft. Sein Bericht liegt unter
+`.dev/migration-state/jackie-prefix-parity-full.json`; die genaue
+Normalisierungspolitik und beide Asset-Hashes stehen in `werkzeug/parity.md`.
+Canonical, hreflang, Sitemap und JSON-LD bleiben Production-Werte und werden im
+Prefix-Abgleich nicht umgeschrieben. Der Prüflauf sendete keine POST-Anfrage.
 
 Ein Infrastrukturfall wird gesondert ausgewiesen: `/de%2Fueber` liefert bei Apache und Go 404 ohne Datenpreisgabe. Apache erzeugt diese Antwort vor dem PHP-Programm. Sein HTML-Fehlertext wird nicht als gleiche App-Ausgabe ausgegeben und nicht zur behaupteten Bodyparität umetikettiert.
 

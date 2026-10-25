@@ -16,11 +16,13 @@ import (
 
 type Config struct {
 	Root       string
+	BasePath   string
 	TrustProxy bool
 	Contact    ContactConfig
 }
 type App struct {
 	root      string
+	basePath  string
 	data      *Data
 	templates *template.Template
 	contact   *Contact
@@ -35,6 +37,10 @@ type request struct {
 }
 
 func New(config Config) (*App, error) {
+	basePath, err := normalizeBasePath(config.BasePath)
+	if err != nil {
+		return nil, err
+	}
 	root, err := filepath.Abs(config.Root)
 	if err != nil {
 		return nil, err
@@ -43,8 +49,9 @@ func New(config Config) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
-	a := &App{root: root, data: d, fanVideos: os.Getenv("JACKIE_FAN_VIDEOS") == "1"}
+	a := &App{root: root, basePath: basePath, data: d, fanVideos: os.Getenv("JACKIE_FAN_VIDEOS") == "1"}
 	config.Contact.TrustProxy = config.TrustProxy
+	config.Contact.CookiePath = basePath + "/"
 	a.contact = NewContact(config.Contact)
 	a.assets = http.StripPrefix("/assets/", http.FileServer(http.Dir(filepath.Join(root, "assets"))))
 	dummy := &request{app: a, lang: "de"}
@@ -101,6 +108,30 @@ func preferredLanguage(header string) string {
 	return "de"
 }
 func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if a.basePath == "" {
+		a.serveHTTP(w, r)
+		return
+	}
+	// A mounted preview is never an indexable production instance, even if its
+	// upstream accidentally forwards the production Host header.
+	w.Header().Set("X-Robots-Tag", "noindex")
+	if r.URL.EscapedPath() == a.basePath {
+		target := a.basePath + "/"
+		if r.URL.RawQuery != "" {
+			target += "?" + r.URL.RawQuery
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Header().Set("Location", target)
+		w.WriteHeader(http.StatusMovedPermanently)
+		return
+	}
+	if !strings.HasPrefix(r.URL.EscapedPath(), a.basePath+"/") {
+		http.NotFound(w, r)
+		return
+	}
+	http.StripPrefix(a.basePath, http.HandlerFunc(a.serveHTTP)).ServeHTTP(w, r)
+}
+func (a *App) serveHTTP(w http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.URL.Path, "/assets/") {
 		clean := strings.TrimPrefix(r.URL.Path, "/assets/")
 		for _, p := range strings.Split(clean, "/") {
@@ -126,11 +157,11 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			target += "?" + r.URL.RawQuery
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.Header().Set("Location", target)
+		w.Header().Set("Location", a.basePath+target)
 		w.WriteHeader(301)
 		return
 	}
-	c := &request{app: a, lang: "de", live: strings.ToLower(r.Host) == "jackieleven.com"}
+	c := &request{app: a, lang: "de", live: a.basePath == "" && strings.ToLower(r.Host) == "jackieleven.com"}
 	clone, err := a.templates.Clone()
 	if err != nil {
 		http.Error(w, "Rendering unavailable", 500)
@@ -267,7 +298,7 @@ func (c *request) serve(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.Header().Set("Content-Language", c.lang)
 			w.Header().Set("X-Robots-Tag", "noindex")
-			w.Header().Set("Link", "<"+origin+c.url("station", M{"slug": slug})+">; rel=\"canonical\"")
+			w.Header().Set("Link", "<"+origin+c.routePath("station", M{"slug": slug})+">; rel=\"canonical\"")
 			if r.Method != "HEAD" {
 				fmt.Fprint(w, body)
 			}
