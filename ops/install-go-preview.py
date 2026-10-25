@@ -53,6 +53,22 @@ def healthcheck():
             raise RuntimeError('Preview health contract failed')
 
 
+
+def https_healthcheck():
+    # systemctl reload returns after signalling nginx, before its replacement
+    # workers necessarily accept connections. Retry the verified endpoint briefly.
+    for attempt in range(20):
+        try:
+            result = run('curl', '--silent', '--show-error', '--fail', '--max-time', '5',
+                         '--resolve', 'unpubli.sh:443:127.0.0.1', 'https://unpubli.sh/jackieleven/de/')
+            if '/jackieleven/assets/' not in result.stdout:
+                raise RuntimeError('HTTPS smoke check failed')
+            return
+        except (subprocess.CalledProcessError, RuntimeError):
+            if attempt == 19: raise
+            time.sleep(0.5)
+
+
 def install(release, expected_sha):
     if os.geteuid() != 0:
         raise RuntimeError('Run as root on the target server')
@@ -121,9 +137,7 @@ def install(release, expected_sha):
                 time.sleep(0.2)
         run('systemctl', 'reload', 'nginx')
         # Local HTTPS exercises TLS and the exact nginx path before enabling.
-        result = run('curl', '--silent', '--show-error', '--fail', '--max-time', '15',
-                     '--resolve', 'unpubli.sh:443:127.0.0.1', 'https://unpubli.sh/jackieleven/de/')
-        if '/jackieleven/assets/' not in result.stdout: raise RuntimeError('HTTPS smoke check failed')
+        https_healthcheck()
         run('systemctl', 'enable', SERVICE)
     except Exception:
         for path, saved in old.items():

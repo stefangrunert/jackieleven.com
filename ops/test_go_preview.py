@@ -16,6 +16,19 @@ preview = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(preview)
 
 class PreviewRollbackTest(unittest.TestCase):
+    def test_https_waits_for_new_nginx_workers(self):
+        results = [subprocess.CalledProcessError(22, 'curl'), SimpleNamespace(stdout='old worker'),
+                   SimpleNamespace(stdout='/jackieleven/assets/site.css')]
+        with patch.object(preview, 'run', side_effect=results) as run, patch.object(preview.time, 'sleep') as sleep:
+            preview.https_healthcheck()
+        self.assertEqual(run.call_count, 3)
+        self.assertEqual(sleep.call_count, 2)
+
+    def test_https_failure_remains_bounded(self):
+        with patch.object(preview, 'run', side_effect=subprocess.CalledProcessError(22, 'curl')) as run, patch.object(preview.time, 'sleep'):
+            with self.assertRaises(subprocess.CalledProcessError): preview.https_healthcheck()
+        self.assertEqual(run.call_count, 20)
+
     def test_failed_service_restores_vhost_and_removes_new_configuration(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
