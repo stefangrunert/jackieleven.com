@@ -13,37 +13,38 @@ spec.loader.exec_module(cleanup)
 
 
 class CleanupTest(unittest.TestCase):
-    def test_expiry_and_active_files(self):
+    def test_go_sessions_counters_and_active_files(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
+            sessions = root / 'sessions'
+            sessions.mkdir()
             now = time.time()
-            for name in ['sess_expired', 'sess_recent', 'sess_locked', 'unrelated']:
-                path = root / name
-                path.write_text('fixture')
-                age = 60 if name == 'sess_recent' else 22000
-                os.utime(path, (now - age, now - age))
-            (root / 'sess_symlink').symlink_to(root / 'unrelated')
-            (root / 'sess_directory').mkdir()
-            with (root / 'sess_locked').open() as locked:
-                fcntl.flock(locked, fcntl.LOCK_EX)
-                self.assertEqual(cleanup.clean(root, r'sess_[A-Za-z0-9,-]+', 21600, now), 1)
-                self.assertFalse((root / 'sess_expired').exists())
-                for name in ['sess_recent', 'sess_locked', 'sess_symlink', 'sess_directory', 'unrelated']:
-                    self.assertTrue((root / name).exists(), name)
-                # A request touching a previously old session makes it fresh again.
-                os.utime(root / 'sess_locked', (now, now))
-            self.assertEqual(cleanup.clean(root, r'sess_[A-Za-z0-9,-]+', 21600, now), 0)
-
-    def test_counter_retention(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            now = time.time()
-            for key, age in [('a', 172801), ('b', 172799)]:
-                path = root / (key * 64 + '.json')
+            names = [('a' * 48 + '.json', 172801), ('b' * 48 + '.json', 172799), ('c' * 48 + '.json', 172801)]
+            for name, age in names:
+                path = sessions / name
+                path.write_text('{}')
+                os.utime(path, (now-age, now-age))
+            (sessions / ('d' * 48 + '.json')).symlink_to(sessions / names[0][0])
+            (sessions / ('e' * 48 + '.json')).mkdir()
+            (sessions / 'unrelated').write_text('fixture')
+            expired_counter = root / ('a' * 64 + '.json')
+            fresh_counter = root / ('b' * 64 + '.json')
+            for path, age in [(expired_counter, 172801), (fresh_counter, 172799)]:
                 path.write_text('[]')
-                os.utime(path, (now - age, now - age))
-            self.assertEqual(cleanup.clean(root, r'[a-f0-9]{64}\.json', 172800, now), 1)
-            self.assertTrue((root / ('b' * 64 + '.json')).exists())
+                os.utime(path, (now-age, now-age))
+            with (sessions / names[2][0]).open() as locked:
+                fcntl.flock(locked, fcntl.LOCK_EX)
+                self.assertEqual(cleanup.clean_state(root, now), (1, 1))
+                self.assertFalse((sessions / names[0][0]).exists())
+                self.assertFalse(expired_counter.exists())
+                self.assertTrue(fresh_counter.exists())
+                self.assertTrue((sessions / names[1][0]).exists())
+                self.assertTrue((sessions / names[2][0]).exists())
+                self.assertTrue((sessions / ('d' * 48 + '.json')).is_symlink())
+                self.assertTrue((sessions / ('e' * 48 + '.json')).is_dir())
+                self.assertTrue((sessions / 'unrelated').exists())
+                os.utime(sessions / names[2][0], (now, now))
+            self.assertEqual(cleanup.clean_state(root, now), (0, 0))
 
 
 if __name__ == '__main__':

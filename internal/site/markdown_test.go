@@ -7,12 +7,13 @@ import (
 	"testing"
 )
 
-// Optional full-corpus differential fixture captured from the frozen PHP app.
-// JACKIE_PHP_READERS_FIXTURE points to its JSON, JACKIE_CONTENT_ROOT to sources.
-func TestPHPReadingParity(t *testing.T) {
-	fixture := os.Getenv("JACKIE_PHP_READERS_FIXTURE")
+// Optional full-corpus fixture captured from reference revision 8694423.
+// Provenance and comparison scope are recorded in docs/go-review.md.
+// JACKIE_READING_FIXTURE points to its JSON, JACKIE_CONTENT_ROOT to sources.
+func TestReferenceReadingParity(t *testing.T) {
+	fixture := os.Getenv("JACKIE_READING_FIXTURE")
 	if fixture == "" {
-		t.Skip("PHP differential fixture not supplied")
+		t.Skip("Reading reference fixture not supplied")
 	}
 	data, err := os.ReadFile(fixture)
 	if err != nil {

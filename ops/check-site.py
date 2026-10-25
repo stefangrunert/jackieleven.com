@@ -1,4 +1,4 @@
-"""Read-only checks against the published PHP site. Does not submit messages."""
+"""Read-only checks against the published site. Does not submit messages."""
 from html.parser import HTMLParser
 from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
@@ -95,7 +95,7 @@ for path in ['/en/biography/01-prinlaws-boy', '/en/timeline/1977-doll-by-doll?fr
     assert status == 200 and 'noindex' in headers.get('X-Robots-Tag', ''), path
 print('OK: pastiche chapter and fragment excluded from indexing', flush=True)
 
-for path in ['/.git/config', '/.dev/resend-api-key', '/app/config.local.php', '/app/bootstrap.php', '/research/README.md', '/autobiografie/00-rahmen.md', '/ops/deploy.sh', '/does-not-exist']:
+for path in ['/.git/config', '/.dev/resend-api-key', '/app/config.local.php', '/app/bootstrap.php', '/research/README.md', '/autobiografie/00-rahmen.md', '/ops/prepare-go-release.py', '/data/stationen.json', '/templates/layout.gohtml', '/cmd/jackieleven/main.go', '/does-not-exist']:
     assert fetch(path)[0] in (403, 404), path
 print('OK: private paths and missing pages inaccessible', flush=True)
 

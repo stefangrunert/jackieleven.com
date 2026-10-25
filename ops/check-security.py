@@ -72,10 +72,10 @@ def main():
         assert status in (400, 429), status
         statuses.append(status)
         if status == 429:
-            assert b'<title>429 Too Many Requests</title>' in body, 'Expected rejection by nginx before PHP'
+            assert b'<title>429 Too Many Requests</title>' in body, 'Expected rejection by nginx before the application'
         time.sleep(0.15)
     assert 400 in statuses and 429 in statuses, statuses
-    print('OK: invalid CSRF rejected; burst rejected by nginx before PHP', flush=True)
+    print('OK: invalid CSRF rejected; burst rejected by nginx before the application', flush=True)
     for _ in range(18):
         time.sleep(2)
         if fetch('/en/contribute', invalid)[0] == 400:

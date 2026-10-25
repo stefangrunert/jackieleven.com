@@ -21,7 +21,7 @@ Die serverseitige Go-Umsetzung ist fertig. PHP/main wurden dabei nicht geändert
 | E-Mailvalidierung | 612 aus PHP abgeleitete Fälle Bestandteil der normalen Testsuite |
 | Unabhängiger Review | Alle reproduzierten Befunde behoben; keine bekannten offenen P1/P2-Befunde im geprüften Umfang |
 | Releasegrenzen | Explizite Allowlist, Traversal-/Symlink-/Überschreibschutz getestet; SHA-256-Manifeste gültig, kein PHP und keine lokalen Zugangskonfigurationen im Paket |
-| Plattformbuild | macOS/arm64 und Linux/amd64 erfolgreich gebaut; Linuxbetrieb noch nicht ausgeführt |
+| Plattformbuild | macOS/arm64 und Linux/amd64 erfolgreich gebaut; separate Linux-Testinstanz auf Hetzner in Betrieb |
 
 Ein Kontakt-HTTP-Vergleich mit leeren Zugangsschlüsseln ergänzt die Paket- und Mocktests. Sein Ergebnis steht im zugehörigen lokalen Bericht und in `werkzeug/parity.md`. Es wurden keine echten Nachrichten versandt.
 
@@ -52,12 +52,14 @@ python3 -B werkzeug/test_parity.py
 python3 -B ops/test_go_release.py
 node werkzeug/browserablaeufe.cjs
 python3 werkzeug/parity.py --baseline .dev/migration-state/php-baseline-v2 \
-  --candidate http://127.0.0.1:8080 --assets --report /tmp/jackie-go-parity.json
+  --candidate http://127.0.0.1:8080 --report /tmp/jackie-go-parity.json
 ```
+
+Der normale Seitenvergleich oben verwendet keine pauschale Bytegleichheit für Assets: Die zwei dokumentierten Mount-Anpassungen werden mit `werkzeug/prefix_parity.py` streng geprüft; Aufruf und Normalisierungsregeln stehen in `werkzeug/parity.md`.
 
 Der eingefrorene Snapshot liegt zusätzlich unter `/tmp/jackie-php-baseline-v2`; maßgeblich für Wiederaufnahme ist die dauerhafte lokale Kopie `.dev/migration-state/php-baseline-v2`. v1 bleibt separat erhalten. Screenshots, Layout-/Pixelresultate, Prüfberichte und Agenten-Checkpoints liegen unter `.dev/migration-state/`. Diese lokalen Arbeitsartefakte sind bewusst nicht in Git; der Prüfer und seine Normalisierungsregressionen sind versioniert.
 
-Der direkte Leser-Differentialtest lässt sich zusätzlich mit `JACKIE_PHP_READERS_FIXTURE="$PWD/.dev/migration-state/readers-expected.json"` und `JACKIE_CONTENT_ROOT="$PWD"` vor `go test ./internal/site` ausführen.
+Der direkte Leser-Differentialtest lässt sich zusätzlich mit `JACKIE_READING_FIXTURE="$PWD/.dev/migration-state/readers-expected.json"` und `JACKIE_CONTENT_ROOT="$PWD"` vor `go test ./internal/site` ausführen.
 
 ## Pause und Fortsetzung
 
@@ -67,6 +69,36 @@ Entwicklung und Review waren getrennt. Der spätere vollständige Abgleich lief 
 
 ## Vor dem Produktionswechsel
 
-Die lokale Migration ist von der Betriebsfreigabe getrennt. Der nächste Schritt ist die Prüfung der Linuxvorlagen am tatsächlichen Zielsystem: `nginx -t`, `systemd-analyze verify`, realer Start, Proxy-/Dateirechteprüfung und kontrollierter Rückfall. Echte Turnstile-/Resend-Konfiguration und Zustellung wurden nicht getestet. Kein Produktionsdienst, kein Webserver-VHost und kein Hauptbranch wurden umgestellt.
+Die separate Vorschau auf Hetzner ist mit `nginx -t`, `systemd-analyze verify`, realem Linux-Start, Proxy-/Dateirechteprüfung und öffentlichen HTTPS-/Browserprüfungen abgenommen; der Installer hat bei einem vorübergehenden Startcheckfehler seine automatische Rücknahme nachgewiesen. Details stehen in `ops/GO-PREVIEW.md`. Echte Turnstile-/Resend-Konfiguration und Zustellung sowie die spätere Umstellung der Hauptdomain sind noch nicht abgenommen. Der produktive VHost und `main` bleiben unverändert.
 
 Nach Abnahme kann `main` auf den geprüften Migrationsstand vorgezogen werden. Der Sicherungstag und PHP-Worktree bleiben als Rückfall erhalten. Details stehen in `ops/GO-BETRIEB.md`, die Architektur in `docs/go-architecture.md` und der unabhängige Review in `docs/go-review.md`.
+
+## Bereinigung des Migrationsbranches
+
+Nach Einrichtung der Testinstanz wurden auf Wunsch des Nutzers die alte Anwendung
+(`app/`, `index.php`, `.htaccess`), die doppelten JSON-Kataloge und die zugehörigen
+Release-/FastCGI-/Installationswerkzeuge entfernt. Der Betriebsweg dieses Branches
+ist ausschließlich Go; Inhaltspflege erfolgt über die Werkzeuge in `werkzeug/`.
+Die alten Quellen bleiben über den Sicherungstag und den separaten Referenz-Worktree
+wiederherstellbar. Die Git-Historie wird nicht umgeschrieben.
+
+Historische Quellen-URLs mit `.php`, Herkunftsangaben der Vergleichsfixtures,
+Migrationsberichte und absichtliche Sperrtests gegen alte private Pfade sind
+weiterhin Belege, keine ausführbare Abhängigkeit. Die Go-Leseregel für historische
+Monats-URLs bleibt erforderlich, damit die Datierung der veröffentlichten Texte stimmt.
+
+Die Bereinigung wurde zusätzlich geprüft: Alle 238 Laufzeit-Inhaltsdateien bleiben
+SHA-256-identisch zum live geprüften Release `d94e88c` (68 Assets, 19 JSON-Daten,
+33 Templates, 45 Kapiteldateien, 73 Kolumnen). Der frische Server besteht erneut
+1.613/1.613 gemountete Seitenfälle und alle elf Assetverträge, einschließlich
+600 Canonical-Alternativen, Noindex und beider Kontakt-Cookiepfade.
+Bericht: `.dev/migration-state/jackie-cleanup-prefix-parity.json`.
+Go-Race-Suite, Leserreferenztest, `go vet`, JavaScript-Abläufe und Release-/Installertests
+bestehen ohne die entfernte Anwendung.
+
+Die bisherigen Pflegefunktionen liegen jetzt in `werkzeug/quellen.py`,
+`werkzeug/livevideos.py`, `werkzeug/zitate.py` und `werkzeug/inhalte.py`.
+Der Quellen-Generator reproduziert den vorhandenen Katalog exakt (741 öffentlich,
+25 intern, keine veralteten Übersetzungen); die zehn Originalzitate sind unverändert.
+Werkzeug- und Zustandsbereinigungsregressionen laufen ohne Netzaufrufe. Details und
+Abhängigkeiten stehen in `werkzeug/README.md`.

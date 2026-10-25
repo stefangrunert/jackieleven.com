@@ -52,7 +52,7 @@ Das Foto bestätigt die gedruckte Namensform, aber allein noch nicht die später
 Für die Website werden ausgewählte Stellen aus den markierten Fassungen als kompakte WebP-Ausschnitte
 bereitgestellt. Auswahl, Ausschnittkoordinaten, Bildunterschriften und Originalverweise stehen in
 [web-auszuege.json](web-auszuege.json). `python3 werkzeug/quellen-auszuege.py` erzeugt daraus die öffentlichen
-Bilder unter `assets/images/voices/` und `app/data/quellen-auszuege.json`. Die Originale bleiben unverändert.
+Bilder unter `assets/images/voices/` und `data/quellen-auszuege.json`. Die Originale bleiben unverändert.
 Auf der Seite sind Breite und Höhe begrenzt; ein Klick vergrößert den Ausschnitt, der Quellenlink öffnet
 den vollständigen Seitenkontext. Das Etikettfoto ist dem Discogs-Eintrag zugeordnet, die Zeitungsausschnitte
 den Ausgaben bei World Radio History. Für die Samplerkritik wird das Etikett als ergänzender Nachweis von

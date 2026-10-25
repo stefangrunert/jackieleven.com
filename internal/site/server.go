@@ -1,4 +1,4 @@
-// Package site serves the bilingual Jackie Leven tribute without a PHP runtime.
+// Package site serves the bilingual Jackie Leven tribute with a Go HTTP runtime.
 package site
 
 import (
@@ -289,7 +289,7 @@ func (c *request) serve(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		st := a[i]
-		if phpQuery(r.URL.RawQuery).Get("fragment") == "1" {
+		if parseFormValues(r.URL.RawQuery).Get("fragment") == "1" {
 			body, err := c.render("buehne", M{"st": st})
 			if err != nil {
 				c.renderError(w, err)
@@ -340,7 +340,7 @@ func (c *request) serve(w http.ResponseWriter, r *http.Request) {
 		slug := parts[1]
 		switch page {
 		case "diskografie":
-			ctx := c.releaseContext(phpQuery(r.URL.RawQuery))
+			ctx := c.releaseContext(parseFormValues(r.URL.RawQuery))
 			if slug == "1973-control" {
 				redirect(c.releaseLink("1975-control", ctx), 301)
 				return
@@ -407,7 +407,7 @@ func (c *request) serve(w http.ResponseWriter, r *http.Request) {
 		}
 		status = num(v["status"])
 	case "stimmen":
-		v["filter"] = sourceFilter(phpQuery(r.URL.RawQuery))
+		v["filter"] = sourceFilter(parseFormValues(r.URL.RawQuery))
 	case "diskografie", "hoeren":
 	default:
 		view = c.lang + "/" + page

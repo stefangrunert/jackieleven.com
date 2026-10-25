@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Credential-free PHP/Go contact HTTP parity; never point this at production."""
+"""Historical contact HTTP comparison against an explicitly isolated external reference.
+
+This repository starts no legacy runtime. Use a separately provided frozen
+reference and Go candidate, both credential-free and exposed only on loopback.
+Normal runs need no reference session files; optional expiry testing uses only
+explicit disposable state directories. Existing migration reports remain valid.
+"""
 from __future__ import annotations
 import argparse
 from http.cookies import SimpleCookie
@@ -18,6 +24,13 @@ from parity import HTMLContract, NoRedirect, compact
 
 HEADERS = ('content-type', 'content-language', 'cache-control', 'x-robots-tag', 'retry-after', 'location')
 TOKEN = re.compile(r'^[a-f0-9]{48}$')
+
+
+def isolated_origin(value):
+    parsed = urllib.parse.urlsplit(value)
+    if parsed.scheme not in ('http', 'https') or parsed.hostname not in ('127.0.0.1', 'localhost', '::1') or parsed.username or parsed.password or parsed.query or parsed.fragment or parsed.path not in ('', '/'):
+        raise argparse.ArgumentTypeError('Use only an explicitly isolated credential-free loopback server (a tunnel to an external reference is allowed)')
+    return value.rstrip('/')
 
 
 class TokenParser(HTMLParser):
@@ -98,7 +111,9 @@ def cookie_ok(contract):
     }
 
 
-def expire_php(session_dir, cookie):
+def expire_legacy_session(session_dir, cookie):
+    if not re.fullmatch(r'[A-Za-z0-9,-]+', cookie):
+        raise ValueError('Invalid legacy session identifier')
     path = session_dir / ('sess_' + cookie)
     data = path.read_text(encoding='latin-1')
     data, count = re.subn(r's:4:"zeit";i:\d+;', f's:4:"zeit";i:{int(time.time())-7201};', data)
@@ -107,6 +122,8 @@ def expire_php(session_dir, cookie):
 
 
 def expire_go(state_dir, cookie, token):
+    if not TOKEN.fullmatch(cookie) or not TOKEN.fullmatch(token):
+        raise ValueError('Invalid Go session/form identifier')
     path = state_dir / 'sessions' / (cookie + '.json')
     data = json.loads(path.read_text())
     data['forms'][token]['created'] = int(time.time()) - 7201
@@ -115,15 +132,17 @@ def expire_go(state_dir, cookie, token):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--php', required=True, help='Isolated credential-free PHP base URL')
-    ap.add_argument('--go', required=True, help='Isolated credential-free Go base URL')
-    ap.add_argument('--php-session-dir', type=Path, required=True)
-    ap.add_argument('--go-state-dir', type=Path, required=True)
+    ap.add_argument('--reference', required=True, type=isolated_origin, help='Already running, isolated external legacy reference URL')
+    ap.add_argument('--candidate', required=True, type=isolated_origin, help='Already running, isolated Go candidate URL')
+    ap.add_argument('--reference-session-dir', type=Path, help='Optional disposable legacy session directory for historical expiry comparison')
+    ap.add_argument('--candidate-state-dir', type=Path, help='Disposable Go state directory; use with --reference-session-dir')
     ap.add_argument('--report', type=Path, default=Path('/tmp/jackie-contact-http-parity.json'))
     args = ap.parse_args()
+    if bool(args.reference_session_dir) != bool(args.candidate_state_dir):
+        ap.error("both disposable state directories are required for optional expiry testing")
     cases, guard_failures = [], []
 
-    def pair(): return Session(args.php), Session(args.go)
+    def pair(): return Session(args.reference), Session(args.candidate)
     def record(name, php_result, go_result, expected_status=None, checks=None):
         diffs = compare(php_result, go_result)
         checks = checks or []
@@ -195,18 +214,21 @@ def main():
             checks += [{'check':'php-retry-after-60','ok':pr['headers'].get('retry-after')=='60'},{'check':'go-retry-after-60','ok':gr['headers'].get('retry-after')=='60'}]
         record(name,pr,gr,status,checks)
 
-    # Expiry is induced only in the isolated state files; no long sleep required.
-    p,g=pair(); _,pt,_=p.request('/de/mitmachen'); _,gt,_=g.request('/de/mitmachen')
-    expire_php(args.php_session_dir,p.cookie()); expire_go(args.go_state_dir,g.cookie(),gt)
-    pr,_,_=p.request('/de/mitmachen',encode([('token',pt),*valid])); gr,_,_=g.request('/de/mitmachen',encode([('token',gt),*valid]))
-    record('expired-token',pr,gr,400)
+    # Optional historical expiry check; normal HTTP comparison has no filesystem
+    # dependency on the external reference implementation.
+    if args.reference_session_dir and args.candidate_state_dir:
+        p,g=pair(); _,pt,_=p.request('/de/mitmachen'); _,gt,_=g.request('/de/mitmachen')
+        expire_legacy_session(args.reference_session_dir,p.cookie()); expire_go(args.candidate_state_dir,g.cookie(),gt)
+        pr,_,_=p.request('/de/mitmachen',encode([('token',pt),*valid])); gr,_,_=g.request('/de/mitmachen',encode([('token',gt),*valid]))
+        record('expired-token',pr,gr,400)
 
     failures = sum(not case['passed'] for case in cases)
     report = {
-        'php':args.php, 'go':args.go, 'php_reference_contact_used':False,
+        'reference':args.reference, 'candidate':args.candidate, 'php_reference_contact_used':False,
         'credentials':{'resend_key':'empty','turnstile_sitekey':'empty','turnstile_secret':'empty'},
         'external_verification_or_send_reachable':False,
         'cases':cases, 'case_count':len(cases), 'failures':failures,
+        'skipped':[] if args.reference_session_dir else ['expired-token: no disposable external-reference state supplied'],
     }
     args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     for case in cases: print(('PASS' if case['passed'] else 'FAIL'),case['name'])

@@ -34,4 +34,4 @@ Der eingefrorene PHP-Snapshot ist eine Testreferenz, kein Bestandteil des Go-Ser
 
 Zusätzlich wurden neun Seitentypen bei 1440×1000 und 390×844 im Browser verglichen: gleiche DOM-Geometrie und pixelgleiche Screenshots nach abgeschlossenem Laden der Bilder. Interaktionsprüfungen decken dynamische Zeitreise, Sprachwechsel, Verlauf und Filterkontext ab. Diese Nachweise betreffen die geprüften Zustände und ersetzen keine Behauptung über jede denkbare Browser- oder Netzwerksituation.
 
-Linux-Binärpaket und Betriebsdateien sind vorbereitet. Installation, echte Anbieterintegration, nginx-/systemd-Prüfung und ein Produktionswechsel bilden eine eigene Abnahme. Die bisherige PHP-Seite bleibt bis dahin verfügbar.
+Die separate Linux-Testinstanz ist auf Hetzner installiert und unter `https://unpubli.sh/jackieleven/` geprüft; Details stehen in `ops/GO-PREVIEW.md`. Echte Anbieterintegration und ein Produktionswechsel bilden weiterhin eine eigene Abnahme. Die bisherige Seite bleibt bis dahin verfügbar.

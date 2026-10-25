@@ -56,7 +56,7 @@ Stand: 23. Oktober 2026. Arbeitsgrundlage für eine öffentliche Seite mit Stimm
 | `volltext` | Pfad zum korrigierten Originaltext, nur bei freier Lizenz |
 | `ausschnitt` | Bildregion der Seite (IIIF-Koordinaten), nur bei freier Lizenz |
 
-Ein Werkzeug (`werkzeug/quellen.php`) erzeugt daraus `app/data/quellen.json` mit ausschließlich öffentlichen Feldern; interne Abschnitte (Widersprüche, Fundweg, Sicherheit) gelangen nie auf die Seite. Ein Prüfskript stellt sicher: keine interne Quelle öffentlich, jede CC-Quelle mit vollständiger Namensnennung, kein übersetzter CC-Volltext, Bilder lokal und mit `loading="lazy"`, keine externen Anfragen beim Seitenaufruf.
+Ein Werkzeug (`werkzeug/quellen.py`) erzeugt daraus `data/quellen.json` mit ausschließlich öffentlichen Feldern; interne Abschnitte (Widersprüche, Fundweg, Sicherheit) gelangen nie auf die Seite. Ein Prüfskript stellt sicher: keine interne Quelle öffentlich, jede CC-Quelle mit vollständiger Namensnennung, kein übersetzter CC-Volltext, Bilder lokal und mit `loading="lazy"`, keine externen Anfragen beim Seitenaufruf.
 
 ## Arbeitsschritte
 

@@ -19,6 +19,7 @@ func TestIndependentPrivateResourcesStayPrivate(t *testing.T) {
 		"/.git/config", "/.dev/resend-api-key", "/.dev/ontologie.html",
 		"/research/columns/2002-10_deep-pool_oktober-2002.md",
 		"/autobiografie/01-prinlaws-boy.md", "/ops/go-release-files.json",
+		"/go.mod", "/internal/site/contact.go", "/cmd/jackieleven/main.go", "/bin/jackieleven",
 		"/assets/%2e%2e/data/quellen.json", "/assets/",
 	} {
 		t.Run(path, func(t *testing.T) {

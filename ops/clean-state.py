@@ -39,9 +39,18 @@ def clean(directory: Path, pattern: str, lifetime: int, now: float) -> int:
     return removed
 
 
+def clean_state(root: Path, now: float) -> tuple[int, int]:
+    # Match the runtime's two-day retention and exact state-file namespaces.
+    sessions = clean(root / 'sessions', r'[a-f0-9]{48}\.json', 172800, now) if (root / 'sessions').is_dir() else 0
+    counters = clean(root, r'[a-f0-9]{64}\.json', 172800, now) if root.is_dir() else 0
+    return sessions, counters
+
+
 if __name__ == '__main__':
-    root = Path('/var/lib/jackieleven')
-    now = time.time()
-    sessions = clean(root / 'sessions', r'sess_[A-Za-z0-9,-]+', 21600, now)
-    counters = clean(root / 'contact', r'[a-f0-9]{64}\.json', 172800, now)
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--state-dir', required=True, type=Path,
+                        help='Private Go contact directory (JACKIE_CONTACT_STATE_DIR)')
+    args = parser.parse_args()
+    sessions, counters = clean_state(args.state_dir, time.time())
     print(f'Expired {sessions} sessions and {counters} mail-limit counters.')

@@ -51,6 +51,7 @@ func TestBasePathRoutingAndContact(t *testing.T) {
 		{"/jackieleven/de", 301, "/jackieleven/de/"}, {"/jackieleven/station/1983-der-ueberfall", 301, "/jackieleven/de/zeitreise/1983-caledonian-road"},
 		{"/jackieleven//de///ueber//", 301, "/jackieleven/de/ueber"}, {"/jackieleven/de//ueber", 200, ""},
 		{"/de/", 404, ""}, {"/assets/css/site.css", 404, ""}, {"/jackieleven-other/de/", 404, ""}, {"/jackieleven/assets/../app/bootstrap.php", 404, ""},
+		{"/jackieleven/internal/site/contact.go", 404, ""}, {"/jackieleven/assets/../data/stationen.json", 404, ""},
 	} {
 		r := httptest.NewRequest("GET", tc.path, nil)
 		w := httptest.NewRecorder()

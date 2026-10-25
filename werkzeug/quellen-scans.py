@@ -82,7 +82,7 @@ if __name__ == '__main__':
     sources = json.loads((ROOT / 'research/quellen/index.json').read_text())
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         data = dict(pool.map(build, sources))
-    (ROOT / 'app/data/quellen-scans.json').write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+    (ROOT / 'data/quellen-scans.json').write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({'sources': len(data), 'with_pages': sum(bool(x['pages']) for x in data.values()),
         'with_facsimiles': sum(bool(x['facsimiles']) for x in data.values()),
         'errors': sum('error' in x for x in data.values())}))

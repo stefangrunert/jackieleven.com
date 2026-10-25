@@ -1,6 +1,6 @@
 package site
 
-// These deliberately small readers reproduce the published PHP reading edition.
+// These deliberately small readers reproduce the published reading edition.
 // Markdown files remain the editorial sources; no rendered-page snapshots are used.
 import (
 	"fmt"
@@ -30,7 +30,7 @@ var (
 	mdWarning             = regexp.MustCompile(`^\*\*(Hinweis|Note):\*\*`)
 	columnFront           = regexp.MustCompile(`(?s)\A---\n(.*?)\n---\n(.*)\z`)
 	columnField           = regexp.MustCompile(`(?m)^([a-z_]+):\s*"([^"\n]*)"\s*$`)
-	columnDate            = regexp.MustCompile(`-(june|aug)-08\.php$`)
+	columnDate            = regexp.MustCompile(`-(june|aug)-08\.php$`) // Historical URLs encode actual issue dates.
 	columnTitle           = regexp.MustCompile(`\A\s*# [^\n]*\n`)
 	columnImage           = regexp.MustCompile(`(?m)^!\[[^\]]*\]\(bilder/[^)]+\)\s*$`)
 	columnSequence        = regexp.MustCompile(`^\d{4}-\d{2}(?:-([a-z0-9]+))?_`)
@@ -51,7 +51,7 @@ func mdWhitespace(c byte) bool {
 	return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f'
 }
 
-// PHP's emphasis expression uses lookaround; RE2 does not. Match its bytewise
+// RE2 does not support lookaround. Match the established bytewise emphasis
 // boundaries directly, after escaping and replacing bold spans.
 func mdEmphasis(s string) string {
 	var b strings.Builder

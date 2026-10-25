@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build an explicit allowlist release. No PHP execution, network upload or secrets."""
+"""Build an explicit allowlist release. No network upload or secrets."""
 from __future__ import annotations
 import argparse
 import hashlib

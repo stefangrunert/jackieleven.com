@@ -14,7 +14,9 @@ sketches.zip
 /assets/grafik-vorlagen/
 
 # Zugangsdaten für den Formularversand
-/app/config.local.php
+/.env
+/.env.*
+/go.env
 /.dev/*
 !/.dev/ontologie.html
 !/.dev/suche-architektur.html

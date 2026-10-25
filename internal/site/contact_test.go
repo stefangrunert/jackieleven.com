@@ -192,9 +192,9 @@ func TestTurnstileBindsHostnameAndAction(t *testing.T) {
 		}
 	}
 }
-func TestPHPQueryOverwriteSemantics(t *testing.T) {
+func TestFormValueOverwriteSemantics(t *testing.T) {
 	for _, tc := range []struct{ q, want string }{{"auswahl=0&auswahl=2", "2"}, {"auswahl=0&auswahl[]=2", ""}, {"auswahl[]=0&auswahl=2", "2"}} {
-		if got := phpQuery(tc.q).Get("auswahl"); got != tc.want {
+		if got := parseFormValues(tc.q).Get("auswahl"); got != tc.want {
 			t.Fatalf("%s: %q", tc.q, got)
 		}
 	}
@@ -231,8 +231,9 @@ func TestContactRejectsTrailingUpstreamJSON(t *testing.T) {
 	}
 }
 
-func TestContactEmailPHPFixture(t *testing.T) {
-	path := os.Getenv("JACKIE_PHP_EMAIL_FIXTURE")
+// Reference cases were captured from revision 8694423; see docs/go-review.md.
+func TestContactEmailReferenceFixture(t *testing.T) {
+	path := os.Getenv("JACKIE_EMAIL_FIXTURE")
 	if path == "" {
 		path = "testdata/email-validation.json"
 	}
@@ -283,7 +284,7 @@ func TestContactHonorsFormContentType(t *testing.T) {
 	}
 }
 
-func TestContactCacheControlMatchesPHPSession(t *testing.T) {
+func TestContactResponseCachePolicy(t *testing.T) {
 	c := NewContact(ContactConfig{StateDir: t.TempDir()})
 	for _, method := range []string{"GET", "POST"} {
 		r := httptest.NewRequest(method, "http://example.test/de/mitmachen", nil)

@@ -295,7 +295,7 @@ func (c *Contact) Handle(w http.ResponseWriter, r *http.Request, action string) 
 			fail(413, "nachricht")
 		} else {
 			formBody := contactFormBody(body, r.Header.Get("Content-Type"))
-			post := phpQuery(formBody)
+			post := parseFormValues(formBody)
 			fields := contactFields(post)
 			v["felder"] = fields
 			token = post.Get("token")
@@ -461,9 +461,9 @@ func sendContact(ctx context.Context, payload M, key, idempotency string) bool {
 	return decodeContactJSON(resp.Body, &result) == nil && result.ID != ""
 }
 
-// phpQuery preserves PHP's last-value and scalar/array overwrite behavior for
+// parseFormValues preserves the established last-value and scalar/array overwrite behavior for
 // this site's scalar controls. Array values are intentionally discarded.
-func phpQuery(raw string) url.Values {
+func parseFormValues(raw string) url.Values {
 	v := url.Values{}
 	for i, part := range strings.Split(raw, "&") {
 		if i >= 1000 {
@@ -488,7 +488,8 @@ func phpQuery(raw string) url.Values {
 	return v
 }
 
-// validContactEmail matches the ASCII mailbox policy of PHP's FILTER_VALIDATE_EMAIL.
+// validContactEmail preserves the established ASCII mailbox validation policy.
+// The captured reference cases are retained in testdata/email-validation.json.
 func validContactEmail(email string) bool {
 	if len(email) > 254 {
 		return false
@@ -599,7 +600,7 @@ func decodeContactJSON(body io.Reader, result any) error {
 	return nil
 }
 
-// PHP populates POST only for the two HTML form encodings. Preserve field order
+// Accept POST fields only from the two HTML form encodings. Preserve field order
 // so duplicate scalar/array names keep the same overwrite semantics.
 func contactFormBody(body []byte, contentType string) string {
 	media, params, err := mime.ParseMediaType(contentType)

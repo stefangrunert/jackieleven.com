@@ -1,6 +1,6 @@
-# Go-Betrieb und Rückfall auf PHP
+# Go-Betrieb und Versionswechsel
 
-Diese Dateien bereiten den Betrieb vor. Sie ändern weder den aktuellen Webserver noch die Produktion. Die bestehende PHP-Konfiguration und `site-current` bleiben als Rückfall verfügbar. Die Go-Migration muss vor einem Wechsel den vollständigen HTTP-, Browser-, Kontakt- und Review-Abgleich bestehen.
+Die separate Testinstanz ist bereits installiert (siehe `GO-PREVIEW.md`). Diese Anleitung beschreibt die spätere Umstellung der Hauptdomain; sie führt selbst keine Serveränderung aus. Die bestehende PHP-Konfiguration und `site-current` bleiben als Rückfall verfügbar. Die Go-Migration muss vor einem Wechsel den vollständigen HTTP-, Browser-, Kontakt- und Review-Abgleich bestehen.
 
 ## Lokal
 
@@ -22,7 +22,7 @@ python3 ops/prepare-go-release.py /tmp/jackieleven-go-release
 python3 ops/prepare-go-release.py /tmp/jackieleven-go-linux --goos linux --goarch amd64
 ```
 
-`ops/go-release-files.json` ist die ausdrückliche Dateiauswahl. Neue veröffentlichte Inhalte oder Templates müssen dort ergänzt werden. Das Werkzeug baut die Binärdatei, bewahrt die Asset-Zeitstempel und schreibt SHA-256-Prüfsummen sowie Revision/Dirty-Status. Es führt kein PHP aus. Runtime: Binärdatei, JSON-Daten, Go-Templates, ausgewählte Markdowntexte und Assets. Weder Quellcode noch PHP, Forschungsentwürfe oder Geheimnisse werden paketiert.
+`ops/go-release-files.json` ist die ausdrückliche Dateiauswahl. Neue veröffentlichte Inhalte oder Templates müssen dort ergänzt werden. Das Werkzeug baut die Binärdatei, bewahrt die Asset-Zeitstempel und schreibt SHA-256-Prüfsummen sowie Revision/Dirty-Status. Runtime: Binärdatei, JSON-Daten, Go-Templates, ausgewählte Markdowntexte und Assets. Weder Quellcode noch PHP, Forschungsentwürfe oder Geheimnisse werden paketiert.
 
 Den Paketinhalt vor der Freigabe selbst starten und gegen denselben PHP-Snapshot prüfen. Ein erfolgreicher Quellbaumtest allein genügt nicht.
 
@@ -52,3 +52,14 @@ Die gesicherte PHP-nginx-Konfiguration wiederherstellen, `nginx -t` ausführen u
 ## Noch vor Produktionsfreigabe nachzuweisen
 
 Die Vorlagen müssen auf dem tatsächlichen Linux-System mit `systemd-analyze verify` und `nginx -t` geprüft werden. Linux-Start, graceful Shutdown, Netzwerk-/Proxy-Vertrauensgrenze, Zustandsrechte, Wiederanlauf und Rückfall sind eine eigene Betriebsabnahme. Eine erfolgreiche lokale macOS-Migration ersetzt diese Nachweise nicht.
+
+## Zustandsbereinigung
+
+`ops/clean-state.py --state-dir /var/lib/jackieleven-go/contact` entfernt ausschließlich
+48-stellige hexadezimale Sitzungsdateien unter `sessions/` und 64-stellige
+hexadezimale Zählerdateien direkt im Zustandsverzeichnis, jeweils mit `.json`.
+Die Aufbewahrung beträgt wie in der Go-Laufzeit zwei Tage. Aktive Sperren, Symlinks
+und fremde Dateinamen bleiben erhalten. Fehlende Verzeichnisse sind beim ersten
+Start erlaubt. `jackieleven-clean-state.service` und `.timer` sind dafür die
+Vorlagen; sie ersetzen keine laufende Bestandsbereinigung ohne gesonderte Installation.
+Die Vorschau verwendet ihren eigenen Zustand unter `/var/lib/jackieleven-go-preview/contact`.

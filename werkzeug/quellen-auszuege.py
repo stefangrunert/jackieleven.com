@@ -34,7 +34,7 @@ def main():
                 'source': item['source'],
                 'url': item['url'],
             })
-    (ROOT / 'app/data/quellen-auszuege.json').write_text(json.dumps(catalogue, ensure_ascii=False, indent=2) + '\n')
+    (ROOT / 'data/quellen-auszuege.json').write_text(json.dumps(catalogue, ensure_ascii=False, indent=2) + '\n')
     print(f'{len(manifest)} compact facsimiles for {len(catalogue)} sources.')
 
 

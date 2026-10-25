@@ -40,7 +40,7 @@ go vet ./...
 PYTHONDONTWRITEBYTECODE=1 python3 ops/test_go_release.py
 ```
 
-Der zusätzliche direkte PHP-Leservergleich verwendet den erzeugten Fixturepfad über `JACKIE_PHP_READERS_FIXTURE` und den Inhaltsbaum über `JACKIE_CONTENT_ROOT`; der oben genannte Emailkorpus gehört dauerhaft zur normalen Testsuite.
+Der zusätzliche direkte PHP-Leservergleich verwendet den erzeugten Fixturepfad über `JACKIE_READING_FIXTURE` und den Inhaltsbaum über `JACKIE_CONTENT_ROOT`; der oben genannte Emailkorpus gehört dauerhaft zur normalen Testsuite.
 
 ## Grenzen vor Produktionsfreigabe
 
