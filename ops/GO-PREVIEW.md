@@ -54,3 +54,22 @@ Die separate Instanz ist unter <https://unpubli.sh/jackieleven/> installiert und
 Der erste Installationsversuch wurde korrekt zurückgerollt: Der unmittelbar nach `systemctl reload` erfolgte HTTPS-Check traf noch einen alten nginx-Worker (404). Der Installer wartet nun mit begrenzten Wiederholungen auf die neue Konfiguration; sowohl Übergang als auch dauerhafter Fehler sind getestet. Beim zweiten Versuch bestanden Backend- und HTTPS-Check.
 
 Prüfberichte und Screenshot liegen lokal unter `.dev/migration-state/` (ignoriert). Die PHP-App und `main` bleiben der produktive Stand. Das Kontaktformular der Vorschau versendet weiterhin keine E-Mails.
+
+## Aktualisierung auf den bereinigten Branchstand
+
+Am 25. Oktober 2026 wurde die Testinstanz auf Release
+`ba3224f4314b0eef687e17adf3260cf9c4e592d7` aktualisiert. Das saubere Linux/amd64-Paket
+liegt unter `/var/www/jackieleven-go-preview/releases/ba3224f`; die aktive systemd-Unit
+verweist auf genau dieses Release. Alle 240 Manifestdateien wurden auf dem Server
+verifiziert. Dienst aktiv und aktiviert, Backend ausschließlich `127.0.0.1:18766`.
+
+Sicherung vor dem Wechsel: `/var/backups/jackieleven-go-preview/20261025T184735.773481Z`.
+Das vorherige Release `d94e88c` bleibt für einen Rückfall erhalten. Die nginx-VHosts
+von unpubli.sh und der Hauptdomain blieben bei diesem Update bytegleich.
+
+Öffentliche HTTPS-Prüfung bestanden: Einstiegs-/Sprachweiterleitungen, DE/EN,
+Zeitreise, Diskografie, CSS/JavaScript/Font, Sitemap, Robots, Kontakt-GET und
+Sperren privater Pfade. Cookiepfad und Sicherheitsflags stimmen, die Vorschau
+bleibt noindex und ohne E-Mail-Versand. Beide bisherigen Hauptseiten blieben
+bytegleich zu den Referenzabrufen. Es wurde keine Nachricht abgesandt.
+Bericht: `.dev/migration-state/live-ba3224f.json` (lokal, ignoriert).
