@@ -67,11 +67,18 @@ Der direkte Leser-Differentialtest lässt sich zusätzlich mit `JACKIE_READING_F
 
 Entwicklung und Review waren getrennt. Der spätere vollständige Abgleich lief ausdrücklich auf dem günstigeren Modell GPT-5.6 mit hohem Reasoning-Aufwand. Root übernahm Integration, Leseregeln, Releasepaket und Browserprüfungen.
 
-## Vor dem Produktionswechsel
+## Produktionsstand
 
-Die separate Vorschau auf Hetzner ist mit `nginx -t`, `systemd-analyze verify`, realem Linux-Start, Proxy-/Dateirechteprüfung und öffentlichen HTTPS-/Browserprüfungen abgenommen; der Installer hat bei einem vorübergehenden Startcheckfehler seine automatische Rücknahme nachgewiesen. Details stehen in `ops/GO-PREVIEW.md`. Echte Turnstile-/Resend-Konfiguration und Zustellung sowie die spätere Umstellung der Hauptdomain sind noch nicht abgenommen. Der produktive VHost und `main` bleiben unverändert.
+Seit dem 25. Oktober 2026 bedient Go die Hauptdomain `jackieleven.com`, einschließlich
+Formular. Runtime-Release `ba3224f`, Installer `e1d159a`. Öffentliche Seiten-, SEO-,
+Asset-, Cookie- und Originprüfungen sowie negative Turnstiletests bestanden. Eine
+vom Nutzer autorisierte Nachricht wurde über das echte Browserformular von Resend
+angenommen; die Empfangsbestätigung aus dem Postfach steht noch aus.
 
-Nach Abnahme kann `main` auf den geprüften Migrationsstand vorgezogen werden. Der Sicherungstag und PHP-Worktree bleiben als Rückfall erhalten. Details stehen in `ops/GO-BETRIEB.md`, die Architektur in `docs/go-architecture.md` und der unabhängige Review in `docs/go-review.md`.
+PHP-FPM, bisheriges Release und Sicherung bleiben als Rückfall erhalten.
+Rückfallkommando und Deploymentnachweise stehen in `ops/GO-BETRIEB.md`.
+Die separate Testinstanz bleibt verfügbar. Der Git-Hauptbranch wurde bei diesem
+Serverwechsel nicht umgestellt; der Entwicklungsstand liegt auf `go-migration`.
 
 ## Bereinigung des Migrationsbranches
 

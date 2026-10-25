@@ -1,6 +1,6 @@
 # Go-Betrieb und Versionswechsel
 
-Die separate Testinstanz ist bereits installiert (siehe `GO-PREVIEW.md`). Diese Anleitung beschreibt die spätere Umstellung der Hauptdomain; sie führt selbst keine Serveränderung aus. Die bestehende PHP-Konfiguration und `site-current` bleiben als Rückfall verfügbar. Die Go-Migration muss vor einem Wechsel den vollständigen HTTP-, Browser-, Kontakt- und Review-Abgleich bestehen.
+Die Hauptdomain läuft seit dem 25. Oktober 2026 auf Go. Die separate Testinstanz bleibt verfügbar (siehe `GO-PREVIEW.md`). Diese Anleitung beschreibt Betrieb und Rückfall; sie führt selbst keine Serveränderung aus. Die bestehende PHP-Konfiguration und `site-current` bleiben als Rückfall verfügbar. Die Go-Migration muss vor einem Wechsel den vollständigen HTTP-, Browser-, Kontakt- und Review-Abgleich bestehen.
 
 ## Lokal
 
@@ -63,3 +63,53 @@ und fremde Dateinamen bleiben erhalten. Fehlende Verzeichnisse sind beim ersten
 Start erlaubt. `jackieleven-clean-state.service` und `.timer` sind dafür die
 Vorlagen; sie ersetzen keine laufende Bestandsbereinigung ohne gesonderte Installation.
 Die Vorschau verwendet ihren eigenen Zustand unter `/var/lib/jackieleven-go-preview/contact`.
+
+## Produktionswechsel am 25. Oktober 2026
+
+`https://jackieleven.com` läuft auf dem geprüften Runtime-Release
+`ba3224f4314b0eef687e17adf3260cf9c4e592d7`. Der aktive Dienst `jackieleven-go.service`
+ist aktiviert und bindet ausschließlich `127.0.0.1:18765`. `go-current` zeigt auf
+`/var/www/jackieleven/go-releases/ba3224f`. Der Prozess verwendet den aufgelösten
+Releasepfad; alle 240 Paketdateien wurden vor der Installation geprüft.
+
+Installer: Commit `e1d159a`, `ops/install-go-production.py`; zwölf Offline-Tests
+und unabhängiger Review bestanden. Der Installer ist für die einmalige Umstellung
+ausgelegt und lehnt bereits vorhandene Go-Produktionsartefakte ab. Seine vier
+Vorlagendateien müssen im selben Verzeichnis liegen. Weitere Releases folgen dem
+oben beschriebenen Versionswechsel.
+
+Die drei vorhandenen Anbieterzugänge wurden ausschließlich serverseitig aus dem
+bestehenden Pool übernommen. `/etc/jackieleven/go.env` gehört root und hat Modus
+0600. Der laufende Go-Prozess hat exakt dieselben Werte geladen; es wurden keine
+Schlüsselwerte ausgegeben oder versioniert.
+
+Öffentliche Abnahme bestanden: DE/EN, Inhaltsseiten, SEO, 1.370 Sitemapziele,
+Indexierungssperren für Pastiche/Fragmente, 17 referenzierte Assets, HTTPS-/www-
+Weiterleitungen, private Pfade, Cookieattribute und Cache-Control. Direkter Origin-
+Zugriff bleibt auch mit gefälschten Proxyheadern gesperrt. Negative Turnstiletests
+in beiden Sprachen weisen fehlende/ungültige Nachweise ab und erhalten den Text.
+
+Genau eine ausdrücklich autorisierte Testnachricht wurde im Browser durch das
+reguläre Formular gesendet. Turnstile wurde akzeptiert, Resend bestätigte die
+Annahme und die Seite zeigte die Erfolgsnachricht. Der Eingang im Postfach ist
+zum Zeitpunkt dieses Eintrags noch nicht vom Nutzer bestätigt. Nachweisbild:
+`.dev/migration-state/production-form-success.png` (lokal, ignoriert).
+
+### Erhaltener Rückfall
+
+PHP-FPM, Socket `/run/php/jackieleven.sock`, Poolkonfiguration, Sicherheitsregeln
+und der Link `site-current` blieben unverändert. Das PHP-Release ist weiterhin
+`/var/www/jackieleven/site-releases/20261024110408-7001`.
+
+Sicherung: `/var/backups/jackieleven-go-production/20261025T190144-6uclpdnf`.
+Der folgende Befehl wird bei Bedarf als root auf Hetzner ausgeführt:
+
+```sh
+python3 /var/backups/jackieleven-go-production/20261025T190144-6uclpdnf/installer.py --rollback /var/backups/jackieleven-go-production/20261025T190144-6uclpdnf
+```
+
+Die Rücknahme prüft, dass keine fremde Vhoständerung überschrieben wird, stellt die
+PHP-Konfiguration wieder her und wartet nach nginx-Reload auf das Ende der alten
+Worker, bevor Go gestoppt wird. Wenn Reload oder Drain scheitert, bleibt Go samt
+Startdateien verfügbar. Ein tatsächlicher Rückwechsel der jetzt funktionierenden
+Hauptdomain wurde nicht durchgeführt. Die separate Vorschau blieb bytegleich.

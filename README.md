@@ -20,7 +20,7 @@ Die Go-Version ist unter `http://127.0.0.1:8080/de/` erreichbar. Sie verwendet a
 - [Release und Linux-Betrieb](ops/GO-BETRIEB.md)
 - [Separate Live-Testinstanz unter unpubli.sh/jackieleven](ops/GO-PREVIEW.md)
 
-Die Live-Testinstanz läuft unter <https://unpubli.sh/jackieleven/de/>. Der Branch enthält ausschließlich die Go-Anwendung; die produktive Bestandsseite bleibt bis zur gesonderten Abnahme unverändert.
+Die produktive Go-Seite läuft unter <https://jackieleven.com/de/> einschließlich Kontaktformular. Die separate Testinstanz bleibt unter <https://unpubli.sh/jackieleven/de/> erreichbar; ihr E-Mail-Versand ist deaktiviert. Der Server hält die frühere Anwendung als Rückfall bereit.
 
 ## Die Grundlage: seine eigenen Texte
 
@@ -321,7 +321,7 @@ in der Konstanten `origin` und der Hostprüfung in `internal/site/server.go` ang
 sind ebenfalls `noindex`.
 
 Prüfen: `go test ./internal/site` und die Releaseprüfungen oben.
-`ops/nginx-go-site.conf` ist die Vorlage für den späteren Produktivbetrieb;
+`ops/nginx-go-site.conf` ist die installierte Vorlage für den Produktivbetrieb;
 `ops/check-site.py` prüft eine vollständig konfigurierte produktive Instanz.
 Die aktuelle Vorschau verwendet einen eigenen Dienst und eigene nginx-Regeln.
 Eine Search-Console-Verifizierung wird erst mit dem tatsächlichen Verifizierungscode ergänzt.
