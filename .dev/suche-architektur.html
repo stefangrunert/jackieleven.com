@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archiv-Suche · Architektur</title>
+<meta name="description" content="Architekturentwurf für eine hybride lexikalische und semantische Suche im Jackie-Leven-Archiv.">
+<style>
+/* Gemeinsame Gestaltung der Entwurfsdokumente in .dev/ */
+
+:root {
+  --bg: #fbfbfa;
+  --fl: #f1f1ef;
+  --ink: #1d1f22;
+  --ink-2: #4a4f57;
+  --ink-3: #737a84;
+  --line: #dcdcd8;
+  --link: #2f5d8a;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --fl: #1d2024;
+    --ink: #e2e4e7;
+    --ink-2: #b5bac1;
+    --ink-3: #868d97;
+    --line: #2e3238;
+    --link: #8fb4d9;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-underline-offset: .15em; }
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3.5rem 16px 5rem;
+}
+
+header { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+h1 {
+  font-family: var(--sans);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  margin-bottom: .6rem;
+}
+.angaben {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+.angaben div { margin-top: .15rem; }
+
+nav.inhalt { font-family: var(--sans); font-size: 14px; margin-bottom: 2.5rem; }
+nav.inhalt ol { padding-left: 1.4rem; columns: 2 15rem; column-gap: 2rem; }
+nav.inhalt li { padding: .1rem 0; break-inside: avoid; color: var(--ink-3); }
+nav.inhalt a { text-decoration: none; }
+nav.inhalt a:hover { text-decoration: underline; }
+
+section { margin-top: 2.8rem; scroll-margin-top: 1rem; }
+
+h2 {
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: .8rem;
+}
+h3 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.8rem 0 .5rem;
+}
+
+p { margin-bottom: .9rem; }
+ul, ol { margin: 0 0 1rem 1.3rem; }
+li { margin-bottom: .3rem; }
+li > ul { margin-top: .3rem; }
+
+code {
+  font-family: var(--mono);
+  font-size: .84em;
+  background: var(--fl);
+  border-radius: 3px;
+  padding: .05em .28em;
+}
+pre {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+  background: var(--fl);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .85rem 1rem;
+  overflow-x: auto;
+  margin: .4rem 0 1.2rem;
+}
+pre code { background: none; padding: 0; font-size: inherit; }
+
+.tabelle { overflow-x: auto; margin: .4rem 0 1.4rem; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+th, td { text-align: left; vertical-align: top; padding: .45rem .6rem; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; color: var(--ink-2); border-bottom-width: 2px; white-space: nowrap; }
+td code { font-size: 12.5px; }
+td.offen { color: var(--ink-3); }
+
+.abbildung {
+  font-family: var(--sans);
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: .4rem 0 1.4rem;
+  overflow-x: auto;
+}
+.abbildung ol { list-style: none; margin: 0; counter-reset: s; }
+.abbildung ol > li {
+  counter-increment: s;
+  position: relative;
+  padding: .35rem 0 .35rem 2rem;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.abbildung ol > li:first-child { border-top: 0; }
+.abbildung ol > li::before {
+  content: counter(s);
+  position: absolute;
+  left: 0; top: .35rem;
+  width: 1.4rem;
+  text-align: right;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.abbildung b { font-weight: 600; }
+.abbildung span { color: var(--ink-2); }
+.abbildung .unterschrift { margin-top: .7rem; font-size: 13px; color: var(--ink-3); }
+
+.hinweis {
+  border-left: 3px solid var(--line);
+  padding: .2rem 0 .2rem 1rem;
+  color: var(--ink-2);
+  margin: 1rem 0 1.2rem;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16.5px; }
+  main { padding-top: 2.2rem; }
+  h1 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Suche im Jackie-Leven-Archiv: Architekturentwurf</h1>
+  <div class="angaben">
+    <div>Entwurf · Stand 25. Oktober 2026 · Stefan Grunert</div>
+    <div>Datenmodell: <a href="ontologie.html">Ontologie des Archivs</a> · Datenzuwachs: <a href="erschliessung.html">Erschließungsstrategie</a></div>
+  </div>
+</header>
+
+<nav class="inhalt" aria-label="Inhalt">
+  <ol>
+    <li><a href="#ausgangslage">Ausgangslage</a></li>
+    <li><a href="#anforderungen">Anforderungen</a></li>
+    <li><a href="#datenhaltung">Datenhaltung</a></li>
+    <li><a href="#datenmodell">Datenmodell und Indexeinheit</a></li>
+    <li><a href="#ablauf">Ablauf einer Suchanfrage</a></li>
+    <li><a href="#embeddings">Embeddings</a></li>
+    <li><a href="#deploy">Build und Deploy</a></li>
+    <li><a href="#evaluation">Evaluation</a></li>
+    <li><a href="#betrieb">Suchdienst, Datenschutz und Betrieb</a></li>
+    <li><a href="#agenten">Zugang für Agenten und KI-Suchen</a></li>
+    <li><a href="#entscheidungen">Entscheidungen</a></li>
+    <li><a href="#stufen">Ausbaustufen</a></li>
+    <li><a href="#offen">Offene Punkte</a></li>
+  </ol>
+</nav>
+
+<section id="ausgangslage">
+  <h2>1. Ausgangslage</h2>
+  <p>Die Website jackieleven.com umfasst derzeit 73 Kolumnen Jackie Levens mit zusammen rund 90.000 Wörtern, 741 Quellen über ihn aus den Jahren 1971 bis heute, 88 Diskografie-Einträge mit 881 Titeleinträgen, die Stationen der Zeitreise und 15 Kapitel einer als Pastiche gekennzeichneten Autobiografie. In der Recherche liegen weitere Bestände, die noch nicht auf der Website erscheinen, darunter ein Konzertkalender mit 470 Auftritten. Hinzukommen sollen weitere Presseartikel, Termine, Konzerte und Personen.</p>
+  <p>Die Texte sind zweisprachig, aber nicht parallel: Die Kolumnen und viele Zitate liegen nur im englischen Original vor, die Inhaltsangaben der Quellen auf Deutsch und Englisch. Eigennamen, Albumtitel und Jahreszahlen sind häufig. Eine Suchfunktion gibt es bisher nicht; Inhalte sind nur über Zeitstrahlen, Listen und Filter erreichbar.</p>
+  <p>Die Website läuft auf einem Server mit 2 vCPUs und knapp 4 GB Arbeitsspeicher, den sie mit anderen Diensten teilt. PHP 8.3 und Postgres 17 sind installiert. Ein Embedding-Modell mit mehreren Milliarden Parametern lässt sich dort nicht mit vertretbarer Antwortzeit betreiben.</p>
+</section>
+
+<section id="anforderungen">
+  <h2>2. Anforderungen</h2>
+  <p>Die Suche soll Anfragen nach ihrer Bedeutung beantworten, auch über Sprachgrenzen hinweg. Eine deutsche Anfrage nach Levens Alkoholabhängigkeit soll englische Kolumnenabsätze finden, die das Wort nicht enthalten. Zugleich muss sie bei Namen, Titeln, Katalognummern und Jahreszahlen exakt treffen und Schreibvarianten von Namen tolerieren.</p>
+  <p>Treffer sind Textstellen, in der Regel Absätze, und verweisen auf die Stelle auf der Zielseite. Das Projekt unterscheidet Levens eigene Texte, Aussagen Dritter, belegte Daten und die erfundene Autobiografie; die Ergebnisdarstellung behält diese Unterscheidung bei.</p>
+  <p>Die Suche ist auch für KI-Assistenten und Agenten zugänglich. Ein Assistent, der im Gespräch das Web durchsucht, etwa ChatGPT, soll die Seiten des Archivs finden, abrufen und mit genauer Fundstelle zitieren können; ein Agent mit eigenen Werkzeugen soll die Suche unmittelbar abfragen können (Abschnitt 10).</p>
+  <p>Neue Inhaltsarten werden als Daten ergänzt, ohne dass sich die Architektur ändert. Änderungen an Modell, Gewichtung oder Zuschnitt werden gegen einen festen Testsatz gemessen. Suchanfragen werden nicht protokolliert. Fällt ein externer Dienst aus, antwortet die Suche mit verminderter Qualität weiter. Ohne JavaScript bleibt sie über ein gewöhnliches Formular benutzbar.</p>
+</section>
+
+<section id="datenhaltung">
+  <h2>3. Datenhaltung</h2>
+  <p>Die Daten liegen als Dateien in einem eigenen, öffentlichen Datenrepository (<code>stefangrunert/jackieleven-archive</code>), wo sie bearbeitet, geprüft und versioniert werden. Code, Darstellung und vollständige Texte Dritter bleiben im privaten Repository der Website (<a href="ontologie.html#repository">Ontologie, Abschnitt 11</a>). Der Build der Website lädt eine festgelegte Version der Daten und erzeugt daraus ein Lesemodell in Postgres. Dieses Lesemodell wird nie von Hand geändert und lässt sich jederzeit vollständig aus beiden Repositories neu aufbauen.</p>
+  <p>Die Trennung erhält die bisherige Auslieferung. Ein Release ist ein abgeschlossenes Paket, der Wechsel erfolgt atomar über einen Symlink, und ein Rollback stellt das vorige Paket wieder her. Für die Datenbank bildet ein eigenes Schema je Release dieses Verhalten nach (Abschnitt 7). Ein Wechsel des Embedding-Modells ist unter diesen Bedingungen ein Neubau des Lesemodells und keine Datenmigration.</p>
+  <div class="abbildung">
+    <ol>
+      <li><b>Datenrepository</b> <span>– Datendateien, Schema, Validierung; Versionen mit Export</span></li>
+      <li><b>Website-Repository</b> <span>– Sperrdatei mit der Datenversion, Texte Dritter, Code</span></li>
+      <li><b>Build</b> <span>– Entitäten, Aussagen, Textstellen, Vektoren</span></li>
+      <li><b>Postgres-Schema des Release</b> <span>– für die Website nur lesbar</span></li>
+      <li><b>Suchdienst in Go</b> <span>– Suche, Schnittstelle, MCP-Server, Adressen unter <code>/id/</code></span></li>
+      <li><b>Website in PHP</b> <span>– Ergebnisseite, Sofortsuche, Entitätsseiten, verwandte Inhalte</span></li>
+    </ol>
+    <p class="unterschrift">Abb. 1: Datenfluss vom Repository zur Website</p>
+  </div>
+</section>
+
+<section id="datenmodell">
+  <h2>4. Datenmodell und Indexeinheit</h2>
+  <p>Das Datenmodell ist im Dokument <a href="ontologie.html">Ontologie des Archivs</a> beschrieben. Für die Suche sind drei seiner Teile maßgeblich. Entitäten sind die Gegenstände des Archivs: Personen, Gruppen, Orte, Ereignisse wie Konzerte, Werke, Aufnahmen, Ausgaben und Dokumente. Aussagen verbinden Entitäten untereinander oder mit Werten und tragen ihre Belege. Textstellen (<code>passage</code>) sind Abschnitte von Dokumenten mit einem Anker auf der Zielseite; sie sind die Einheit, die die Suche indexiert und als Treffer zurückgibt. Bezeichner im Schema und in der Datenbank sind englisch.</p>
+  <p>Jede Textstelle gehört zu einem Dokument und damit zu einer Stimme: Levens eigenes Wort, Stimmen Dritter, redaktionelle Texte der Website oder Pastiche. Nach dieser Zuordnung werden Treffer gruppiert. Erwähnungen verknüpfen Textstellen mit Entitäten. Erkennt die Suche in einer Anfrage einen Ort oder eine Person, kann sie deshalb neben den Textstellen auch die Entität mit ihren Beziehungen anzeigen.</p>
+  <p>Für den Suchindex erhält jede Textstelle folgende Felder:</p>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Feld</th><th>Inhalt</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code>, <code>document</code></td><td>Kennung der Textstelle und des Dokuments, zu dem sie gehört</td></tr>
+        <tr><td><code>version</code></td><td><code>original</code> oder Sprache einer redaktionellen Fassung (<code>de</code>, <code>en</code>)</td></tr>
+        <tr><td><code>text</code>, <code>context</code></td><td>Wortlaut und vorangestellter Kontextkopf (Abschnitt 6)</td></tr>
+        <tr><td><code>title</code>, <code>names</code></td><td>Titel des Dokuments und Namen erwähnter Entitäten, einschließlich Personas und Namensvarianten</td></tr>
+        <tr><td><code>anchor</code></td><td>Sprungziel auf der Zielseite</td></tr>
+        <tr><td><code>embedding</code></td><td><code>halfvec(1024)</code></td></tr>
+        <tr><td><code>content_hash</code></td><td>Grundlage des Embedding-Caches</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ablauf">
+  <h2>5. Ablauf einer Suchanfrage</h2>
+  <p>Lexikalische und semantische Suche ergänzen sich bei diesem Bestand. Eine Vektorsuche trifft Namen, Katalognummern und Jahreszahlen unzuverlässig, weil solche seltenen Zeichenfolgen in den Vektoren nur ungenau abgebildet werden. Eine Wortsuche findet dagegen keine Umschreibungen und keine Texte in einer anderen Sprache. Beide Verfahren laufen daher parallel; ihre Ranglisten werden anschließend zusammengeführt.</p>
+  <div class="abbildung">
+    <ol>
+      <li><b>Anfrageanalyse</b> <span>– Jahreszahlen und Jahrzehnte werden als Zeitfilter erkannt, bekannte Namen per Trigramm-Abgleich gegen die Entitäten. Geburtsname, Schreibvarianten und Personas werden auf die Person aufgelöst: Eine Anfrage nach „Sir Vincent Lone“ erkennt Persona und Person. Das Verfahren ist deterministisch und benötigt kein Sprachmodell.</span></li>
+      <li><b>Lexikalische Suche</b> <span>– BM25 über Text, Titel und Namen, nach Feld gewichtet. Parallel dazu:</span> <b>semantische Suche</b> <span>– Anfragevektor über DeepInfra (zwischengespeichert), Vektorsuche mit pgvector.</span></li>
+      <li><b>Fusion</b> <span>– Reciprocal Rank Fusion der beiden Ranglisten in einer SQL-Abfrage.</span></li>
+      <li><b>Reranking</b> <span>– Nachbewertung der 50 besten Treffer mit einem Cross-Encoder, nur auf der vollständigen Ergebnisseite.</span></li>
+      <li><b>Darstellung</b> <span>– Gruppierung nach Stimme, Entitäten zu erkannten Namen, Verweis auf die Textstelle.</span></li>
+    </ol>
+    <p class="unterschrift">Abb. 2: Verarbeitungsschritte einer Anfrage</p>
+  </div>
+
+  <h3>Fusion der Ranglisten</h3>
+  <p>Reciprocal Rank Fusion verrechnet die Ränge der Treffer, nicht ihre Scores. BM25-Werte und Kosinusabstände liegen auf unterschiedlichen Skalen und lassen sich ohne Kalibrierung nicht sinnvoll addieren, während Ränge vergleichbar sind. Die Konstante 60 ist der übliche Ausgangswert; sie wird wie die Länge der Ranglisten mit dem Testsatz überprüft. Die BM25-Syntax der Skizze entspricht ParadeDB <code>pg_search</code> und hängt von der gewählten Erweiterung ab.</p>
+<pre><code>WITH lexical AS (
+  SELECT id, row_number() OVER (ORDER BY paradedb.score(id) DESC) AS rank
+  FROM passage
+  WHERE text @@@ :query AND version IN ('original', :lang)
+  ORDER BY paradedb.score(id) DESC
+  LIMIT 50
+),
+semantic AS (
+  SELECT id, row_number() OVER (ORDER BY embedding &lt;=&gt; :embedding) AS rank
+  FROM passage
+  WHERE version IN ('original', :lang)
+  ORDER BY embedding &lt;=&gt; :embedding
+  LIMIT 50
+)
+SELECT id, sum(1.0 / (60 + rank)) AS rrf
+FROM (SELECT * FROM lexical UNION ALL SELECT * FROM semantic) t
+GROUP BY id
+ORDER BY rrf DESC
+LIMIT 50;</code></pre>
+  <p>Die Bedingung auf <code>version</code> beschränkt die deutsche Seite auf Originaltexte jeder Sprache und deutsche redaktionelle Texte, die englische entsprechend. Eine Quelle erscheint dadurch nicht zweimal, einmal je Sprachfassung ihrer Inhaltsangabe.</p>
+
+  <h3>Vektorindex</h3>
+  <p>Bei gefilterten Anfragen kann ein HNSW-Index weniger Treffer liefern als angefordert, weil die Filterbedingung erst nach der Indexsuche greift. pgvector setzt die Indexsuche ab Version 0.8 in diesem Fall fort (iterative Scans). Beim heutigen Bestand wäre eine exakte Suche ohne Index schnell genug und hätte vollständigen Recall; der Index wird im Hinblick auf das erwartete Wachstum angelegt.</p>
+
+  <h3>Zeitbudget und Rückfall</h3>
+  <p>Die folgenden Werte sind Annahmen und werden vor dem Bau gemessen.</p>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Schritt</th><th>Sofortsuche</th><th>Ergebnisseite</th></tr></thead>
+      <tbody>
+        <tr><td>Anfragevektor</td><td>0 ms aus dem Cache, sonst bis ca. 300 ms</td><td>wie Sofortsuche</td></tr>
+        <tr><td>Hybride SQL-Abfrage</td><td>unter 30 ms</td><td>unter 30 ms</td></tr>
+        <tr><td>Reranking</td><td>entfällt</td><td>ca. 200–500 ms</td></tr>
+        <tr><td>Zeitgrenze je externem Aufruf</td><td>800 ms</td><td>800 ms</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Wird eine Zeitgrenze überschritten, entfällt der betreffende Schritt. Ohne Anfragevektor sucht die Seite rein lexikalisch und über den Namensabgleich, ohne Reranking gilt die Reihenfolge der Fusion.</p>
+</section>
+
+<section id="embeddings">
+  <h2>6. Embeddings</h2>
+  <p>Als Modell ist Qwen3-Embedding-8B vorgesehen, abgerufen über die Programmierschnittstelle von DeepInfra. Die Wahl beruht auf Versuchen in anderen Projekten; ein Vergleich mit den kleineren Varianten 0.6B und 4B erfolgt mit dem Testsatz. Die Gewichte des Modells sind veröffentlicht. Entfällt der Anbieter, kann dasselbe Modell bei einem anderen Anbieter oder auf eigener Hardware betrieben und der Bestand neu eingebettet werden.</p>
+  <p>Das Modell liefert Vektoren mit 4096 Dimensionen. Da es mit Matryoshka Representation Learning trainiert wurde, tragen die vorderen Dimensionen den größten Teil der Information. Die Vektoren werden auf 1024 Dimensionen gekürzt und danach neu normiert. Als <code>halfvec</code> belegt ein Vektor 2 KB, bei 100.000 Textstellen also rund 200 MB zuzüglich Index. Ob 1024 Dimensionen genügen, zeigt der Testsatz.</p>
+  <p>Index und Anfrage müssen dasselbe Modell in derselben Genauigkeit verwenden. Lokal erzeugte Vektoren, etwa aus einer quantisierten Ollama-Fassung desselben Modells, sind mit denen des Anbieters nicht austauschbar.</p>
+
+  <h3>Zuschnitt der Textstellen</h3>
+  <p>Textstellen folgen der Struktur der Dokumente: Absätze von etwa 150 bis 400 Tokens, die nie über eine Dokumentgrenze hinausreichen. Kürzere Absätze werden mit ihrem Nachbarn zusammengefasst, längere an Satzgrenzen geteilt. Titellisten und Zitate bleiben ungeteilt.</p>
+
+  <h3>Kontextkopf</h3>
+  <p>Ein Kolumnenabsatz nennt in der Regel weder Autor noch Datum. Vor dem Einbetten wird jeder Textstelle daher ein Kopf aus den Metadaten ihres Dokuments vorangestellt:</p>
+<pre><code>Jackie Leven · The Deep Pool · Kolumne, März 2005
+[Absatz]
+
+Sounds · 6. November 1971 · Jerry Gilbert · Rezension
+[Absatz]</code></pre>
+  <p>Zusätzlich kann ein Sprachmodell einmalig je Textstelle einen Satz erzeugen, der sie im Dokument einordnet (Contextual Retrieval). Der Satz wird zwischengespeichert; ob er die Trefferqualität verbessert, wird gemessen.</p>
+
+  <h3>Anfrageinstruktion</h3>
+  <p>Qwen3 bettet Anfragen mit einer vorangestellten Aufgabenbeschreibung ein, Dokumente ohne. Die Beschreibung wird auf den Bestand zugeschnitten und ist auf Englisch formuliert, wie es die Modelldokumentation empfiehlt:</p>
+<pre><code>Instruct: Given a question about the Scottish songwriter Jackie Leven,
+retrieve passages from his own writing, press coverage, concert history
+and discography that answer it
+Query: Wann war Jackie in Norwegen?</code></pre>
+
+  <h3>Cache</h3>
+  <p>Vektoren werden unter einem Hash aus Modell, Dimension, Version des Kontextkopfs und Text gespeichert. Ein Build bettet nur geänderte Textstellen neu ein. Da Modell und Dimension im Schema vermerkt sind, ist ein Modellvergleich ein Parameter des Builds.</p>
+</section>
+
+<section id="deploy">
+  <h2>7. Build und Deploy</h2>
+  <div class="abbildung">
+    <ol>
+      <li><b>Datenversion laden</b> <span>– Export der in der Sperrdatei genannten Version mit Prüfsumme; validiert wurde er bereits im Datenrepository</span></li>
+      <li><b>Entitäten, Aussagen, Textstellen</b> <span>– Textstellen der Texte Dritter aus dem Website-Repository; Prüfung, dass alle Verweise auf Textstellen auflösbar sind</span></li>
+      <li><b>Kontextkopf und Embeddings</b> <span>– nur für geänderte Textstellen, über den Cache</span></li>
+      <li><b>Evaluation</b> <span>– Testsatz gegen den neuen Index</span></li>
+      <li><b>Schema <code>search_&lt;release&gt;</code> laden</b> <span>– auf dem Server, vor dem Umschalten, mit Stichproben</span></li>
+      <li><b>Release-Wechsel</b> <span>– Symlink und Schema wechseln gemeinsam</span></li>
+    </ol>
+    <p class="unterschrift">Abb. 3: Build und Deploy</p>
+  </div>
+  <p>Die Pipeline wird in Python geschrieben und mit uv verwaltet. Für Embeddings, Evaluation und Sprachmodelle ist das Angebot an Bibliotheken dort größer, und <code>werkzeug/</code> enthält bereits Python-Werkzeuge. Zur Laufzeit arbeiten der Suchdienst in Go und die Website in PHP (Abschnitt 9).</p>
+  <p>Der Suchdienst wird lokal für Linux kompiliert und als einzelne ausführbare Datei in das Release aufgenommen; die Positivliste der Release-Dateien wird entsprechend erweitert. Nach dem Umschalten des Symlinks startet das Deploy den Dienst neu. Über Socket-Aktivierung von systemd bleibt der Socket während des Neustarts geöffnet, sodass keine Anfragen verloren gehen. Ein Rollback schaltet auf das vorige Release mit seiner eigenen Fassung des Dienstes zurück.</p>
+  <p>Jedes Release kennt seine Datenversion und den Namen seines Schemas. Ein Rollback auf <code>site-previous</code> verwendet daher auch das zugehörige vorige Schema; ältere Schemas werden nach einer festen Anzahl von Releases entfernt. Die Website verbindet sich mit einer Rolle, die nur lesen darf. Das Deploy verwendet eine eigene Rolle, die Schemas anlegen und löschen kann.</p>
+  <p>Verschlechtert sich ein Messwert des Testsatzes gegenüber dem laufenden Release über eine festgelegte Toleranz hinaus, bricht das Deploy ab.</p>
+</section>
+
+<section id="evaluation">
+  <h2>8. Evaluation</h2>
+  <p>Ein Testsatz von mindestens 50 Anfragen auf Deutsch und Englisch liegt im Website-Repository, jeweils mit den erwarteten Treffern:</p>
+<pre><code>- query: Wann war Jackie in Norwegen?
+  language: de
+  kind: cross_lingual
+  expected:
+    - document/1998-03-06-nordlys-live-med-leven</code></pre>
+  <p>Die Anfragen verteilen sich auf exakte Titel und Namen, Jahre und Zeiträume, Umschreibungen, deutsche Anfragen an englische Texte, Anfragen nach Entitäten und Anfragen, zu denen das Archiv nichts enthält. Bei der letzten Gruppe wird geprüft, ob die Suche schwache Treffer als solche erkennbar macht.</p>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Konfiguration</th><th>nDCG@10</th><th>Recall@20</th><th>p95</th></tr></thead>
+      <tbody>
+        <tr><td>nur BM25</td><td class="offen">offen</td><td class="offen">offen</td><td class="offen">offen</td></tr>
+        <tr><td>nur Vektorsuche</td><td class="offen">offen</td><td class="offen">offen</td><td class="offen">offen</td></tr>
+        <tr><td>Hybrid (RRF)</td><td class="offen">offen</td><td class="offen">offen</td><td class="offen">offen</td></tr>
+        <tr><td>Hybrid mit Reranking</td><td class="offen">offen</td><td class="offen">offen</td><td class="offen">offen</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Gemessen wird außerdem je Modellgröße, Dimension und Fassung des Kontextkopfs. Die Evaluation fragt den Suchdienst über seine Schnittstelle ab und misst damit dieselbe Konfiguration, die ausgeliefert wird. Die Ergebnisse begründen die gewählte Konfiguration und dienen im Deploy als Vergleichswert.</p>
+</section>
+
+<section id="betrieb">
+  <h2>9. Suchdienst, Datenschutz und Betrieb</h2>
+
+  <h3>Suchdienst in Go</h3>
+  <p>Suche, HTTP-Schnittstelle, MCP-Server und die Auflösung der <code>/id/</code>-Adressen laufen in einem eigenen Dienst, der in Go geschrieben ist. Eine Suchanfrage wartet überwiegend auf externe Dienste, auf DeepInfra für den Anfragevektor und auf der Ergebnisseite zusätzlich auf den Reranker. In PHP-FPM belegt jede solche Anfrage für diese Zeit einen Worker, und die Zahl der Worker ist auf dem geteilten Server knapp; gleichzeitige Anfragen von Agenten könnten so Worker binden, die auch die übrigen Seiten ausliefern. Der Go-Dienst hält wartende Anfragen mit geringem Speicherbedarf und unabhängig von PHP-FPM. Für den MCP-Server steht ein offizielles SDK für Go zur Verfügung, das Streamable HTTP einschließlich gestreamter Antworten unterstützt.</p>
+  <p>Der Dienst lauscht auf einem Unix-Socket. nginx leitet <code>/api/</code>, <code>/mcp</code> und <code>/id/</code> an ihn weiter. Er liest Postgres über pgx mit der pgvector-Erweiterung und ruft DeepInfra mit Zeitgrenzen auf; Anfragevektoren hält er in einem begrenzten Zwischenspeicher im Arbeitsspeicher. HTML erzeugt er nicht. Für <code>/id/</code> liefert er JSON-LD und Markdown und leitet HTML-Anfragen auf die Seiten der Website weiter, auch auf die einfachen Entitätsseiten.</p>
+  <p>Die Website bleibt in PHP. Ergebnisseite, Sofortsuche und Entitätsseiten fragen den Suchdienst über den Unix-Socket ab und rendern das Ergebnis mit den vorhandenen Templates, Übersetzungen und dem Layout. Der Dienst läuft unter einem eigenen Systembenutzer als systemd-Unit mit Speichergrenze.</p>
+
+  <h3>Datenschutz</h3>
+  <p>DeepInfra erhält ausschließlich den Text der Suchanfrage, weder IP-Adresse noch Cookies. Dieser Datenfluss wird im Datenschutzabschnitt der Website genannt. Da Anfragevektoren im Suchdienst zwischengespeichert werden, werden wiederholte Anfragen nicht erneut übertragen.</p>
+  <p>Suchanfragen werden nicht protokolliert. Erfasst werden nur Summen: Antwortzeiten, der Anteil der Anfragen im Rückfallbetrieb und der Anteil ohne Treffer. Der API-Schlüssel steht als <code>JACKIE_DEEPINFRA_API_KEY</code> in einer nur für root lesbaren Umgebungsdatei der systemd-Unit, außerhalb der Releases, wie die übrigen Schlüssel der Website in der PHP-FPM-Poolkonfiguration; beim Anbieter ist ein Ausgabenlimit gesetzt.</p>
+  <p>Die bestehende Begrenzung der Anfragen je Besucher in nginx gilt auch für die Suche. Ergebnisseiten tragen <code>noindex</code>.</p>
+</section>
+
+<section id="agenten">
+  <h2>10. Zugang für Agenten und KI-Suchen</h2>
+  <p>KI-Assistenten erreichen das Archiv auf zwei Wegen. Bei einer Websuche findet der Assistent Seiten über einen Suchindex, ruft sie ab und zitiert sie; dafür müssen die Seiten erreichbar, maschinell gut lesbar und eindeutig ausgezeichnet sein. Agenten mit eigenen Werkzeugen fragen die Suche dagegen unmittelbar ab, über eine HTTP-Schnittstelle oder einen MCP-Server. Beide Wege verwenden dieselbe Suche und dasselbe Lesemodell wie die Website.</p>
+
+  <h3>Crawler und Abruf</h3>
+  <p>OpenAI unterscheidet drei Crawler, die in robots.txt getrennt behandelt werden: OAI-SearchBot baut den Suchindex von ChatGPT auf, ChatGPT-User ruft Seiten ab, wenn ein Nutzer im Gespräch danach fragt, und GPTBot sammelt Inhalte für das Training von Modellen. Für ChatGPT-User gelten die Regeln der robots.txt nach Angabe von OpenAI möglicherweise nicht, da der Abruf von einem Nutzer ausgelöst wird. Anthropic unterscheidet entsprechend Claude-SearchBot, Claude-User und ClaudeBot.</p>
+  <p>Die robots.txt der Website erlaubt heute allen Crawlern den Zugriff. Damit ist der Zugang noch nicht gesichert, denn Cloudflare kann KI-Crawler unabhängig von der robots.txt blockieren oder herausfordern; für neu eingerichtete Domains wird eine solche Voreinstellung berichtet. Die Einstellungen der Zone werden daher geprüft, und Such- und Abrufcrawler werden ausdrücklich zugelassen. Stellt Cloudflare der robots.txt eigene, verwaltete Regeln voran, werden diese abgeschaltet oder an die folgenden Regeln angeglichen.</p>
+
+  <h3>Training</h3>
+  <p>Trainingscrawler sind zugelassen, auch für Levens Kolumnen. Die Kolumnen sind über das Internet Archive ohnehin zugänglich und vermutlich bereits in älteren Sammlungen von Webtexten enthalten; eine Sperre auf der Website hätte daran wenig geändert. Die Website gibt sie ohne ausdrückliche Zustimmung der Rechteinhaber wieder und sagt auf der Seite „Über“ zu, sie auf Wunsch umgehend zu entfernen. Bei einem solchen Wunsch werden die Kolumnen von der Website entfernt und ihre Pfade für Trainingscrawler gesperrt; was bis dahin in ein Training eingegangen ist, lässt sich nicht zurücknehmen.</p>
+  <p>Ausgenommen bleiben die Faksimiles, die Ausschnitte aus Zeitungen und Tonträgern zeigen, an denen das Projekt keine Rechte hat. Ausgenommen sind außerdem die Suche, die Schnittstelle und der MCP-Server. Ihre Antworten hängen von der Anfrage ab, wiederholen Inhalte der Seiten und lösen bei jedem nicht zwischengespeicherten Aufruf eine Einbettung bei DeepInfra aus, die Kosten verursacht.</p>
+  <p>Die robots.txt wird heute in <code>index.php</code> erzeugt und um eine Gruppe für die bekannten Trainingscrawler erweitert. Ein Crawler folgt nur der Gruppe, die seinen Namen nennt; die Gruppe der Trainingscrawler enthält deshalb alle für sie geltenden Regeln.</p>
+<pre><code>User-agent: *
+Content-Signal: search=yes, ai-input=yes
+Allow: /
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Disallow: /assets/images/voices/
+Disallow: /de/suche
+Disallow: /en/search
+Disallow: /api/
+Disallow: /mcp
+Allow: /
+
+Sitemap: https://jackieleven.com/sitemap.xml</code></pre>
+  <p>Such- und Abrufcrawler wie OAI-SearchBot, ChatGPT-User, Claude-SearchBot und Claude-User fallen unter die erste Gruppe. Sie dürfen alle Seiten lesen und als Grundlage von Antworten verwenden; das entspricht dem Signal <code>ai-input=yes</code>. Ein Signal <code>ai-train</code> wird nicht gesetzt, weil es für alle Pfade der Gruppe gälte und die Ausnahme für die Faksimiles nicht ausdrücken kann. Google-Extended steuert die Verwendung durch Googles KI-Modelle, nicht die Indexierung für die Google-Suche.</p>
+  <p>Die robots.txt wird freiwillig befolgt; Crawler, die sie missachten, hält sie nicht auf. Wenn nötig, können die gesperrten Pfade für bekannte Trainingscrawler zusätzlich mit einer Regel der Cloudflare-Firewall geschützt werden. Die Liste der Trainingscrawler ist nicht abschließend und wird bei Bedarf ergänzt.</p>
+  <p>Die bestehende Begrenzung auf 5 Anfragen je Sekunde rechnet je IP-Adresse. Abrufe von KI-Assistenten kommen gebündelt aus wenigen Adressbereichen der Anbieter und können diese Grenze erreichen, obwohl jeder einzelne Nutzer nur eine Seite anfordert. Für die veröffentlichten Adressbereiche, die OpenAI je Crawler als JSON-Liste bereitstellt, wird die Grenze deshalb angehoben. Einige KI-Suchen greifen außerdem auf herkömmliche Suchindizes zurück; geänderte Adressen werden nach jedem Deploy zusätzlich über IndexNow gemeldet.</p>
+
+  <h3>Maschinenlesbare Seiten</h3>
+  <p>Alle Seiten werden serverseitig erzeugt und sind ohne JavaScript vollständig lesbar; diese Voraussetzung erfüllt die Website bereits. Hinzu kommen:</p>
+  <ul>
+    <li><b>JSON-LD auf jeder Seite</b> mit der <code>/id/</code>-Adresse als <code>@id</code>, Typ, Datum, Urheber, Stimme und bestätigten <code>sameAs</code>-Verweisen.</li>
+    <li><b>Kennzeichnung der Stimme</b> im sichtbaren Text und im JSON-LD. Die Kapitel der Pastiche sind zusätzlich maschinenlesbar als Fiktion ausgewiesen, damit ein Assistent sie nicht als Levens Worte zitiert.</li>
+    <li><b>Anker je Textstelle.</b> Jede Textstelle ist über eine Adresse mit Fragment zitierbar; Ergebnisse von Suche, Schnittstelle und MCP-Server verweisen auf diese Adressen.</li>
+    <li><b>Markdown-Fassung</b> jeder Seite und jeder <code>/id/</code>-Adresse über <code>Accept: text/markdown</code>: Hauptinhalt ohne Navigation, mit einem Kopf aus Titel, Datum, Urheber, Stimme, kanonischer Adresse und Lizenz.</li>
+    <li><b>llms.txt</b> im Wurzelverzeichnis mit einer kurzen Beschreibung des Archivs, der Unterscheidung der Stimmen, den Hauptbereichen und den Adressen von Schnittstelle, MCP-Server und Datenrepository. Die Datei folgt einem Vorschlag, keinem Standard; wie weit Assistenten sie auswerten, ist offen, der Aufwand ist gering.</li>
+    <li><b>Suchseite mit GET-Adresse.</b> <code>/de/suche?q=…</code> liefert die Ergebnisse serverseitig, sodass auch ein Assistent, der nur Seiten abrufen kann, die Suche verwenden kann. Ergebnisseiten tragen <code>noindex</code>, sind in robots.txt aber nicht gesperrt.</li>
+  </ul>
+
+  <h3>HTTP-Schnittstelle</h3>
+  <p>Die Schnittstelle ist lesend, ohne Schlüssel nutzbar und für Aufrufe aus dem Browser freigegeben (CORS). Eine OpenAPI-Beschreibung liegt unter <code>/api/openapi.json</code>.</p>
+<pre><code>GET /api/search?q=Norwegen&amp;lang=de&amp;type=document&amp;from=1990&amp;to=1999&amp;limit=20</code></pre>
+  <p>Die Antwort enthält die Auswertung der Anfrage (erkannte Entitäten, Zeitfilter) und je Treffer die Kennung der Textstelle, die Adresse mit Anker, Titel und Datum des Dokuments, die Stimme, einen Textauszug und die Lizenz. Erkannte Entitäten werden mit ihrer <code>/id/</code>-Adresse aufgeführt, über die Aussagen, Ränge und Belege als JSON-LD abrufbar sind.</p>
+
+  <h3>MCP-Server</h3>
+  <p>Ein MCP-Server unter <code>/mcp</code> stellt die Suche über Streamable HTTP bereit, lesend und ohne Anmeldung. Für Deep Research und die Wissensanbindung von ChatGPT erwartet OpenAI zwei Werkzeuge mit den Namen <code>search</code> und <code>fetch</code>; ohne Entwicklermodus nimmt ChatGPT nur Server an, die beide anbieten. Der Server stellt diese beiden Werkzeuge in der dokumentierten Form bereit: <code>search</code> liefert Kennungen, Titel und Adressen von Textstellen und Entitäten, <code>fetch</code> den vollständigen Inhalt mit Metadaten und Belegen. Für Agenten, die weitere Werkzeuge nutzen, kommen <code>get_entity</code> (Aussagen mit Rang und Belegen), <code>list_events</code> (nach Zeitraum, Art und Ort) und <code>list_disputed</code> (strittige Angaben) hinzu. Claude und andere MCP-Clients verwenden denselben Server.</p>
+  <p>Schnittstelle und MCP-Server liefern zu jeder Aussage Stimme, Belegart, Rang und Belege. Ein Assistent kann so Levens Selbstaussagen von Angaben Dritter unterscheiden und strittige Daten als strittig wiedergeben, statt einen der Werte auszuwählen. Beim Lesen der Seiten müsste er diese Unterscheidung aus dem Fließtext erschließen.</p>
+  <p>Anfragen über Schnittstelle und MCP-Server werden wie die der Website behandelt: Der Suchtext geht zur Einbettung an DeepInfra, protokolliert wird er nicht. Beide erhalten eigene Begrenzungen je Adressbereich.</p>
+
+  <h3>Prüfung</h3>
+  <p>Der Testsatz aus Abschnitt 8 wird um Aufgaben für Assistenten ergänzt: Fragen an ChatGPT und Claude mit Websuche und mit angebundenem MCP-Server. Geprüft wird, ob das Archiv gefunden und mit der richtigen Textstelle zitiert wird, ob strittige Angaben als solche erscheinen und ob die Pastiche nicht als Beleg dient. Diese Prüfung erfolgt in festen Abständen von Hand, da sich die Antworten der Assistenten nicht reproduzierbar automatisieren lassen. Ob die Crawler die Seiten erreichen, zeigen die zusammengefassten Bot-Statistiken von Cloudflare.</p>
+</section>
+
+<section id="entscheidungen">
+  <h2>11. Entscheidungen</h2>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Thema</th><th>Gewählt</th><th>Verworfen</th><th>Begründung</th></tr></thead>
+      <tbody>
+        <tr><td>Datenhaltung</td><td>Dateien in einem öffentlichen Datenrepository, Postgres als abgeleitetes Lesemodell</td><td>Postgres oder CMS als Primärquelle</td><td>prüfbare Änderungen, atomare Releases, vollständiger Neubau möglich</td></tr>
+        <tr><td>Suchsystem</td><td>Postgres 17 mit pgvector und BM25-Erweiterung</td><td>Elasticsearch, OpenSearch, Qdrant, Meilisearch, Vespa</td><td>ein System für Text, Vektoren und Beziehungen; bereits vorhanden; begrenzter Arbeitsspeicher</td></tr>
+        <tr><td>Embeddings</td><td>Qwen3-Embedding-8B über DeepInfra, 1024 Dimensionen</td><td>eigenes Hosting auf dem Server, proprietäre Modelle</td><td>Qualität bei sprachübergreifenden Anfragen; veröffentlichte Gewichte; Server reicht nur für 0.6B</td></tr>
+        <tr><td>Lexikalische Suche</td><td>BM25 über Erweiterung</td><td><code>ts_rank</code></td><td><code>ts_rank</code> berücksichtigt keine Dokumenthäufigkeit</td></tr>
+        <tr><td>Fusion</td><td>Reciprocal Rank Fusion</td><td>gewichtete Summe der Scores</td><td>unabhängig von den Skalen der Scores</td></tr>
+        <tr><td>Reranking</td><td>Cross-Encoder auf der Ergebnisseite</td><td>Reranking auch in der Sofortsuche</td><td>zusätzliche Antwortzeit von mehreren hundert Millisekunden</td></tr>
+        <tr><td>Pipeline</td><td>Python mit uv</td><td>PHP</td><td>Bibliotheken für Embeddings und Evaluation</td></tr>
+        <tr><td>Laufzeit</td><td>Suchdienst in Go; Darstellung in PHP</td><td>PHP-Modul mit eigenem FPM-Pool</td><td>wartende Anfragen an externe Dienste binden keine FPM-Worker; MCP mit Streamable HTTP; Lernziel des Projekts</td></tr>
+        <tr><td>Releases</td><td>Schema je Release</td><td>eine fortlaufend überschriebene Tabelle</td><td>atomarer Wechsel und Rollback bleiben erhalten</td></tr>
+        <tr><td>Agentenzugang</td><td>HTTP-Schnittstelle und MCP-Server auf Basis derselben Suche, maschinenlesbare Seiten</td><td>nur Seiten für Crawler</td><td>Agenten erhalten Stimme, Rang und Belege strukturiert</td></tr>
+        <tr><td>KI-Training</td><td>Trainingscrawler zugelassen, einschließlich der Kolumnen; ausgenommen Faksimiles, Suche, Schnittstelle und MCP-Server</td><td>vollständige Sperre; Sperre der Kolumnen</td><td>Kolumnen sind über das Internet Archive ohnehin zugänglich; Faksimiles zeigen Material Dritter; Suche und Schnittstelle verursachen Kosten je Aufruf</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Eine eigenständige Suchmaschine ist nicht vorgesehen. Sie wäre ein zweites System auf einem kleinen, geteilten Server, und die Beziehungen zwischen Personen, Konzerten und Quellen erfordern ohnehin eine relationale Datenbank. Ein Sprachmodell zur Laufzeit ist in der ersten Stufe ebenfalls nicht vorgesehen. Generierte Antworten hängen von der Qualität der zugrunde liegenden Treffer ab, die zuerst gemessen werden soll.</p>
+</section>
+
+<section id="stufen">
+  <h2>12. Ausbaustufen</h2>
+  <ol>
+    <li><b>Grundlage.</b> Schema der Ontologie, Pipeline, Schema je Release, Suchdienst in Go mit hybrider Suche über den heutigen Bestand, Testsatz, Ergebnisseite und Sofortsuche. Adressen unter <code>/id/</code> mit Content Negotiation und einfachen Entitätsseiten. Zugang für Agenten: HTTP-Schnittstelle mit OpenAPI-Beschreibung, MCP-Server mit <code>search</code> und <code>fetch</code>, Markdown-Fassungen, llms.txt, Einstellungen von robots.txt und Cloudflare.</li>
+    <li><b>Entitäten.</b> Übernahme des Konzertkalenders, Personen und Orte als eigene Daten; Abgleich mit Wikidata und MusicBrainz; Recherche der Aufnahmen und Übernahme der Diskografie je Veröffentlichung. In den Ergebnissen erscheinen Entitäten, Filter nach Art und Zeitraum und die zeitliche Verteilung der Treffer.</li>
+    <li><b>Reranking, verwandte Inhalte und Freigabe.</b> Nachbewertung auf der Ergebnisseite. Aus den vorhandenen Vektoren werden für jede Seite verwandte Inhalte berechnet, etwa die Quellen, die sich auf das Thema einer Kolumne beziehen; die Berechnung erfolgt im Build. Bestätigte Angaben gehen als Bearbeitungsvorschläge an Wikidata und MusicBrainz. Die Versionen des Datenrepositorys werden bei Zenodo mit DOI archiviert.</li>
+    <li><b>Antworten.</b> Antworten mit Beleg für jede Aussage über die Claude-API; die Pastiche ist als Beleg ausgeschlossen, Widersprüche zwischen Quellen werden benannt. Der MCP-Server erhält die weiteren Werkzeuge <code>get_entity</code>, <code>list_events</code> und <code>list_disputed</code>, sobald die Entitäten aus Stufe 2 vorliegen.</li>
+  </ol>
+</section>
+
+<section id="offen">
+  <h2>13. Offene Punkte</h2>
+  <h3>Zu entscheiden</h3>
+  <ul>
+    <li>Pastiche in der Suche: als eigene, gekennzeichnete Gruppe oder ausgeschlossen.</li>
+    <li>BM25-Erweiterung: ParadeDB <code>pg_search</code> (AGPL) oder <code>pg_textsearch</code>.</li>
+    <li>Eigene Datenbank im bestehenden Postgres-Cluster oder eigener Cluster, falls eine Erweiterung <code>shared_preload_libraries</code> benötigt.</li>
+    <li>Anfragen ohne Treffer festhalten, um Lücken im Archiv zu erkennen, oder darauf verzichten.</li>
+  </ul>
+  <h3>Vor dem Bau zu prüfen</h3>
+  <ul>
+    <li>pgvector auf dem Server: vorhanden und mindestens Version 0.8.</li>
+    <li>BM25-Erweiterung auf Postgres 17 installierbar, ohne andere Datenbanken zu beeinträchtigen.</li>
+    <li>Suchdienst auf dem Server: Socket-Aktivierung über systemd, Weiterleitung in nginx, Speicherbedarf im Betrieb.</li>
+    <li>DeepInfra: Verfügbarkeit von Qwen3-Embedding-8B und Qwen3-Reranker, Antwortzeit vom Server aus, Bedingungen zur Datenspeicherung.</li>
+    <li>Arbeitsspeicher im geteilten Postgres-Cluster für Index und Cache.</li>
+    <li>Tatsächliche Zahl der Textstellen im heutigen Bestand.</li>
+    <li>Einstellungen der Cloudflare-Zone für KI-Crawler und Bot-Abwehr; Erreichbarkeit von Seiten, Schnittstelle und MCP-Server für die Crawler und Clients der Anbieter.</li>
+    <li>Aktuelle Anforderungen von ChatGPT an MCP-Server, einschließlich der Tarife und des Entwicklermodus, in denen eigene Server angebunden werden können.</li>
+  </ul>
+</section>
+
+<footer>Entwurf in <code>.dev/</code>, nicht Teil der Website.</footer>
+
+</main>
+</body>
+</html>

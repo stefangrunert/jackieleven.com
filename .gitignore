@@ -15,7 +15,11 @@ sketches.zip
 
 # Zugangsdaten für den Formularversand
 /app/config.local.php
-/.dev/
+/.dev/*
+!/.dev/ontologie.html
+!/.dev/suche-architektur.html
+!/.dev/erschliessung.html
+!/.dev/pruefung-ontologie-suche-2026-10-25.html
 
 # Python-Zwischendateien
 __pycache__/

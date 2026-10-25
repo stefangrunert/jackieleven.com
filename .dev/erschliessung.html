@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archiv-Erschließung · Entwurf</title>
+<meta name="description" content="Entwurf der Erschließungsstrategie für das Jackie-Leven-Archiv: vorhandenes Material, Lücken, Quellen, Abdeckungsregister, Arbeitsweise mit Agenten und Prüfung.">
+<style>
+/* Gemeinsame Gestaltung der Entwurfsdokumente in .dev/ */
+
+:root {
+  --bg: #fbfbfa;
+  --fl: #f1f1ef;
+  --ink: #1d1f22;
+  --ink-2: #4a4f57;
+  --ink-3: #737a84;
+  --line: #dcdcd8;
+  --link: #2f5d8a;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --fl: #1d2024;
+    --ink: #e2e4e7;
+    --ink-2: #b5bac1;
+    --ink-3: #868d97;
+    --line: #2e3238;
+    --link: #8fb4d9;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-underline-offset: .15em; }
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3.5rem 16px 5rem;
+}
+
+header { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+h1 {
+  font-family: var(--sans);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  margin-bottom: .6rem;
+}
+.angaben {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+.angaben div { margin-top: .15rem; }
+
+nav.inhalt { font-family: var(--sans); font-size: 14px; margin-bottom: 2.5rem; }
+nav.inhalt ol { padding-left: 1.4rem; columns: 2 15rem; column-gap: 2rem; }
+nav.inhalt li { padding: .1rem 0; break-inside: avoid; color: var(--ink-3); }
+nav.inhalt a { text-decoration: none; }
+nav.inhalt a:hover { text-decoration: underline; }
+
+section { margin-top: 2.8rem; scroll-margin-top: 1rem; }
+
+h2 {
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: .8rem;
+}
+h3 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.8rem 0 .5rem;
+}
+
+p { margin-bottom: .9rem; }
+ul, ol { margin: 0 0 1rem 1.3rem; }
+li { margin-bottom: .3rem; }
+li > ul { margin-top: .3rem; }
+
+code {
+  font-family: var(--mono);
+  font-size: .84em;
+  background: var(--fl);
+  border-radius: 3px;
+  padding: .05em .28em;
+}
+pre {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+  background: var(--fl);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .85rem 1rem;
+  overflow-x: auto;
+  margin: .4rem 0 1.2rem;
+}
+pre code { background: none; padding: 0; font-size: inherit; }
+
+.tabelle { overflow-x: auto; margin: .4rem 0 1.4rem; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+th, td { text-align: left; vertical-align: top; padding: .45rem .6rem; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; color: var(--ink-2); border-bottom-width: 2px; white-space: nowrap; }
+td code { font-size: 12.5px; }
+td.offen { color: var(--ink-3); }
+
+.abbildung {
+  font-family: var(--sans);
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: .4rem 0 1.4rem;
+  overflow-x: auto;
+}
+.abbildung ol { list-style: none; margin: 0; counter-reset: s; }
+.abbildung ol > li {
+  counter-increment: s;
+  position: relative;
+  padding: .35rem 0 .35rem 2rem;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.abbildung ol > li:first-child { border-top: 0; }
+.abbildung ol > li::before {
+  content: counter(s);
+  position: absolute;
+  left: 0; top: .35rem;
+  width: 1.4rem;
+  text-align: right;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.abbildung b { font-weight: 600; }
+.abbildung span { color: var(--ink-2); }
+.abbildung .unterschrift { margin-top: .7rem; font-size: 13px; color: var(--ink-3); }
+
+.hinweis {
+  border-left: 3px solid var(--line);
+  padding: .2rem 0 .2rem 1rem;
+  color: var(--ink-2);
+  margin: 1rem 0 1.2rem;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16.5px; }
+  main { padding-top: 2.2rem; }
+  h1 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Erschließung des Jackie-Leven-Archivs: Entwurf</h1>
+  <div class="angaben">
+    <div>Entwurf · Stand 25. Oktober 2026 · Stefan Grunert</div>
+    <div>Bezug: <a href="ontologie.html">Ontologie des Archivs</a> · <a href="suche-architektur.html">Architekturentwurf der Suche</a></div>
+  </div>
+</header>
+
+<nav class="inhalt" aria-label="Inhalt">
+  <ol>
+    <li><a href="#ausgangslage">Ausgangslage</a></li>
+    <li><a href="#grundsaetze">Ziel und Grundsätze</a></li>
+    <li><a href="#tiefe">Erschließung des vorhandenen Materials</a></li>
+    <li><a href="#luecken">Lückenbericht</a></li>
+    <li><a href="#quellen">Quellen</a></li>
+    <li><a href="#register">Abdeckungsregister</a></li>
+    <li><a href="#arbeitsweise">Aufträge, Vorschläge und Prüfung</a></li>
+    <li><a href="#regeln">Regeln der Erfassung</a></li>
+    <li><a href="#beitraege">Beiträge von außen</a></li>
+    <li><a href="#messung">Messgrößen</a></li>
+    <li><a href="#stufen">Stufen</a></li>
+    <li><a href="#offen">Entscheidungen</a></li>
+  </ol>
+</nav>
+
+<section id="ausgangslage">
+  <h2>1. Ausgangslage</h2>
+  <p>Der Bestand des Archivs umfasst 741 Quellen über Jackie Leven mit eigenen Inhaltsangaben, 73 veröffentlichte Kolumnen aus 76 geborgenen Texten, zwölf Rechercheakten zu Lebensabschnitten, Diskografie, Konzerten und Websites, einen Konzertkalender mit 470 Auftritten der Jahre 1997 bis 2011 und die Diskografie mit 88 Einträgen. Er ist in wenigen Wochen entstanden und deckt Levens Leben und Werk ungleichmäßig ab.</p>
+  <p>Die Quellen wurden in zwei Runden von Rechercheagenten gesammelt. In der ersten Runde liefen elf Agenten parallel, jeder mit einem eigenen Suchraum; ein gemeinsames Kontingent von 200 Websuchen war nach einem Drittel der Laufzeit verbraucht, und archive.org war zeitweise gestört. Mehrere Bereiche sind deshalb nicht systematisch abgesucht. Was gesucht und nicht gefunden wurde, steht als Prosa in <code>research/quellen/verlorene-spuren.md</code>.</p>
+  <p>Die Recherche hat vor allem Dokumente erfasst. Konzerte, Personen, Orte, Sendungen und Lebensereignisse, die in diesen Dokumenten vorkommen, stehen bisher im Fließtext der Inhaltsangaben und Rechercheakten. Für die Ontologie sind sie damit noch nicht vorhanden. Eine bloße Übertragung der Kopfdaten in das neue Modell ergäbe viele Dokumente, aber wenige Verknüpfungen.</p>
+</section>
+
+<section id="grundsaetze">
+  <h2>2. Ziel und Grundsätze</h2>
+  <p>Ziel der Erschließung ist ein Bestand aus Entitäten und belegten Aussagen, der planmäßig wächst und dessen Entstehung nachvollziehbar bleibt. Dafür gelten folgende Grundsätze:</p>
+  <ul>
+    <li><b>Tiefe vor Breite.</b> Das vorhandene Material wird zuerst vollständig in Entitäten und Aussagen überführt, bevor neue Quellen hinzukommen. Die Texte sind bereits gelesen und zusammengefasst; ihre Auswertung ist günstig und füllt den Graphen schnell.</li>
+    <li><b>Lücken bestimmen die Suche.</b> Welche Quellen als Nächstes ausgewertet werden, ergibt sich aus einem Lückenbericht, der aus den Daten erzeugt wird.</li>
+    <li><b>Jede Suche wird festgehalten,</b> auch wenn sie nichts ergibt. Erst dann lassen sich Aussagen über die Vollständigkeit eines Bestands treffen.</li>
+    <li><b>Agenten schlagen vor, ein Mensch bestätigt.</b> Kein Agent schreibt unmittelbar in den bestätigten Datenbestand.</li>
+    <li><b>Jede Aussage nennt ihre Herkunft:</b> wer sie erfasst hat, mit welchem Auftrag, und wer sie wann geprüft hat.</li>
+  </ul>
+  <p>Die Regeln der bisherigen Recherche gelten weiter. Fremde Texte werden zusammengefasst und nicht im Volltext übernommen, Levens Behauptungen sind als Selbstaussagen gekennzeichnet, und Widersprüche werden benannt, nicht aufgelöst. In der Ontologie entsprechen sie der Belegart <code>self_statement</code> und den konkurrierenden Aussagen.</p>
+</section>
+
+<section id="tiefe">
+  <h2>3. Erschließung des vorhandenen Materials</h2>
+  <p>Agenten werten das vorhandene Material dokumentweise aus und erzeugen Vorschläge im Format der Ontologie: Entitäten, Aussagen mit Belegen und Erwähnungen mit Verweis auf die Textstelle. Jede Art von Material liefert dabei andere Aussagen.</p>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Material</th><th>Ergibt vor allem</th><th>Besonderheit</th></tr></thead>
+      <tbody>
+        <tr><td>Kolumnen</td><td>Erwähnungen von Personen, Orten, Konzerten, Liedern und Ereignissen; Aussagen über sein Leben</td><td>durchweg Selbstaussagen; Belege verweisen auf Absatzanker</td></tr>
+        <tr><td>Quellen</td><td>Aussagen Dritter; Konzerte aus Konzertberichten; Beteiligte wie Autoren, Interviewer, Fotografen</td><td>Ein Konzertbericht belegt, dass ein angekündigtes Konzert stattgefunden hat</td></tr>
+        <tr><td>Rechercheakten</td><td>Lebensereignisse, Datierungen, konkurrierende Aussagen aus der Konflikttabelle</td><td>Belege stehen als Siglen (etwa <code>K01</code>, <code>F-04</code>, <code>R-XnetI</code>), die zuerst auf Dokumente abgebildet werden</td></tr>
+        <tr><td>Konzertkalender</td><td>Konzerte, Spielstätten, Orte, Durchführungsstatus</td><td>Kalendereinträge belegen die Ankündigung; abweichende Termine sind bereits doppelt aufgeführt</td></tr>
+        <tr><td>Diskografie</td><td>Veröffentlichungen, Ausgaben, Titel, Beteiligte</td><td>Übernahme erst nach der Recherche der Aufnahmen (Ontologie, Abschnitt 13)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Die Auswertungen verschiedener Dokumente erzeugen dieselben Entitäten mehrfach: Ein Ort oder ein Bandmitglied erscheint in Dutzenden Quellen. Vor dem Anlegen gleicht der Agent jeden Vorschlag mit dem Bestand und den Vorschlägen paralleler Aufträge ab, über Namen, Namensvarianten und, sofern vorhanden, externe Kennungen. Verbleibende Doppelungen meldet die Validierung.</p>
+  <p>Beim Konzertkalender verbindet die Auswertung zwei Bestände. Ein Konzert, das der Kalender ankündigt und eine Quelle bespricht, erhält den Status <code>took_place</code> mit dem Bericht als Beleg. Umgekehrt ergeben Konzertberichte ohne Kalendereintrag neue Konzerte, vor allem für die Jahre vor 1997.</p>
+</section>
+
+<section id="luecken">
+  <h2>4. Lückenbericht</h2>
+  <p>Mit jeder Version des Datenrepositorys erzeugt ein Werkzeug einen Bericht über die Verteilung des Bestands. Er zählt je Jahr von 1950 bis heute angekündigte und belegte Konzerte, Dokumente nach Art, Sprache und Land, Rundfunksendungen und Aufnahmen. Außerdem führt er Aussagen mit nur einem Beleg, strittige Aussagen, Entitäten ohne Belege und Werke ohne bestimmte Aufnahme auf. Ein Jahr, in dem Leven nachweislich auf Tournee war, aber kein Konzert verzeichnet ist, fällt dadurch auf.</p>
+  <p>Schon der heutige Bestand zeigt mehrere Lücken:</p>
+  <ul>
+    <li><b>Konzerte vor 1997.</b> Der Kalender beginnt mit dem ersten archivierten Kalender der Fan-Site. Die Auftritte von Doll by Doll zwischen etwa 1977 und 1983 und die Solojahre bis 1996 fehlen weitgehend.</li>
+    <li><b>Rundfunk und Fernsehen.</b> Sessions, Interviews und Konzertmitschnitte in BBC, NRK und deutschen Sendern sind nur vereinzelt erfasst.</li>
+    <li><b>Norwegen und Deutschland.</b> Beide waren wichtige Märkte. Norwegische Presse ist über die Nationalbibliothek teils nur mit norwegischem Zugang lesbar, deutsche Regionalpresse ist kaum erfasst.</li>
+    <li><b>Bezahlarchive.</b> Aus Rock's Backpages sind nur Metadaten bekannt; das British Newspaper Archive wurde nicht ausgewertet.</li>
+    <li><b>Personen.</b> Bandmitglieder, Begleitmusiker, Produzenten, Veranstalter und Labelleute kommen in vielen Quellen vor, sind aber nicht als Entitäten erfasst.</li>
+    <li><b>Aufnahmen.</b> Welche Titel verschiedener Ausgaben dieselbe Aufnahme enthalten, ist ungeklärt.</li>
+    <li><b>Bilder.</b> Konzert- und Pressefotos mit geklärter Lizenz fehlen.</li>
+  </ul>
+</section>
+
+<section id="quellen">
+  <h2>5. Quellen</h2>
+  <p>Die folgende Übersicht ordnet die bekannten Quellenbestände nach ihrem Ertrag für die Ontologie. Die Spalte zum Stand gibt wieder, was das README der Quellensammlung und die Spurenliste festhalten; sie wird durch das Abdeckungsregister (Abschnitt 6) ersetzt, sobald es besteht.</p>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Bestand</th><th>Zugang</th><th>Ertrag</th><th>Stand</th></tr></thead>
+      <tbody>
+        <tr><td>Wayback Machine: Levens Websites, Fan-Site, Gästebücher, Cooking Vinyl</td><td>frei</td><td>Dokumente, Kalender, Ankündigungen, Pressearchiv der Fan-Site</td><td>ergiebigster Bestand der Erstrunde, weitgehend ausgewertet</td></tr>
+        <tr><td>worldradiohistory.com: <i>Sounds</i>, <i>Melody Maker</i>, <i>Record Mirror</i>, <i>Music Week</i></td><td>frei</td><td>Kritiken, Interviews, Meldungen und Konzertlisten der 1970er- und 1980er-Jahre</td><td>gezielt durchsucht; Konzertlisten nicht ausgewertet</td></tr>
+        <tr><td>Nasjonalbiblioteket</td><td>frei, teils nur mit norwegischem Zugang</td><td>norwegische Presse, Konzerte, Lizenzen</td><td>Volltextsuche genutzt, Treffer in Jahresdateien</td></tr>
+        <tr><td>BBC Genome</td><td>frei</td><td>Rundfunk- und Fernsehsendungen aus den Programmen der <i>Radio Times</i></td><td>nicht systematisch ausgewertet</td></tr>
+        <tr><td>Rock's Backpages</td><td>Abonnement</td><td>Artikel der Musikpresse</td><td>nur Metadaten</td></tr>
+        <tr><td>British Newspaper Archive</td><td>Abonnement</td><td>britische Regionalpresse, Konzertanzeigen und -kritiken</td><td>nicht ausgewertet</td></tr>
+        <tr><td>Gaesteliste.de, Rolling-Stone-Forum, deutsche Regionalpresse</td><td>überwiegend frei</td><td>Interviews, Konzertberichte</td><td>Gaesteliste und Forum ausgewertet, Regionalpresse kaum</td></tr>
+        <tr><td>MusicBrainz, Discogs</td><td>frei</td><td>Ausgaben, Aufnahmen, Credits</td><td>als Grundlage der Diskografie genutzt; Aufnahmen offen</td></tr>
+        <tr><td>setlist.fm und ähnliche Verzeichnisse</td><td>frei; Nutzungsbedingungen zu prüfen</td><td>Konzerte, Setlists</td><td>nicht systematisch ausgewertet</td></tr>
+        <tr><td>Flickr, Wikimedia Commons</td><td>frei, Lizenz je Bild</td><td>Konzertfotos</td><td>nicht ausgewertet</td></tr>
+        <tr><td>Manuskriptkatalog der National Library of Scotland, British Library Sound Archive</td><td>Katalog frei, Bestände vor Ort</td><td>Archivsignaturen, Aufnahmen</td><td>NLS-Signaturen erfasst, Dokumente nicht gelesen</td></tr>
+        <tr><td>Beiträge über „Mitmachen“, Gespräche mit Weggefährten</td><td>–</td><td>Erinnerungen, Fotos, Eintrittskarten, Setlists</td><td>Formular vorhanden (Abschnitt 9)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Konzertlisten der Musikpresse</h3>
+  <p>Die britischen Musikzeitschriften der 1970er- und 1980er-Jahre druckten wöchentlich Konzertlisten mit Datum, Spielstätte und Ort. Aus den gescannten Ausgaben lassen sich die Tourneen von Doll by Doll weitgehend rekonstruieren. Diese Einträge sind Ankündigungen wie die Kalender der Websites und ergeben Konzerte mit dem Status <code>announced</code>; Kritiken und Meldungen in denselben Heften liefern die Belege für die Durchführung. Die Auswertung ist gleichförmig und umfangreich, aber gut begrenzbar: eine bekannte Zahl von Ausgaben in einem bekannten Zeitraum.</p>
+</section>
+
+<section id="register">
+  <h2>6. Abdeckungsregister</h2>
+  <p>Das Abdeckungsregister hält fest, welcher Bestand in welchem Umfang durchsucht wurde. Ein Eintrag nennt Bestand, Umfang, Verfahren, Datum, Bearbeiter, Auftrag und Ergebnis, auch wenn nichts gefunden wurde.</p>
+<pre><code>source: worldradiohistory/melody-maker
+scope:
+  period: 1977-01/1983-12
+  sections: [gig guide, live reviews, news]
+method: full_scan
+searched_on: 2026-11-12
+searched_by: {agent: claude-code, model: claude-opus-5-5, job: job/2026-11-dbd-gig-guides}
+result:
+  issues_total: 364
+  issues_unavailable: [1979-03-31]
+  candidates: 87
+notes: Ausgabe 1979-03-31 ist nicht gescannt.</code></pre>
+  <p>Negative Ergebnisse verhindern, dass ein Bestand wiederholt ohne Erfolg durchsucht wird. Vollständig durchgesehene Bestände erlauben Aussagen wie „in den Konzertlisten des <i>Melody Maker</i> von 1977 bis 1983 nicht verzeichnet“. Die heutige Spurenliste wird in das Register übertragen: Belegte, aber nicht lesbare Quellen werden Dokumente mit dem Zugang „verloren“, erfolglose Suchen werden Registereinträge.</p>
+  <p class="hinweis">Die Zahlen im Beispiel sind erfunden; die Ausgabe vom 31. März 1979 fehlt laut Spurenliste tatsächlich bei worldradiohistory.</p>
+</section>
+
+<section id="arbeitsweise">
+  <h2>7. Aufträge, Vorschläge und Prüfung</h2>
+
+  <h3>Aufträge</h3>
+  <p>Jede Recherche ist ein Auftrag mit festem Suchraum, abgelegt als Datei im Datenrepository. Die heutige Arbeitsanweisung <code>research/quellen/CODEX-AUFTRAG.md</code> leistet das bereits in Prosa; das neue Format macht Suchraum, Verfahren, erwartete Ergebnisse und Budget maschinenlesbar.</p>
+<pre><code>id: job/2026-11-dbd-gig-guides
+goal: Konzerte von Doll by Doll aus den Konzertlisten der Musikpresse
+scope:
+  sources: [worldradiohistory/melody-maker, worldradiohistory/sounds]
+  period: 1977-01/1983-12
+  classes: [Event, Place]
+method: full_scan
+output: [candidates, coverage]
+budget: {web_searches: 0, page_fetches: 800}
+status: open</code></pre>
+
+  <h3>Ausführung</h3>
+  <p>Jeder Auftrag läuft in einer eigenen Claude-Code-Sitzung mit eigenem Arbeitsverzeichnis (Worktree) und eigenem Branch des Datenrepositorys. Die Sitzungen verwenden Sonnet; das Modell steht in jeder Auftragsdatei, und die Validierung weist Aufträge mit einem anderen Modell zurück. Jede Sitzung liest zuerst die Auftragsvorlage <code>agents/AUFTRAG.md</code> des Datenrepositorys. Eine koordinierende Sitzung legt die Aufträge an, startet die Sitzungen, verfolgt ihren Stand und sammelt die Ergebnisse. In der Desktop-App erscheint jede Sitzung einzeln und lässt sich öffnen, lenken und anhalten. Innerhalb einer Sitzung kann der Agent Teilaufgaben an Unteragenten geben, etwa je Jahrgang einer Zeitschrift; deren Ergebnisse kehren in die Sitzung zurück. Mehrere Aufträge laufen parallel, wenn sich ihre Suchräume nicht überschneiden; die Erstrunde hat diese Aufteilung mit elf Suchräumen bereits erprobt. Ein Agent liefert ausschließlich Vorschläge im Format der Ontologie und Einträge für das Abdeckungsregister. Abrufe bei archive.org und anderen Diensten werden gedrosselt.</p>
+
+  <h3>Nutzungsgrenzen</h3>
+  <p>Die Agenten laufen über das Claude-Code-Abonnement (Max), ohne festes Budget, bis die Läufe angehalten werden. Begrenzend sind die Nutzungsgrenzen des Abonnements, ein Fenster von fünf Stunden und ein wöchentliches Kontingent, die sich alle Sitzungen teilen. Zusatznutzung gegen Bezahlung ist derzeit ausgeschaltet; erreicht ein Lauf eine Grenze, pausiert er bis zur Erneuerung, ohne weitere Kosten. Die koordinierende Sitzung liest den Stand der Grenzen vor jedem neuen Auftrag und startet weitere Sitzungen nur, solange ausreichend Kontingent bleibt. Das Feld <code>budget</code> eines Auftrags begrenzt daher nicht Kosten, sondern Umfang: Seitenabrufe, Suchanfragen und die Zahl der Teilaufgaben.</p>
+
+  <h3>Prüfung</h3>
+  <p>Vorschläge werden als Pull Request eingereicht. Die CI validiert sie gegen das Schema und meldet mögliche Doppelungen. Die Prüfung erfolgt im Diff: Einzelne Aussagen können angepasst oder gestrichen werden, bevor der Pull Request zusammengeführt wird. Erst mit dem Zusammenführen gilt eine Aussage als bestätigt.</p>
+  <p>Jede Aussage trägt die Angabe, wer sie erfasst hat (<code>recorded_by</code>: Agent, Modell und Auftrag oder Person). Beim Zusammenführen trägt ein Werkzeug Prüfer und Datum ein (<code>reviewed_by</code>, <code>reviewed_at</code>). Im RDF-Export werden diese Angaben auf PROV-O abgebildet. Ob Vorschläge mit geringem Risiko gesammelt bestätigt werden dürfen, etwa Orte mit eindeutigem Treffer bei GeoNames, ist offen (Abschnitt 12).</p>
+
+  <h3>Stichproben</h3>
+  <p>In festen Abständen wird eine zufällige Auswahl bestätigter Aussagen erneut gegen ihre Belege geprüft. Der Anteil fehlerhafter Aussagen zeigt, ob Aufträge, Prüfung oder einzelne Agenten nachgebessert werden müssen.</p>
+</section>
+
+<section id="regeln">
+  <h2>8. Regeln der Erfassung</h2>
+  <p>Erfasst werden Metadaten, eigene Inhaltsangaben und kurze wörtliche Zitate. Texte aus Bezahlarchiven werden über einen rechtmäßigen Zugang gelesen; im Datenbestand stehen nur Metadaten, Zusammenfassung und Fundstelle, und der Zugang wird als <code>paywall</code> vermerkt. Bilder werden nur mit geklärter Lizenz übernommen, die je Medienobjekt festgehalten wird.</p>
+  <p>Personen erscheinen mit dem Namen, den sie selbst veröffentlicht haben. Private Angaben über Angehörige werden nicht erfasst. Angaben über lebende Personen gelangen nur in das öffentliche Datenrepository, soweit sie bereits veröffentlicht und für das Archiv erforderlich sind (Ontologie, Abschnitt 11).</p>
+</section>
+
+<section id="beitraege">
+  <h2>9. Beiträge von außen</h2>
+  <p>Über das Formular „Mitmachen“ kommen Erinnerungen, Ergänzungen und Hinweise auf Fotos, Eintrittskarten oder Setlists. Ein Beitrag wird als Vorschlag in das Datenrepository übertragen: Eine Erinnerung wird ein Dokument der Art <code>memory</code> mit der beitragenden Person als Autor, Angaben darin werden Aussagen mit der Belegart <code>third_party</code>. Veröffentlicht wird ein Beitrag nur mit Einwilligung, die sich auf die Veröffentlichung, die Namensnennung und die Lizenz CC BY-NC 4.0 erstreckt. Bei Fotos muss zusätzlich feststehen, wer sie aufgenommen hat und ob diese Person der Veröffentlichung zustimmt.</p>
+  <p>Gespräche mit Weggefährten, etwa Bandmitgliedern, Veranstaltern und Labelleuten, könnten Lücken schließen, die keine schriftliche Quelle füllt. Sie setzen voraus, dass das Projekt Menschen gezielt anschreibt; ob und wann das geschieht, ist offen.</p>
+</section>
+
+<section id="messung">
+  <h2>10. Messgrößen</h2>
+  <p>Der Fortschritt der Erschließung wird an Kennzahlen gemessen, die der Lückenbericht ausweist:</p>
+  <ul>
+    <li>Anteil der Jahre mit verzeichneten Konzerten in Zeiträumen nachgewiesener Tourneen;</li>
+    <li>Anteil der angekündigten Konzerte mit Beleg für die Durchführung;</li>
+    <li>Anteil der Aussagen mit mindestens zwei voneinander unabhängigen Belegen;</li>
+    <li>Zahl und Alter offener Vorschläge;</li>
+    <li>vollständig durchgesehene Bestände laut Abdeckungsregister;</li>
+    <li>Fehleranteil der Stichproben.</li>
+  </ul>
+  <p>Ob der Zuwachs die Suche verbessert, zeigt der Testsatz des Architekturentwurfs.</p>
+</section>
+
+<section id="stufen">
+  <h2>11. Stufen</h2>
+  <ol>
+    <li><b>Werkzeuge.</b> Formate für Aufträge, Vorschläge und Register; Validierung; Lückenbericht. Die Stufe setzt das Schema der Ontologie und das Datenrepository voraus.</li>
+    <li><b>Vorhandenes Material.</b> Übernahme des Konzertkalenders; Siglenverzeichnis der Rechercheakten; Auswertung von Quellen, Kolumnen und Rechercheakten; Übertragung der Spurenliste in das Register.</li>
+    <li><b>Lücken nach Bericht.</b> Konzertlisten der britischen Musikpresse für die Jahre von Doll by Doll, BBC Genome, norwegische und deutsche Presse, Recherche der Aufnahmen. Eine Reihenfolge ist nicht festgelegt. Aufträge werden nach Lückenbericht und verfügbaren Mitteln vergeben und können parallel laufen, solange sich ihre Suchräume nicht überschneiden.</li>
+    <li><b>Erweiterte Bestände.</b> Bezahlarchive, Beiträge über „Mitmachen“, Gespräche mit Weggefährten, je nach den Entscheidungen in Abschnitt 12.</li>
+  </ol>
+  <p>Die Stufen 1 und 2 fallen mit der zweiten Ausbaustufe des Architekturentwurfs zusammen, in der Entitäten in der Suche erscheinen.</p>
+
+  <h3>Erster Lauf</h3>
+  <p>Ein erster Lauf setzt voraus, dass das Datenrepository besteht, ein Schema für die benötigten Klassen vorliegt, die Formate für Aufträge und Register festgelegt sind und eine Validierung Vorschläge prüfen kann. Das vollständige Schema der Ontologie ist dafür nicht nötig. Der erste Auftrag ist ein Pilot mit kleinem, überprüfbarem Suchraum. Er erprobt Schema, Formate, Prüfung im Pull Request und Verbrauch an Kontingent, bevor größere Aufträge vergeben werden.</p>
+</section>
+
+<section id="offen">
+  <h2>12. Entscheidungen</h2>
+  <h3>Getroffen am 25. Oktober 2026</h3>
+  <div class="tabelle">
+    <table>
+      <thead><tr><th>Frage</th><th>Entscheidung</th></tr></thead>
+      <tbody>
+        <tr><td>Reihenfolge der Lücken</td><td>nachrangig; Vergabe nach Lückenbericht und verfügbaren Mitteln, parallel möglich (Abschnitt 11)</td></tr>
+        <tr><td>Bezahlarchive</td><td>zu einem späteren Zeitpunkt; zunächst nur frei zugängliche Bestände</td></tr>
+        <tr><td>Budget</td><td>Läufe über das Claude-Code-Abonnement, bis sie angehalten werden; begrenzt durch die Nutzungsgrenzen (Abschnitt 7)</td></tr>
+        <tr><td>Ausführung</td><td>eine Sitzung je Auftrag mit eigenem Worktree, gesteuert von einer koordinierenden Sitzung; Unteragenten innerhalb einer Sitzung</td></tr>
+        <tr><td>Modell der Agenten</td><td>Sonnet, wegen des geringeren Verbrauchs an Kontingent</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Offen</h3>
+  <ul>
+    <li><b>Sammelbestätigung.</b> Ob Vorschläge mit geringem Risiko gesammelt bestätigt werden dürfen oder jeder Vorschlag einzeln geprüft wird.</li>
+    <li><b>Gespräche mit Weggefährten.</b> Ob, wann und mit wem das Projekt Kontakt aufnimmt.</li>
+    <li><b>Pilotauftrag.</b> Suchraum des ersten Laufs (Abschnitt 11).</li>
+  </ul>
+</section>
+
+<footer>Entwurf in <code>.dev/</code>, nicht Teil der Website.</footer>
+
+</main>
+</body>
+</html>
