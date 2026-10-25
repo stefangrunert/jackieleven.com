@@ -3,6 +3,7 @@ from html.parser import HTMLParser
 from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 import json
+import time
 import xml.etree.ElementTree as ET
 
 ORIGIN = 'https://jackieleven.com'
@@ -10,6 +11,8 @@ USER_AGENT = 'JackieLevenDeploymentCheck/1.0'
 
 
 def fetch(path):
+    # Keep deployment checks below the production limit of five requests/second.
+    time.sleep(0.25)
     request = Request(ORIGIN + path, headers={'User-Agent': USER_AGENT})
     try:
         with urlopen(request, timeout=30) as response:
