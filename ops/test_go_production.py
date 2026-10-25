@@ -58,13 +58,13 @@ class ProductionTests(unittest.TestCase):
             yield SimpleNamespace(root=root,base=base,release=release,vhost=vhost,pool=pool,paths=paths,sha=p.digest(vhost.read_bytes()),stack=stack)
 
     def test_failure_phases_restore_exact_php_and_remove_only_go_artifacts(self):
-        for phase in ('start','backend','nginx-test','TLS','enable','early-write'):
+        for phase in ('start','backend','nginx-test','TLS','enable','early-write','unit-write','unit-verify'):
             with self.subTest(phase=phase), self.fixture() as f:
                 calls=[]; failed=False
                 def command(*args):
                     nonlocal failed
                     calls.append(args)
-                    target={'start':('systemctl','start',p.SERVICE),'nginx-test':('nginx','-t'),'enable':('systemctl','enable',p.SERVICE)}.get(phase)
+                    target={'start':('systemctl','start',p.SERVICE),'nginx-test':('nginx','-t'),'enable':('systemctl','enable',p.SERVICE),'unit-verify':('systemd-analyze','verify',str(p.UNIT))}.get(phase)
                     if args==target and not failed:
                         failed=True; raise subprocess.CalledProcessError(1,args,stderr=SECRET)
                     return SimpleNamespace(stdout='',returncode=0)
@@ -73,7 +73,7 @@ class ProductionTests(unittest.TestCase):
                 original_write=p.atomic_write
                 def write(path,data,mode=0o644):
                     nonlocal failed
-                    if phase=='early-write' and path==p.ENV and not failed:
+                    if ((phase=='early-write' and path==p.ENV) or (phase=='unit-write' and path==p.UNIT)) and not failed:
                         failed=True; raise OSError(SECRET)
                     original_write(path,data,mode)
                 with patch.object(p,'run',side_effect=command),patch.object(p,'wait_health',side_effect=health),patch.object(p,'atomic_write',side_effect=write):
