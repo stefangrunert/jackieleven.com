@@ -62,7 +62,7 @@ func publicSearchLabels(lang string) map[string]string {
 	l := searchLabels(lang)
 	pairs := map[string][2]string{
 		"Title": {"Suche", "Search"}, "Heading": {"Was möchtest du entdecken?", "What would you like to discover?"},
-		"Intro":       {"Ein Lied, ein Ort, eine Erinnerung. Stell eine Frage und finde deinen Weg durch Jackies Welt.", "A song, a place, a memory. Ask a question and find your way through Jackie’s world."},
+		"Intro":       {"Lieder, Orte, Erinnerungen: Entdecke Jackies Welt mit einer Frage in deinen eigenen Worten.", "Songs, places, memories: explore Jackie’s world with a question in your own words."},
 		"Placeholder": {"Zum Beispiel: Was verband Jackie mit Norwegen?", "For example: What connected Jackie with Norway?"},
 		"Refine":      {"Suche eingrenzen", "Refine your search"}, "Area": {"Bereich", "Section"}, "Everywhere": {"Alle Bereiche", "All sections"},
 		"FilterRemove": {"Filter entfernen", "Remove filter"}, "More": {"Mehr aus diesem Bereich", "More from this section"}, "Read": {"Weiterlesen", "Read more"},

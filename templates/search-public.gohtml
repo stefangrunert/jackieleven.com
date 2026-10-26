@@ -1,5 +1,5 @@
 {{template "public-search-head" .}}
-<section class="discovery-intro"><p class="discovery-eyebrow">Jackie Leven · {{.L.Title}}</p><h1>{{.L.Heading}}</h1><p>{{.L.Intro}}</p></section>
+<section class="discovery-intro"><h1 class="search-visually-hidden">{{.L.Title}}</h1><p class="discovery-intro-text">{{.L.Intro}}</p></section>
 <form class="discovery-form" action="{{.Action}}" method="get" role="search">
 <div class="discovery-query"><label class="search-visually-hidden" for="discovery-q">{{.L.Heading}}</label><input id="discovery-q" type="search" name="q" value="{{.Q}}" placeholder="{{.L.Placeholder}}" maxlength="1024" required><button type="submit">{{.L.Submit}} <span aria-hidden="true">→</span></button></div>
 <details class="discovery-refine"><summary>{{.L.Refine}}</summary><div class="discovery-filter-grid">

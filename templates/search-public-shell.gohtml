@@ -1,6 +1,6 @@
 {{define "public-search-head"}}<!doctype html>
 <html lang="{{.Lang}}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>{{.L.Title}} · Jackie Leven</title>
-<link rel="stylesheet" href="{{.BasePath}}/assets/css/site.css"><link rel="stylesheet" href="{{.BasePath}}/assets/css/search.css">
+<link rel="stylesheet" href="{{.BasePath}}/assets/css/site.css?v=search-intro-1"><link rel="stylesheet" href="{{.BasePath}}/assets/css/search.css?v=search-intro-1">
 </head><body class="discovery-page">
 <header class="topbar discovery-topbar"><a class="name" href="{{.BasePath}}/{{.Lang}}/"><img class="site-logo" src="{{.BasePath}}/assets/bilder/jackie-leven-logo-originalnah.png" alt="" width="56" height="56"><span>Jackie Leven</span></a><nav class="discovery-nav" aria-label="{{.L.Title}}"><a href="{{.Action}}"{{if not (or .Passage .Entity)}} aria-current="page"{{end}}><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>{{.L.Title}}</a><a class="discovery-language" href="{{.OtherURL}}" lang="{{if eq .Lang "de"}}en{{else}}de{{end}}">{{if eq .Lang "de"}}EN{{else}}DE{{end}}</a></nav></header>
 <main class="discovery">{{end}}

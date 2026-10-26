@@ -1206,6 +1206,7 @@ footer .fuss-impressum:hover, footer .fuss-impressum:focus-visible, footer .fuss
 .pool-intro,
 .disk-intro,
 .hoer-intro,
+.discovery-intro-text,
 .text-seite .lead {
   color: var(--accent);
   font-family: var(--serif);
