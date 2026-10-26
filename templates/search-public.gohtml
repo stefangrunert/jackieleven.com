@@ -20,7 +20,7 @@
 <div class="discovery-card-text">{{if or .Date .Place}}<p class="discovery-card-date">{{.Date}}{{if and .Date .Place}} · {{end}}{{.Place}}</p>{{end}}
 <h3><a href="{{.ReadURL}}">{{.Title}}</a></h3>
 {{if or .Kind .Status}}<p class="discovery-card-kind">{{.Kind}}{{if and .Kind .Status}} · {{end}}{{.Status}}</p>{{end}}
-<p class="discovery-excerpt" lang="{{.Language}}">{{.Excerpt}}</p>
+<p class="discovery-excerpt" lang="{{.ExcerptLanguage}}">{{.Excerpt}}</p>
 <p class="discovery-card-bottom"><span>{{.Voice}}</span><a href="{{.ReadURL}}">{{$.L.Read}} <span aria-hidden="true">→</span></a></p></div>
 </article>{{end}}</div></section>{{end}}
 {{else}}<p class="discovery-empty">{{.L.Empty}}</p>{{end}}

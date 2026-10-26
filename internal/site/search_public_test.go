@@ -289,3 +289,15 @@ func TestArchiveResultLinksOpenStructuredReader(t *testing.T) {
 		t.Fatal("archive attribution missing")
 	}
 }
+
+func TestArchiveCardPresentationLanguagePreservesSource(t *testing.T) {
+	hit := publicHit("live", "Bergen")
+	hit.Language = "de"
+	hit.Text = "Archiv-Aussage über Bergen\nentity_value: Bergen"
+	hit.Metadata = json.RawMessage(`{"section":"live","record_kind":"archive_statement","entity_id":"event/bergen","predicate":"took_place_at","references":[]}`)
+	app := &App{}
+	card := app.publicSearchCard(hit, "en", "en")
+	if card.ExcerptLanguage != "en" || card.Language != "de" || card.Text != hit.Text {
+		t.Fatalf("presentation changed source language/text or mislabeled excerpt: %#v", card)
+	}
+}

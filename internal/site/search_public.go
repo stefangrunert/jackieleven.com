@@ -29,9 +29,9 @@ type publicSearchMetadata struct {
 }
 type publicSearchCard struct {
 	searchHitView
-	Section, Image, Excerpt, Date, Place, Kind, Status, Voice, SourceVoiceLabel string
-	Fiction                                                                     bool
-	ReadURL                                                                     string
+	Section, Image, Excerpt, ExcerptLanguage, Date, Place, Kind, Status, Voice, SourceVoiceLabel string
+	Fiction                                                                                      bool
+	ReadURL                                                                                      string
 }
 type publicSearchGroup struct {
 	Key, Title, MoreURL string
@@ -335,6 +335,7 @@ func (a *App) publicSearchCard(hit searchclient.Hit, lang, targetLang string) pu
 		m.Section = "site"
 	}
 	c := publicSearchCard{searchHitView: a.searchHit(hit, lang, targetLang), Section: m.Section, Image: safeSearchImage(a.basePath, m.Image), Excerpt: searchExcerpt(hit.Text, 320), Date: m.DisplayDate, Place: m.Place, Fiction: m.Fiction || m.Section == "biography" || hit.TextVoice == "pastiche", Voice: searchVoiceLabel(hit.TextVoice, lang), SourceVoiceLabel: searchVoiceLabel(hit.SourceVoice, lang)}
+	c.ExcerptLanguage = hit.Language
 	switch hit.TextKind {
 	case "summary":
 		c.Kind = searchMessage(lang, "Redaktionelle Zusammenfassung", "Editorial summary")
@@ -352,6 +353,7 @@ func (a *App) publicSearchCard(hit searchclient.Hit, lang, targetLang string) pu
 	}
 	archiveRecord := m.RecordKind == "archive_entity" || m.RecordKind == "archive_statement"
 	if archiveRecord {
+		c.ExcerptLanguage = lang
 		c.Kind = searchMessage(lang, "Archivhinweis", "Archive note")
 		if c.Fiction {
 			c.Kind += " · " + searchMessage(lang, "Literarische Fiktion", "Literary fiction")
