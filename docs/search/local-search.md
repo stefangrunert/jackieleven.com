@@ -143,3 +143,10 @@ Der lokale Startweg aktiviert den lesenden MCP-Endpunkt `http://127.0.0.1:8081/m
 `local.py index` sichert veröffentlichte Manifeste zusätzlich unter `.dev/runtime/search/manifests/<content_version>.json`. Für einen lokalen Rollback bei unverändertem Website-Inhalt das gewünschte Manifest nach `manifest.json` kopieren, dann `install` und `install-test` ausführen. Dazu müssen die alten Datenbankzeilen erhalten bleiben. Bei geändertem Website-Inhalt gehört auch dessen passende Revision zum Rollback.
 
 Funktions- und Ausfallprüfung: `python3 ops/search/check.py` beziehungsweise `python3 ops/search/check-failures.py`. Mit `check.py --external` werden zusätzlich echte Anbieteraufrufe geprüft. Ein externer Ausfall kann diese ausdrücklich strenge Prüfung fehlschlagen lassen, während die Oberfläche korrekt Rückfallbetrieb anzeigt. Ergebnisse und fachliche Grenzen stehen im [Abnahmebericht](acceptance.md).
+
+## Öffentliche Vorschau
+
+Die gruppierte Oberfläche, der vollständige veröffentlichte Datenbestand und
+der getrennte Betrieb auf Hetzner sind in [staging-search.md](staging-search.md)
+beschrieben. Die technische Testseite bleibt lokal unter `/de/suche-test` bzw.
+`/en/search-test`; `/de/suche` und `/en/search` zeigen die öffentliche Ansicht.

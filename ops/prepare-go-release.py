@@ -35,7 +35,7 @@ def source_file(root: Path, relative: str) -> Path:
     return current
 
 
-def prepare(destination: Path, goos: str | None, goarch: str | None):
+def prepare(destination: Path, goos: str | None, goarch: str | None, search_manifest: Path | None = None):
     destination = destination.absolute()
     if destination.exists() or destination.is_symlink() or not destination.parent.is_dir():
         raise ValueError('Destination must be a new directory with an existing parent')
@@ -61,6 +61,17 @@ def prepare(destination: Path, goos: str | None, goarch: str | None):
                         '-o', str(stage / 'bin/jackieleven'), './cmd/jackieleven'],
                        cwd=ROOT, env=env, check=True)
         (stage / 'bin/jackieleven').chmod(0o755)
+        if search_manifest is not None:
+            manifest = json.loads(search_manifest.read_text())
+            version = manifest.get('content_version', '')
+            if len(version) != 64 or any(c not in '0123456789abcdef' for c in version):
+                raise ValueError('Invalid search content version')
+            subprocess.run(['go', 'build', '-trimpath', '-buildvcs=false', '-ldflags=-s -w',
+                            '-o', str(stage / 'bin/jackieleven-search'), './cmd/jackieleven-search'],
+                           cwd=ROOT, env=env, check=True)
+            (stage / 'bin/jackieleven-search').chmod(0o755)
+            (stage / 'search-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+            (stage / 'search-manifest.json').chmod(0o644)
         target_platform = subprocess.check_output(['go', 'env', 'GOOS', 'GOARCH'], env=env, text=True).splitlines()
         revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
         dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT))
@@ -83,5 +94,6 @@ if __name__ == '__main__':
     parser.add_argument('destination', type=Path)
     parser.add_argument('--goos', choices=('linux', 'darwin'))
     parser.add_argument('--goarch', choices=('amd64', 'arm64'))
+    parser.add_argument('--search-manifest', type=Path, help='Include search binary and immutable manifest in this release')
     args = parser.parse_args()
-    prepare(args.destination, args.goos, args.goarch)
+    prepare(args.destination, args.goos, args.goarch, args.search_manifest)
