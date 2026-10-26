@@ -186,3 +186,38 @@ func TestPublicSectionLinksRetainReadableFilters(t *testing.T) {
 		t.Fatal("bad drilldown params", q)
 	}
 }
+
+func TestEntityLiteralTextIsNotRewritten(t *testing.T) {
+	a := &App{}
+	entity := a.searchEntity(json.RawMessage(`{"id":"document/example","label":"Original label","type":"Document","title":[{"string_value":"unknown_announced","references":[]}],"performance_status":[{"status_value":"announced"}]}`), "de")
+	found := false
+	for _, fact := range entity.Facts {
+		for _, value := range fact.Values {
+			if value.Text == "unknown_announced" {
+				found = true
+			}
+		}
+	}
+	if !found {
+		t.Fatal("literal source text was translated or normalized")
+	}
+}
+
+func TestEntityMarksOnlyUnreferencedAssertions(t *testing.T) {
+	raw := json.RawMessage(`{"id":"event/example","label":"An event","type":"Event","event_type":"concert","time":[{"statement_id":"unreferenced","edtf_value":"1997-04-13"},{"statement_id":"empty-references","edtf_value":"1997-04-14","references":[]},{"statement_id":"sourced","edtf_value":"1997-04-15","references":[{"document":"document/report","locator":"Source"}]}]}`)
+	a := newSearchTestApp(t, "", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(searchclient.EntityResponse{Versions: testVersions(), Entity: raw})
+	})
+	for route, label := range map[string]string{"/de/suche/objekt": "Kein Belegverweis", "/en/search/entity": "No source reference"} {
+		w := searchRequest(a, "GET", route+"?id=event%2Fexample")
+		if w.Code != 200 || strings.Count(w.Body.String(), label) != 2 {
+			t.Errorf("unreferenced assertion labels %s: status%d count%d", route, w.Code, strings.Count(w.Body.String(), label))
+		}
+	}
+	model := a.searchEntity(raw, "en")
+	for _, fact := range model.Facts {
+		if fact.Label == "Event type" && fact.Values[0].Unreferenced {
+			t.Fatal("identification field marked as unsupported assertion")
+		}
+	}
+}

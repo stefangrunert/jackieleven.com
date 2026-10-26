@@ -13,7 +13,7 @@
 {{if .Error}}<p class="discovery-notice discovery-error" role="alert">{{.Error}}</p>{{else if .Searched}}
 {{if .Notice}}<p class="discovery-notice" role="status">{{.Notice}}</p>{{end}}
 {{if .Groups}}<p class="discovery-count">{{.Count}} {{.L.Found}}</p>
-{{range .Groups}}<section class="discovery-section discovery-section-{{.Key}}" aria-labelledby="section-{{.Key}}"><div class="discovery-section-heading"><h2 id="section-{{.Key}}">{{.Title}}</h2><a href="{{.MoreURL}}">{{$.L.More}} <span aria-hidden="true">→</span></a></div>
+{{range .Groups}}<section class="discovery-section discovery-section-{{.Key}}" aria-labelledby="section-{{.Key}}"><div class="discovery-section-heading"><h2 id="section-{{.Key}}">{{.Title}}</h2>{{if ne $.Section .Key}}<a href="{{.MoreURL}}">{{$.L.More}} <span aria-hidden="true">→</span></a>{{end}}</div>
 {{if eq .Key "biography"}}<p class="discovery-fiction-note">{{$.L.FictionNote}}</p>{{end}}
 <div class="discovery-cards">{{range .Cards}}<article class="discovery-card{{if .Fiction}} discovery-fiction{{end}}">
 {{if eq .Section "music"}}<a class="discovery-cover" href="{{.PassageURL}}" aria-label="{{.Title}}">{{if .Image}}<img src="{{.Image}}" alt="" width="400" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{else}}<span aria-hidden="true">♫</span>{{end}}</a>{{end}}

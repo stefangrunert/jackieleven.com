@@ -69,7 +69,7 @@ func publicSearchLabels(lang string) map[string]string {
 		"SourceNote":  {"Der folgende Text stammt aus dem gespeicherten Archivstand. Die Originalseite ist separat verlinkt.", "The text below comes from the stored archive version. The original page is linked separately."},
 		"EntityTitle": {"Eintrag im Archiv", "Archive record"}, "Claims": {"Angaben und Belege", "Statements and sources"},
 		"EntityNote": {"Das Archiv bewahrt die Angaben seiner Quellen einzeln. Abweichende Daten oder widersprüchliche Aussagen bleiben sichtbar.", "The archive preserves each source’s statements separately. Different dates and conflicting accounts remain visible."},
-		"Evidence":   {"Belege anzeigen", "Show sources"}, "Recorded": {"Erfassung und Originaldaten", "Provenance and original data"},
+		"Evidence":   {"Belege anzeigen", "Show sources"}, "NoEvidence": {"Kein Belegverweis", "No source reference"}, "Recorded": {"Erfassung und Originaldaten", "Provenance and original data"},
 		"About": {"Über diese Seite", "About this site"}, "ExamplesLabel": {"Vielleicht suchst du …", "You might ask …"},
 		"Example1": {"Was verband Jackie mit Norwegen?", "What connected Jackie with Norway?"},
 		"Example2": {"Welche Lieder handeln von Verlust?", "Which songs are about loss?"},
@@ -223,6 +223,9 @@ func (a *App) servePublicSearch(w http.ResponseWriter, r *http.Request) bool {
 	}
 	if err != nil && v.Error == "" {
 		status, v.Error = searchError(lang, err)
+		if status == 404 && kind == "entity" {
+			v.Error = searchMessage(lang, "Dieser Eintrag ist in diesem Archivstand nicht vorhanden.", "This record does not exist in this archive version.")
+		}
 		if status == 409 {
 			v.Error = searchMessage(lang, "Das Archiv wird gerade aktualisiert. Bitte versuche es gleich noch einmal.", "The archive is being updated. Please try again shortly.")
 		}

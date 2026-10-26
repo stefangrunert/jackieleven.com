@@ -20,6 +20,7 @@ type searchEntityFact struct {
 type searchEntityValue struct {
 	Text, Link, Note, Status, ID string
 	References                   []searchEntityReference
+	Unreferenced                 bool
 }
 type searchEntityReference struct{ Title, Link, Locator, Quote, Kind string }
 
@@ -79,7 +80,11 @@ func (a *App) searchEntity(raw json.RawMessage, lang string) *searchEntityView {
 			items = []any{data[key]}
 		}
 		for _, item := range items {
-			fact.Values = append(fact.Values, a.searchEntityValue(item, lang))
+			value := a.searchEntityValue(item, lang)
+			if key == "event_type" {
+				value.Text = entityLabel(value.Text, lang)
+			}
+			fact.Values = append(fact.Values, value)
 		}
 		if len(fact.Values) > 0 {
 			result.Facts = append(result.Facts, fact)
@@ -102,7 +107,7 @@ func entityScalar(value any) string {
 }
 func entityReadable(value any, lang string) string {
 	if scalar := entityScalar(value); scalar != "" {
-		return entityLabel(scalar, lang)
+		return scalar
 	}
 	switch v := value.(type) {
 	case []any:
@@ -149,12 +154,22 @@ func (a *App) searchEntityValue(value any, lang string) searchEntityValue {
 			if out.Status != "" {
 				out.Status += " · "
 			}
-			out.Status += entityLabel(key, lang) + ": " + entityReadable(item, lang)
+			out.Status += entityLabel(key, lang) + ": " + entityLabel(entityReadable(item, lang), lang)
 		case "entity_value", "agent_ref":
 			id := entityScalar(item)
 			out.Link = a.searchEntityURL(id, lang)
 			text = append(text, id)
-		case "edtf_value", "string_value", "text_value", "value", "status_value", "number_value":
+		case "status_value":
+			text = append(text, entityLabel(entityScalar(item), lang))
+		case "roles":
+			var roles []string
+			if values, ok := item.([]any); ok {
+				for _, role := range values {
+					roles = append(roles, entityLabel(entityScalar(role), lang))
+				}
+			}
+			text = append(text, entityLabel(key, lang)+": "+strings.Join(roles, " · "))
+		case "edtf_value", "string_value", "text_value", "value", "number_value":
 			text = append(text, entityReadable(item, lang))
 		default:
 			text = append(text, entityLabel(key, lang)+": "+entityReadable(item, lang))
@@ -179,5 +194,6 @@ func (a *App) searchEntityValue(value any, lang string) searchEntityValue {
 			out.References = append(out.References, evidence)
 		}
 	}
+	out.Unreferenced = out.ID != "" && len(out.References) == 0
 	return out
 }
