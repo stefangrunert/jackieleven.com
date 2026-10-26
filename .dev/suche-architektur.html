@@ -269,7 +269,7 @@ footer {
 <section id="datenmodell">
   <h2>4. Datenmodell und Indexeinheit</h2>
   <p>Das Datenmodell ist im Dokument <a href="ontologie.html">Ontologie des Archivs</a> beschrieben. Für die Suche sind drei seiner Teile maßgeblich. Entitäten sind die Gegenstände des Archivs: Personen, Gruppen, Orte, Ereignisse wie Konzerte, Werke, Aufnahmen, Ausgaben und Dokumente. Aussagen verbinden Entitäten untereinander oder mit Werten und tragen ihre Belege. Textstellen sind zitierbare Abschnitte von Dokumenten mit fester Kennung und einem Anker auf der Zielseite; Belege und Erwähnungen verweisen auf sie. Die Suche indexiert dagegen Segmente, die im Build aus einer oder mehreren Textstellen entstehen und auf deren Kennungen verweisen. So kann sich der Zuschnitt für die Suche ändern, ohne dass ein Beleg auf einen anderen Text zeigt. Bezeichner im Schema und in der Datenbank sind englisch.</p>
-  <p>Jede Textstelle gehört zu einem Dokument und damit zu einer Stimme: Levens eigenes Wort, Stimmen Dritter, redaktionelle Texte der Website oder Pastiche. Nach dieser Zuordnung werden Treffer gruppiert. Erwähnungen verknüpfen Textstellen mit Entitäten. Erkennt die Suche in einer Anfrage einen Ort oder eine Person, kann sie deshalb neben den Textstellen auch die Entität mit ihren Beziehungen anzeigen.</p>
+  <p>Jede Textstelle gehört zu einem Dokument. Dabei sind die Stimme der historischen Quelle (<code>source_voice</code>) und die Stimme des tatsächlich indexierten Texts (<code>text_voice</code>) getrennt: Eine redaktionelle Inhaltsangabe zu einer fremden Konzertkritik bleibt redaktioneller Text; ein wörtlicher Auszug daraus trägt die Stimme des ursprünglichen Autors. Das gilt entsprechend für Levens Texte und die Pastiche. Die Treffer werden zunächst nach tatsächlicher Textstimme gruppiert; Quellenstimme und Textart bleiben am Treffer sichtbar. Ein zusätzlicher Filter nach Quellenstimme ändert diese Zuschreibung nicht. Redaktionelle Zusammenfassungen dürfen nicht als Originalzitate erscheinen. Erwähnungen verknüpfen Textstellen mit Entitäten. Erkennt die Suche in einer Anfrage einen Ort oder eine Person, kann sie deshalb neben den Textstellen auch die Entität mit ihren Beziehungen anzeigen.</p>
   <p>Für den Suchindex erhält jedes Segment folgende Felder:</p>
   <div class="tabelle">
     <table>
@@ -278,6 +278,7 @@ footer {
         <tr><td><code>id</code>, <code>document</code></td><td>Kennung des Suchsegments und des zugehörigen Dokuments; zitierbare Textstellen stehen getrennt in <code>passages</code></td></tr>
         <tr><td><code>language</code></td><td>tatsächliche Sprache des Texts</td></tr>
         <tr><td><code>text_kind</code></td><td><code>original</code>, <code>translation</code> oder <code>summary</code></td></tr>
+        <tr><td><code>source_voice</code>, <code>text_voice</code></td><td>Stimme des Quelldokuments und des indexierten Texts; bei redaktionellen Inhaltsangaben verschieden.</td></tr>
         <tr><td><code>version_group</code></td><td>verbindet die Fassungen desselben Inhalts, etwa deutsche und englische Inhaltsangabe einer Quelle</td></tr>
         <tr><td><code>passages</code></td><td>Kennungen der zitierbaren Textstellen, aus denen das Segment besteht</td></tr>
         <tr><td><code>text</code>, <code>context</code></td><td>Wortlaut und vorangestellter Kontextkopf (Abschnitt 6)</td></tr>
@@ -476,7 +477,9 @@ X-Archive-Content-Version: content-example-001</code></pre>
     "passage_id": "document/example#p1",
     "title": "Beispieltitel",
     "url": "https://jackieleven.com/de/quelle/example#p1",
-    "voice": "third_party",
+    "source_voice": "third_party",
+    "text_voice": "third_party",
+    "text_kind": "original",
     "snippet": "Beispiel für einen Textauszug."
   }]
 }</code></pre>
@@ -680,14 +683,14 @@ Sitemap: https://jackieleven.com/sitemap.xml</code></pre>
 
 <section id="arbeitsstand">
   <h2>15. Arbeitsstand und Wiederaufnahme</h2>
-  <p>Stand: 26. Oktober 2026. Architektur und Agentenplan sind in Commit <code>3fd28a9</code> gesichert; Phase 1 läuft mit drei getrennten Agenten und verwalteten Worktrees. Basis der Website: <code>d819f9d</code>; Basis des Archivs: <code>7d353a4</code>. Integrationsbranch: <code>codex/search-development</code>.</p>
+  <p>Stand: 26. Oktober 2026. Architektur und Agentenplan sind in Commit <code>3fd28a9</code> gesichert; Phase 1 ist abgeschlossen und im Entwicklungsbranch integriert; die drei getrennten Agenten haben ihre Aufgaben beendet. Noch kein Suchdienst oder Importer ist implementiert. Basis der Website: <code>d819f9d</code>; Basis des Archivs: <code>7d353a4</code>. Integrationsbranch: <code>codex/search-development</code>.</p>
   <div class="tabelle"><table><thead><tr><th>Aufgabe</th><th>Status</th><th>Ergebnis / nächster Schritt</th></tr></thead><tbody>
-    <tr><td>Pilotdaten und Importvertrag</td><td>In Arbeit: <code>search_pilot_data</code></td><td>Branch <code>codex/search-pilot-data</code>; Quellen und publizierte Textlagen prüfen, Pilotmanifest und Importvertrag erstellen.</td></tr>
-    <tr><td>Postgres-/BM25-Pilot</td><td>In Arbeit: <code>search_pilot_database</code></td><td>Branch <code>codex/search-pilot-database</code>; Docker-Engine zunächst nicht erreichbar, Startmöglichkeit wird geprüft.</td></tr>
-    <tr><td>Unabhängige Validierung</td><td>In Arbeit: <code>search_pilot_validation</code></td><td>Branch <code>codex/search-pilot-validation</code>; unabhängige Suchfälle und Abnahmekriterien vorbereiten.</td></tr>
-    <tr><td>Integration Phase 1</td><td>Wartet auf Ergebnisse</td><td>Artefakte prüfen, Ergebnisse abgleichen und nächste Verträge festschreiben.</td></tr>
+    <tr><td>Pilotdaten und Importvertrag</td><td>Abgeschlossen und geprüft</td><td><a href="../docs/search/phase-1/data-pilot.md">16 Dokumentkandidaten, 119 Textselektoren</a>; Manifest, Vertragsentwurf und lesender Prüfer. Integration <code>87aea39</code>.</td></tr>
+    <tr><td>Postgres-/BM25-Pilot</td><td>Abgeschlossen und gemessen</td><td><a href="../docs/search/phase-1/database-pilot.md">Zwei Erweiterungen auf Postgres 17.11/ARM64, 14 SQL-Assertions bestanden</a>; synthetischer Lastlauf. Integration <code>5b2a02e</code>. Eigene Pilotcontainer und Volumes entfernt.</td></tr>
+    <tr><td>Unabhängige Validierung</td><td>Abgeschlossen; Datenreview ohne Blocker</td><td><a href="../docs/search/phase-1/validation-plan.md">Prüfplan und zehn quellenbasierte Fälle</a>; noch keine Suchtests. Integration <code>4eca0d4</code> und <code>7b872c6</code>.</td></tr>
+    <tr><td>Integration Phase 1</td><td>Phase-1-Grundlagen abgenommen</td><td><a href="../docs/search/phase-1/README.md">Integrationsbericht und Wiederaufnahme</a>; drei direkte Fallüberschneidungen. ParadeDB vorläufig für Phase 2; reale Suchqualität und Produktionsbetrieb bleiben offen.</td></tr>
   </tbody></table></div>
-  <p>Die Liefergegenstände werden unter <code>docs/search/phase-1/</code> gesammelt; Datenbankversuche unter <code>ops/search-pilot/</code>. Diese Verzeichnisse entstehen im Verlauf der ersten Phase. Die noch nicht implementierten Architekturteile bleiben ausdrücklich Planung.</p>
+  <p>Die Liefergegenstände liegen unter <code>docs/search/phase-1/</code>, der reproduzierbare Datenbankversuch unter <code>ops/search-pilot/</code>. Es gab keine DeepInfra-Aufrufe und keine Änderungen am Archiv oder an Produktionsdiensten. Docker Desktop bleibt gestartet; Images und Paketdownloads verbleiben im lokalen Cache. Die Aufgabenworktrees bleiben für Nachprüfung und Fortsetzung erhalten. Nächster Schritt ist Phase 2: Verträge festschreiben, Register/Anker und Import umsetzen, dann den BM25-Durchstich verbinden.</p>
 </section>
 
 <footer>Entwurf in <code>.dev/</code>, nicht Teil der Website.</footer>

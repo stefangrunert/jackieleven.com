@@ -38,7 +38,7 @@ Die örtlichen Recherchedateien wurden gelesen; die DE/EN-Textlagen und Original
 
 Die Auswahl deckt fünf Originalsprachen (`en`, `de`, `no`, `es`, `nl`) und drei **vorhandene** Archivbelegtypen (`third_party`, `primary_document`, `inferred`) ab. `self_statement` ist eine spätere Bindungsmöglichkeit für die Kolumnen, im ausgewählten Manifest aber noch kein bestehender Archivbeleg. Norwegisch wird nicht stillschweigend von `no` zu `nb` präzisiert. Pastiche, vollständige Fremdtexte und neu erschlossene Ereignisse wurden nicht hinzugefügt.
 
-D08/D09 liefern die Überschneidung mit dem unabhängigen Testplan zu Bodø 1997. Andere dort untersuchte Fälle (Tromsø 2000, Public/Sinus 2007, Sir Vincent Lone, Kevin Foster/O’Foster) bleiben bewusst außerhalb dieses kleinen Importpiloten. Sie sind weiterhin sinnvolle zusätzliche Evaluationsfälle, sobald passende Quellen und Identitätsbindungen freigegeben sind.
+Direkte Solltreffer-Überschneidungen mit dem unabhängigen Testplan bestehen für D01 (Ankündigung 1972, Fall 008), D02 (Madrid 1976, Fall 009) und D08 (Bodø 1997, Fall 006). D09 ergänzt als zweite Quelle das Bodø-Ereignis, ist aber kein eigener verpflichtender Solltreffer dieses Testfalls. Andere dort untersuchte Fälle (Tromsø 2000, Public/Sinus 2007, Sir Vincent Lone, Kevin Foster/O’Foster) bleiben bewusst außerhalb dieses kleinen Importpiloten. Sie sind weiterhin sinnvolle zusätzliche Evaluationsfälle, sobald passende Quellen und Identitätsbindungen freigegeben sind.
 
 ## Quelle → Aussage/Entität → Website
 
