@@ -12,13 +12,17 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"jackieleven/internal/searchclient"
 )
 
 type Config struct {
-	Root       string
-	BasePath   string
-	TrustProxy bool
-	Contact    ContactConfig
+	Root           string
+	BasePath       string
+	TrustProxy     bool
+	Contact        ContactConfig
+	SearchURL      string
+	SearchManifest string
 }
 type App struct {
 	root      string
@@ -28,6 +32,7 @@ type App struct {
 	contact   *Contact
 	fanVideos bool
 	assets    http.Handler
+	search    *searchclient.Client
 }
 type request struct {
 	app                      *App
@@ -50,6 +55,15 @@ func New(config Config) (*App, error) {
 		return nil, err
 	}
 	a := &App{root: root, basePath: basePath, data: d, fanVideos: os.Getenv("JACKIE_FAN_VIDEOS") == "1"}
+	if config.SearchURL != "" || config.SearchManifest != "" {
+		if config.SearchURL == "" || config.SearchManifest == "" {
+			return nil, fmt.Errorf("search: URL and manifest must both be configured")
+		}
+		a.search, err = searchclient.New(config.SearchURL, config.SearchManifest)
+		if err != nil {
+			return nil, err
+		}
+	}
 	config.Contact.TrustProxy = config.TrustProxy
 	config.Contact.CookiePath = basePath + "/"
 	a.contact = NewContact(config.Contact)
@@ -132,6 +146,9 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.StripPrefix(a.basePath, http.HandlerFunc(a.serveHTTP)).ServeHTTP(w, r)
 }
 func (a *App) serveHTTP(w http.ResponseWriter, r *http.Request) {
+	if a.serveSearch(w, r) {
+		return
+	}
 	if strings.HasPrefix(r.URL.Path, "/assets/") {
 		clean := strings.TrimPrefix(r.URL.Path, "/assets/")
 		for _, p := range strings.Split(clean, "/") {

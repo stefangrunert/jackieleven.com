@@ -18,8 +18,10 @@ func main() {
 	root := flag.String("root", ".", "directory containing data, templates, assets and Markdown")
 	basePath := flag.String("base-path", "", "optional URL mount path, for example /jackieleven")
 	trust := flag.Bool("trust-proxy", false, "trust X-Real-IP and X-Forwarded-Proto only from loopback peers")
+	searchURL := flag.String("search-url", os.Getenv("JACKIE_SEARCH_URL"), "optional loopback search service HTTP origin")
+	searchManifest := flag.String("search-manifest", os.Getenv("JACKIE_SEARCH_MANIFEST"), "pinned local search manifest")
 	flag.Parse()
-	app, err := site.New(site.Config{Root: *root, BasePath: *basePath, TrustProxy: *trust, Contact: site.ContactConfigFromEnv()})
+	app, err := site.New(site.Config{Root: *root, BasePath: *basePath, TrustProxy: *trust, SearchURL: *searchURL, SearchManifest: *searchManifest, Contact: site.ContactConfigFromEnv()})
 	if err != nil {
 		log.Fatal(err)
 	}

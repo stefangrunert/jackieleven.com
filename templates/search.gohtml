@@ -1,0 +1,27 @@
+{{template "search-head" .}}
+<h1>{{.L.Title}}</h1><p class="search-intro">{{.L.Intro}}</p>
+<form class="search-form" action="{{.Action}}" method="get" role="search">
+<label for="q">{{.L.Query}}</label><input type="search" id="q" name="q" value="{{.Q}}" maxlength="1024" required>
+<div class="search-grid">
+<label for="lang">{{.L.Language}}<select id="lang" name="lang"><option value="de"{{if eq .TargetLang "de"}} selected{{end}}>Deutsch</option><option value="en"{{if eq .TargetLang "en"}} selected{{end}}>English</option></select></label>
+<label for="mode">{{.L.Mode}}<select id="mode" name="mode"><option value="hybrid"{{if eq .Mode "hybrid"}} selected{{end}}>hybrid</option><option value="lexical"{{if eq .Mode "lexical"}} selected{{end}}>lexical</option><option value="semantic"{{if eq .Mode "semantic"}} selected{{end}}>semantic</option></select></label>
+<label for="voice">{{.L.Voice}}<select id="voice" name="voice"><option value="">{{.L.All}}</option><option value="leven"{{if eq .Voice "leven"}} selected{{end}}>{{.L.Leven}}</option><option value="third_party"{{if eq .Voice "third_party"}} selected{{end}}>{{.L.ThirdParty}}</option><option value="editorial"{{if eq .Voice "editorial"}} selected{{end}}>{{.L.Editorial}}</option><option value="pastiche"{{if eq .Voice "pastiche"}} selected{{end}}>{{.L.Pastiche}}</option></select></label>
+<label for="from">{{.L.From}}<input id="from" name="from" type="number" min="1" max="9999" value="{{.From}}" aria-describedby="year-hint"></label>
+<label for="to">{{.L.To}}<input id="to" name="to" type="number" min="1" max="9999" value="{{.To}}" aria-describedby="year-hint"></label>
+</div><p id="year-hint" class="search-help">{{.L.YearHint}}</p>
+<label class="search-rerank"><input type="checkbox" name="rerank" value="1"{{if .Rerank}} checked{{end}}>{{.L.Rerank}}</label>
+<button type="submit">{{.L.Submit}}</button>
+</form>
+{{if .Error}}<div class="search-error" role="alert">{{.Error}}</div>{{else if .Result}}
+<section class="search-status" aria-label="{{.L.ActualMode}}"><dl class="search-facts">
+<div><dt>{{.L.Count}}</dt><dd>{{len .Hits}}</dd></div><div><dt>{{.L.ActualMode}}</dt><dd>{{.Result.Mode}}</dd></div><div><dt>{{.L.Degraded}}</dt><dd>{{if .Result.Degraded}}{{.L.Yes}}{{else}}{{.L.No}}{{end}}</dd></div><div><dt>{{.L.Reranked}}</dt><dd>{{if .Result.Reranked}}{{.L.Yes}}{{else}}{{.L.No}}{{end}}</dd></div><div><dt>{{.L.Duration}}</dt><dd>{{printf "%.1f" .Result.DurationMS}} ms</dd></div>
+</dl>{{if .Result.Reason}}<p class="search-help">{{.L.Reason}}: <code>{{.Result.Reason}}</code></p>{{end}}
+<p class="search-help">{{.L.Snapshot}}: <code class="search-code">{{.Result.ContentVersion}}</code><br>{{.L.Release}}: <code>{{.Result.SearchRelease}}</code></p></section>
+{{if .Hits}}<ol class="search-results">{{range .Hits}}<li class="search-hit"><article>
+<h2><a href="{{.PassageURL}}">{{.Title}}</a></h2>
+<dl class="search-facts"><div><dt>{{$.L.SourceVoice}}</dt><dd>{{.SourceVoice}}</dd></div><div><dt>{{$.L.TextVoice}}</dt><dd>{{.TextVoice}}</dd></div><div><dt>{{$.L.TextKind}}</dt><dd>{{.TextKind}}</dd></div><div><dt>{{$.L.TextLanguage}}</dt><dd>{{.Language}}</dd></div></dl>
+<p class="search-help">{{$.L.Excerpt}}</p><p class="search-text">{{.Text}}</p><a href="{{.PassageURL}}">{{$.L.OpenPassage}} →</a>
+</article></li>{{end}}</ol>{{else}}<p>{{.L.Empty}}</p>{{end}}
+{{else}}<p>{{.L.Initial}}</p><p class="search-help">{{.L.Examples}}: <a href="{{.Action}}?q=Norwegen&amp;mode=hybrid&amp;lang={{.TargetLang}}">Norwegen</a> · <a href="{{.Action}}?q=Doll+by+Doll&amp;mode=lexical&amp;lang={{.TargetLang}}">Doll by Doll</a></p>{{end}}
+{{if and .Configured (not .Result)}}<p class="search-help">{{.L.Snapshot}}: <code class="search-code">{{.Manifest.ContentVersion}}</code></p>{{end}}
+{{template "search-foot" .}}

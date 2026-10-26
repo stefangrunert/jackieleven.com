@@ -1,0 +1,10 @@
+{{template "search-head" .}}
+<p><a href="{{.Action}}">← {{.L.Back}}</a></p><h1>{{.L.Passage}}</h1>
+{{if .Error}}<div class="search-error" role="alert">{{.Error}}</div>{{else if .Passage}}
+<p class="search-intro">{{.L.PassageIntro}}</p>
+<article><h2>{{.Passage.Title}}</h2><dl class="search-facts"><div><dt>{{.L.SourceVoice}}</dt><dd>{{.Passage.SourceVoice}}</dd></div><div><dt>{{.L.TextVoice}}</dt><dd>{{.Passage.TextVoice}}</dd></div><div><dt>{{.L.TextKind}}</dt><dd>{{.Passage.TextKind}}</dd></div><div><dt>{{.L.TextLanguage}}</dt><dd>{{.Passage.Language}}</dd></div></dl>
+<div class="search-text search-full-text" lang="{{.Passage.Language}}">{{.Passage.Text}}</div>
+{{if .Passage.OriginalURL}}<p><a href="{{.Passage.OriginalURL}}" rel="noreferrer">{{.L.Original}} →</a></p>{{else}}<p>{{.L.NoOriginal}}</p>{{end}}
+<p class="search-help">{{.L.Identifier}}: <code class="search-code">{{.Passage.ID}}</code><br>{{.L.Document}}: <code class="search-code">{{.Passage.DocumentID}}</code><br>{{.L.Snapshot}}: <code class="search-code">{{.Versions.ContentVersion}}</code><br>{{.L.Release}}: <code class="search-code">{{.Versions.SearchRelease}}</code></p>
+{{if .Passage.MetadataText}}<details><summary>{{.L.Metadata}}</summary><pre>{{.Passage.MetadataText}}</pre></details>{{end}}</article>
+{{end}}{{template "search-foot" .}}
