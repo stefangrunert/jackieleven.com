@@ -161,7 +161,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--website-root', required=True, type=Path)
     parser.add_argument('--archive-root', required=True, type=Path)
-    parser.add_argument('--website-revision', default='ea653b6')
+    parser.add_argument('--website-revision', default='a1ea027')
     parser.add_argument('--archive-revision', default='7d353a4')
     parser.add_argument('--state-dir', type=Path, required=True)
     parser.add_argument('--manifest', type=Path)
@@ -181,7 +181,7 @@ def main():
         atomic_json(args.state_dir / 'exports' / (corpus['data_version'] + '.json'), corpus)
         unique, missing = embedding_plan(corpus, state, args.embed)
         print(json.dumps({'stage': 'plan', 'document_count': corpus['document_count'], 'passage_count': len(corpus['passages']),
-                          'entity_count': len(corpus['entities']), 'data_version': corpus['data_version'],
+                          'entity_count': len(corpus['entities']), 'data_version': corpus['data_version'], 'coverage': corpus.get('coverage', {}),
                           'embedding_profile': PROFILE_NAME if args.embed else 'none', 'embedding_unique_inputs': len(unique),
                           'embedding_cached': len(unique)-len(missing), 'embedding_missing': len(missing),
                           'batch_size': min(max(args.batch_size, 1), 16), 'workers': args.workers}, sort_keys=True), flush=True)

@@ -1,5 +1,5 @@
 """Pinned Git snapshots to a deterministic private search corpus, no network reads."""
-from collections import defaultdict
+from collections import defaultdict, Counter
 import io
 import json
 from pathlib import Path
@@ -9,8 +9,9 @@ import tarfile
 from urllib.parse import urldefrag
 import yaml
 from common import canonical, sha
+from sections import music, timeline, biography, site_pages, archive_records, live_media, SECTIONS, record
 
-ADAPTER = 'website-readable-v1-chunks2400'
+ADAPTER = 'website-public-v2-chunks2400'
 MAX_CHARS = 2400
 
 
@@ -108,6 +109,8 @@ def export(website, archive, state):
         if doc.get('url'):
             by_url[urldefrag(doc['url'])[0]].append(did)
     catalog = website.json('data/quellen.json')
+    source_excerpts = website.json('data/quellen-auszuege.json')
+    source_scans = website.json('data/quellen-scans.json')
     langs = {l: website.json('data/lang/' + l + '.json') for l in ('de', 'en')}
     candidates = []
     documents = set()
@@ -122,7 +125,7 @@ def export(website, archive, state):
                                'metadata': {**base['metadata'], 'source_selector': locator,
                                             'chunk': index, 'version_group': base['document_id'] + '#' + family.rsplit(':', 1)[0]}})
     for qi, q in enumerate(catalog):
-        if q.get('stufe') == 'weitere' or q.get('fiction') or q.get('kategorie') == 'pastiche':
+        if q.get('fiction') or q.get('kategorie') == 'pastiche':
             continue
         matches = by_url.get(urldefrag(q.get('url', ''))[0], [])
         did = 'document/' + q['id']
@@ -134,10 +137,35 @@ def export(website, archive, state):
         base = {'document_id': did, 'title': q['titel'], 'source_voice': voice, 'year': year(q.get('datum')),
                 'url_de': '/de/' + langs['de']['pfad.stimmen'] + '/' + q['id'],
                 'url_en': '/en/' + langs['en']['pfad.stimmen'] + '/' + q['id'],
-                'metadata': {'website_source_id': q['id'], 'identity_scope': 'archive' if did in docs else 'private_search',
+                'metadata': {'section': 'press', 'fiction': False, 'record_kind': 'source', 'display_date': q.get('datum'), 'website_source_id': q['id'], 'identity_scope': 'archive' if did in docs else 'private_search',
                              'source_url': q.get('url'), 'source_access': q.get('zugang'), 'rights': q.get('lizenz'),
                              'publication_date': q.get('datum'), 'author': q.get('autor'), 'adapter': ADAPTER,
                              'input_file': 'data/quellen.json', 'source_revision': website.revision}}
+        if q.get('stufe') == 'weitere':
+            base['url_de'] = '/de/' + langs['de']['pfad.stimmen'] + '?auswahl=0#' + q['id']
+            base['url_en'] = '/en/' + langs['en']['pfad.stimmen'] + '?auswahl=0#' + q['id']
+            base['metadata']['record_kind'] = 'catalog_source'
+        for lang in ('de', 'en'):
+            translated = q.get('en') if lang == 'en' and isinstance(q.get('en'), dict) else {}
+            title = translated.get('titel', q['titel'])
+            if lang == 'en' and q['titel'].startswith('[') and not translated.get('titel'):
+                title = langs[lang]['stimmen.kategorie.' + q['kategorie']] + ' · ' + translated.get('medium', q['medium'])
+            title = title.replace('[', '').replace(']', '')
+            record(append, base, [title, translated.get('medium', q['medium'])], lang, 'source-header:' + lang, f'/{qi}/titel')
+        scan = source_scans.get(q['id'], {})
+        for lang in ('de', 'en'):
+            if scan.get('pages'):
+                record(append, {**base, 'metadata': {**base['metadata'], 'input_file': 'data/quellen-scans.json'}},
+                       [langs[lang]['stimmen.seite'], scan['pages']], lang, 'scan-pages:' + lang, '/' + q['id'] + '/pages')
+            if q.get('stufe') != 'weitere':
+                for i, excerpt in enumerate(source_excerpts.get(q['id'], [])):
+                    for field in ('caption', 'source'):
+                        if excerpt.get(field, {}).get(lang):
+                            append({**base, 'metadata': {**base['metadata'], 'input_file': 'data/quellen-auszuege.json'}},
+                                   excerpt[field][lang], lang, 'summary', 'editorial', 'facsimile-' + field + ':' + lang,
+                                   f'/{q["id"]}/{i}/{field}/{lang}', original=True)
+        if q.get('stufe') == 'weitere':
+            continue  # Its stored summaries/quotes are not rendered publicly.
         for field in ('kurz', 'inhalt', 'korrektur'):
             values = q.get(field) or {}
             if not isinstance(values, dict):
@@ -176,7 +204,7 @@ def export(website, archive, state):
                 'year': year(publication) if issue else None,
                 'url_de': '/de/' + langs['de']['pfad.pool'] + '/' + slug,
                 'url_en': '/en/' + langs['en']['pfad.pool'] + '/' + slug,
-                'metadata': {'identity_scope': 'private_search', 'input_file': path, 'source_revision': website.revision,
+                'metadata': {'section': 'writing', 'fiction': False, 'record_kind': 'column', 'display_date': meta.get('datum'), 'identity_scope': 'private_search', 'input_file': path, 'source_revision': website.revision,
                              'source_url': meta.get('quelle'), 'archive_url': meta.get('archiv'), 'author': meta.get('autor'),
                              'date_kind': 'issue' if issue else 'capture', 'date_label': meta.get('datum'),
                              'capture_date': meta.get('capture'), 'adapter': ADAPTER}}
@@ -190,13 +218,29 @@ def export(website, archive, state):
             append(base, readable, 'en', 'original', voice, 'column:en', {'block': i}, original=True)
     if not candidates or not column_files:
         raise ValueError('empty_source_snapshot')
+    coverage = {'sources': len(catalog), 'source_detail_pages': sum(q.get('stufe') != 'weitere' for q in catalog),
+                'catalog_only_sources': sum(q.get('stufe') == 'weitere' for q in catalog), 'columns': len(column_files)}
+    for adapter in (music, timeline, biography, site_pages, live_media):
+        coverage.update(adapter(website, langs, append))
+    document_targets = {p['document_id']: {'url_de': p['url_de'], 'url_en': p['url_en']} for p in candidates if p['metadata'].get('identity_scope') == 'archive'}
+    coverage.update(archive_records(entities, archive, document_targets, append))
     passages = state.assign(candidates)
     # Bind the rendering adapter dependencies in addition to content inputs.
     for path in ('internal/site/markdown.go', 'internal/site/templates.go', 'templates/quelle.gohtml', 'templates/kolumne.gohtml'):
         website.read(path)
+    for path in ('templates/platte.gohtml', 'templates/diskografie.gohtml', 'templates/buehne.gohtml', 'templates/kapitel.gohtml',
+                 'templates/hoeren.gohtml', 'templates/livevideos.gohtml', 'templates/start.gohtml', 'templates/mitmachen.gohtml', 'templates/stimmen.gohtml'):
+        website.read(path)
+    if any(p['metadata'].get('section') not in SECTIONS for p in passages):
+        raise ValueError('invalid_section')
+    coverage['sections'] = {section: {'passages': sum(p['metadata']['section'] == section for p in passages),
+                                     'documents': len({p['document_id'] for p in passages if p['metadata']['section'] == section})}
+                            for section in sorted(SECTIONS)}
+    coverage['fiction_passages'] = sum(p['metadata'].get('fiction') is True for p in passages)
+    coverage['source_policy'] = 'Explicit published adapters only; no private research notes, binary OCR, unrendered source details or disabled fan videos.'
     inputs = {'website': {'commit': website.revision, 'files': dict(sorted(website.files.items()))},
               'archive': {'commit': archive.revision, 'files': dict(sorted(archive.files.items()))}}
     result = {'format_version': 'search-export-v1', 'adapter': ADAPTER, 'inputs': inputs,
-              'entities': entities, 'passages': passages, 'document_count': len(documents)}
+              'entities': entities, 'passages': passages, 'document_count': len(documents), 'coverage': coverage}
     result['data_version'] = sha(canonical(result))
     return result

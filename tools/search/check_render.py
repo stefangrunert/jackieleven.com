@@ -38,7 +38,11 @@ def main():
         parser.error('Only a credential-free loopback HTTP server is supported')
     corpus = json.loads(args.export.read_text())
     checks = []
+    archive_records = 0
     for passage in corpus['passages']:
+        if passage['metadata'].get('representation') == 'archive_record':
+            archive_records += 1
+            continue
         lang = 'en' if passage['language'] == 'en' else 'de'
         path = passage['url_' + lang]
         selector = passage['metadata'].get('source_selector', '')
@@ -52,8 +56,12 @@ def main():
         return path, norm(''.join(reader.parts))
     with ThreadPoolExecutor(max_workers=4) as pool:
         pages = dict(pool.map(fetch, sorted(set(path for path, _ in checks))))
-    errors = [passage['id'] for path, passage in checks if norm(passage['text']) not in pages[path]]
-    print(json.dumps({'pages': len(pages), 'passages': len(checks), 'mismatch_count': len(errors), 'first_mismatches': errors[:20]}))
+    errors = []
+    for path, passage in checks:
+        fragments = passage['metadata'].get('display_fragments', [passage['text']])
+        if any(norm(fragment) not in pages[path] for fragment in fragments):
+            errors.append({'id': passage['id'], 'selector': passage['metadata'].get('source_selector')})
+    print(json.dumps({'pages': len(pages), 'passages': len(checks), 'archive_records_separately_validated': archive_records, 'mismatch_count': len(errors), 'first_mismatches': errors[:20]}))
     raise SystemExit(bool(errors))
 
 
