@@ -18,7 +18,7 @@ UNIT=Path('/etc/systemd/system/jackieleven-search-preview.service')
 ENV=Path('/etc/jackieleven-search-preview.env')
 WEBENV=Path('/etc/jackieleven-go-preview-search.env')
 PG='/usr/lib/postgresql/17/bin/'
-PSQL=['runuser','-u','jackieleven-search-db','--',PG+'psql','-X','-v','ON_ERROR_STOP=1','-h','/run/jackieleven-search-db','-p','55473','-U','search_admin']
+PSQL=['runuser','-u','jackieleven-search-db','--',PG+'psql','-X','-A','-t','-v','ON_ERROR_STOP=1','-h','/run/jackieleven-search-db','-p','55473','-U','search_admin']
 SERVICE='jackieleven-search-preview.service'
 
 def run(*args, **kwargs):
@@ -65,7 +65,7 @@ def install(release, dump, digest):
         with hba.open('a') as f: f.write(rule)
         sql('postgres','SELECT pg_reload_conf();')
     ready=sql(database,"SELECT count(*) FROM search.builds WHERE content_version='"+version+"' AND status='ready';").stdout
-    if not re.search(r'\b1\b',ready): raise RuntimeError('Published build missing')
+    if ready.strip() != '1': raise RuntimeError('Published build missing')
     sql(database,'REVOKE CONNECT ON DATABASE '+database+' FROM PUBLIC; GRANT CONNECT ON DATABASE '+database+' TO search_reader; GRANT USAGE ON SCHEMA search TO search_reader; GRANT SELECT ON ALL TABLES IN SCHEMA search TO search_reader; ANALYZE;')
     backup=Path('/var/backups/jackieleven-search-preview')/datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     backup.mkdir(parents=True,mode=0o700)

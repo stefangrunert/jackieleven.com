@@ -124,3 +124,12 @@ Zusätzlich müssen lokales `registry.sqlite3`, `artifacts/`, `exports/`,
 `manifests/` und das lokale PostgreSQL-Volume zusammen gesichert werden. Die
 Aufbewahrung auf demselben Server ersetzt kein externes Backup. Zugangsdaten
 werden getrennt von veröffentlichten Releases aufbewahrt.
+
+Der veröffentlichte Vollstand vom 26. Oktober 2026 trägt `content_version`
+`dd84acf1b05f7632f55cf61589245bd3a30eaea7d85d0f8e02c1bed82687f3be`.
+Er enthält 16.217 Passagen aus 1.752 Dokumentidentitäten und 965 Graphobjekte.
+13.779 einzigartige Textinputs sind im dauerhaften Embeddingcache vorhanden;
+der Wiederholungslauf bestätigte null fehlende Inputs und null Anbieteraufrufe.
+Der Restore wurde auf der separaten nativen Instanz erfolgreich durchgeführt.
+Der private Wiederherstellungssnapshot liegt zusätzlich unter
+`/mnt/HC_Volume_107171732/jackieleven-search-snapshots/`.
