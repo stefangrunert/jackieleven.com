@@ -1,8 +1,8 @@
 # Go-Migration: Stand und Wiederaufnahme
 
-Stand: 25. Oktober 2026. Arbeitsverzeichnis: `/Users/stefan/www/jackieleven-go-migration`, Branch `go-migration`. PHP-Referenz: `/Users/stefan/www/jackieleven`, erreichbar unter `https://jackieleven.localhost`.
+Stand: 26. Oktober 2026. Arbeitsverzeichnis: `/Users/stefan/www/jackieleven`, Branch `main`. Die Go-Migration ist vollständig integriert; der separate Migrationsworktree und der Branch `go-migration` wurden lokal und auf origin entfernt.
 
-Die serverseitige Go-Umsetzung ist fertig. PHP/main wurden dabei nicht geändert. Der PHP-Ausgangsstand ist Commit `869442365d26a697f4f630b03ac073d4899055d6`, auf origin/main und im annotierten Tag `php-before-go-migration` gesichert. Der Archiv-/Ontologie-Agent arbeitet in einem anderen Repository; neue Ontologie- und Suchfunktionen sind nicht Teil dieses Laufzeitwechsels.
+Die serverseitige Go-Umsetzung ist fertig und auf `main` veröffentlicht. Der PHP-Ausgangsstand ist Commit `869442365d26a697f4f630b03ac073d4899055d6`, im annotierten Tag `php-before-go-migration` gesichert. Der Archiv-/Ontologie-Agent arbeitet in einem anderen Repository; neue Ontologie- und Suchfunktionen sind nicht Teil dieses Laufzeitwechsels.
 
 ## Abnahme und Nachweise
 
@@ -39,7 +39,7 @@ Ein Infrastrukturfall wird gesondert ausgewiesen: `/de%2Fueber` liefert bei Apac
 ## Start und Prüfkommandos
 
 ```sh
-cd /Users/stefan/www/jackieleven-go-migration
+cd /Users/stefan/www/jackieleven
 go run ./cmd/jackieleven -root "$PWD" -listen 127.0.0.1:8080
 ```
 
@@ -78,8 +78,8 @@ Der vollständige Formularweg einschließlich Zustellung ist damit abgenommen.
 
 PHP-FPM, bisheriges Release und Sicherung bleiben als Rückfall erhalten.
 Rückfallkommando und Deploymentnachweise stehen in `ops/GO-BETRIEB.md`.
-Die separate Testinstanz bleibt verfügbar. Der Git-Hauptbranch wurde bei diesem
-Serverwechsel nicht umgestellt; der Entwicklungsstand liegt auf `go-migration`.
+Die separate Testinstanz bleibt verfügbar. Der abgenommene Entwicklungsstand ist
+in `main` integriert und auf origin veröffentlicht.
 
 ## Bereinigung des Migrationsbranches
 
@@ -87,8 +87,8 @@ Nach Einrichtung der Testinstanz wurden auf Wunsch des Nutzers die alte Anwendun
 (`app/`, `index.php`, `.htaccess`), die doppelten JSON-Kataloge und die zugehörigen
 Release-/FastCGI-/Installationswerkzeuge entfernt. Der Betriebsweg dieses Branches
 ist ausschließlich Go; Inhaltspflege erfolgt über die Werkzeuge in `werkzeug/`.
-Die alten Quellen bleiben über den Sicherungstag und den separaten Referenz-Worktree
-wiederherstellbar. Die Git-Historie wird nicht umgeschrieben.
+Die alten Quellen bleiben über den Sicherungstag wiederherstellbar. Das PHP-Release
+auf dem Server bleibt als Rückfall erhalten. Die Git-Historie wird nicht umgeschrieben.
 
 Historische Quellen-URLs mit `.php`, Herkunftsangaben der Vergleichsfixtures,
 Migrationsberichte und absichtliche Sperrtests gegen alte private Pfade sind
@@ -110,3 +110,18 @@ Der Quellen-Generator reproduziert den vorhandenen Katalog exakt (741 öffentlic
 25 intern, keine veralteten Übersetzungen); die zehn Originalzitate sind unverändert.
 Werkzeug- und Zustandsbereinigungsregressionen laufen ohne Netzaufrufe. Details und
 Abhängigkeiten stehen in `werkzeug/README.md`.
+
+## Abschluss am 26. Oktober 2026
+
+Der vollständig integrierte Branch `go-migration` und sein Worktree wurden entfernt.
+Alle 4.278 ignorierten Dateien des Worktrees wurden vorher in
+`.dev/worktree-backups/go-migration-2026-10-26.tar.gz` gesichert und anhand von
+SHA-256-Prüfsummen verifiziert. Das zugehörige Manifest liegt daneben als
+`go-migration-2026-10-26.manifest.json`. Das Archiv enthält auch die bisherigen
+lokalen Releasepakete und Laufzeitdaten und bleibt außerhalb von Git.
+
+Die Prüfberichte, Screenshots und eingefrorenen PHP-Referenzdaten stehen zusätzlich
+unter `.dev/migration-state/` im Hauptverzeichnis bereit. Der lokale Testserver auf
+Port 8080 verwendet jetzt dieses Hauptverzeichnis; produktive Versandzugänge
+sind dort nicht geladen. Produktionsinstanz, Vorschau und PHP-Rückfall wurden
+bei dieser lokalen Bereinigung nicht verändert.
