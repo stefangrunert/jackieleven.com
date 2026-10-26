@@ -29,6 +29,7 @@ func run() error {
 	manifest := flag.String("manifest", "", "immutable local search manifest")
 	requestTimeout := flag.Duration("request-timeout", 6*time.Second, "total request deadline")
 	providerTimeout := flag.Duration("provider-timeout", 3*time.Second, "provider call deadline")
+	enableMCP := flag.Bool("mcp", false, "enable local read-only MCP at /mcp")
 	flag.Parse()
 	host, _, e := net.SplitHostPort(*listen)
 	if e != nil || net.ParseIP(host) == nil || !net.ParseIP(host).IsLoopback() {
@@ -72,8 +73,12 @@ func run() error {
 	if e != nil {
 		return e
 	}
+	handler := searchapi.New(service)
+	if *enableMCP {
+		handler = searchapi.NewWithMCP(service, *requestTimeout)
+	}
 	// Start even if DB is unavailable; /healthz lives while /readyz reports 503.
-	server := &http.Server{Addr: *listen, Handler: searchapi.New(service), ReadHeaderTimeout: 2 * time.Second, ReadTimeout: 3 * time.Second, WriteTimeout: *requestTimeout + time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 16 << 10, ErrorLog: log.New(io.Discard, "", 0)}
+	server := &http.Server{Addr: *listen, Handler: handler, ReadHeaderTimeout: 2 * time.Second, ReadTimeout: 3 * time.Second, WriteTimeout: *requestTimeout + time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 16 << 10, ErrorLog: log.New(io.Discard, "", 0)}
 	listener, e := net.Listen("tcp", *listen)
 	if e != nil {
 		return search.ErrUnavailable

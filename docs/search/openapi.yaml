@@ -10,6 +10,33 @@ info:
 servers:
   - url: http://127.0.0.1:8081
 paths:
+  /mcp:
+    post:
+      operationId: mcp
+      description: >-
+        Optional (-mcp flag), local-only read-only MCP via official Go SDK v1.8.0.
+        Stateless Streamable HTTP with JSON responses; initialize, tools/list,
+        tools/call tested with protocol 2025-11-25. Tools search, get_passage,
+        get_entity share the pinned Service and its limits. The adapter supplies
+        the pinned version; it never accepts a client-selected build. Numeric
+        loopback Host and matching Origin (when present) required. Body max64KiB,
+        eight concurrent transport requests, configured request deadline. No
+        OAuth/public ingress enabled; remote ChatGPT/Claude connectivity untested.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '200': {description: JSON-RPC response}
+        '202': {description: Accepted MCP notification}
+        '400': {description: Invalid MCP request or unsupported protocol version}
+        '403': {description: Host or Origin rejected}
+        '429': {$ref: '#/components/responses/Capacity'}
+    get:
+      operationId: mcpNoStream
+      responses:
+        '405': {description: Stateless adapter does not offer a standalone SSE stream}
   /healthz:
     get:
       operationId: liveness

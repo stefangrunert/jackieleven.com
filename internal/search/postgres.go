@@ -47,7 +47,8 @@ func (p *Postgres) Ready(ctx context.Context, m Manifest) error {
 	ctx, cancel := context.WithTimeout(ctx, p.Timeout)
 	defer cancel()
 	var ok bool
-	e := p.Pool.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM search.builds WHERE build_id=$1 AND content_version=$2 AND data_version=$3 AND embedding_profile=$4 AND status='ready')
+	e := p.Pool.QueryRow(ctx, `WITH schema_check AS (SELECT p.row_id,p.build_id,p.id,p.document_id,p.title,p.text,p.language,p.source_voice,p.text_voice,p.text_kind,p.year,p.url_de,p.url_en,p.content_hash,p.embedding,p.metadata,e.build_id,e.id,e.data FROM search.passages p LEFT JOIN search.entities e ON false LIMIT 0)
+ SELECT EXISTS(SELECT 1 FROM search.builds WHERE build_id=$1 AND content_version=$2 AND data_version=$3 AND embedding_profile=$4 AND status='ready')
  AND EXISTS(SELECT 1 FROM pg_extension WHERE extname='pg_search' AND extversion='0.26.3')
  AND EXISTS(SELECT 1 FROM pg_extension WHERE extname='vector' AND extversion='0.8.6')
  AND to_regclass('search.entities') IS NOT NULL

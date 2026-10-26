@@ -68,6 +68,21 @@ func TestPostgresIntegration(t *testing.T) {
 			t.Fatal("test entity insert failed")
 		}
 	}
+	readerDSN := os.Getenv("JACKIE_SEARCH_TEST_READER_DATABASE_URL")
+	if readerDSN != "" {
+		reader, err := pgx.Connect(ctx, readerDSN)
+		if err != nil {
+			t.Fatal("reader connection failed")
+		}
+		defer reader.Close(context.Background())
+		if _, err = reader.Exec(ctx, "SET default_transaction_read_only=off"); err != nil {
+			t.Fatal("reader test session setup failed")
+		}
+		if _, err = reader.Exec(ctx, `INSERT INTO search.entities(build_id,id,data) VALUES($1,'forbidden','{}')`, id); err == nil {
+			t.Fatal("reader unexpectedly has write privilege")
+		}
+		dsn = readerDSN
+	}
 	db, e := OpenPostgres(ctx, dsn, time.Second)
 	if e != nil {
 		t.Fatal(e)
@@ -75,6 +90,13 @@ func TestPostgresIntegration(t *testing.T) {
 	defer db.Close()
 	if e = db.Ready(ctx, m); e != nil {
 		t.Fatal("readiness", e)
+	}
+	short, stop := context.WithTimeout(ctx, 20*time.Millisecond)
+	started := time.Now()
+	_, sleepErr := db.Pool.Exec(short, "SELECT pg_sleep(5)")
+	stop()
+	if sleepErr == nil || time.Since(started) > time.Second {
+		t.Fatal("SQL cancellation did not honor context")
 	}
 	q := query()
 	q.Text = "syntheticuniquetoken"

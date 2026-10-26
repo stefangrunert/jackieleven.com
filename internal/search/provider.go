@@ -37,7 +37,7 @@ func (p *DeepInfra) post(ctx context.Context, path string, body, out any) error 
 		return errProvider
 	}
 	req, e := http.NewRequestWithContext(ctx, "POST", strings.TrimRight(p.BaseURL, "/")+path, bytes.NewReader(data))
-	if e != nil || len(data) > 300000 {
+	if e != nil {
 		return errProvider
 	}
 	req.Header.Set("Authorization", "Bearer "+p.Key)
