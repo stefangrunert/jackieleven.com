@@ -133,10 +133,6 @@
   font-size:.9rem;
   cursor:pointer
 }
-.discovery-query button .search-submit-arrow {
-  margin-left:.8rem;
-  font-size:1.4rem
-}
 .discovery-query button:hover {
   background:#e3b76a
 }
@@ -278,10 +274,6 @@
 }
 .discovery-examples>a:hover {
   color:var(--accent)
-}
-.discovery-examples>a span {
-  color:var(--accent);
-  font-size:.9rem
 }
 .discovery-notice {
   margin:1.5rem 0;
@@ -690,9 +682,6 @@
   .discovery-query button {
     padding:0 1rem
   }
-  .discovery-query button .search-submit-arrow {
-    display:none
-  }
   .discovery-section-heading {
     align-items:flex-start;
     flex-direction:column;
@@ -774,7 +763,6 @@
   animation:search-spin .8s linear infinite
 }
 .is-searching .search-spinner { display:inline-block; }
-.is-searching .search-submit-arrow { display:none; }
 .discovery-query button:disabled,.home-search button:disabled {
   cursor:wait;
   opacity:.85

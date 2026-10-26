@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="{{base_path}}/assets/fonts/home.css">
 {{end}}
 <link rel="stylesheet" href="{{base_path}}/assets/css/site.css?v={{(filemtime (cat "" "/assets/css/site.css"))}}">
-{{if search_enabled}}<script src="{{base_path}}/assets/js/search.js?v=search-loading-2" defer></script><link rel="stylesheet" href="{{base_path}}/assets/css/search.css?v=search-loading-2">{{end}}
+{{if search_enabled}}<script src="{{base_path}}/assets/js/search.js?v=search-loading-2" defer></script><link rel="stylesheet" href="{{base_path}}/assets/css/search.css?v=search-no-arrows-1">{{end}}
 </head>
 <body{{(attrs (choose (equal $nav "start") " class=\"home-page\"" ""))}}>
 
