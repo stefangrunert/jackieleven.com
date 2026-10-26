@@ -228,7 +228,11 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 		}
 	}
 	if q.Grouped {
-		out.Hits = groupedCandidates(out.Hits)
+		if q.Section != "" {
+			out.Hits = sectionCandidatesLimit(out.Hits, min(q.Limit, 28))
+		} else {
+			out.Hits = groupedCandidates(out.Hits)
+		}
 	} else {
 		out.Hits = uniquePassages(out.Hits)
 		if len(out.Hits) > q.Limit {
@@ -266,7 +270,7 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 			}
 		}
 	}
-	if q.Grouped {
+	if q.Grouped && q.Section == "" {
 		out.Hits = groupedResults(out.Hits, q.Limit)
 	}
 	out.DurationMS = time.Since(start).Milliseconds()

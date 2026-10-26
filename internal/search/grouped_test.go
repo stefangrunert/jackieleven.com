@@ -119,7 +119,7 @@ func TestGroupedSmallLimitSectionOptInAndDeadline(t *testing.T) {
 	q.Section = "biography"
 	q.Limit = 20
 	out, e = s.Search(context.Background(), q)
-	if e != nil || len(out.Hits) != 3 || hitSection(out.Hits[0]) != "biography" {
+	if e != nil || len(out.Hits) != 8 || hitSection(out.Hits[0]) != "biography" {
 		t.Fatal("explicit fiction section", out, e)
 	}
 	o := DefaultOptions()
@@ -153,5 +153,23 @@ func TestDocumentFusionRetainsEvidenceAndNoDuplicateCredit(t *testing.T) {
 	out := documentRRF([]Hit{original, other}, []Hit{other})
 	if len(out) != 1 || out[0].ID != "p1" || out[0].Text != "Exact original" || out[0].Score != 2.0/61 {
 		t.Fatal(out)
+	}
+}
+
+func TestLegacySectionFallbackIsVisible(t *testing.T) {
+	hits := groupedCandidates([]Hit{{ID: "legacy", DocumentID: "old", Metadata: json.RawMessage(`{"image":"cover.jpg","fiction":false}`)}})
+	var metadata map[string]any
+	if len(hits) != 1 || json.Unmarshal(hits[0].Metadata, &metadata) != nil || metadata["section"] != "site" || metadata["image"] != "cover.jpg" {
+		t.Fatal("legacy section fallback lost metadata", hits)
+	}
+}
+
+func TestExpandedSectionRerankLimit(t *testing.T) {
+	hits := []Hit{}
+	for i := 0; i < 60; i++ {
+		hits = append(hits, Hit{ID: fmt.Sprint(i), DocumentID: fmt.Sprint(i), Metadata: json.RawMessage(`{"section":"music"}`)})
+	}
+	if got := len(sectionCandidatesLimit(hits, 28)); got != 28 {
+		t.Fatal("expanded rerank cap", got)
 	}
 }

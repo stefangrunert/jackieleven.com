@@ -2,6 +2,7 @@ package search
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net"
 	"os"
@@ -299,5 +300,61 @@ func testGroupedPostgres(t *testing.T, ctx context.Context, admin *pgx.Conn, db 
 	hits, e = db.Semantic(ctx, m, q, vector, 10)
 	if e != nil || len(hits) != 1 || hits[0].ID != "fiction-voice" {
 		t.Fatal("pastiche voice opt-in", len(hits), e)
+	}
+}
+
+// Full imported corpus smoke: no provider calls, no data mutations.
+func TestLiveGroupedLexicalRegression(t *testing.T) {
+	path := os.Getenv("JACKIE_SEARCH_TEST_MANIFEST")
+	if path == "" {
+		t.Skip("set JACKIE_SEARCH_TEST_MANIFEST for populated-corpus grouped regression")
+	}
+	m, e := LoadManifest(path)
+	if e != nil {
+		t.Fatal(e)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	db, e := OpenPostgres(ctx, os.Getenv("JACKIE_SEARCH_TEST_READER_DATABASE_URL"), 1500*time.Millisecond)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer db.Close()
+	service, e := New(m, db, nil, DefaultOptions())
+	if e != nil {
+		t.Fatal(e)
+	}
+	q := query()
+	q.Text = "Leven"
+	q.Mode = "lexical"
+	q.Grouped = true
+	out, e := service.Search(ctx, q)
+	if e != nil {
+		t.Fatal("grouped live search", e)
+	}
+	docs := map[string]bool{}
+	counts := map[string]int{}
+	for _, h := range out.Hits {
+		var meta struct {
+			Section string `json:"section"`
+			Fiction bool   `json:"fiction"`
+		}
+		if json.Unmarshal(h.Metadata, &meta) != nil {
+			t.Fatal("invalid metadata")
+		}
+		if !validSection(meta.Section) || meta.Fiction || h.TextVoice == "pastiche" || docs[h.DocumentID] {
+			t.Fatal("grouping or fiction invariant")
+		}
+		docs[h.DocumentID] = true
+		counts[meta.Section]++
+		if counts[meta.Section] > 3 {
+			t.Fatal("section limit")
+		}
+	}
+	t.Logf("grouped hits=%d sections=%v duration_ms=%d", len(out.Hits), counts, out.DurationMS)
+	q.Text = "xxxxxxxxxxzyxzxq"
+	out, e = service.Search(ctx, q)
+	if e != nil || len(out.Hits) != 0 {
+		t.Fatal("grouped lexical miss", len(out.Hits), e)
 	}
 }

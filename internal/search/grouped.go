@@ -30,6 +30,22 @@ func hitSection(h Hit) string {
 	}
 	return "site"
 }
+
+// Older snapshots predate section metadata. Make the fallback explicit so a
+// client can group the flat response without implementing a second classifier.
+func withSection(h Hit, section string) Hit {
+	var metadata map[string]json.RawMessage
+	if json.Unmarshal(h.Metadata, &metadata) != nil || metadata == nil {
+		metadata = make(map[string]json.RawMessage)
+	}
+	var present string
+	if json.Unmarshal(metadata["section"], &present) == nil && validSection(present) {
+		return h
+	}
+	metadata["section"], _ = json.Marshal(section)
+	h.Metadata, _ = json.Marshal(metadata)
+	return h
+}
 func documentKey(h Hit) string {
 	if h.DocumentID != "" {
 		return h.DocumentID
@@ -63,6 +79,13 @@ func querySections(q Query) []string {
 // pool. All queued work observes the original request context and deadline.
 func (s *Service) groupedRetrieve(ctx context.Context, q Query, vector []float32) ([]Hit, error) {
 	targets := querySections(q)
+	candidateLimit := 12
+	if q.Section != "" {
+		candidateLimit = q.Limit * 2
+		if candidateLimit > 60 {
+			candidateLimit = 60
+		}
+	}
 	type result struct {
 		hits []Hit
 		err  error
@@ -88,9 +111,9 @@ func (s *Service) groupedRetrieve(ctx context.Context, q Query, vector []float32
 				// Twelve distinct documents per list allow fusion to recover cross-list
 				// candidates; only four per section are sent to the optional reranker.
 				if vector == nil {
-					results[i].hits, results[i].err = s.repo.Lexical(ctx, s.Manifest, child, 12)
+					results[i].hits, results[i].err = s.repo.Lexical(ctx, s.Manifest, child, candidateLimit)
 				} else {
-					results[i].hits, results[i].err = s.repo.Semantic(ctx, s.Manifest, child, vector, 12)
+					results[i].hits, results[i].err = s.repo.Semantic(ctx, s.Manifest, child, vector, candidateLimit)
 				}
 			}
 		}()
@@ -150,19 +173,20 @@ func documentRRF(lists ...[]Hit) []Hit {
 
 // Max 7*4=28 candidates, irrespective of requested limit; no section can consume
 // the entire rerank budget with many paragraphs from the same document.
-func groupedCandidates(hits []Hit) []Hit {
+func groupedCandidates(hits []Hit) []Hit { return sectionCandidatesLimit(hits, sectionCandidates) }
+func sectionCandidatesLimit(hits []Hit, maxPerSection int) []Hit {
 	count := map[string]int{}
 	seen := map[string]bool{}
 	out := make([]Hit, 0, 28)
 	for _, h := range hits {
 		k := documentKey(h)
 		section := hitSection(h)
-		if seen[k] || count[section] >= sectionCandidates {
+		if seen[k] || count[section] >= maxPerSection {
 			continue
 		}
 		seen[k] = true
 		count[section]++
-		out = append(out, h)
+		out = append(out, withSection(h, section))
 	}
 	return out
 }

@@ -66,7 +66,10 @@ paths:
         deduplicated before the SQL candidate limit. It fuses by document and sends
         at most four documents per populated section (28 overall) to the optional
         reranker. The final flat hits contain at most three documents per section,
-        respect limit, and are contiguous by section in relevance order. A small
+        respect limit, and are contiguous by section in relevance order. With an
+        explicit section filter, grouped=1 instead expands that section to up to
+        limit different documents (maximum 28), supporting More-in-section links
+        while retaining the same external rerank cap. A small
         limit takes one per populated section before second or third results.
         Original best-scoring passages retain precedence; a localized non-original
         passage is preferred when within five percent of the document's best score.
@@ -104,7 +107,7 @@ paths:
           schema: {type: string, enum: [music, live, timeline, writing, press, biography, site]}
         - name: grouped
           in: query
-          description: Return diverse documents per section; output remains a flat hits array with metadata
+          description: Return diverse documents per section; explicit section expands to limit documents (max 28); output remains a flat hits array with metadata
           schema: {type: integer, enum: [0, 1], default: 0}
         - name: from
           in: query
