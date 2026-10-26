@@ -166,3 +166,47 @@ func TestQueryValidation(t *testing.T) {
 		}
 	}
 }
+
+// A healthy semantic path must not depend on BM25 being available.
+type lexicalFailureRepo struct{ fakeRepo }
+
+func (r *lexicalFailureRepo) Lexical(context.Context, Manifest, Query, int) ([]Hit, error) {
+	return nil, ErrUnavailable
+}
+func TestSemanticIndependentOfLexicalAndFallbackFailure(t *testing.T) {
+	r := &lexicalFailureRepo{fakeRepo{sem: []Hit{{ID: "semantic-only"}}}}
+	p := &fakeProvider{}
+	s, _ := New(testManifest(), r, p, DefaultOptions())
+	q := query()
+	q.Mode = "semantic"
+	out, err := s.Search(context.Background(), q)
+	if err != nil || out.Mode != "semantic" || len(out.Hits) != 1 || out.Hits[0].ID != "semantic-only" {
+		t.Fatal(out, err)
+	}
+	p.fail = true
+	q.Text = "uncached"
+	if _, err = s.Search(context.Background(), q); err != ErrUnavailable {
+		t.Fatal("failed lexical fallback must remain an error", err)
+	}
+}
+
+func TestExactDuplicatePassagesPreserveDistinctEvidence(t *testing.T) {
+	base := Hit{ID: "a", DocumentID: "doc", Language: "de", SourceVoice: "third_party", TextVoice: "editorial", TextKind: "summary", Text: "Same complete text"}
+	duplicate := base
+	duplicate.ID = "b"
+	otherVoice := base
+	otherVoice.ID = "c"
+	otherVoice.TextVoice = "third_party"
+	otherDocument := base
+	otherDocument.ID = "d"
+	otherDocument.DocumentID = "other"
+	long := base
+	long.ID = "e"
+	long.Text = strings.Repeat("x", 1201)
+	long2 := long
+	long2.ID = "f"
+	got := uniquePassages([]Hit{base, duplicate, otherVoice, otherDocument, long, long2})
+	if len(got) != 5 || got[0].ID != "a" || got[1].ID != "c" {
+		t.Fatal(got)
+	}
+}

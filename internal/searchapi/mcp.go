@@ -18,7 +18,7 @@ import (
 type mcpSearchInput struct {
 	Query    string `json:"q" jsonschema:"Search query, maximum 1024 UTF-8 bytes"`
 	Language string `json:"lang,omitempty" jsonschema:"Original link language de or en, defaults to de"`
-	Mode     string `json:"mode,omitempty" jsonschema:"lexical, semantic or hybrid; defaults to hybrid"`
+	Mode     string `json:"mode,omitempty" jsonschema:"lexical, semantic or hybrid; defaults to hybrid; semantic and hybrid send the query to DeepInfra"`
 	Limit    int    `json:"limit,omitempty" jsonschema:"1 to 50, defaults to 20"`
 	Voice    string `json:"voice,omitempty" jsonschema:"Actual text voice: leven, third_party, editorial, pastiche"`
 	From     *int   `json:"from,omitempty" jsonschema:"Inclusive publication year"`
@@ -52,9 +52,9 @@ func structured(v any, e error) (*mcp.CallToolResult, map[string]any, error) {
 // The adapter supplies the pinned manifest, just like the website's public facade.
 func NewWithMCP(s *search.Service, timeout time.Duration) http.Handler {
 	logger := slog.New(slog.NewTextHandler(io.Discard, nil))
-	server := mcp.NewServer(&mcp.Implementation{Name: "jackieleven-archive", Version: search.Release}, &mcp.ServerOptions{Logger: logger, Instructions: "Search results distinguish source and text voices. Fetch a passage before quoting. URLs point to original documents, not fabricated anchors. Results include the pinned content version."})
+	server := mcp.NewServer(&mcp.Implementation{Name: "jackieleven-archive", Version: search.Release}, &mcp.ServerOptions{Logger: logger, Instructions: "Search results distinguish source and text voices. Fetch a passage before quoting. URLs point to original documents, not fabricated anchors. Results include the pinned content version. Semantic and hybrid modes send the query to DeepInfra; reranking also sends excerpts. Lexical mode without reranking stays local."})
 	readonly := &mcp.ToolAnnotations{ReadOnlyHint: true}
-	mcp.AddTool(server, &mcp.Tool{Name: "search", Description: "Search the pinned Jackie Leven archive snapshot, preserving voices and provenance.", Annotations: readonly}, func(ctx context.Context, r *mcp.CallToolRequest, in mcpSearchInput) (*mcp.CallToolResult, map[string]any, error) {
+	mcp.AddTool(server, &mcp.Tool{Name: "search", Description: "Search the pinned Jackie Leven archive snapshot, preserving voices and provenance. Semantic/hybrid send queries to DeepInfra; reranking also sends excerpts. Use lexical without reranking for local-only retrieval.", Annotations: readonly}, func(ctx context.Context, r *mcp.CallToolRequest, in mcpSearchInput) (*mcp.CallToolResult, map[string]any, error) {
 		v := url.Values{"q": {in.Query}}
 		if in.Language != "" {
 			v.Set("lang", in.Language)

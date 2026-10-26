@@ -1,5 +1,6 @@
 {{template "search-head" .}}
 <h1>{{.L.Title}}</h1><p class="search-intro">{{.L.Intro}}</p>
+<p class="search-help">{{.L.Privacy}}</p>
 <form class="search-form" action="{{.Action}}" method="get" role="search">
 <label for="q">{{.L.Query}}</label><input type="search" id="q" name="q" value="{{.Q}}" maxlength="1024" required>
 <div class="search-grid">

@@ -30,6 +30,9 @@ func TestDeepInfraWireNormalizationAndRerank(t *testing.T) {
 			v[1024] = 100
 			json.NewEncoder(w).Encode(map[string]any{"data": []any{map[string]any{"index": 0, "embedding": v}}})
 		case "/v1/inference/" + RerankModel:
+			if len(body["queries"].([]any)) != 2 || body["queries"].([]any)[0] != "hello" || body["queries"].([]any)[1] != "hello" {
+				t.Error("reranker needs one query per document")
+			}
 			if len(body["documents"].([]any)) != 2 {
 				t.Error("documents")
 			}

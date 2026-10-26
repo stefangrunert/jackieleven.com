@@ -111,10 +111,10 @@ func New(endpoint, manifestPath string) (*Client, error) {
 		Proxy:        nil,
 		DialContext:  (&net.Dialer{Timeout: 2 * time.Second, KeepAlive: 30 * time.Second}).DialContext,
 		MaxIdleConns: 8, MaxIdleConnsPerHost: 8, MaxConnsPerHost: 16,
-		IdleConnTimeout: 30 * time.Second, ResponseHeaderTimeout: 7 * time.Second,
+		IdleConnTimeout: 30 * time.Second, ResponseHeaderTimeout: 11 * time.Second,
 		MaxResponseHeaderBytes: 32 << 10,
 	}
-	return &Client{base: u.String(), manifest: m, http: &http.Client{Transport: transport, Timeout: 7 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
+	return &Client{base: u.String(), manifest: m, http: &http.Client{Transport: transport, Timeout: 11 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
 }
 func (c *Client) Manifest() Manifest { return c.manifest }
 

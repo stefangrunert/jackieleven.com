@@ -27,8 +27,9 @@ func main() {
 func run() error {
 	listen := flag.String("listen", "127.0.0.1:8081", "numeric loopback listen address")
 	manifest := flag.String("manifest", "", "immutable local search manifest")
-	requestTimeout := flag.Duration("request-timeout", 6*time.Second, "total request deadline")
+	requestTimeout := flag.Duration("request-timeout", 10*time.Second, "total request deadline")
 	providerTimeout := flag.Duration("provider-timeout", 3*time.Second, "provider call deadline")
+	rerankTimeout := flag.Duration("rerank-timeout", 6*time.Second, "reranking call deadline")
 	enableMCP := flag.Bool("mcp", false, "enable local read-only MCP at /mcp")
 	flag.Parse()
 	host, _, e := net.SplitHostPort(*listen)
@@ -69,6 +70,7 @@ func run() error {
 	opts := search.DefaultOptions()
 	opts.RequestTimeout = *requestTimeout
 	opts.ProviderTimeout = *providerTimeout
+	opts.RerankTimeout = *rerankTimeout
 	service, e := search.New(m, db, provider, opts)
 	if e != nil {
 		return e

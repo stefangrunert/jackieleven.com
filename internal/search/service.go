@@ -10,13 +10,13 @@ import (
 )
 
 type Options struct {
-	RequestTimeout, ProviderTimeout time.Duration
-	MaxConcurrent, CacheEntries     int
-	CacheTTL                        time.Duration
+	RequestTimeout, ProviderTimeout, RerankTimeout time.Duration
+	MaxConcurrent, CacheEntries                    int
+	CacheTTL                                       time.Duration
 }
 
 func DefaultOptions() Options {
-	return Options{6 * time.Second, 3 * time.Second, 8, 128, 10 * time.Minute}
+	return Options{RequestTimeout: 10 * time.Second, ProviderTimeout: 3 * time.Second, RerankTimeout: 6 * time.Second, MaxConcurrent: 8, CacheEntries: 128, CacheTTL: 10 * time.Minute}
 }
 
 type cacheValue struct {
@@ -34,7 +34,7 @@ type Service struct {
 }
 
 func New(m Manifest, repo Repository, provider Provider, o Options) (*Service, error) {
-	if m.Validate() != nil || repo == nil || o.RequestTimeout <= 0 || o.ProviderTimeout <= 0 || o.MaxConcurrent < 1 || o.MaxConcurrent > 64 || o.CacheEntries < 0 || o.CacheEntries > 1024 || o.CacheTTL <= 0 {
+	if m.Validate() != nil || repo == nil || o.RequestTimeout <= 0 || o.ProviderTimeout <= 0 || o.RerankTimeout <= 0 || o.MaxConcurrent < 1 || o.MaxConcurrent > 64 || o.CacheEntries < 0 || o.CacheEntries > 1024 || o.CacheTTL <= 0 {
 		return nil, ErrInvalid
 	}
 	return &Service{Manifest: m, repo: repo, provider: provider, opts: o, slots: make(chan struct{}, o.MaxConcurrent), cache: make(map[[32]byte]cacheValue)}, nil
@@ -121,6 +121,26 @@ func RRF(lists ...[]Hit) []Hit {
 	})
 	return out
 }
+
+// Collapse exact short duplicates within the same document and evidence type.
+// SQL excerpts at the 1201-rune boundary may hide different tails; never merge those.
+func uniquePassages(hits []Hit) []Hit {
+	type key struct{ document, language, sourceVoice, textVoice, kind, text string }
+	seen := make(map[key]bool)
+	out := make([]Hit, 0, len(hits))
+	for _, hit := range hits {
+		if hit.DocumentID != "" && hit.Text != "" && len([]rune(hit.Text)) < 1201 {
+			k := key{hit.DocumentID, hit.Language, hit.SourceVoice, hit.TextVoice, hit.TextKind, hit.Text}
+			if seen[k] {
+				continue
+			}
+			seen[k] = true
+		}
+		out = append(out, hit)
+	}
+	return out
+}
+
 func excerpt(s string, n int) string {
 	r := []rune(s)
 	if len(r) <= n {
@@ -151,7 +171,12 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 		err  error
 	}
 	lexical := make(chan result, 1)
-	go func() { h, e := s.repo.Lexical(ctx, s.Manifest, q, n); lexical <- result{h, e} }()
+	startLexical := func() {
+		go func() { h, e := s.repo.Lexical(ctx, s.Manifest, q, n); lexical <- result{h, e} }()
+	}
+	if q.Mode != "semantic" {
+		startLexical()
+	}
 	var semantic []Hit
 	if q.Mode != "lexical" {
 		reason := ""
@@ -177,13 +202,18 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 		}
 	}
 	var lex result
-	select {
-	case lex = <-lexical:
-	case <-ctx.Done():
-		return out, ErrUnavailable
-	}
-	if lex.err != nil {
-		return out, ErrUnavailable
+	if out.Mode != "semantic" {
+		if q.Mode == "semantic" {
+			startLexical()
+		}
+		select {
+		case lex = <-lexical:
+		case <-ctx.Done():
+			return out, ErrUnavailable
+		}
+		if lex.err != nil {
+			return out, ErrUnavailable
+		}
 	}
 	switch out.Mode {
 	case "lexical":
@@ -193,6 +223,7 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 	case "hybrid":
 		out.Hits = RRF(lex.hits, semantic)
 	}
+	out.Hits = uniquePassages(out.Hits)
 	if len(out.Hits) > q.Limit {
 		out.Hits = out.Hits[:q.Limit]
 	}
@@ -210,7 +241,7 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 				out.Reason = "rerank_unavailable"
 			}
 		} else {
-			pctx, cancel := context.WithTimeout(ctx, s.opts.ProviderTimeout)
+			pctx, cancel := context.WithTimeout(ctx, s.opts.RerankTimeout)
 			scores, err := s.provider.Rerank(pctx, q.Text, out.Hits)
 			cancel()
 			if err != nil || len(scores) != len(out.Hits) {

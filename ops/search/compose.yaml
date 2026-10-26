@@ -1,0 +1,29 @@
+name: jackieleven-search-dev
+services:
+  postgres:
+    image: paradedb/paradedb:0.26.3-pg17@sha256:950f68abebc78e28fd2ecfc8ed915aa29d07b5dd8cba25b2f513ca4e211dda70
+    environment:
+      POSTGRES_USER: search_admin
+      POSTGRES_PASSWORD: ${JACKIE_SEARCH_DB_PASSWORD:?Set local DB password}
+      POSTGRES_DB: jackieleven_search
+    ports:
+      - "127.0.0.1:55473:5432"
+    volumes:
+      - search-data:/var/lib/postgresql/data
+    tmpfs: ["/docker-entrypoint-initdb.d"]
+    command: ["postgres", "-c", "shared_preload_libraries=pg_search", "-c", "shared_buffers=128MB", "-c", "work_mem=4MB", "-c", "maintenance_work_mem=128MB", "-c", "max_connections=20", "-c", "max_parallel_workers_per_gather=0", "-c", "log_statement=none", "-c", "log_min_error_statement=panic"]
+    mem_limit: 1536m
+    cpus: 1.5
+    shm_size: 256m
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U search_admin -d jackieleven_search"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks: [search-local]
+volumes:
+  search-data:
+networks:
+  search-local:
+    driver: bridge

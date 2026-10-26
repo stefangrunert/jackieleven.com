@@ -1,0 +1,2575 @@
+{
+  "status": "observations_not_full_quality_acceptance",
+  "content_version": "1b3daae24677b8f27d4428b84078b6950d0c82d9e6f22723557adfc8d8155339",
+  "note": "Ten pilot cases, top 10 passages. Distinct passages/translation variants of one document occupy ranks; exact short within-document duplicates are collapsed; absent expected documents are marked in_corpus=false; statement/entity assertions and negative relevance are not automatically graded. No held-out statistical benchmark. Semantic retrieval may return nearest neighbours even without a relevant answer.",
+  "results": [
+    {
+      "case_id": "p1-exact-title-001",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 16,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "in_corpus": true,
+          "expected_top": 3,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-2d5d8afd8bd65527ab3c099f11675e8d",
+          "title": "En perfekt kveld",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-0ef07303837e5599a7a81f0724f5c813",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-2c69226e32ac5c6bb6558f913c85d646",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-36dc129845f55478aa44a23c5872a8e3",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-39b8f21e81995fb291f502ecf00d3544",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-5cc9aab5bd755837a7a06caea0f29eda",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-75a33761fc1a5ae8b0dd4ebf467fc119",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-888fb741997f5360965b1f7e08ef1dde",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-9e010d444fc05ae29bea9ab9f970f590",
+          "title": "En perfekt kveld",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-b567db817804504790542d705e9223d3",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-exact-title-001",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 899,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "in_corpus": true,
+          "expected_top": 3,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/1998-09-25-bergensavisen-night-lilies",
+          "passage_id": "private/document/source/1998-09-25-bergensavisen-night-lilies#p-88a4883e4e1a592aa0d2fd2c11ee0b4c",
+          "title": "Jackie Leven – Night Lilies (Cooking Vinyl)",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2005-10-01-lofotposten-bla-leven",
+          "passage_id": "document/2005-10-01-lofotposten-bla-leven#p-45367a46e4165d2eaf2d59d89d3dfce6",
+          "title": "Blå Leven",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-52bef2c88d595daa9ee51b0f8feebd3a",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme",
+          "passage_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme#p-059ef987d6b15f5db6ce0a6f2d19b543",
+          "title": "Ikke helt det samme – Jackie Leven, CD «Night Lilies»",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2000-03-02-rogalands-avis-stilsikker-framforing-av-egne-noveller",
+          "passage_id": "private/document/source/2000-03-02-rogalands-avis-stilsikker-framforing-av-egne-noveller#p-5d350ec1dc175326bac92ec3f90d96c1",
+          "title": "Stilsikker framføring av egne noveller",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-3bb1fa1613045bd89449aca7e6f0e26e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake",
+          "passage_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake#p-a75d5d3f5f6d50a99b3c6bb08a3ea585",
+          "title": "Jackie Leven vender tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-0647ce1d25165892ac0c226a04a0f599",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2005-09-15-halden-arbeiderblad-leven-pa-siste-reis",
+          "passage_id": "document/2005-09-15-halden-arbeiderblad-leven-pa-siste-reis#p-22952c0d6e6a5751b89031937ce887c0",
+          "title": "Leven på Siste Reis",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-exact-title-001",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 37,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "in_corpus": true,
+          "expected_top": 3,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-2d5d8afd8bd65527ab3c099f11675e8d",
+          "title": "En perfekt kveld",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/1998-09-25-bergensavisen-night-lilies",
+          "passage_id": "private/document/source/1998-09-25-bergensavisen-night-lilies#p-88a4883e4e1a592aa0d2fd2c11ee0b4c",
+          "title": "Jackie Leven – Night Lilies (Cooking Vinyl)",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-0ef07303837e5599a7a81f0724f5c813",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2005-10-01-lofotposten-bla-leven",
+          "passage_id": "document/2005-10-01-lofotposten-bla-leven#p-45367a46e4165d2eaf2d59d89d3dfce6",
+          "title": "Blå Leven",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-2c69226e32ac5c6bb6558f913c85d646",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-52bef2c88d595daa9ee51b0f8feebd3a",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-36dc129845f55478aa44a23c5872a8e3",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme",
+          "passage_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme#p-059ef987d6b15f5db6ce0a6f2d19b543",
+          "title": "Ikke helt det samme – Jackie Leven, CD «Night Lilies»",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-39b8f21e81995fb291f502ecf00d3544",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2000-03-02-rogalands-avis-stilsikker-framforing-av-egne-noveller",
+          "passage_id": "private/document/source/2000-03-02-rogalands-avis-stilsikker-framforing-av-egne-noveller#p-5d350ec1dc175326bac92ec3f90d96c1",
+          "title": "Stilsikker framføring av egne noveller",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-name-variant-002",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 4,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 5
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-68c411cf82845224a98734107a2b1430",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-f857eac6f94754d98b2986b1ab9acdc4",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-546c6577da655704a47bcf7422ddc367",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-0b94b776cbf15df38aab633bade36d63",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "passage_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london#p-f464ae7949fd57eeac57667e29696806",
+          "title": "Jackie Leven @ Troubadour, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "passage_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london#p-4d29d561ba0a51f8adbda33457d149d8",
+          "title": "Jackie Leven @ Troubadour, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "passage_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london#p-a4eb6bdb86dc50ed830cc86d4f6e0d7a",
+          "title": "Jackie Leven @ Troubadour, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "passage_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london#p-ec14e0bf7a995308a8e60ab03501214a",
+          "title": "Jackie Leven @ Troubadour, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2011-11-16-louder-than-war-jackie-leven-obituary-by-kevin-hewick",
+          "passage_id": "private/document/source/2011-11-16-louder-than-war-jackie-leven-obituary-by-kevin-hewick#p-54140fafa0645575932603ec25956e16",
+          "title": "Jackie Leven – an obituary by Kevin Hewick (Jackie Leven 1950 – 2011 an appreciation from fellow singer/songwriter Kevin Hewick)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2011-11-16-louder-than-war-jackie-leven-obituary-by-kevin-hewick",
+          "passage_id": "private/document/source/2011-11-16-louder-than-war-jackie-leven-obituary-by-kevin-hewick#p-9e51e4d5261d5da4829ebc799d6c26de",
+          "title": "Jackie Leven – an obituary by Kevin Hewick (Jackie Leven 1950 – 2011 an appreciation from fellow singer/songwriter Kevin Hewick)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-name-variant-002",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 273,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-b62b62fef52d5ee39f4401843b98e73a",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-6bb7e0097e515c559ad20c3a4eb7e5a9",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2007-04-22-rocktimes-oh-what-a-blow-that-phantom-dealt-me",
+          "passage_id": "private/document/source/2007-04-22-rocktimes-oh-what-a-blow-that-phantom-dealt-me#p-137fc7f470f05fa6a56bf71b9e45d08b",
+          "title": "Jackie Leven / Oh What A Blow That Phantom Dealt Me!",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1997-04-04-nordlys-fairy-tales-for-hard-men",
+          "passage_id": "private/document/source/1997-04-04-nordlys-fairy-tales-for-hard-men#p-eacce0fb6ebc51b0b5d3b46c3a0fe3b4",
+          "title": "Jackie Leven – Fairy Tales For Hard Men (Cooking Vinyl)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2007-moors-magazine-oh-what-a-blow-that-phantom-dealt-me",
+          "passage_id": "private/document/source/2007-moors-magazine-oh-what-a-blow-that-phantom-dealt-me#p-046d8d68cb115c7f8232a6627f04ae22",
+          "title": "Jackie Leven – Oh What A Blow That Phantom Dealt Me! – Cooking Vinyl (in: korte recensies…)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2021-10-09-dagsavisen-jackie-leven-var-en-av-verdens-beste-kulthelter-2",
+          "passage_id": "private/document/source/2021-10-09-dagsavisen-jackie-leven-var-en-av-verdens-beste-kulthelter-2#p-f87bdf29f0db5d9b96578f505b81508b",
+          "title": "[Druckfassung] Jackie Leven var en av verdens beste kulthelter",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2000-01-29-drammens-tidende-skotsk-magi",
+          "passage_id": "private/document/source/2000-01-29-drammens-tidende-skotsk-magi#p-17166d5b3fe65f809be4f330db345a3d",
+          "title": "Skotsk magi",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2000-01-29-drammens-tidende-skotsk-magi",
+          "passage_id": "private/document/source/2000-01-29-drammens-tidende-skotsk-magi#p-63446f1b0ab457809a3d3ddb70ec3baa",
+          "title": "Skotsk magi",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-name-variant-002",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 36,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 9
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-68c411cf82845224a98734107a2b1430",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-b62b62fef52d5ee39f4401843b98e73a",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-f857eac6f94754d98b2986b1ab9acdc4",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-546c6577da655704a47bcf7422ddc367",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-25-record-collector-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-25-record-collector-troubadour-heart#p-0b94b776cbf15df38aab633bade36d63",
+          "title": "Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-6bb7e0097e515c559ad20c3a4eb7e5a9",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "passage_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london#p-f464ae7949fd57eeac57667e29696806",
+          "title": "Jackie Leven @ Troubadour, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2007-04-22-rocktimes-oh-what-a-blow-that-phantom-dealt-me",
+          "passage_id": "private/document/source/2007-04-22-rocktimes-oh-what-a-blow-that-phantom-dealt-me#p-137fc7f470f05fa6a56bf71b9e45d08b",
+          "title": "Jackie Leven / Oh What A Blow That Phantom Dealt Me!",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-persona-003",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 17,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2007-kevin-coyne-home-page-news-coyne-of-the-realm",
+          "in_corpus": false,
+          "expected_top": 10,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-920e290b09f65b7baae068ec050685de",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-69b8bf6c6b78555fa436ab63849400ee",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart#p-4a8f390d823452f3868da65af0a965b7",
+          "title": "Sir Vincent Lone - Troubadour Heart",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-0b3ddd807e325c2cb397da9fc7fe3ac8",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-9bee2d8fe09b568db687b3b41d25320d",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-6a63b81f2b5a5b90a5e8021273814634",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-be40f79972e150cd8c0ba79d8a7e5b11",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-8cd443746189560d81d847e5dc745504",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart#p-703415c544da5935b7c814d79763a610",
+          "title": "Sir Vincent Lone - Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart#p-95257f7fc14d5fea8a03308a63e24763",
+          "title": "Sir Vincent Lone - Troubadour Heart",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-persona-003",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 500,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2007-kevin-coyne-home-page-news-coyne-of-the-realm",
+          "in_corpus": false,
+          "expected_top": 10,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2006-09-08-gaesteliste-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2006-09-08-gaesteliste-sir-vincent-lone-songs-for-lonely-americans#p-1e5ada8f6cb35bb98d285a57e61374fd",
+          "title": "Sir Vincent Lone – Songs For Lonely Americans",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans#p-ac5ccad7d1d15589bc1e7ba6a4e00f60",
+          "title": "Sir Vincent Lone \"Songs for Lonely Americans\" [CD-Rezension]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-ce01945ace1256aeb3f3b2be84334bee",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-b62b62fef52d5ee39f4401843b98e73a",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans#p-94ff25d407e05f55afa80666c107f1b1",
+          "title": "Sir Vincent Lone \"Songs for Lonely Americans\" [CD-Rezension]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2006-09-08-the-independent-album-sir-vincent-lone-songs-for-lonely",
+          "passage_id": "private/document/source/2006-09-08-the-independent-album-sir-vincent-lone-songs-for-lonely#p-de38044a795157749569bf19dabc2112",
+          "title": "Album: Sir Vincent Lone – Songs for Lonely Americans",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2006-09-08-the-independent-album-sir-vincent-lone-songs-for-lonely",
+          "passage_id": "private/document/source/2006-09-08-the-independent-album-sir-vincent-lone-songs-for-lonely#p-d492ea5f1a9a5d9f879614887d462613",
+          "title": "Album: Sir Vincent Lone – Songs for Lonely Americans",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans#p-16a18b5913405f629b80f88d48f14b7c",
+          "title": "Sir Vincent Lone \"Songs for Lonely Americans\" [CD-Rezension]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-6bb7e0097e515c559ad20c3a4eb7e5a9",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans#p-771b5ef92a38530eab52304d7c73b708",
+          "title": "Sir Vincent Lone \"Songs for Lonely Americans\" [CD-Rezension]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-persona-003",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 38,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2007-kevin-coyne-home-page-news-coyne-of-the-realm",
+          "in_corpus": false,
+          "expected_top": 10,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-07-30-the-skinny-sir-vincent-lone-troubadour-heart#p-4a8f390d823452f3868da65af0a965b7",
+          "title": "Sir Vincent Lone - Troubadour Heart",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-920e290b09f65b7baae068ec050685de",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2006-09-08-gaesteliste-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2006-09-08-gaesteliste-sir-vincent-lone-songs-for-lonely-americans#p-3bac562006995c16a9b5a00f4a20e0d5",
+          "title": "Sir Vincent Lone – Songs For Lonely Americans",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-39106151708a50278087da89a32e3a9b",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2006-09-08-gaesteliste-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2006-09-08-gaesteliste-sir-vincent-lone-songs-for-lonely-americans#p-1e5ada8f6cb35bb98d285a57e61374fd",
+          "title": "Sir Vincent Lone – Songs For Lonely Americans",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans",
+          "passage_id": "private/document/source/2005-folkworld-sir-vincent-lone-songs-for-lonely-americans#p-ac5ccad7d1d15589bc1e7ba6a4e00f60",
+          "title": "Sir Vincent Lone \"Songs for Lonely Americans\" [CD-Rezension]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2009-09-11-gaesteliste-sir-vincent-lone-troubadour-heart#p-69b8bf6c6b78555fa436ab63849400ee",
+          "title": "Sir Vincent Lone – Troubadour Heart",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-ce01945ace1256aeb3f3b2be84334bee",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-0b3ddd807e325c2cb397da9fc7fe3ac8",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart",
+          "passage_id": "private/document/source/2010-02-bluesnews-sir-vincent-lone-troubadour-heart#p-b62b62fef52d5ee39f4401843b98e73a",
+          "title": "SIR VINCENT LONE – Troubadour Heart (Kritik)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-cross-language-004",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 9,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "in_corpus": true,
+          "expected_top": 10,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-9d31518e392c52729a8ea9c5dc4ccc24",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-0b1026f3376f5a43b70f482d98771ade",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-ec3c2bb6f4cf5b7989f07cf20cb07c03",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-a077da41b4e356af9eaf4988bda38249",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-e17cedc806585c369be8dbec5946eccc",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-49d4b427349e5edc80f0b568daf22820",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-0c5344b9bab95a369af4e66c57f13e42",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-3c1beb5994b75f6991595f808f6c2195",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-3d9938136989587dbb5ce1b016252863",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-48a7f2d0ce6152ff90c0b7883eb83ea7",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-cross-language-004",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 275,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "in_corpus": true,
+          "expected_top": 10,
+          "actual_rank": 4
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-3bb1fa1613045bd89449aca7e6f0e26e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme",
+          "passage_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme#p-4ba7c32286b05c60b49f9f7fdffe9c4b",
+          "title": "Ikke helt det samme – Jackie Leven, CD «Night Lilies»",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-5cc9aab5bd755837a7a06caea0f29eda",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2006-12-12-plattentests-forum-jackie-leven",
+          "passage_id": "private/document/source/2006-12-12-plattentests-forum-jackie-leven#p-13a2b09fc1555941b73ff94102df183c",
+          "title": "[Thread: Jackie Leven]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme",
+          "passage_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme#p-059ef987d6b15f5db6ce0a6f2d19b543",
+          "title": "Ikke helt det samme – Jackie Leven, CD «Night Lilies»",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-1772a3b6fdb55ea2b79a7602df4c7a7e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-03-16-lofotposten-leven-for-dove-orer",
+          "passage_id": "document/1998-03-16-lofotposten-leven-for-dove-orer#p-e3d448240fe451189887642bfba6abe4",
+          "title": "Leven for døve ører",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-03-16-lofotposten-leven-for-dove-orer",
+          "passage_id": "document/1998-03-16-lofotposten-leven-for-dove-orer#p-5dde3eb1233c5cfeb631e9cf43e85547",
+          "title": "Leven for døve ører",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-cross-language-004",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 37,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "in_corpus": true,
+          "expected_top": 10,
+          "actual_rank": 7
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-3bb1fa1613045bd89449aca7e6f0e26e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-9d31518e392c52729a8ea9c5dc4ccc24",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-0b1026f3376f5a43b70f482d98771ade",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme",
+          "passage_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme#p-4ba7c32286b05c60b49f9f7fdffe9c4b",
+          "title": "Ikke helt det samme – Jackie Leven, CD «Night Lilies»",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-ec3c2bb6f4cf5b7989f07cf20cb07c03",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "passage_id": "document/1998-10-23-lofotposten-en-perfekt-kveld#p-5cc9aab5bd755837a7a06caea0f29eda",
+          "title": "En perfekt kveld",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-a077da41b4e356af9eaf4988bda38249",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m",
+          "passage_id": "document/2007-04-25-die-welt-unglaublich-schoener-verrueckter-abend-m#p-e17cedc806585c369be8dbec5946eccc",
+          "title": "Unglaublich schöner, verrückter Abend mit Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2006-12-12-plattentests-forum-jackie-leven",
+          "passage_id": "private/document/source/2006-12-12-plattentests-forum-jackie-leven#p-13a2b09fc1555941b73ff94102df183c",
+          "title": "[Thread: Jackie Leven]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-announcement-vs-occurrence-005",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 15,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2000-03-04-nordlys-grisete-sentimental",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-b38b40a4cd97593daf68b18a38b5a194",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-ecdcf24e9b115dc09ea2d0e4bc68dec9",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2011-04-home-stop-press-2-great-new-shows-have-come-in",
+          "passage_id": "private/document/column/2011-04-home-stop-press-2-great-new-shows-have-come-in#p-b827036e88c15c43ba8882800c2bf936",
+          "title": "STOP PRESS! 2 GREAT NEW SHOWS HAVE COME IN…",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure",
+          "passage_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure#p-fff7133146805d03979c6e37e67872c2",
+          "title": "'I am an abject failure'",
+          "text_voice": "third_party",
+          "text_kind": "translation"
+        },
+        {
+          "document_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure",
+          "passage_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure#p-09dfd65f73b45f12b7e9aecb2d24be4b",
+          "title": "'I am an abject failure'",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2011-04-home-stop-press-2-great-new-shows-have-come-in",
+          "passage_id": "private/document/column/2011-04-home-stop-press-2-great-new-shows-have-come-in#p-299e5c55fca85a84b795067773c132aa",
+          "title": "STOP PRESS! 2 GREAT NEW SHOWS HAVE COME IN…",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure",
+          "passage_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure#p-184f0365240d5e31a5d088d7d7bcbd20",
+          "title": "'I am an abject failure'",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2008-10-29-nordlys-jackie-leven-tromso-circa-madrugada",
+          "passage_id": "private/document/source/2008-10-29-nordlys-jackie-leven-tromso-circa-madrugada#p-ce7bb984dac55930b486b21162235219",
+          "title": "[Interview: Jackie Leven vor dem Circa-Konzert und dem Madrugada-Support in Tromsø]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2008-10-29-nordlys-jackie-leven-tromso-circa-madrugada",
+          "passage_id": "private/document/source/2008-10-29-nordlys-jackie-leven-tromso-circa-madrugada#p-d1911b3103e75337b603ae1d3e496a0d",
+          "title": "[Interview: Jackie Leven vor dem Circa-Konzert und dem Madrugada-Support in Tromsø]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure",
+          "passage_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure#p-0670ee856b185834afbe876bbf0a0f95",
+          "title": "'I am an abject failure'",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-announcement-vs-occurrence-005",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 1929,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2000-03-04-nordlys-grisete-sentimental",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake",
+          "passage_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake#p-a75d5d3f5f6d50a99b3c6bb08a3ea585",
+          "title": "Jackie Leven vender tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2003-03-01-nordlys-kiltkledd-helt-tilbake-i-byen",
+          "passage_id": "document/2003-03-01-nordlys-kiltkledd-helt-tilbake-i-byen#p-67b0fb9c9c9858a0a7a1c8deea1a7f4b",
+          "title": "Kiltkledd helt tilbake i byen",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake",
+          "passage_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake#p-c4fc35930e535e71a0996664e3955406",
+          "title": "Jackie Leven vender tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues",
+          "passage_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues#p-bec39776761156d2ac47abfc8fb791e3",
+          "title": "Jackie Leven – Live At Bergen Men's Prison, Norway / Munich Blues (Cooking Vinyl/Bonnier Amigo)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2003-02-28-tromso-jackie-leven-pa-blarock",
+          "passage_id": "document/2003-02-28-tromso-jackie-leven-pa-blarock#p-8fa29f34503b53809f9f4ce91d3b13e1",
+          "title": "Jackie Leven på Blårock",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-11-11-nrk-no-nordaforr-med-jackie-leven",
+          "passage_id": "private/document/source/2005-11-11-nrk-no-nordaforr-med-jackie-leven#p-99260b0472fa50539402ca1759eaa4d8",
+          "title": "Nordaførr med Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-11-11-nrk-no-nordaforr-med-jackie-leven",
+          "passage_id": "private/document/source/2005-11-11-nrk-no-nordaforr-med-jackie-leven#p-94a6d03fb94257fe82555d808a807c55",
+          "title": "Nordaførr med Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2003-02-28-tromso-jackie-leven-pa-blarock",
+          "passage_id": "document/2003-02-28-tromso-jackie-leven-pa-blarock#p-c4209fbed2385f8f806dd92bbaad25f4",
+          "title": "Jackie Leven på Blårock",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-announcement-vs-occurrence-005",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 33,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/2000-03-04-nordlys-grisete-sentimental",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "private/document/source/2008-10-29-nordlys-jackie-leven-tromso-circa-madrugada",
+          "passage_id": "private/document/source/2008-10-29-nordlys-jackie-leven-tromso-circa-madrugada#p-ce7bb984dac55930b486b21162235219",
+          "title": "[Interview: Jackie Leven vor dem Circa-Konzert und dem Madrugada-Support in Tromsø]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-b38b40a4cd97593daf68b18a38b5a194",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake",
+          "passage_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake#p-a75d5d3f5f6d50a99b3c6bb08a3ea585",
+          "title": "Jackie Leven vender tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-ecdcf24e9b115dc09ea2d0e4bc68dec9",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2011-04-home-stop-press-2-great-new-shows-have-come-in",
+          "passage_id": "private/document/column/2011-04-home-stop-press-2-great-new-shows-have-come-in#p-b827036e88c15c43ba8882800c2bf936",
+          "title": "STOP PRESS! 2 GREAT NEW SHOWS HAVE COME IN…",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2003-03-01-nordlys-kiltkledd-helt-tilbake-i-byen",
+          "passage_id": "document/2003-03-01-nordlys-kiltkledd-helt-tilbake-i-byen#p-67b0fb9c9c9858a0a7a1c8deea1a7f4b",
+          "title": "Kiltkledd helt tilbake i byen",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure",
+          "passage_id": "private/document/source/2001-07-26-the-guardian-i-am-an-abject-failure#p-fff7133146805d03979c6e37e67872c2",
+          "title": "'I am an abject failure'",
+          "text_voice": "third_party",
+          "text_kind": "translation"
+        },
+        {
+          "document_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake",
+          "passage_id": "document/2000-03-02-tromso-jackie-leven-vender-tilbake#p-c4fc35930e535e71a0996664e3955406",
+          "title": "Jackie Leven vender tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-date-conflict-006",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 20,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-ecdcf24e9b115dc09ea2d0e4bc68dec9",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-b38b40a4cd97593daf68b18a38b5a194",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia",
+          "passage_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia#p-bad19026bdb25a62a54b7ce1aaf0e50e",
+          "title": "Bawdy – Jackie Leven shocks Scandinavia (Garage, Bergen, April 10, 1997)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia",
+          "passage_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia#p-8c9a43a438f952c9aef462919e019585",
+          "title": "Bawdy – Jackie Leven shocks Scandinavia (Garage, Bergen, April 10, 1997)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-301a072ea9c25eeb9e9ea4e3bd3611de",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/undatiert-the-afterword-erwaehnungen-sammelueberblick",
+          "passage_id": "private/document/source/undatiert-the-afterword-erwaehnungen-sammelueberblick#p-f4d766551ef152e7907939f3b8872dcc",
+          "title": "[Sammelüberblick: Erwähnungen Jackie Levens in weiteren Afterword-Threads 2015–2026]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-24ce0dbe82e85e4cbfe61da26f8bb94a",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-93f5ef187a3956ab9bb3710db5dd5527",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia",
+          "passage_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia#p-defaec7282b55a608843d3cad1a1a6e0",
+          "title": "Bawdy – Jackie Leven shocks Scandinavia (Garage, Bergen, April 10, 1997)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia",
+          "passage_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia#p-79621fc02775591993186533dc61a4e0",
+          "title": "Bawdy – Jackie Leven shocks Scandinavia (Garage, Bergen, April 10, 1997)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-date-conflict-006",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 294,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-0647ce1d25165892ac0c226a04a0f599",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-107f5f349f9e52b1af52c1f09f05be2e",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2008-08-29-bergensavisen-jackie-leven-tilbake",
+          "passage_id": "document/2008-08-29-bergensavisen-jackie-leven-tilbake#p-84f58576f421541a92f640e05399c365",
+          "title": "Jackie Leven tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues",
+          "passage_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues#p-c691e1cf6b5a53fb9c439953d3055c8d",
+          "title": "Jackie Leven – Live At Bergen Men's Prison, Norway / Munich Blues (Cooking Vinyl/Bonnier Amigo)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues",
+          "passage_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues#p-bec39776761156d2ac47abfc8fb791e3",
+          "title": "Jackie Leven – Live At Bergen Men's Prison, Norway / Munich Blues (Cooking Vinyl/Bonnier Amigo)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1999-05-27-radio-bremen-konzert-club-moments",
+          "passage_id": "private/document/source/1999-05-27-radio-bremen-konzert-club-moments#p-c4eb7310597f533eb526a30468d43d5d",
+          "title": "[Radio Bremen: Konzertmitschnitt Jackie Leven, Club Moments Bremen, 27.05.1999]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-date-conflict-006",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 38,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-ecdcf24e9b115dc09ea2d0e4bc68dec9",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-b38b40a4cd97593daf68b18a38b5a194",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-0647ce1d25165892ac0c226a04a0f599",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia",
+          "passage_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia#p-bad19026bdb25a62a54b7ce1aaf0e50e",
+          "title": "Bawdy – Jackie Leven shocks Scandinavia (Garage, Bergen, April 10, 1997)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia",
+          "passage_id": "document/1997-06-q-bawdy-jackie-leven-shocks-scandinavia#p-8c9a43a438f952c9aef462919e019585",
+          "title": "Bawdy – Jackie Leven shocks Scandinavia (Garage, Bergen, April 10, 1997)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund",
+          "passage_id": "document/2010-04-21-dalane-tidende-jackie-leven-tilbake-i-egersund#p-301a072ea9c25eeb9e9ea4e3bd3611de",
+          "title": "[Vorbericht: Jackie Leven zurück in Egersund – Konzert im Grand Kjelleren zum Verdens bokdag]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-two-announcements-unresolved-007",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 20,
+      "expected_document_ranks": [],
+      "top_hits": [
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-5ea683c46b4a50b880a376fb6fd4da0d",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-633986f98e92524e8a747cfd9ee70aa3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-894fd765bd0759ad91aa64f0bbf1ef11",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-48b7842115c457df8b189a5f4d06a9e3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/undatiert-the-afterword-erwaehnungen-sammelueberblick",
+          "passage_id": "private/document/source/undatiert-the-afterword-erwaehnungen-sammelueberblick#p-f4d766551ef152e7907939f3b8872dcc",
+          "title": "[Sammelüberblick: Erwähnungen Jackie Levens in weiteren Afterword-Threads 2015–2026]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-e6d43c571f0c509d9d5c148c896c51bf",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-6b62d1e1979c55da93ea0c3b28dbdfbb",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-fbc72874a91e51d3bb04d68be8c81395",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-93aef428663f577b833c34471a011f1f",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-905b330b1d1157fd9d37a517bdd7e644",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-two-announcements-unresolved-007",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 306,
+      "expected_document_ranks": [],
+      "top_hits": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-0647ce1d25165892ac0c226a04a0f599",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-107f5f349f9e52b1af52c1f09f05be2e",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2008-08-29-bergensavisen-jackie-leven-tilbake",
+          "passage_id": "document/2008-08-29-bergensavisen-jackie-leven-tilbake#p-84f58576f421541a92f640e05399c365",
+          "title": "Jackie Leven tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2001-09-08-bergensavisen-altfor-mye-leven",
+          "passage_id": "document/2001-09-08-bergensavisen-altfor-mye-leven#p-fb495c581a8f50a791804b0a7833c750",
+          "title": "Altfor mye Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1999-05-27-radio-bremen-konzert-club-moments",
+          "passage_id": "private/document/source/1999-05-27-radio-bremen-konzert-club-moments#p-c4eb7310597f533eb526a30468d43d5d",
+          "title": "[Radio Bremen: Konzertmitschnitt Jackie Leven, Club Moments Bremen, 27.05.1999]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-3bb1fa1613045bd89449aca7e6f0e26e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-two-announcements-unresolved-007",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 37,
+      "expected_document_ranks": [],
+      "top_hits": [
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-5ea683c46b4a50b880a376fb6fd4da0d",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-633986f98e92524e8a747cfd9ee70aa3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-894fd765bd0759ad91aa64f0bbf1ef11",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-0647ce1d25165892ac0c226a04a0f599",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-48b7842115c457df8b189a5f4d06a9e3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-107f5f349f9e52b1af52c1f09f05be2e",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/undatiert-the-afterword-erwaehnungen-sammelueberblick",
+          "passage_id": "private/document/source/undatiert-the-afterword-erwaehnungen-sammelueberblick#p-f4d766551ef152e7907939f3b8872dcc",
+          "title": "[Sammelüberblick: Erwähnungen Jackie Levens in weiteren Afterword-Threads 2015–2026]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-announcement-only-008",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 16,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-1014d88a3c665db2b8238dcb42472788",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-9e965d0af50f57efa636e0678cfa626f",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-cc7a75151b9f545fa5853522dae8d7fa",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-98ab121e6f9359698c61e6bd7e5ee2a1",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-cfc8352d07fc56309f4c8ab004a18d3b",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2023-12-01-obladada-revisio-john-st-field-control",
+          "passage_id": "private/document/source/2023-12-01-obladada-revisio-john-st-field-control#p-21cbf6a7d39350b3bfe6f4ab1874a008",
+          "title": "REVISIO: John St Field – Control",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2023-12-01-obladada-revisio-john-st-field-control",
+          "passage_id": "private/document/source/2023-12-01-obladada-revisio-john-st-field-control#p-ca0409e77a7c59418a81704b132653f6",
+          "title": "REVISIO: John St Field – Control",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/1976-01-09-marca-john-st-field-control",
+          "passage_id": "private/document/source/1976-01-09-marca-john-st-field-control#p-3a7e90b4bc4e5659bd02fc24ab1fda57",
+          "title": "[Plattenkritik: JOHN ST. FIELD: «CONTROL» (Movieplay)]",
+          "text_voice": "third_party",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/1975-12-13-la-vanguardia-john-st-field-control",
+          "passage_id": "private/document/source/1975-12-13-la-vanguardia-john-st-field-control#p-e52e6e3b892257938299cbcf5c452597",
+          "title": "[Plattenrubrik: JOHN ST. FIELD – „Control“]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-5419d69df09550ba954a3a783f85a90f",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-announcement-only-008",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 416,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-1014d88a3c665db2b8238dcb42472788",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-9e965d0af50f57efa636e0678cfa626f",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes",
+          "passage_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes#p-285f58a21adb5c11bbd388073434093f",
+          "title": "Jackie Leven nous a quittés",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1997-03-record-collector-jackie-leven-interview-clinton-heylin",
+          "passage_id": "private/document/source/1997-03-record-collector-jackie-leven-interview-clinton-heylin#p-d5fc4c73f8c6511494d3f8ca11d83172",
+          "title": "Jackie Leven interview (originally done for Record Collector)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes",
+          "passage_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes#p-9dc49920967e52ddb1556a9f7e3a1cea",
+          "title": "Jackie Leven nous a quittés",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-cc7a75151b9f545fa5853522dae8d7fa",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1999-05-27-radio-bremen-konzert-club-moments",
+          "passage_id": "private/document/source/1999-05-27-radio-bremen-konzert-club-moments#p-c4eb7310597f533eb526a30468d43d5d",
+          "title": "[Radio Bremen: Konzertmitschnitt Jackie Leven, Club Moments Bremen, 27.05.1999]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1997-03-record-collector-jackie-leven-interview-clinton-heylin",
+          "passage_id": "private/document/source/1997-03-record-collector-jackie-leven-interview-clinton-heylin#p-ce598f7444905589bbdc3b60ba42ebfe",
+          "title": "Jackie Leven interview (originally done for Record Collector)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-announcement-only-008",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 37,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "in_corpus": true,
+          "expected_top": 5,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-1014d88a3c665db2b8238dcb42472788",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-9e965d0af50f57efa636e0678cfa626f",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-cc7a75151b9f545fa5853522dae8d7fa",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-98ab121e6f9359698c61e6bd7e5ee2a1",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2013-07-15-plain-and-fancy-john-st-field-control",
+          "passage_id": "private/document/source/2013-07-15-plain-and-fancy-john-st-field-control#p-becb362e0d4f5d7c9ef3140473b3524a",
+          "title": "John St. Field - Control (1971 uk, beautiful acid psych folk rock)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes",
+          "passage_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes#p-285f58a21adb5c11bbd388073434093f",
+          "title": "Jackie Leven nous a quittés",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+          "passage_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs#p-cfc8352d07fc56309f4c8ab004a18d3b",
+          "title": "The Nationwide Gig Guide [John St Field in den Folkclubs]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1997-03-record-collector-jackie-leven-interview-clinton-heylin",
+          "passage_id": "private/document/source/1997-03-record-collector-jackie-leven-interview-clinton-heylin#p-d5fc4c73f8c6511494d3f8ca11d83172",
+          "title": "Jackie Leven interview (originally done for Record Collector)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes",
+          "passage_id": "private/document/source/2011-11-18-musiczine-jackie-leven-nous-a-quittes#p-9dc49920967e52ddb1556a9f7e3a1cea",
+          "title": "Jackie Leven nous a quittés",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-cross-language-inference-009",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 16,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "in_corpus": true,
+          "expected_top": 10,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-5419d69df09550ba954a3a783f85a90f",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller",
+          "passage_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller#p-84eea5bc7cb357159b8641cb2f863050",
+          "title": "[Konzertbericht mit Interview: Jackie Leven im Rockefeller, Oslo]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-c47de7ffab3951108552f98fff97ef4c",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller",
+          "passage_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller#p-d7620ae929bd5ec7accf8d8286d1f592",
+          "title": "[Konzertbericht mit Interview: Jackie Leven im Rockefeller, Oslo]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-f1cece14361f50d29d8d740bc86a8f03",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller",
+          "passage_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller#p-864c0b2a7c58567eb408dcf91dd71cfd",
+          "title": "[Konzertbericht mit Interview: Jackie Leven im Rockefeller, Oslo]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-7528a768d1515cd0bfdca17d30c43dd1",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/undatiert-kieler-nachrichten-der-kauz-im-anekdotendickicht-jackie-lev",
+          "passage_id": "document/undatiert-kieler-nachrichten-der-kauz-im-anekdotendickicht-jackie-lev#p-cf5a8f310f865608b80eb1e68faaf477",
+          "title": "[Der Kauz im Anekdotendickicht: Jackie Leven im Kieler KulturForum]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/undatiert-kieler-nachrichten-der-kauz-im-anekdotendickicht-jackie-lev",
+          "passage_id": "document/undatiert-kieler-nachrichten-der-kauz-im-anekdotendickicht-jackie-lev#p-23daeb3c8f2451f4be853e98c2dccd92",
+          "title": "[Der Kauz im Anekdotendickicht: Jackie Leven im Kieler KulturForum]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/undatiert-kieler-nachrichten-der-kauz-im-anekdotendickicht-jackie-lev",
+          "passage_id": "document/undatiert-kieler-nachrichten-der-kauz-im-anekdotendickicht-jackie-lev#p-398e00eecf4651799ba16c916567b18e",
+          "title": "[Der Kauz im Anekdotendickicht: Jackie Leven im Kieler KulturForum]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-cross-language-inference-009",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 519,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "in_corpus": true,
+          "expected_top": 10,
+          "actual_rank": null
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2001-10-05-uncut-jackie-leven-borders-oxford-street",
+          "passage_id": "document/2001-10-05-uncut-jackie-leven-borders-oxford-street#p-6b25ca3191b358f7b27853b2a8fdab37",
+          "title": "[Konzertkritik] Jackie Leven at Borders Bookshop, Oxford Street, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-07-rip-it-up-jackie-leven-robert-dunstan",
+          "passage_id": "private/document/source/1998-07-rip-it-up-jackie-leven-robert-dunstan#p-1e35e41adfea5b79941acd1504d906fa",
+          "title": "Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-1772a3b6fdb55ea2b79a7602df4c7a7e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2010-12-01-bbc-radio-scotland-stark-talk-jackie-leven",
+          "passage_id": "private/document/source/2010-12-01-bbc-radio-scotland-stark-talk-jackie-leven#p-f4af4fd7969352a0a7e4b360cfd01216",
+          "title": "Songwriter Jackie Leven radio interview, November 2010 [BBC Radio Scotland, Stark Talk]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2004-05-28-gaesteliste-orange-blossom-special-8-beverungen",
+          "passage_id": "document/2004-05-28-gaesteliste-orange-blossom-special-8-beverungen#p-5a7c8bb8295b52fbb79f59f67c020963",
+          "title": "Orange Blossom Special 8 (1. Teil) – 28.05.2004 – Beverungen, Glitterhouse-Villa",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme",
+          "passage_id": "private/document/source/1998-12-22-lofotposten-ikke-helt-det-samme#p-4ba7c32286b05c60b49f9f7fdffe9c4b",
+          "title": "Ikke helt det samme – Jackie Leven, CD «Night Lilies»",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/undatiert-stv-artery-jackie-leven-dokumentation",
+          "passage_id": "private/document/source/undatiert-stv-artery-jackie-leven-dokumentation#p-c07118b583cb5b82b9a59b8893ee991d",
+          "title": "Jackie Leven STV Documentary [Artery: „Musician – Jackie Leven, the man and his music“]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1978-10-28-record-mirror-doll-by-doll-roundhouse",
+          "passage_id": "document/1978-10-28-record-mirror-doll-by-doll-roundhouse#p-0cbadcd480fd564aadb69532c7862f4b",
+          "title": "Doll By Doll – London Roundhouse",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-cross-language-inference-009",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 36,
+      "expected_document_ranks": [
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "in_corpus": true,
+          "expected_top": 10,
+          "actual_rank": 1
+        }
+      ],
+      "top_hits": [
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-5419d69df09550ba954a3a783f85a90f",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller",
+          "passage_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller#p-84eea5bc7cb357159b8641cb2f863050",
+          "title": "[Konzertbericht mit Interview: Jackie Leven im Rockefeller, Oslo]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2001-10-05-uncut-jackie-leven-borders-oxford-street",
+          "passage_id": "document/2001-10-05-uncut-jackie-leven-borders-oxford-street#p-6b25ca3191b358f7b27853b2a8fdab37",
+          "title": "[Konzertkritik] Jackie Leven at Borders Bookshop, Oxford Street, London",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-c47de7ffab3951108552f98fff97ef4c",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/1998-07-rip-it-up-jackie-leven-robert-dunstan",
+          "passage_id": "private/document/source/1998-07-rip-it-up-jackie-leven-robert-dunstan#p-1e35e41adfea5b79941acd1504d906fa",
+          "title": "Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller",
+          "passage_id": "document/1995-05-03-fremtiden-jackie-leven-rockefeller#p-d7620ae929bd5ec7accf8d8286d1f592",
+          "title": "[Konzertbericht mit Interview: Jackie Leven im Rockefeller, Oslo]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "passage_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite#p-f1cece14361f50d29d8d740bc86a8f03",
+          "title": "Folk-rock escocés [John St. Field in La Boîte, Madrid]",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven",
+          "passage_id": "document/2000-03-04-tromso-en-opplagt-jackie-leven#p-1772a3b6fdb55ea2b79a7602df4c7a7e",
+          "title": "En opplagt Jackie Leven",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-negative-010",
+      "requested_mode": "lexical",
+      "used_mode": "lexical",
+      "degraded": false,
+      "duration_ms": 20,
+      "expected_document_ranks": [],
+      "top_hits": [
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-5ea683c46b4a50b880a376fb6fd4da0d",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-633986f98e92524e8a747cfd9ee70aa3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-894fd765bd0759ad91aa64f0bbf1ef11",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-48b7842115c457df8b189a5f4d06a9e3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-e6d43c571f0c509d9d5c148c896c51bf",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-6b62d1e1979c55da93ea0c3b28dbdfbb",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-fbc72874a91e51d3bb04d68be8c81395",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-93aef428663f577b833c34471a011f1f",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-905b330b1d1157fd9d37a517bdd7e644",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-55a72c18372d578fa8446925ca71251a",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-negative-010",
+      "requested_mode": "semantic",
+      "used_mode": "semantic",
+      "degraded": false,
+      "duration_ms": 299,
+      "expected_document_ranks": [],
+      "top_hits": [
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-107f5f349f9e52b1af52c1f09f05be2e",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2007-04-bluesnews-jackie-leven-apner-bluesskrinet",
+          "passage_id": "private/document/source/2007-04-bluesnews-jackie-leven-apner-bluesskrinet#p-5b6633258a1e511c82d9d9b24f2eb408",
+          "title": "Jackie Leven åpner bluesskrinet",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/2008-08-29-bergensavisen-jackie-leven-tilbake",
+          "passage_id": "document/2008-08-29-bergensavisen-jackie-leven-tilbake#p-84f58576f421541a92f640e05399c365",
+          "title": "Jackie Leven tilbake",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues",
+          "passage_id": "private/document/source/2009-04-bluesnews-jackie-leven-live-at-bergen-mens-prison-munich-blues#p-bec39776761156d2ac47abfc8fb791e3",
+          "title": "Jackie Leven – Live At Bergen Men's Prison, Norway / Munich Blues (Cooking Vinyl/Bonnier Amigo)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "passage_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt#p-344467be68255ee986602f192b01a852",
+          "title": "En poetisk grisegutt",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2005-08-08-rolling-stone-forum-jackie-leven-thread-4",
+          "passage_id": "private/document/source/2005-08-08-rolling-stone-forum-jackie-leven-thread-4#p-a2417c97ef785e0bae6406f0fcb1acd3",
+          "title": "[Thread: Jackie Leven] (Thema 4, Tourdaten 2005–2007)",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/source/2009-02-17-ostlendingen-fra-bergen-fengsel",
+          "passage_id": "private/document/source/2009-02-17-ostlendingen-fra-bergen-fengsel#p-29fdb2acd99e560cbc106f84765e1172",
+          "title": "Fra Bergen fengsel – Jackie Leven: The Haunted Year. Winter",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    },
+    {
+      "case_id": "p1-negative-010",
+      "requested_mode": "hybrid",
+      "used_mode": "hybrid",
+      "degraded": false,
+      "duration_ms": 37,
+      "expected_document_ranks": [],
+      "top_hits": [
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-9d2a490ea57e5b8ebb2da0ca60468982",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-5ea683c46b4a50b880a376fb6fd4da0d",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/1997-04-11-lofotposten-hvit-soul",
+          "passage_id": "document/1997-04-11-lofotposten-hvit-soul#p-6da2bb6b0e725e089338591ce060375b",
+          "title": "Hvit soul",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-633986f98e92524e8a747cfd9ee70aa3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy",
+          "passage_id": "document/2007-09-24-drammens-tidende-jackie-pa-buddy#p-107f5f349f9e52b1af52c1f09f05be2e",
+          "title": "Jackie på Buddy",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-894fd765bd0759ad91aa64f0bbf1ef11",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard",
+          "passage_id": "document/2010-04-10-itromso-jackie-leven-pa-bastard#p-c1b3a0cc06dd53e2921c0f6b66207885",
+          "title": "Spiller på Bastard",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-48b7842115c457df8b189a5f4d06a9e3",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/column/2007-09-deep-pool-september-2007",
+          "passage_id": "private/document/column/2007-09-deep-pool-september-2007#p-e6d43c571f0c509d9d5c148c896c51bf",
+          "title": "The Deep Pool – September 2007",
+          "text_voice": "leven",
+          "text_kind": "original"
+        },
+        {
+          "document_id": "private/document/source/2007-04-bluesnews-jackie-leven-apner-bluesskrinet",
+          "passage_id": "private/document/source/2007-04-bluesnews-jackie-leven-apner-bluesskrinet#p-5b6633258a1e511c82d9d9b24f2eb408",
+          "title": "Jackie Leven åpner bluesskrinet",
+          "text_voice": "editorial",
+          "text_kind": "summary"
+        }
+      ]
+    }
+  ]
+}

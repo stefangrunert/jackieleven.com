@@ -46,3 +46,7 @@ Website: env `JACKIE_SEARCH_URL` (loopback HTTP), `JACKIE_SEARCH_MANIFEST` path;
 ## Acceptance
 
 End-to-end local page, genuine BM25 and Qwen embeddings, hybrid RRF, exact readable passage links, correct voices, resumable changed-only importer, new/deleted data handling, service failure and provider fallback, restart/rollback manifests, SQL resource limits, no query/secret logging. Reranker and MCP are adapters after core works; clearly document any remaining scope rather than claiming them implemented.
+
+## Measured local request budgets
+
+The first real corpus showed reranking 20 excerpts needs about 4.5 seconds at the provider. Bounds are therefore 3 seconds for query embeddings, 6 seconds for optional reranking, 10 seconds for the full service request and 11 seconds for the website client. These are ceilings, not latency guarantees or benchmark percentiles. Provider failure still degrades explicitly.

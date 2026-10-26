@@ -96,13 +96,15 @@ func (p *DeepInfra) Embed(ctx context.Context, q string) ([]float32, error) {
 }
 func (p *DeepInfra) Rerank(ctx context.Context, q string, hits []Hit) ([]float64, error) {
 	docs := make([]string, len(hits))
+	queries := make([]string, len(hits))
 	for i, h := range hits {
 		docs[i] = h.Text
+		queries[i] = q
 	}
 	var out struct {
 		Scores []float64 `json:"scores"`
 	}
-	if p.post(ctx, "/v1/inference/"+RerankModel, map[string]any{"queries": []string{q}, "documents": docs}, &out) != nil || len(out.Scores) != len(hits) {
+	if p.post(ctx, "/v1/inference/"+RerankModel, map[string]any{"queries": queries, "documents": docs}, &out) != nil || len(out.Scores) != len(hits) {
 		return nil, errProvider
 	}
 	for _, x := range out.Scores {
