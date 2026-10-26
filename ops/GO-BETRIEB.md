@@ -4,12 +4,14 @@ Die Hauptdomain läuft seit dem 25. Oktober 2026 auf Go. Die separate Testinstan
 
 ## Lokal
 
+Auf diesem MacBook ist der Go-Dienst dauerhaft eingerichtet: `https://jackieleven.localhost` führt über MAMP zum lokalen Go-Prozess. Start, Build und Neustart sind in [GO-LOKAL.md](GO-LOKAL.md) dokumentiert. Port 8080 gehört dem LaunchAgent; für einen zusätzlichen manuellen Testserver Port 8081 verwenden.
+
 Im Hauptverzeichnis `/Users/stefan/www/jackieleven` auf Branch `main`:
 
 ```sh
 go test ./...
 go test -race ./...
-go run ./cmd/jackieleven -root "$PWD" -listen 127.0.0.1:8080
+go run ./cmd/jackieleven -root "$PWD" -listen 127.0.0.1:8081
 ```
 
 Go ist lokal unter `http://jackieleven.localhost:8080` beziehungsweise `http://127.0.0.1:8080` erreichbar. Die frühere lokale PHP-Anwendung wurde durch den Go-Stand ersetzt; PHP bleibt über den Tag `php-before-go-migration` und als Rückfall auf dem Server erhalten. Lokale Kontaktprüfungen verwenden keine produktiven Versandzugänge. Der öffentliche Turnstile-Sitekey beeinflusst die sichtbare Formularausgabe; beide Vergleichsinstanzen benötigen dafür dieselbe öffentliche Konfiguration.

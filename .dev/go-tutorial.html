@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Go verstehen · Ein Tutorial am Jackie-Leven-Projekt</title>
+<meta name="description" content="Go für erfahrene PHP- und JavaScript-Programmierer: lokale Entwicklung, Sprache, HTTP, Templates, Nebenläufigkeit und Deployment anhand der Jackie-Leven-Migration.">
+<style>
+/* Gemeinsame Gestaltung der Entwurfsdokumente in .dev/ */
+
+:root {
+  --bg: #fbfbfa;
+  --fl: #f1f1ef;
+  --ink: #1d1f22;
+  --ink-2: #4a4f57;
+  --ink-3: #737a84;
+  --line: #dcdcd8;
+  --link: #2f5d8a;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --fl: #1d2024;
+    --ink: #e2e4e7;
+    --ink-2: #b5bac1;
+    --ink-3: #868d97;
+    --line: #2e3238;
+    --link: #8fb4d9;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-underline-offset: .15em; }
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3.5rem 16px 5rem;
+}
+
+header { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+h1 {
+  font-family: var(--sans);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  margin-bottom: .6rem;
+}
+.angaben {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+.angaben div { margin-top: .15rem; }
+
+nav.inhalt { font-family: var(--sans); font-size: 14px; margin-bottom: 2.5rem; }
+nav.inhalt ol { padding-left: 1.4rem; columns: 2 15rem; column-gap: 2rem; }
+nav.inhalt li { padding: .1rem 0; break-inside: avoid; color: var(--ink-3); }
+nav.inhalt a { text-decoration: none; }
+nav.inhalt a:hover { text-decoration: underline; }
+
+section { margin-top: 2.8rem; scroll-margin-top: 1rem; }
+
+h2 {
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: .8rem;
+}
+h3 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.8rem 0 .5rem;
+}
+
+p { margin-bottom: .9rem; }
+ul, ol { margin: 0 0 1rem 1.3rem; }
+li { margin-bottom: .3rem; }
+li > ul { margin-top: .3rem; }
+
+code {
+  font-family: var(--mono);
+  font-size: .84em;
+  background: var(--fl);
+  border-radius: 3px;
+  padding: .05em .28em;
+}
+pre {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+  background: var(--fl);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .85rem 1rem;
+  overflow-x: auto;
+  margin: .4rem 0 1.2rem;
+}
+pre code { background: none; padding: 0; font-size: inherit; }
+
+.tabelle { overflow-x: auto; margin: .4rem 0 1.4rem; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+th, td { text-align: left; vertical-align: top; padding: .45rem .6rem; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; color: var(--ink-2); border-bottom-width: 2px; white-space: nowrap; }
+td code { font-size: 12.5px; }
+td.offen { color: var(--ink-3); }
+
+.abbildung {
+  font-family: var(--sans);
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: .4rem 0 1.4rem;
+  overflow-x: auto;
+}
+.abbildung ol { list-style: none; margin: 0; counter-reset: s; }
+.abbildung ol > li {
+  counter-increment: s;
+  position: relative;
+  padding: .35rem 0 .35rem 2rem;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.abbildung ol > li:first-child { border-top: 0; }
+.abbildung ol > li::before {
+  content: counter(s);
+  position: absolute;
+  left: 0; top: .35rem;
+  width: 1.4rem;
+  text-align: right;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.abbildung b { font-weight: 600; }
+.abbildung span { color: var(--ink-2); }
+.abbildung .unterschrift { margin-top: .7rem; font-size: 13px; color: var(--ink-3); }
+
+.hinweis {
+  border-left: 3px solid var(--line);
+  padding: .2rem 0 .2rem 1rem;
+  color: var(--ink-2);
+  margin: 1rem 0 1.2rem;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16.5px; }
+  main { padding-top: 2.2rem; }
+  h1 { font-size: 1.5rem; }
+}
+
+.codebeispiel { margin: 1.2rem 0; min-width: 0; }
+.codebeispiel figcaption, .quellort { font-family: var(--sans); font-size: 12.5px; color: var(--ink-3); line-height: 1.5; margin-bottom: .35rem; }
+.quellort { overflow-wrap: anywhere; }
+code { overflow-wrap: anywhere; }
+pre code { overflow-wrap: normal; }
+kbd { font-family: var(--mono); font-size: .8em; border: 1px solid var(--line); border-radius: 3px; padding: .1em .35em; }
+details { border: 1px solid var(--line); border-radius: 4px; padding: .8rem 1rem; margin: .7rem 0 1.5rem; }
+summary { font-family: var(--sans); font-size: 14px; color: var(--link); cursor: pointer; }
+details[open] summary { margin-bottom: .7rem; }
+details p:last-child, .hinweis p:last-child { margin-bottom: 0; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+.back { font-family: var(--sans); font-size: 12px; margin-top: 1.5rem; }
+@media print { :root { --bg: #fff; --fl: #f5f5f5; --ink: #111; --ink-2: #333; --ink-3: #555; --line: #bbb; --link: #234; } main { max-width: none; padding: 0; } pre { white-space: pre-wrap; overflow-wrap: anywhere; } h2,h3 { break-after: avoid; } .back { display: none; } }
+</style></head><body><main id="anfang">
+<header><h1>Go verstehen: vom PHP-Projekt zum eigenen Webserver</h1><div class="angaben"><div>Tutorial am Jackie-Leven-Projekt · 26. Oktober 2026</div><div>Für erfahrene PHP- und JavaScript-Programmierer ohne Go-Vorkenntnisse</div><div>Go-Quellstand <code>9795efc</code> · lokale Einrichtung ergänzt · lokale Toolchain Go 1.26.2 · <a href="suche-architektur.html">Architektur der geplanten Suche</a></div></div></header>
+<nav class="inhalt" id="inhalt" aria-label="Inhalt"><ol><li><a href="#einstieg">Was du hier lernst</a></li><li><a href="#prozess">Vom PHP-Request zum laufenden Go-Programm</a></li><li><a href="#lokal">Lokal entwickeln: starten, kompilieren, neu starten</a></li><li><a href="#landkarte">Die Dateien und ihre Aufgaben</a></li><li><a href="#syntax">Go lesen: Variablen, Funktionen und Kontrollfluss</a></li><li><a href="#typen">Structs, Methoden und Zeiger</a></li><li><a href="#sammlungen">Maps, Slices, any und unsere Inhaltsdaten</a></li><li><a href="#fehler">Fehler sind Rückgabewerte; defer räumt auf</a></li><li><a href="#start">Was beim Programmstart tatsächlich geschieht</a></li><li><a href="#handler">Wie unsere App zum HTTP-Handler wird</a></li><li><a href="#anfrage">Eine Anfrage verfolgen: von der URL zum HTML</a></li><li><a href="#templates">Templates, Funktionen und sicheres HTML</a></li><li><a href="#parallel">Gleichzeitige Anfragen und gemeinsamer Zustand</a></li><li><a href="#kontakt">Das Formular: Zustand, Nebenläufigkeit und externe Dienste</a></li><li><a href="#kontext">Context, Goroutines und geordnetes Beenden</a></li><li><a href="#tests">Wie du Verhalten ohne Browser testest</a></li><li><a href="#betrieb">Vom lokalen Build zum Release auf Hetzner</a></li><li><a href="#phpvergleich">PHP-Erfahrung übertragen: was gleich bleibt, was sich ändert</a></li><li><a href="#runtimevergleich">Go, Node.js und Java: dieselbe Website, andere Laufzeitmodelle</a></li><li><a href="#uebungen">Vier Übungen mit überprüfbarem Ergebnis</a></li><li><a href="#weiter">Lesepfad im Code und weiterführende Quellen</a></li></ol></nav><section id="einstieg"><h2>1. Was du hier lernst</h2>
+<p>Dieses Tutorial erklärt Go anhand der Website, die du bereits kennst. Du bringst PHP- und JavaScript-Erfahrung mit; Schleifen, HTTP und Templates müssen wir deshalb nicht neu erfinden. Neu sind vor allem Go-Typen, der dauerhaft laufende Server und die Verantwortung für gemeinsam genutzten Zustand.</p>
+<p>Nach der Lektüre solltest du den Server selbst starten, eine Anfrage durch den Code verfolgen, eine kleine Änderung testen und erklären können, warum unsere Go-Fassung an manchen Stellen noch an PHP erinnert. Du brauchst dafür weder ein Go-Framework noch Kenntnisse in Systemprogrammierung.</p>
+<div class="hinweis"><p><strong>Leseweg.</strong> Für einen ersten praktischen Durchgang: <a href="#lokal">lokal starten</a>, <a href="#landkarte">Dateien einordnen</a>, <a href="#anfrage">eine Anfrage verfolgen</a>. Danach erklären die Sprachkapitel die dabei gesehenen Zeichen. Die <a href="#uebungen">Übungen</a> verbinden beides.</p></div>
+<p>Die Go-Codebeispiele beziehen sich auf den geprüften Projektstand <code>9795efc</code> vom 26. Oktober 2026. Die danach eingerichteten lokalen Betriebsskripte und der Architekturvergleich sind als zusätzliche Dokumentation ergänzt. Mit „Original“ bezeichnete Ausschnitte stammen aus diesem Code. Gekürzte Ausschnitte und zusätzliche Lernbeispiele sind entsprechend markiert. Die PHP-Fassung lässt sich weiterhin im Tag <code>php-before-go-migration</code> lesen. Die geplante Ontologie und Suche sind noch keine Bestandteile dieses Go-Servers.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="prozess"><h2>2. Vom PHP-Request zum laufenden Go-Programm</h2>
+<p>Bei unserer bisherigen PHP-Anwendung nahm der Webserver eine Anfrage entgegen und ließ PHP den Einstiegspunkt ausführen. Das Programm lud seine Funktionen, bestimmte die Sprache und erzeugte HTML. In einem klassischen PHP-FPM-Betrieb werden gewöhnliche PHP-Variablen anschließend für die nächste Anfrage neu aufgebaut. Die FPM-Worker selbst können dabei weiterlaufen, und OPcache kann kompilierten PHP-Code behalten.</p>
+<p>Unsere Go-Anwendung startet dagegen einmal und wartet dann auf HTTP-Anfragen. Der Prozess lädt Kataloge und Templates, hält sie im Speicher und verarbeitet viele Anfragen über dieselbe <code>App</code>. Erst ein Neustart baut diese Anwendung neu auf. Das ähnelt einem Node.js-Server stärker als einem klassischen PHP-Einstiegsskript; die Ausführung und Parallelität funktionieren aber anders als im JavaScript-Event-Loop.</p>
+<div class="abbildung"><ol>
+<li><b>Einmal pro Prozess:</b> <span>Programm starten → Konfiguration lesen → Daten laden → Templates parsen → HTTP-Port öffnen.</span></li>
+<li><b>Für jede Seitenanfrage:</b> <span>eigenen Requestzustand anlegen → Sprache und Route bestimmen → Daten aufbereiten → HTML rendern.</span></li>
+<li><b>Beim Beenden:</b> <span>keine neuen Verbindungen annehmen → laufende Anfragen innerhalb der Frist abschließen → Prozess verlassen.</span></li>
+</ol><p class="unterschrift">Der gemeinsame Speicher bleibt zwischen den Anfragen bestehen. Der Zustand einer einzelnen Anfrage gehört deshalb nicht in veränderliche globale Variablen.</p></div>
+<p>Go kompiliert Quellcode vor der Ausführung zu einer ausführbaren Datei. Auch <code>go run</code> kompiliert zuerst; es versteckt lediglich den temporären Build. Die ausführbare Datei enthält die benötigte Go-Laufzeit, etwa Scheduler und Garbage Collector. Go verwaltet Speicher automatisch, verlangt aber weiterhin das Schließen von Dateien, HTTP-Antwortkörpern und anderen Ressourcen.</p>
+<p>Unser Release besteht trotzdem aus mehr als einer Binärdatei: JSON, Templates, Markdown und Assets bleiben externe Dateien. Wir verwenden hier kein <code>go:embed</code>. Ein Server, dem nur die Binärdatei ohne diese Inhalte übergeben wird, kann die Website nicht vollständig bedienen.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="lokal"><h2>3. Lokal entwickeln: starten, kompilieren, neu starten</h2>
+<h3 id="dauerbetrieb">Der eingerichtete Dauerbetrieb auf diesem MacBook</h3>
+<p><strong><a href="https://jackieleven.localhost/de/">https://jackieleven.localhost/de/</a> führt seit dem 26. Oktober 2026 zur Go-Anwendung.</strong> Dafür arbeiten zwei voneinander unabhängige Dienste zusammen: MAMP nimmt die HTTPS-Anfrage an, und unser dauerhaft laufendes Go-Programm erzeugt die Antwort. Die frühere PHP-Anwendung ist an diesem lokalen Host nicht mehr der zuständige Seitenrenderer.</p>
+<div class="abbildung"><ol>
+<li><b>Lokaler Name:</b> <span>Die vorhandenen Einträge für <code>jackieleven.localhost</code> führen auf dieses MacBook.</span></li>
+<li><b>MAMP Apache, Port 443:</b> <span>verwendet das vorhandene lokale Zertifikat und nimmt HTTPS entgegen.</span></li>
+<li><b>Reverse Proxy:</b> <span>leitet den Request an <code>http://127.0.0.1:8080</code> weiter und erhält den ursprünglichen Hostnamen.</span></li>
+<li><b>Go-Anmeldedienst:</b> <span>liest die Anwendung aus <code>/Users/stefan/www/jackieleven</code> und sendet die Antwort über Apache zurück.</span></li>
+</ol><p class="unterschrift">Der Browser sieht die HTTPS-Adresse ohne Portangabe. Der interne Go-Port bleibt auf Loopback beschränkt. Der Übungsserver auf 8081 ist eine separate Instanz.</p></div>
+<p>MAMP ist hier die HTTPS-Eingangsstelle; der Go-Prozess benötigt weder PHP-FPM noch einen PHP-Interpreter. Du kannst MAMP für die anderen Projekte weiterverwenden. Wenn MAMP gestoppt ist, funktioniert diese HTTPS-Adresse nicht, selbst wenn Go auf 8080 weiterläuft. Umgekehrt kann Apache bei gestopptem Go-Dienst keine Anwendungsantwort liefern.</p>
+<h3>Was „permanent“ hier bedeutet</h3>
+<p>Ein macOS-LaunchAgent mit dem Namen <code>com.stefan.jackieleven.go</code> startet Go bei deiner Anmeldung. Er ist unabhängig von einem Terminal und von diesem Chat. <code>RunAtLoad</code> startet das Programm beim Laden des Diensts; <code>KeepAlive</code> veranlasst einen Wiederanlauf nach Prozessende. Die installierte plist liegt unter <code>~/Library/LaunchAgents/com.stefan.jackieleven.go.plist</code>.</p>
+<p>Der Benutzerdienst endet beim Abmelden. Im Ruhezustand bedient das MacBook keine Anfragen. Das ist eine dauerhaft eingerichtete lokale Entwicklungsumgebung, kein rund um die Uhr erreichbarer Server. Der automatische Wiederanlauf wurde durch ein gezieltes SIGTERM geprüft; ein vollständiger Mac-Neustart wurde dafür nicht durchgeführt.</p>
+<h3>Die Befehle für den täglichen Betrieb</h3>
+<pre><code>cd /Users/stefan/www/jackieleven
+ops/go-local.sh restart  # Go neu bauen und Dienst neu starten
+ops/go-local.sh reload   # Ohne Build: Prozess neu starten, Daten neu laden
+ops/go-local.sh status   # launchd-Zustand und Prozessinformationen
+ops/go-local.sh logs     # Letzte 60 Einträge aus dem Fehler-/Startlog
+ops/go-local.sh stop     # Für die aktuelle Anmeldung entladen
+ops/go-local.sh start    # Aktivieren und laden</code></pre>
+<p><code>restart</code> baut zuerst eine neue Binärdatei und ersetzt die alte Datei erst nach erfolgreicher Kompilierung. Ein Compilerfehler lässt den bisherigen Dienst weiterlaufen. Anschließend wird der Dienst entladen und neu geladen. <code>reload</code> ist ebenfalls ein echter Prozessneustart, nur ohne Build: Einlesen von JSON, Templates und Kolumnen geschieht dadurch erneut. Keiner der Befehle aktiviert einen Dateiwächter oder verspricht unterbrechungsfreien Betrieb.</p>
+<p><code>stop</code> entlädt den Dienst, sodass <code>KeepAlive</code> ihn in dieser Anmeldung nicht sofort wieder startet. Beim nächsten Anmelden wird die installierte plist wieder geladen. Für dauerhaftes Abschalten stehen die zusätzlichen <code>launchctl disable</code>-Schritte in <a href="../ops/GO-LOKAL.md">GO-LOKAL.md</a>. <code>ops/go-local.sh install</code> erzeugt die plist aus den aktuellen lokalen Pfaden; es ist ein Einrichtungsbefehl, kein notwendiger täglicher Arbeitsschritt.</p>
+<h3>Wo Routing, Programm und Zustand liegen</h3>
+<div class="tabelle"><table><thead><tr><th>Bestandteil</th><th>Ort und Aufgabe</th></tr></thead><tbody>
+<tr><td><a href="../ops/go-local.sh"><code>ops/go-local.sh</code></a></td><td>Bauen, Installieren und Steuern des macOS-Diensts.</td></tr>
+<tr><td><code>.dev/bin/jackieleven-local</code></td><td>Die vom Anmeldedienst gestartete Binärdatei.</td></tr>
+<tr><td><a href="../ops/apache-go-local.conf"><code>ops/apache-go-local.conf</code></a></td><td>Reverse Proxy und Begrenzung auf lokale Zugriffe.</td></tr>
+<tr><td><code>.dev/logs/go-local.err.log</code></td><td>Startmeldungen und Fehler; das separate <code>go-local.out.log</code> sammelt Standardausgabe.</td></tr>
+<tr><td><code>.dev/runtime/local-contact</code></td><td>Lokale Formularsitzungen, getrennt vom Übungsserver und der Produktion.</td></tr>
+</tbody></table></div>
+<p>Im MAMP-Host <strong>jackieleven</strong> ist unter <strong>Apache → Additional parameters for &lt;VirtualHost&gt; directive</strong> die folgende Zeile gespeichert:</p>
+<pre><code>Include "/Users/stefan/www/jackieleven/ops/apache-go-local.conf"</code></pre>
+<p>Dadurch bleibt die Einbindung erhalten, wenn MAMP seine Apache-Konfiguration neu erzeugt. Eine Änderung der Include-Datei braucht einen Apache-Neustart über das Kontextmenü von <strong>Apache → Restart server</strong>. Eine Änderung am Go-Code braucht dagegen den Go-Neustart über unser Skript. Beide Konfigurationen haben ihren eigenen Lebenszyklus.</p>
+<p>Go startet hier mit <code>-trust-proxy</code>. Apache setzt den ursprünglichen Client und das HTTPS-Schema kontrolliert in Proxyheadern; so kann Go beispielsweise das Secure-Attribut des Kontaktcookies richtig setzen. Der Dienst erhält ausdrücklich leere Versand- und Turnstile-Zugänge. Die lokale Kontaktseite lässt sich prüfen, verschickt aber keine echten E-Mails. Lokale Antworten bleiben <code>noindex</code>.</p>
+<p>Wenn die Seite nicht erreichbar ist, prüfe zuerst <code>ops/go-local.sh status</code> und <code>ops/go-local.sh logs</code>, danach MAMP. <code>curl -I http://127.0.0.1:8080/de/</code> prüft Go direkt; <code>curl -I https://jackieleven.localhost/de/</code> prüft zusätzlich die HTTPS-Weiterleitung. Funktioniert nur die erste Adresse, liegt die Ursache auf dem Weg über MAMP oder TLS. Die folgenden Übungen verwenden weiterhin Port 8081 und können neben dem Anmeldedienst laufen.</p>
+<h3>1. Im richtigen Verzeichnis beginnen</h3>
+<p>Das aktive Projekt liegt auf <code>main</code> unter <code>/Users/stefan/www/jackieleven</code>. Der alte Migrationsworktree ist entfernt. Öffne ein Terminal und prüfe zunächst Verzeichnis, Go und Arbeitsstand:</p>
+<figure class="codebeispiel"><figcaption>Terminal · Bestandsaufnahme</figcaption><pre><code>cd /Users/stefan/www/jackieleven
+git status --short
+go version
+cat go.mod</code></pre></figure>
+<p>Beim Schreiben dieses Tutorials ist lokal <code>go1.26.2 darwin/arm64</code> installiert. <code>go.mod</code> nennt <code>go 1.26</code>: Das legt die erforderliche Mindestversion und die Sprachversion des Moduls fest, aber keinen exakt festgeschriebenen Patchstand des Compilers. <code>darwin/arm64</code> bedeutet macOS auf Apple Silicon. Für den Linux-Server bauen wir ein anderes Ziel. Hintergrund: <a href="https://go.dev/doc/modules/gomod-ref#go">Go-Modulreferenz</a>.</p>
+<h3>2. Einen zweiten lokalen Server starten</h3>
+<p>Port 8080 wird vom dauerhaft eingerichteten lokalen Go-Dienst verwendet. Die folgenden Übungen nehmen deshalb <strong>8081</strong>. So kannst du lernen, ohne den bestehenden Prozess anzuhalten. Dieser Befehl läuft im Vordergrund; das Terminal bleibt belegt:</p>
+<figure class="codebeispiel"><figcaption>Terminal · lokaler Entwicklungsserver</figcaption><pre><code id="dev-command">cd /Users/stefan/www/jackieleven
+mkdir -p .dev/runtime/tutorial-contact
+env JACKIE_RESEND_API_KEY= JACKIE_TURNSTILE_SITEKEY= JACKIE_TURNSTILE_SECRET= \
+  JACKIE_CONTACT_STATE_DIR=&quot;$PWD/.dev/runtime/tutorial-contact&quot; \
+  go run ./cmd/jackieleven -root &quot;$PWD&quot; -listen 127.0.0.1:8081</code></pre></figure>
+<p>Öffne <a href="http://127.0.0.1:8081/de/">http://127.0.0.1:8081/de/</a>. Alternativ funktioniert bei entsprechender lokaler Namensauflösung <a href="http://jackieleven.localhost:8081/de/">http://jackieleven.localhost:8081/de/</a>. Das ist bewusst HTTP: Der Go-Prozess stellt hier kein eigenes TLS-Zertifikat bereit. Die Adresse <code>https://jackieleven.localhost</code> bleibt dabei mit dem Anmeldedienst auf 8080 verbunden.</p>
+<p><code>./cmd/jackieleven</code> bezeichnet das zu bauende Programmpaket. <code>-root</code> bezeichnet das Verzeichnis der Laufzeitdateien, <code>-listen</code> die Adresse für HTTP. <code>127.0.0.1</code> bindet den Server nur lokal. Die drei leeren Anbieterwerte gelten ausschließlich für diesen Prozess; die Kontaktseite kann angezeigt werden, der echte Versand ist damit nicht eingerichtet.</p>
+<p>In einem zweiten Terminal kannst du eine Antwort prüfen:</p>
+<figure class="codebeispiel"><figcaption>Terminal · Header prüfen</figcaption><pre><code>curl -I http://127.0.0.1:8081/de/
+curl -I http://127.0.0.1:8081/en/</code></pre></figure>
+<p>Erwartet werden <code>200 OK</code>, <code>Content-Type: text/html; charset=utf-8</code> und die jeweilige <code>Content-Language</code>. Lokal kommt <code>X-Robots-Tag: noindex</code> hinzu. Mit <kbd>Ctrl</kbd> + <kbd>C</kbd> im Serverterminal beendest du den Prozess. Bei „address already in use“ wähle beispielsweise 8082 und passe die Browseradresse an; ein blindes Beenden aller Go-Prozesse ist unnötig.</p>
+<h3>3. Eine ausführbare Datei bauen</h3>
+<figure class="codebeispiel"><figcaption>Terminal · bauen und starten</figcaption><pre><code>cd /Users/stefan/www/jackieleven
+mkdir -p .dev/bin
+go build -trimpath -o .dev/bin/jackieleven-tutorial ./cmd/jackieleven
+
+env JACKIE_RESEND_API_KEY= JACKIE_TURNSTILE_SITEKEY= JACKIE_TURNSTILE_SECRET= \
+  JACKIE_CONTACT_STATE_DIR=&quot;$PWD/.dev/runtime/tutorial-contact&quot; \
+  .dev/bin/jackieleven-tutorial -root &quot;$PWD&quot; -listen 127.0.0.1:8081</code></pre></figure>
+<p>Beende vorher den mit <code>go run</code> gestarteten Übungsserver. <code>-o</code> bestimmt den Ausgabepfad, <code>-trimpath</code> entfernt lokale Dateisystempfade aus dem Build. Der erste Befehl kompiliert nur. Der zweite startet die entstandene Datei. Für deren Ausführung ist kein installiertes Go-Werkzeug erforderlich, wohl aber die passende Plattform und unser Inhaltsverzeichnis.</p>
+<h3>4. Was muss nach einer Änderung neu starten?</h3>
+<div class="tabelle"><table><thead><tr><th>Geändert</th><th>Verhalten dieser Implementierung</th><th>Dein nächster Schritt</th></tr></thead><tbody>
+<tr><td><code>*.go</code></td><td>Der laufende Prozess enthält den bisherigen kompilierten Code.</td><td>Stoppen; erneut <code>go run</code> oder bauen und starten.</td></tr>
+<tr><td><code>templates/*.gohtml</code></td><td>Vorlagen werden beim Start geparst.</td><td>Server neu starten; bei unverändertem Go-Code genügt dieselbe Binärdatei.</td></tr>
+<tr><td><code>data/*.json</code>, Sprachdateien, Kolumnen</td><td>Werden beim Start eingelesen.</td><td>Server neu starten; kein neuer Go-Build allein wegen der Inhaltsänderung nötig.</td></tr>
+<tr><td>Kapitel in <code>autobiografie/</code></td><td><code>ChapterParts</code> liest bei der Seitenaufbereitung von der Platte.</td><td>Lokal genügt normalerweise die nächste Anfrage.</td></tr>
+<tr><td>CSS, Browser-JavaScript, Bilder</td><td>Werden über den Dateiserver gelesen; Browser können sie cachen.</td><td>Seite neu laden, gegebenenfalls Browsercache deaktivieren.</td></tr>
+<tr><td>Prozessvariablen</td><td>Die Konfiguration wurde beim Start übernommen.</td><td>Prozess mit den neuen Werten starten.</td></tr>
+</tbody></table></div>
+<p>Es gibt im Projekt keinen automatischen Dateiwächter und kein eingebautes Hot Reload. Ein erneuter Browseraufruf kompiliert nichts. Für den Anfang ist der explizite Ablauf <em>ändern → formatieren → testen → neu starten → Browser prüfen</em> gut nachvollziehbar. In Produktion bleiben auch die externen Inhaltsdateien innerhalb eines Releases unverändert; dort liefern wir Änderungen als neues Paket aus.</p>
+<h3>5. Die Befehle für den Alltag</h3>
+<figure class="codebeispiel"><figcaption>Terminal · Werkzeuge</figcaption><pre><code># Nach einer Go-Änderung die betroffene Datei formatieren:
+gofmt -w internal/site/server.go
+
+# Tests aller Pakete im Modul:
+go test ./...
+
+# Einen vorhandenen Test gezielt und ohne Ergebnis-Cache ausführen:
+go test ./internal/site -run &#x27;^TestRequestLanguageIsIsolated$&#x27; -count=1 -v
+
+# Nebenläufige Speicherzugriffe und verdächtige Codekonstruktionen prüfen:
+go test -race ./...
+go vet ./...
+
+# Änderungen vor einem Commit ansehen:
+git diff --check
+git diff</code></pre></figure>
+<p><code>./...</code> umfasst die Pakete unterhalb des aktuellen Verzeichnisses. <code>-run</code> wählt Testnamen per regulärem Ausdruck, <code>-v</code> zeigt mehr Einzelheiten, <code>-count=1</code> verhindert die Wiederverwendung eines früheren Testergebnisses. <code>go test</code> kompiliert den getesteten Code selbst. Es ersetzt weder die Browserprüfung noch den Vergleich mit der eingefrorenen PHP-Referenz.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="landkarte"><h2>4. Die Dateien und ihre Aufgaben</h2>
+<p>Ein Go-Modul ist der durch <code>go.mod</code> zusammengehaltene Projektbereich. Ein Paket fasst die Go-Dateien eines Verzeichnisses zusammen. Bei uns heißt das Modul <code>jackieleven</code>; deshalb kann der Einstiegspunkt <code>jackieleven/internal/site</code> importieren. Das ist ein Importpfad, keine URL, die der Server zur Laufzeit aufruft.</p>
+<div class="tabelle"><table><thead><tr><th>Datei oder Verzeichnis</th><th>Aufgabe</th></tr></thead><tbody>
+<tr><td><a href="../cmd/jackieleven/main.go"><code>cmd/jackieleven/main.go</code></a></td><td>Startparameter, App erstellen, HTTP starten, geordnet beenden.</td></tr>
+<tr><td><a href="../internal/site/server.go"><code>internal/site/server.go</code></a></td><td><code>Config</code>, <code>App</code>, Requestzustand, Routing und HTTP-Antwort.</td></tr>
+<tr><td><a href="../internal/site/data.go"><code>data.go</code></a></td><td>Kataloge laden; dynamische Records lesen, gruppieren und vergleichen.</td></tr>
+<tr><td><a href="../internal/site/content.go"><code>content.go</code></a></td><td>Übersetzungen, Adressen, Diskografie- und Quellenlogik.</td></tr>
+<tr><td><a href="../internal/site/templates.go"><code>templates.go</code></a></td><td>Templatefunktionen, Anzeigedaten und Rendering.</td></tr>
+<tr><td><a href="../internal/site/markdown.go"><code>markdown.go</code></a></td><td>Kolumnen und Kapitel einlesen; projektspezifische Lesefassungen erzeugen.</td></tr>
+<tr><td><a href="../internal/site/contact.go"><code>contact.go</code></a></td><td>Sitzungen, Validierung, Turnstile, Versand und Wiederholungsschutz.</td></tr>
+<tr><td><code>seo.go</code>, <code>descriptions.go</code>, <code>basepath.go</code></td><td>Metadaten, Beschreibungen und Vorschau unter einem URL-Präfix.</td></tr>
+<tr><td><code>templates/</code>, <code>data/</code>, <code>assets/</code></td><td>HTML-Vorlagen, JSON-Inhalte und öffentliche Browserdateien.</td></tr>
+<tr><td><code>*_test.go</code></td><td>Tests; gehören nicht zum normalen Serverprogramm.</td></tr>
+<tr><td><code>ops/</code>, <code>werkzeug/</code></td><td>Paketbau und Betrieb sowie Inhaltspflege und Migrationsvergleich.</td></tr>
+</tbody></table></div>
+<p><code>cmd/</code> ist eine verbreitete Ordnungskonvention. <code>internal/</code> hat zusätzlich eine Bedeutung für Go: Pakete darin dürfen nur aus dem erlaubten übergeordneten Verzeichnisbaum importiert werden. Die Dateien <code>data.go</code> und <code>server.go</code> gehören beide zu <code>package site</code>; sie müssen einander nicht wie PHP-Dateien per <code>require</code> laden. Klein geschriebene Namen sind innerhalb dieses Pakets erreichbar, nicht nur innerhalb einer Datei. Siehe <a href="https://go.dev/doc/modules/layout">Go: Modulaufbau</a>.</p>
+<p>Die Go-Anwendung importiert ausschließlich die Standardbibliothek. Es gibt kein Webframework, keinen Composer-Autoloader und keine externe Go-Abhängigkeit in <code>go.mod</code>. Das ist eine Entscheidung dieses Projekts; Go erlaubt selbstverständlich externe Pakete.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="syntax"><h2>5. Go lesen: Variablen, Funktionen und Kontrollfluss</h2>
+<p>Wir beginnen mit einer echten Zeile aus dem Einstiegspunkt:</p>
+<figure class="codebeispiel"><figcaption>Original · main.go</figcaption><pre><code>listen := flag.String(&quot;listen&quot;, &quot;127.0.0.1:8080&quot;, &quot;HTTP listen address&quot;)</code></pre></figure>
+<p><code>:=</code> deklariert innerhalb einer Funktion eine Variable und lässt ihren Typ aus dem Ausdruck ableiten. Hier ergibt sich <code>*string</code>, weil <code>flag.String</code> einen Zeiger auf einen String liefert. Ein späteres <code>=</code> weist einer bestehenden Variablen einen neuen Wert zu. Der Typ bleibt fest; <code>listen = 42</code> kompiliert nicht.</p>
+<figure class="codebeispiel"><figcaption>Go · Lernbeispiel</figcaption><pre><code>lang := &quot;de&quot;          // Typ string
+var count int         // Nullwert 0
+var ready bool        // Nullwert false
+const defaultLang = &quot;de&quot;
+
+if lang == &quot;de&quot; {
+    count = count + 1
+}
+
+for i, name := range []string{&quot;de&quot;, &quot;en&quot;} {
+    fmt.Println(i, name)
+}</code></pre></figure>
+<p>Go schreibt den Typ hinter den Namen: <code>name string</code>. <code>if</code> braucht keine Klammern um die Bedingung, aber geschweifte Klammern um den Block. <code>for</code> deckt Zählschleifen, das Durchlaufen von Sammlungen und Schleifen nach Art von <code>while</code> ab. <code>range</code> liefert beim Slice Index und Wert. <code>_</code> verwirft einen nicht benötigten Wert, etwa in <code>for _, name := range names</code>.</p>
+<p>Eine Bedingung muss einen booleschen Wert haben. <code>if count</code> und <code>if lang</code> sind ungültig; du schreibst <code>if count != 0</code> beziehungsweise <code>if lang != ""</code>. Die im Projekt vorkommende Funktion <code>truth</code> ist eigens geschriebene PHP-Kompatibilität, keine Eigenschaft der Sprache Go.</p>
+<figure class="codebeispiel"><figcaption>Go · nur Signatur und Rückgabetyp veranschaulicht</figcaption><pre><code>func preferredLanguage(header string) string {
+    // Implementierung im Projekt: Accept-Language auswerten.
+    return &quot;de&quot;
+}</code></pre></figure>
+<p><code>func</code> definiert eine Funktion; <code>header string</code> ist ihr Parameter, der abschließende <code>string</code> ihr Rückgabetyp. Das vereinfachte Beispiel oben zeigt nur die Form. Unsere echte Funktion berücksichtigt auch die Gewichtungen im <code>Accept-Language</code>-Header.</p>
+<p>Die drei Punkte in einer Signatur wie <code>args ...any</code> bedeuten beliebig viele Argumente, die innerhalb der Funktion als Slice ankommen. Beim Aufruf reicht <code>args...</code> die Elemente eines vorhandenen Slice einzeln weiter. Du siehst beides in unseren URL- und Templatehelfern; die Idee ähnelt variadischen Argumenten beziehungsweise Spread in PHP und JavaScript.</p>
+<p>Unbenutzte lokale Variablen und unbenutzte Imports sind Compilerfehler. Formatierungsfragen übernimmt <code>gofmt</code>. Das wirkt anfangs streng, macht aber viel Code bereits vor dem ersten Browseraufruf überprüfbar. Grundregeln findest du in der <a href="https://go.dev/ref/spec">Sprachspezifikation</a>; zum Lesen unserer Anwendung sind die hier erläuterten Konstruktionen zunächst ausreichend.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="typen"><h2>6. Structs, Methoden und Zeiger</h2>
+<p>Statt eines beliebig erweiterbaren Konfigurationsarrays verwendet der Server einen benannten Typ mit festen Feldern:</p>
+<figure class="codebeispiel"><figcaption>Original · server.go</figcaption><pre><code>type Config struct {
+	Root       string
+	BasePath   string
+	TrustProxy bool
+	Contact    ContactConfig
+}</code></pre></figure>
+<p><code>struct</code> bündelt Felder. <code>site.Config{Root: *root, BasePath: *basePath}</code> erzeugt einen Wert und belegt benannte Felder. Nicht genannte Felder erhalten ihren Nullwert. Einen Konstruktor namens <code>__construct</code> gibt es nicht automatisch. Unsere Funktion <code>New</code> prüft die Konfiguration und baut die App; dieser Name ist eine Konvention.</p>
+<figure class="codebeispiel"><figcaption>Originalsignaturen · server.go</figcaption><pre><code>func New(config Config) (*App, error)
+func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request)</code></pre></figure>
+<p>Die erste Signatur liefert zwei Werte: einen Zeiger auf eine <code>App</code> und einen Fehlerwert. Die zweite gehört als <em>Methode</em> zu <code>*App</code>. Das Stück <code>(a *App)</code> heißt Receiver; innerhalb der Methode ist <code>a</code> das Gegenstück zum explizit benannten <code>$this</code>. Go hat Methoden und Interfaces, aber keine Klassenvererbung im PHP-Sinn.</p>
+<h3>Was bedeuten <code>*</code> und <code>&amp;</code>?</h3>
+<figure class="codebeispiel"><figcaption>Go · Lernbeispiel</figcaption><pre><code>config := site.Config{Root: &quot;.&quot;}
+p := &amp;config           // Adresse des Config-Werts; Typ *site.Config
+p.Root = &quot;/tmp/site&quot;  // Feldzugriff über den Zeiger
+fmt.Println(config.Root) // /tmp/site</code></pre></figure>
+<p><code>&amp;config</code> nimmt die Adresse. In einer Typangabe bedeutet <code>*Config</code> „Zeiger auf Config“; als Ausdruck liest <code>*p</code> den Wert an dieser Adresse. Beim Feldzugriff erledigt Go die nötige Dereferenzierung selbst. Es gibt keine normale Zeigerarithmetik wie in C.</p>
+<p>Go übergibt Argumente als Werte. Wird ein Struct übergeben, wird dieser Structwert kopiert. Wird ein Zeiger übergeben, wird der Zeigerwert kopiert; beide Zeiger können anschließend dieselbe Struktur erreichen. <code>&amp;App{...}</code> in <code>New</code> erzeugt unsere App und liefert ihre Adresse. Du musst diese Struktur nicht manuell mit <code>free</code> entsorgen.</p>
+<p>Ein großer Anfangsbuchstabe exportiert einen Namen aus dem Paket: <code>Config</code>, <code>New</code> und <code>ServeHTTP</code> sind von außen erreichbar. <code>request</code>, <code>loadData</code> und <code>root</code> sind paketintern. Das gilt auch für Structfelder: Die Template- und JSON-Bibliotheken können exportierte Felder regulär auslesen.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="sammlungen"><h2>7. Maps, Slices, any und unsere Inhaltsdaten</h2>
+<p>Das PHP-Array deckt Listen und geordnete Schlüssel-Wert-Zuordnungen ab. Go trennt diese Fälle: Ein <code>[]string</code> ist ein Slice aus Strings; eine <code>map[string]string</code> ordnet Stringschlüsseln Stringwerte zu. Ein Go-Array wie <code>[2]string</code> hat dagegen eine feste Länge, die zu seinem Typ gehört.</p>
+<figure class="codebeispiel"><figcaption>Go · Lernbeispiel</figcaption><pre><code>languages := []string{&quot;de&quot;, &quot;en&quot;}
+languages = append(languages, &quot;nb&quot;)
+labels := map[string]string{&quot;de&quot;: &quot;Deutsch&quot;, &quot;en&quot;: &quot;English&quot;}
+label, ok := labels[&quot;nb&quot;] // label == &quot;&quot;, ok == false</code></pre></figure>
+<p>Der zweite Rückgabewert beim Mapzugriff unterscheidet einen fehlenden Eintrag von einem vorhandenen leeren String. Eine nil-Map kann gelesen, aber nicht beschrieben werden. Zum Beschreiben erzeugst du sie etwa mit <code>map[string]string{}</code> oder <code>make(map[string]string)</code>. Ein nil-Slice lässt sich dagegen mit <code>append</code> erweitern.</p>
+<p>Eine Mapzuweisung kopiert nicht alle Einträge. Auch ein Slice kann mit anderen Slices denselben zugrunde liegenden Speicher teilen. Das unterscheidet sich von den üblichen Copy-on-write-Erwartungen an PHP-Arrays. <code>cloneMap</code> kopiert in unserem Projekt nur die oberste Mapebene; verschachtelte Maps und Slices bleiben geteilt. <a href="https://go.dev/blog/slices-intro">Die offizielle Slice-Erklärung</a> zeigt dieses Speichermodell im Detail.</p>
+<h3>Strings, Bytes und Unicode</h3>
+<p>Go-Strings sind unveränderliche Bytefolgen, in unseren Texten üblicherweise UTF-8. <code>len(s)</code> zählt Bytes; <code>s[i]</code> liefert ein Byte. <code>range</code> über einen String decodiert dagegen Unicode-Codepunkte, in Go <code>rune</code> genannt. Für <code>"ü"</code> ist die Bytezahl 2 und die Zahl der Codepunkte 1. Das Formular verwendet deshalb <code>utf8.RuneCountInString</code> für seine Längenregeln. Auch Codepunkte sind nicht immer dasselbe wie sichtbar wahrgenommene Zeichen, etwa bei kombinierten Akzenten.</p>
+<h3>Warum bei uns so viel <code>M</code> vorkommt</h3>
+<figure class="codebeispiel"><figcaption>Original · Datentypen in data.go</figcaption><pre><code>type M = map[string]any
+type Pair struct {
+	Key   any
+	Value any
+}
+type Data struct {
+	Values    M
+	Languages map[string]M
+	Texts     map[string]M
+	Columns   []any
+	Sources   []any
+}</code></pre></figure>
+<p><code>M</code> ist durch das Gleichheitszeichen ein Alias für <code>map[string]any</code>, kein neuer, davon getrennter Typ. <code>any</code> ist der Name für das leere Interface: Ein Wert dieses Typs kann unterschiedliche konkrete Typen enthalten. Das ähnelt einem PHP-<code>mixed</code>. Es schaltet Go aber nicht allgemein auf dynamische Typisierung um; vor typspezifischen Operationen musst du den konkreten Typ feststellen.</p>
+<figure class="codebeispiel"><figcaption>Go · Lernbeispiel</figcaption><pre><code>var value any = &quot;Jackie Leven&quot;
+text, ok := value.(string)
+if ok {
+    fmt.Println(strings.ToUpper(text))
+}</code></pre></figure>
+<p>Die Form <code>value.(string)</code> ist eine Typprüfung, keine Stringkonvertierung. Mit <code>text, ok := ...</code> erhältst du ein kontrollierbares Ergebnis; ohne <code>ok</code> kann eine falsche Annahme einen Panic auslösen.</p>
+<p><code>loadData</code> liest JSON-Dateien mit <code>os.ReadFile</code> und <code>json.Unmarshal</code>. Bei einem Ziel vom Typ <code>any</code> werden JSON-Objekte zu Maps, Arrays zu <code>[]any</code> und Zahlen standardmäßig zu <code>float64</code>. Daher gibt es bei uns Umwandlungshilfen wie <code>str</code> und <code>num</code>. <a href="https://pkg.go.dev/encoding/json#Unmarshal">Referenz: json.Unmarshal</a>.</p>
+<p>Für eine neue Domänenlogik könnte man einen fest typisierten Ausschnitt so modellieren:</p>
+<figure class="codebeispiel"><figcaption>Go · mögliches künftiges Modell, nicht unser aktueller Katalogtyp</figcaption><pre><code>type Release struct {
+    ID    string `json:&quot;id&quot;`
+    Title string `json:&quot;title&quot;`
+    Year  int    `json:&quot;year&quot;`
+}</code></pre></figure>
+<p>Die Backtick-Texte heißen Struct-Tags. Sie sagen hier dem JSON-Paket, wie die Felder heißen. Das Feld <code>Title</code> wäre dann vom Compiler überprüfbar; ein Tippfehler bei <code>record["titel"]</code> in einer offenen Map fällt dagegen erst zur Laufzeit oder in einem Test auf. Die Migration behält bewusst die vorhandenen JSON-Feldnamen. Eine spätere Ontologie verlangt eigene fachliche Modelle; <code>M</code> ist noch keines.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="fehler"><h2>8. Fehler sind Rückgabewerte; defer räumt auf</h2>
+<p>Beim Laden einer Datei kann etwas Erwartbares schiefgehen. Go verwendet dafür typischerweise einen zusätzlichen Rückgabewert:</p>
+<figure class="codebeispiel"><figcaption>Original · Ausschnitt aus loadData</figcaption><pre><code>b, err := os.ReadFile(filepath.Join(root, &quot;data&quot;, name+&quot;.json&quot;))
+if err != nil {
+    return nil, err
+}</code></pre></figure>
+<p><code>b</code> enthält bei Erfolg Bytes, <code>err</code> ist dann <code>nil</code>. Bei einem Fehler kehrt die Funktion früh zurück. Das ist kein <code>try/catch</code>: Der Aufrufer bekommt den Fehler als normalen Wert und entscheidet, was damit passiert. Der Typ <code>error</code> ist ein Interface mit der Methode <code>Error() string</code>.</p>
+<p>Unser <code>loadData</code> ergänzt bei ungültigem JSON den Dateinamen durch <code>fmt.Errorf("%s: %w", name, err)</code>. <code>%w</code> bewahrt den zugrunde liegenden Fehler zur weiteren Auswertung. Scheitert <code>site.New</code>, beendet <code>main</code> den Start mit <code>log.Fatal</code>. Beim Renderfehler während einer Anfrage protokolliert <code>renderError</code> dagegen den Fehler und antwortet mit HTTP 500. Die ganze Site wegen einer fehlerhaften Antwort zu beenden wäre eine andere Entscheidung.</p>
+<h3>Ressourcen unmittelbar nach dem Öffnen absichern</h3>
+<figure class="codebeispiel"><figcaption>Original · Ausschnitt aus verifyTurnstile</figcaption><pre><code>resp, err := contactClient.Do(req)
+if err != nil {
+    return false
+}
+defer resp.Body.Close()</code></pre></figure>
+<p><code>defer</code> führt den angegebenen Aufruf beim Verlassen der umgebenden Funktion aus, auch nach einem späteren <code>return</code>. Mehrere aufgeschobene Aufrufe laufen in umgekehrter Reihenfolge. Das ähnelt dem Aufräumen in <code>finally</code>, ist aber an die Funktion gebunden. In einer langen Schleife sammelt <code>defer</code> deshalb Ressourcen bis zum Funktionsende.</p>
+<p><code>panic</code> und <code>recover</code> existieren, sind aber kein Ersatz für gewöhnliche Validierungs- und I/O-Fehler. Auch ist <code>defer</code> keine Garantie bei hartem Prozessabbruch; <code>log.Fatal</code> beendet über <code>os.Exit</code> und führt wartende Defers nicht aus. Siehe <a href="https://go.dev/blog/defer-panic-and-recover">Go: Defer, Panic, and Recover</a>.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="start"><h2>9. Was beim Programmstart tatsächlich geschieht</h2>
+<p>Die Datei <code>main.go</code> verwendet <code>package main</code> und enthält <code>func main()</code>. Hier beginnt das ausführbare Programm. Der erste Teil des echten Starts lautet:</p>
+<figure class="codebeispiel"><figcaption>Original · main.go, Ausschnitt</figcaption><pre><code>	flag.Parse()
+	app, err := site.New(site.Config{Root: *root, BasePath: *basePath, TrustProxy: *trust, Contact: site.ContactConfigFromEnv()})
+	if err != nil {
+		log.Fatal(err)
+	}
+	server := site.HTTPServer(*listen, app)</code></pre></figure>
+<p><code>flag.Parse()</code> liest die Argumente hinter dem Programmnamen. Die zuvor angelegten Zeiger <code>root</code>, <code>basePath</code> und <code>trust</code> liefern mit <code>*</code> ihre Werte. <code>ContactConfigFromEnv()</code> liest die Formular-Konfiguration aus der Prozessumgebung. Die Datei <code>app/config.local.php</code> wird vom Go-Code nicht ausgeführt; auch eine <code>.env</code>-Datei wird nicht automatisch geladen.</p>
+<p><code>site.New</code> normalisiert zunächst den optionalen Vorschaupfad und den Inhaltswurzelpfad. Es lädt die JSON-Daten samt Kolumnen, erzeugt die Kontaktkomponente und richtet den Asset-Dateiserver ein. Danach liest es alle <code>.gohtml</code>-Dateien und parst sie mit <code>html/template</code>. Bei einem Fehler liefert es ihn an <code>main</code> zurück. Andernfalls steht eine fertig vorbereitete <code>*App</code> bereit.</p>
+<p>Die Funktion <code>HTTPServer</code> steckt diese App in einen <code>http.Server</code> und legt unter anderem Zeitgrenzen fest: fünf Sekunden für Requestheader, 15 Sekunden fürs Lesen, 45 fürs Schreiben und 60 für inaktive Keep-alive-Verbindungen. Erst <code>ListenAndServe()</code> öffnet den Port und beginnt die HTTP-Verarbeitung. Solange der Server normal läuft, kehrt dieser Aufruf nicht zurück.</p>
+<p class="quellort">Im Projekt: <a href="../cmd/jackieleven/main.go">cmd/jackieleven/main.go</a> · <code>main</code></p><p class="quellort">Im Projekt: <a href="../internal/site/server.go">internal/site/server.go</a> · <code>New, HTTPServer</code></p><p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="handler"><h2>10. Wie unsere App zum HTTP-Handler wird</h2>
+<p>Go-Interfaces beschreiben benötigte Methoden. Der HTTP-Server verlangt einen Handler mit dieser Form:</p>
+<figure class="codebeispiel"><figcaption>Standardbibliothek · net/http.Handler</figcaption><pre><code>type Handler interface {
+    ServeHTTP(ResponseWriter, *Request)
+}</code></pre></figure>
+<p>Unsere Methode <code>func (a *App) ServeHTTP(...)</code> erfüllt genau diese Anforderung. Es braucht kein <code>implements Handler</code>. Die Übereinstimmung der Methodensignatur genügt. Deshalb akzeptiert <code>HTTPServer(addr string, handler http.Handler)</code> unsere <code>*App</code>, ohne ihren konkreten Typ kennen zu müssen.</p>
+<p><code>r *http.Request</code> liefert Methode, Adresse, Header und Body. Statt <code>$_SERVER</code> und <code>$_POST</code> zu lesen, arbeitet der Handler mit diesem Objekt. <code>w http.ResponseWriter</code> ist die Schnittstelle zum Schreiben der Antwort: Header setzen, Status senden, Body schreiben. Ein Interfacewert kann dabei auf eine konkrete Implementierung verweisen; im Test ist das beispielsweise ein Antwortrekorder.</p>
+<figure class="codebeispiel"><figcaption>Original · page, ohne dazwischenliegenden noindex-Zweig</figcaption><pre><code>w.Header().Set(&quot;Content-Type&quot;, &quot;text/html; charset=utf-8&quot;)
+w.Header().Set(&quot;Content-Language&quot;, c.lang)
+w.WriteHeader(status)
+if r.Method != &quot;HEAD&quot; {
+    fmt.Fprint(w, full)
+}</code></pre></figure>
+<p>Die Reihenfolge zählt: Nach dem ersten Schreiben des Bodys ist es gewöhnlich zu spät, den Status noch zu ändern; ohne explizites <code>WriteHeader</code> wird dabei 200 angenommen. Unser <code>page</code> rendert zuerst in Puffer und schreibt erst nach erfolgreichem Rendering die eigentliche Antwort. Das entspricht dem Zweck eines PHP-Output-Buffers.</p>
+<p><code>http.HandlerFunc</code> macht eine Funktion mit passender Signatur zum Handler. Der Mount-Code benutzt das bei <code>http.HandlerFunc(a.serveHTTP)</code>. Routing übernimmt bei uns die eigene <code>serve</code>-Methode; wir verwenden dafür weder ein Framework noch einen <code>ServeMux</code>. Referenz: <a href="https://pkg.go.dev/net/http#Handler">net/http.Handler</a>.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="anfrage"><h2>11. Eine Anfrage verfolgen: von der URL zum HTML</h2>
+<p>Nimm <code>GET /de/diskografie</code>. Die folgenden Schritte lassen sich direkt im Code nachgehen. Der Browser bekommt weiterhin serverseitig erzeugtes HTML; Go ist hier kein Ersatz für das JavaScript im Browser.</p>
+<div class="abbildung"><ol>
+<li><b><code>App.ServeHTTP</code>:</b> <span>prüft zunächst einen möglichen Mount wie <code>/jackieleven</code>. Auf der Hauptdomain ist der Mount leer.</span></li>
+<li><b><code>App.serveHTTP</code>:</b> <span>erkennt, dass dies kein Assetaufruf ist. Es erzeugt einen eigenen <code>request</code> und klont die vorbereiteten Templates.</span></li>
+<li><b><code>request.serve</code>:</b> <span>zerlegt den Pfad. <code>de</code> wird zur Sprache; Übersetzungseinträge für Pfade identifizieren <code>diskografie</code> als Seite.</span></li>
+<li><b><code>request.page</code>:</b> <span>erhält den Viewnamen, Titel, Navigationszustand und Status 200.</span></li>
+<li><b><code>render → viewData</code>:</b> <span>holt die Veröffentlichungen, gruppiert sie nach Jahr und stellt die Quellen bereit.</span></li>
+<li><b><code>diskografie.gohtml</code>:</b> <span>erzeugt den Katalog. Anschließend umschließt <code>layout.gohtml</code> den Inhalt mit Kopf, Navigation, Metadaten und Skriptverweisen.</span></li>
+<li><b>HTTP-Antwort und Browser:</b> <span>Go sendet Header und HTML. Der Browser lädt CSS, Bilder und JavaScript und führt die interaktiven Funktionen aus.</span></li>
+</ol></div>
+<p>Der Datenaufbau für die Diskografie ist erstaunlich klein:</p>
+<figure class="codebeispiel"><figcaption>Original · viewData, Zeilen für Lesbarkeit umgebrochen</figcaption><pre><code>case &quot;diskografie&quot;:
+    v[&quot;jahre&quot;] = group(c.releases(), func(p any) string {
+        return str(get(p, &quot;year&quot;))
+    })
+    v[&quot;quellen&quot;] = get(c.app.data.Values[&quot;diskografie&quot;], &quot;sources&quot;)</code></pre></figure>
+<p><code>c.releases()</code> holt die Veröffentlichungsliste. Die anonyme Funktion <code>func(p any) string { ... }</code> berechnet für jeden Datensatz den Gruppenschlüssel. Das entspricht einem Callback in PHP oder JavaScript. <code>group</code> bewahrt die Reihenfolge über <code>[]Pair</code>; eine normale Mapiteration garantiert in Go keine feste Reihenfolge.</p>
+<h3>Wo findet der Diskografiefilter statt?</h3>
+<p>Die Übersichtsseite enthält den Katalog. Das Skript <code>assets/js/diskografie.js</code> blendet anhand von Projekt und Format Einträge ein oder aus und verwaltet URL und Browserhistorie. Go übernimmt zusätzlich den Filterkontext für Detailseiten, Rücklinks und Nachbarplatten. Wer im Go-Handler nach dem gesamten interaktiven Filter sucht, sucht deshalb am falschen Ort.</p>
+<p>Für <code>/de/diskografie/1975-control</code> nimmt das Routing den Detailzweig: <code>releaseContext</code> liest den Querykontext, <code>release</code> sucht den Datensatz, <code>page</code> rendert den View <code>platte</code>. Eine unbekannte ID liefert die eigene 404-Seite. Die alte ID <code>1973-control</code> wird auf die aktuelle umgeleitet. Dieses Verhalten ist Teil des Migrationsvertrags.</p>
+<p>Beim Stationswechsel kann der Browser mit <code>?fragment=1</code> nur den Bühnenausschnitt anfordern. Auch dort entsteht das HTML in Go; JavaScript setzt es in die vorhandene Seite ein. Vollseite und Fragment sind zwei Antwortformen derselben Anwendung.</p>
+<p class="quellort">Im Projekt: <a href="../internal/site/server.go">internal/site/server.go</a> · <code>ServeHTTP, serveHTTP, serve, page</code></p><p class="quellort">Im Projekt: <a href="../internal/site/templates.go">internal/site/templates.go</a> · <code>viewData</code></p><p class="quellort">Im Projekt: <a href="../assets/js/diskografie.js">assets/js/diskografie.js</a> · <code>Filter und Browserhistorie</code></p><p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="templates"><h2>12. Templates, Funktionen und sicheres HTML</h2>
+<p>Unsere PHP-Fassung verwendete <code>extract</code>, <code>ob_start</code> und <code>require</code>, um eine View mit lokalen Variablen auszuführen. Die Go-Fassung parst stattdessen eine eingeschränkte Templatesprache. In <code>.gohtml</code> läuft kein beliebiger Go-Quellcode.</p>
+<figure class="codebeispiel"><figcaption>Template · vereinfachtes Beispiel nach unseren Vorlagen</figcaption><pre><code>{{$platte := get . &quot;platte&quot;}}
+&lt;h3&gt;{{get $platte &quot;title&quot;}}&lt;/h3&gt;
+{{if get $platte &quot;cover&quot;}}
+  &lt;img src=&quot;{{asset (get $platte &quot;cover&quot;)}}&quot; alt=&quot;&quot;&gt;
+{{end}}</code></pre></figure>
+<p>Der Punkt <code>.</code> bezeichnet die übergebenen Daten, hier eine Map. <code>$platte</code> ist eine lokale Templatevariable; <code>:=</code> führt sie ein. <code>get</code> und <code>asset</code> sind in unserer <code>FuncMap</code> registrierte Funktionen. <code>if</code>, <code>range</code> und <code>end</code> gehören zur Templatesprache. In einem <code>range</code>-Block kann sich der Punkt auf das aktuelle Element beziehen; benannte Variablen helfen, den Überblick zu behalten.</p>
+<p>Die vielen Klammern und Hilfsfunktionen in unseren echten Vorlagen spiegeln die vorsichtige Übertragung der PHP-Ausgabe. Neue Go-Templates könnten mit festen Viewmodellen einfacher aussehen, etwa <code>{{.Title}}</code>. Beides ist möglich; die bestehende Schreibweise ist nicht die vorgeschriebene Form aller Go-Websites.</p>
+<h3>Warum Clone pro Anfrage?</h3>
+<p>Die Funktionen <code>t</code>, <code>url</code> und <code>sprache</code> hängen an der aktuellen Sprache und Route. <code>c.functions()</code> erstellt dafür Methodenwerte und Closures, die den konkreten Request <code>c</code> verwenden. Beim Start liefert ein Dummy-Request die Funktionsnamen für das Parsen. Bei einer echten Anfrage wird die unbenutzte Basis geklont und die Funktionsbelegung durch die der aktuellen Anfrage ersetzt. So teilen zwei Besucher keine veränderliche Sprachfunktion.</p>
+<p>Das ist eine Lösung unserer Implementierung, keine allgemeine Forderung von <code>html/template</code>. Ein rein datengetriebenes, unveränderliches Templateset kann nach der Vorbereitung auch parallel ausgeführt werden. Unsere Bindung von requestabhängigen Funktionen erklärt den zusätzlichen Clone.</p>
+<h3>Escaping ist Teil des Renderers</h3>
+<p><code>html/template</code> escaped normale Werte passend zum HTML-Kontext. Ein Titel wie <code>&lt;script&gt;…&lt;/script&gt;</code> wird als Text ausgegeben. <code>template.HTML</code> markiert dagegen ausdrücklich als vertrauenswürdig behandelten HTML-Inhalt. Diese Typumwandlung bereinigt nichts; sie umgeht normales Escaping für diesen Wert.</p>
+<p>Bei uns entsteht solches HTML aus gerenderten eigenen Teiltemplates oder dem Markdownleser, der Text zuerst escaped und nur begrenzte Tags erzeugt. <code>attrs</code> erlaubt eine enge Auswahl fest definierter Attribute, bevor es <code>template.HTMLAttr</code> zurückgibt. Benutzereingaben dürfen nicht einfach in diese Typen umgewandelt werden. Die Grenze ist in <a href="https://pkg.go.dev/html/template#hdr-Security_Model">html/template: Sicherheitsmodell</a> beschrieben.</p>
+<p class="quellort">Im Projekt: <a href="../internal/site/templates.go">internal/site/templates.go</a> · <code>functions, render, attrs</code></p><p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="parallel"><h2>13. Gleichzeitige Anfragen und gemeinsamer Zustand</h2>
+<p>Ein Go-Server kann mehrere Handler gleichzeitig ausführen. Die HTTP-Bibliothek organisiert die nötige Nebenläufigkeit; wir starten nicht in jedem Handler selbst eine neue Goroutine. Eine Goroutine ist ein von der Go-Laufzeit verwalteter Ausführungsstrang. Mehrere können abwechselnd oder auf mehreren CPU-Kernen tatsächlich parallel laufen. Ein blockierender Netzwerkaufruf hält deshalb nicht zwangsläufig die gesamte Website an.</p>
+<p>Die beiden zentralen Strukturen zeigen, wie wir Datenlebenszeiten trennen:</p>
+<figure class="codebeispiel"><figcaption>Original · gemeinsame App und einzelner Request</figcaption><pre><code>type App struct {
+	root      string
+	basePath  string
+	data      *Data
+	templates *template.Template
+	contact   *Contact
+	fanVideos bool
+	assets    http.Handler
+}
+type request struct {
+	app                      *App
+	lang, route, slug, title string
+	live                     bool
+	templates                *template.Template
+}</code></pre></figure>
+<p><code>App.data</code> wird nach dem Laden von der Anwendung nur gelesen. <code>request.lang</code>, <code>route</code>, <code>slug</code> und <code>title</code> gehören dagegen zur einzelnen Anfrage. Ein deutscher und ein englischer Aufruf bekommen verschiedene <code>request</code>-Werte, verweisen aber auf dieselben Kataloge. Go erzwingt deren Unveränderlichkeit nicht; diese Regel muss der Code einhalten.</p>
+<p>Die alte PHP-Hilfsfunktion <code>sprache()</code> konnte ihren aktuellen Wert in einer statischen lokalen Variablen halten, weil dieser Zustand im klassischen Requestlebenszyklus blieb. Ein entsprechend veränderlicher Paketwert in Go könnte zwischen deutschen und englischen Antworten hin- und hergeschrieben werden. Der Test <code>TestRequestLanguageIsIsolated</code> erzeugt deshalb 48 nebenläufige Aufrufe und prüft Sprache und Canonical-Adressen.</p>
+<p>Wenn gemeinsame Daten später veränderlich werden, brauchen wir ein Synchronisationskonzept: etwa Mutexschutz oder den atomaren Austausch eines vollständig aufgebauten Datenstands. „Es läuft nur ein Prozess“ ist keine Garantie gegen konkurrierende Zugriffe. <code>go test -race</code> kann Speicherzugriffe ohne passende Synchronisation im tatsächlich ausgeführten Testpfad erkennen; ein grüner Lauf beweist nicht alle möglichen Abläufe. <a href="https://go.dev/doc/articles/race_detector">Referenz zum Race Detector</a>.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="kontakt"><h2>14. Das Formular: Zustand, Nebenläufigkeit und externe Dienste</h2>
+<p>Beim Kontaktformular reicht reines Lesen nicht mehr. Es verändert Sitzung, CSRF-Token und Versandstatus. PHP brachte dafür eine Session-Infrastruktur mit; Go stellt für unsere Anwendung keine automatisch verwendete <code>$_SESSION</code> bereit. Wir haben diesen Zustand ausdrücklich implementiert.</p>
+<p><code>Contact.Handle</code> öffnet anhand des Cookies <code>jackie_contact</code> eine Sitzungsdatei oder legt eine an. <code>syscall.Flock</code> sperrt sie für die gesamte Verarbeitung einschließlich Prüfung und Versand. Ein zweiter Request derselben Sitzung muss warten. Das ist wichtig, wenn zwei Tabs denselben Token fast gleichzeitig absenden. <code>defer closeLocked(f)</code> löst die Sperre beim Funktionsende wieder.</p>
+<p>Die Sitzung hält Formulartokens, Zeitangaben und Wiederholungskennungen. Nachrichtentext und E-Mail-Adresse werden nicht als Klartext in diesen Sitzungsdateien gespeichert. IP-Limits haben eigene gesperrte Zustandsdateien. Ein bloßer Go-Mutex würde nur innerhalb eines Prozesses koordinieren; die Dateisperre passt zu unserem dateibasierten Zustand und zur lokalen Bereinigung.</p>
+<div class="abbildung"><ol>
+<li><b>Formular aufrufen:</b> <span>Sitzung öffnen, Token bereitstellen, HTML mit privaten Cachevorgaben ausgeben.</span></li>
+<li><b>POST prüfen:</b> <span>Bodygröße, Token und Alter, Honeypot, Abkühlzeit, Eingabefelder und Versuchslimit kontrollieren.</span></li>
+<li><b>Turnstile prüfen:</b> <span>den Anbieter mit dem Requestkontext und eigener Zeitgrenze anfragen.</span></li>
+<li><b>Versand vorbereiten:</b> <span>eine Kennung für Token und Nachrichteninhalt persistieren, dann Resend anfragen.</span></li>
+<li><b>Erfolg speichern:</b> <span>Token verbrauchen und mit HTTP 303 auf die Formularseite zurückleiten.</span></li>
+</ol></div>
+<p>Wenn ein Versandaufruf ungewiss endet, erhält ein erneuter Versuch mit demselben Formularinhalt dieselbe Idempotenzkennung. Damit kann der Anbieter wiederholte Requests wiedererkennen. Das ist ein konkreter Wiederholungsschutz, keine allgemeine Garantie für „genau einmal“ unter jedem denkbaren Ausfall.</p>
+<h3>Funktionen lassen sich als Abhängigkeiten übergeben</h3>
+<figure class="codebeispiel"><figcaption>Original · ContactConfig</figcaption><pre><code>type ContactConfig struct {
+	Key, SiteKey, Secret, StateDir string
+	CookiePath                     string
+	TrustProxy                     bool
+	Now                            func() time.Time
+	Verify                         func(context.Context, string, string) bool
+	Send                           func(context.Context, M, string, string) bool
+}</code></pre></figure>
+<p><code>Now</code>, <code>Verify</code> und <code>Send</code> sind Felder, deren Werte Funktionen sind. Ohne Vorgabe verwendet <code>NewContact</code> die echte Uhr und die echten Anbieterfunktionen. Tests setzen stattdessen eine steuerbare Zeit und Ersatzfunktionen ein. So lässt sich eine abgelaufene Sitzung prüfen, ohne zwei Stunden zu warten, und ein Versandfehler simulieren, ohne E-Mails zu senden. Das ist Dependency Injection mit gewöhnlichen Go-Werten, ohne Container oder Framework.</p>
+<p>Eine Grenze der aktuellen Umsetzung: <code>syscall.Flock</code> ist an die hier verwendeten Unix-Plattformen gebunden. macOS und Linux sind vorgesehen; ein Windows-Build dieser Anwendung ist dadurch nicht automatisch unterstützt, obwohl Go grundsätzlich Windows unterstützt.</p>
+<p class="quellort">Im Projekt: <a href="../internal/site/contact.go">internal/site/contact.go</a> · <code>Handle, session, lockFile, NewContact</code></p><p class="quellort">Im Projekt: <a href="../internal/site/contact_test.go">internal/site/contact_test.go</a> · <code>TestContactConcurrentTokenConsumption, TestContactRetryKeySurvivesRestart</code></p><p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="kontext"><h2>15. Context, Goroutines und geordnetes Beenden</h2>
+<p>Ein <code>context.Context</code> transportiert unter anderem Abbruchsignale und Fristen durch Funktionsaufrufe. <code>r.Context()</code> gehört zur eingehenden HTTP-Anfrage. Das Formular reicht ihn an seine Anbieterfunktionen weiter. Die Turnstileprüfung schränkt die Zeit zusätzlich ein:</p>
+<figure class="codebeispiel"><figcaption>Original · verifyTurnstile</figcaption><pre><code>ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
+defer cancel()</code></pre></figure>
+<p><code>http.NewRequestWithContext</code> bindet den ausgehenden HTTP-Request an diesen Kontext. Bei Abbruch oder Fristende kann die HTTP-Bibliothek ihre Arbeit beenden. Ein Context unterbricht aber nicht beliebigen Code von selbst: Die jeweilige Funktion muss ihn berücksichtigen. Insbesondere macht er die hier benutzte blockierende Dateisperre nicht automatisch abbrechbar. Siehe <a href="https://pkg.go.dev/context">context</a>.</p>
+<p>Im Einstiegspunkt überwacht eine eigene Goroutine das Ende des Prozesses. Dieser Originalausschnitt enthält fast alle dafür benötigten Sprachmittel:</p>
+<figure class="codebeispiel"><figcaption>Original · main.go, Shutdown</figcaption><pre><code>	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	shutdownDone := make(chan struct{})
+	go func() {
+		defer close(shutdownDone)
+		&lt;-ctx.Done()
+		shutdown, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+		if err := server.Shutdown(shutdown); err != nil {
+			log.Printf(&quot;shutdown: %v&quot;, err)
+		}
+	}()</code></pre></figure>
+<p><code>signal.NotifyContext</code> verbindet Ctrl+C beziehungsweise SIGTERM mit einem Kontext. <code>go func() { ... }()</code> startet eine anonyme Funktion als Goroutine. Sie wartet bei <code>&lt;-ctx.Done()</code>, bis der Kontext sein Abbruchsignal meldet, und ruft dann <code>Shutdown</code> mit einer Frist von 30 Sekunden auf.</p>
+<p><code>make(chan struct{})</code> erzeugt einen Channel für ein Signal ohne Nutzdaten. <code>close(shutdownDone)</code> gibt das Abschlusszeichen. Nach dem Ende von <code>ListenAndServe</code> wartet <code>main</code> mit <code>&lt;-shutdownDone</code> darauf. Ohne dieses Warten könnte <code>main</code> enden und den Prozess samt noch laufender Shutdown-Goroutine beenden.</p>
+<p>Die systemd-Unit gewährt dem Prozess 35 Sekunden zum Stoppen, etwas mehr als die interne Shutdownfrist. Das ist ein geordnetes Beenden innerhalb einer Frist, keine Zusage, dass eine beliebig lange Anfrage immer fertig wird.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="tests"><h2>16. Wie du Verhalten ohne Browser testest</h2>
+<p>Die Standardbibliothek bringt Testwerkzeuge mit. Dateien mit <code>_test.go</code> werden bei <code>go test</code> einbezogen. Eine Testfunktion heißt <code>Test…</code> und erhält <code>*testing.T</code>. <code>httptest</code> kann Request und Antwortrekorder im Speicher erzeugen; dafür muss kein Port geöffnet werden.</p>
+<p>Die folgende zusätzliche Übung kann als <code>internal/site/lernbeispiel_test.go</code> gespeichert werden. Sie verwendet die bereits vorhandene Hilfsfunktion <code>testApp</code>, die eine echte App mit einem temporären Kontaktzustandsverzeichnis aufbaut:</p>
+<figure class="codebeispiel"><figcaption>Go · vollständige zusätzliche Testdatei</figcaption><pre><code id="exercise-test">package site
+
+import (
+    &quot;net/http/httptest&quot;
+    &quot;strings&quot;
+    &quot;testing&quot;
+)
+
+func TestLernenDiskografie(t *testing.T) {
+    app := testApp(t)
+    req := httptest.NewRequest(&quot;GET&quot;, &quot;/de/diskografie&quot;, nil)
+    req.Host = &quot;jackieleven.com&quot;
+    rec := httptest.NewRecorder()
+
+    app.ServeHTTP(rec, req)
+
+    if rec.Code != 200 {
+        t.Fatalf(&quot;Status: got %d, want 200&quot;, rec.Code)
+    }
+    if got := rec.Header().Get(&quot;Content-Language&quot;); got != &quot;de&quot; {
+        t.Errorf(&quot;Sprache: got %q, want de&quot;, got)
+    }
+    if !strings.Contains(rec.Body.String(), `id=&quot;diskografie&quot;`) {
+        t.Error(&quot;Diskografiekatalog fehlt&quot;)
+    }
+}</code></pre></figure><figure class="codebeispiel"><figcaption>Terminal · Übung ausführen</figcaption><pre><code>gofmt -w internal/site/lernbeispiel_test.go
+go test ./internal/site -run &#x27;^TestLernenDiskografie$&#x27; -count=1 -v</code></pre></figure>
+<p><code>Fatalf</code> beendet diesen Test sofort mit Fehler; <code>Errorf</code> vermerkt einen Fehler und lässt ihn weiterlaufen. Der angegebene Host simuliert nur den Header innerhalb des Speichertests. Es findet dadurch kein Aufruf der produktiven Website statt.</p>
+<h3>Was die Migrationsprüfungen zusätzlich leisten</h3>
+<p>Unsere normalen Tests prüfen beispielsweise parallele Sprachen, erlaubte Mountpfade, Markdown-Escaping und konkurrierende Formularsendungen. Der Python-Prüfer <code>werkzeug/parity.py</code> vergleicht dagegen einen tatsächlich laufenden Go-Server mit den eingefrorenen Antworten der PHP-Fassung. Diese Referenz liegt lokal unter <code>.dev/migration-state/php-baseline-v2</code>.</p>
+<figure class="codebeispiel"><figcaption>Terminal · optionaler umfassender Vergleich</figcaption><pre><code>python3 werkzeug/parity.py \
+  --baseline .dev/migration-state/php-baseline-v2 \
+  --candidate http://127.0.0.1:8081 \
+  --report /tmp/jackie-go-lernvergleich.json</code></pre></figure>
+<p>Die dokumentierte Migrationsabnahme umfasst 1.613 HTTP-Fälle sowie getrennte Asset-, Browser- und Kontaktprüfungen. <code>werkzeug/parity.md</code> erklärt die Normalisierungen, etwa für zufällige Tokens. Das belegt das Verhalten in diesem Prüfumfang und ist kein mathematischer Beweis für jede mögliche Eingabe. Eine neue fachliche Funktion muss deshalb mit neuen Erwartungen getestet werden; die alte PHP-Referenz kann dafür keine Antwort liefern.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="betrieb"><h2>17. Vom lokalen Build zum Release auf Hetzner</h2>
+<p>Lokal bauen wir für macOS/arm64. Der Produktionsserver verwendet Linux/amd64. Für die Zielplattform setzt Go <code>GOOS</code> und <code>GOARCH</code>. Unser Paketwerkzeug übernimmt das und setzt außerdem <code>CGO_ENABLED=0</code>; die Anwendung braucht keine eingebundene C-Bibliothek.</p>
+<figure class="codebeispiel"><figcaption>Terminal · Paketbau, noch kein Deployment</figcaption><pre><code># Nur ein Linux-Programm bauen; nicht auf dem Mac ausführbar:
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+  go build -trimpath -o /tmp/jackieleven-linux-amd64 ./cmd/jackieleven
+
+# Vollständiges Release samt Inhaltsdateien erzeugen:
+# Das Zielverzeichnis darf noch nicht existieren.
+python3 ops/prepare-go-release.py \
+  /tmp/jackieleven-go-lernrelease \
+  --goos linux --goarch amd64</code></pre></figure>
+<p>Der Paketbefehl erstellt Binärdatei, ausgewählte Inhalte, <code>build.json</code> und ein SHA-256-Manifest. Welche Dateien dazugehören, steht ausdrücklich in <code>ops/go-release-files.json</code>. <code>.dev</code>, lokale Zugangsdaten und beliebige Recherchedateien werden damit nicht automatisch veröffentlicht. Der Aufruf lädt nichts hoch und startet auf Hetzner keinen Dienst.</p>
+<div class="abbildung"><ol>
+<li><b>Browser → Cloudflare → nginx:</b> <span>öffentlicher Zugang, TLS und vorgeschaltete Regeln.</span></li>
+<li><b>nginx → Go:</b> <span>Weiterleitung an den nur lokal gebundenen Port <code>127.0.0.1:18765</code>.</span></li>
+<li><b>systemd:</b> <span>startet und überwacht den Go-Prozess, übergibt Konfiguration und begrenzt seine Rechte.</span></li>
+<li><b>Releaseverzeichnis:</b> <span>enthält die zusammengehörige Binärdatei, Daten, Vorlagen und Assets.</span></li>
+</ol></div>
+<p>Der Starter <code>ops/run-go-release.sh</code> löst den Link <code>go-current</code> genau einmal auf und startet das Programm mit diesem festen <code>-root</code>. Das verhindert, dass ein laufender Prozess nach einer Linkänderung alte Speicherdaten mit neuen Dateien aus einem anderen Release mischt.</p>
+<p>Die Unit <code>jackieleven-go.service</code> läuft unter dem Benutzer <code>jackieleven</code>. Produktive Anbieterwerte stammen aus <code>/etc/jackieleven/go.env</code>; der Kontaktzustand liegt unter <code>/var/lib/jackieleven-go/contact</code>. Die Anwendung vertraut Proxyheadern nur mit <code>-trust-proxy</code> und einem direkten Loopback-Peer. nginx muss diese Header kontrolliert setzen.</p>
+<p>Ein neuer Build ersetzt einen laufenden Prozess nicht von selbst. Ein Versionswechsel besteht aus Paketprüfung, neuem Releaseverzeichnis, Umstellen des Links und Neustart. Dieser einfache Ablauf kann kurz unterbrechen; er ist kein Zero-Downtime-Verfahren. Die konkrete Betriebs- und Rückfallanleitung steht in <a href="../ops/GO-BETRIEB.md">GO-BETRIEB.md</a>.</p>
+<p>Die Vorschau unter <code>unpubli.sh/jackieleven</code> verwendet einen eigenen Prozess und <code>-base-path /jackieleven</code>. Der Mount beeinflusst lokale Links, Assets und Cookiepfade. Canonical-Adressen verweisen weiterhin auf die Hauptdomain; die Vorschau bleibt noindex. Diese Trennung ist Deploymentlogik unserer Site, kein eingebautes Go-Konzept.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="phpvergleich"><h2>18. PHP-Erfahrung übertragen: was gleich bleibt, was sich ändert</h2>
+<div class="tabelle"><table><thead><tr><th>Deine PHP-/JS-Erfahrung</th><th>In unserer Go-Anwendung</th></tr></thead><tbody>
+<tr><td>Einstiegsskript pro HTTP-Aufruf</td><td><code>main</code> startet einmal; <code>ServeHTTP</code> wird für Anfragen aufgerufen.</td></tr>
+<tr><td><code>require</code>, Namespaces, Composer</td><td>Pakete und Modul; Verknüpfung beim Build. Imports sind dateibezogen, Paketmitglieder paketweit sichtbar.</td></tr>
+<tr><td>Klasse, <code>$this</code>, <code>implements</code></td><td>Struct, benannter Receiver, implizit erfüllte Interfaces.</td></tr>
+<tr><td>PHP-Array als universelle Sammlung</td><td>Slices, Maps und Structs für unterschiedliche Aufgaben.</td></tr>
+<tr><td>Implizite Wahrheitswerte</td><td>Bedingungen verlangen <code>bool</code>; <code>truth</code> ist eigene Kompatibilität.</td></tr>
+<tr><td>Exceptions für Fehlerweitergabe</td><td>Meist <code>(Wert, error)</code> und explizite Behandlung durch den Aufrufer.</td></tr>
+<tr><td><code>finally</code> und Ressourcenaufräumen</td><td><code>defer</code> bindet Aufräumaufrufe an das Ende der Funktion.</td></tr>
+<tr><td><code>$_GET</code>, <code>$_POST</code>, <code>$_SESSION</code></td><td>Requestobjekt, bewusst implementierter Parser und eigener Sitzungszustand.</td></tr>
+<tr><td><code>header</code>, <code>echo</code>, Output Buffer</td><td><code>ResponseWriter</code>, Status vor Body, <code>bytes.Buffer</code> beim Rendering.</td></tr>
+<tr><td>PHP-Datei als ausführbare Vorlage</td><td>Geparste <code>html/template</code>-Vorlage mit registrierten Funktionen.</td></tr>
+<tr><td>JavaScript-Event-Loop und Promises</td><td>Goroutines und synchron lesbare Aufrufe; gemeinsamer Speicher kann parallel benutzt werden.</td></tr>
+<tr><td>Quelldatei ändern und Seite aufrufen</td><td>Go-Code neu kompilieren und Prozess ersetzen; auch gecachte Inhalte verlangen Neustart.</td></tr>
+</tbody></table></div>
+<h3>Vier Migrationsentscheidungen, die du nicht als Go-Regel lernen solltest</h3>
+<p><strong>Offene Kataloge.</strong> <code>map[string]any</code> vermeidet einen gleichzeitigen Umbau aller Datenschemata. Für neue fachliche Regeln wären konkrete Structs oft lesbarer und besser überprüfbar. Die Konfiguration, Request- und Sitzungsstruktur zeigen bereits diese feste Typisierung.</p>
+<p><strong>PHP-nahe Helfer.</strong> Namen wie <code>in_array</code>, <code>array_filter</code> und <code>coalesce</code> in der FuncMap dienen der Verhaltensübertragung. Besonders wichtig: <code>choose</code> ist ein normaler Funktionsaufruf und kein kurzschließender ternärer Operator. Seine Argumente werden ausgewertet, bevor es einen Wert auswählt. Für bedingte oder aufwendige Arbeit ist ein echter <code>if</code>-Block die passendere Form.</p>
+<p><strong>Eigene Parser.</strong> <code>parseFormValues</code> bewahrt die bisherigen Regeln für wiederholte Formularkeys und Arraynotation. Das ist nicht identisch mit einem unüberlegten Wechsel auf <code>url.Values.Get</code> nach Standardparsing. Auch E-Mailvalidierung und Markdownrenderer reproduzieren definierte Bestandsregeln. Für ein neues Projekt müsste man diese Entscheidungen neu begründen.</p>
+<p><strong>Eigener Router und Templateklone.</strong> Beide lösen konkrete Aufgaben dieser kleinen Site. Go schreibt diese Architektur nicht vor. Ein späterer Umbau könnte Routing, Viewmodelle und Fachdaten klarer trennen; dazu müssten die vorhandenen Vergleiche weiter grün bleiben.</p>
+<p>Auch bei der Laufzeitbewertung lohnt Präzision: Kompilierung und vorab geladene Daten ändern das Kostenmodell, beweisen aber noch keinen bestimmten Geschwindigkeitsvorteil. Unsere Migrationsnachweise prüfen vor allem Verhalten. Eine belastbare Performanceaussage braucht Messungen mit vergleichbaren Lasten.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="runtimevergleich"><h2>19. Go, Node.js und Java: dieselbe Website, andere Laufzeitmodelle</h2>
+<p>Unsere Website könnte in allen drei Umgebungen ähnlich gegliedert sein: HTTP-Einstieg, Router, Inhaltsaufbereitung, Templates und Kontaktkomponente. Auch Node.js und Java können Kataloge beim Start einlesen und serverseitig HTML liefern. Die Wahl der Sprache entscheidet weder über Monolith oder Microservices noch über SQL, Dateien oder eine Suchmaschine. Der wichtigste Unterschied liegt darin, <strong>wie der laufende Prozess Arbeit ausführt und auf I/O wartet</strong>.</p>
+<p>Als Vergleich dienen hier ein Node.js-HTTP-Server und eine Java-Webanwendung auf der JVM, beispielsweise mit Spring Boot. Das sind mögliche Vergleichsarchitekturen; im Repository existieren keine entsprechenden Node- oder Java-Portierungen. Frameworkentscheidungen werden ausdrücklich von Spracheigenschaften getrennt.</p>
+<h3>Der gemeinsame Rahmen</h3>
+<div class="abbildung"><ol>
+<li><b>Start:</b> <span>Konfiguration lesen, Kataloge laden, Templates vorbereiten und HTTP-Verarbeitung starten.</span></li>
+<li><b>Anfrage:</b> <span>Sprache und Route bestimmen, Daten auswählen, HTML erzeugen oder einen externen Dienst aufrufen.</span></li>
+<li><b>Betrieb:</b> <span>Prozess überwachen, Zustandsdaten aufbewahren, Änderungen ausliefern und kontrolliert neu starten.</span></li>
+</ol><p class="unterschrift">Unsere lokale Kette aus MAMP → Backend → Antwort könnte einen Go-, Node.js- oder Java-Prozess bedienen. Auch launchd und systemd sind nicht an Go gebunden.</p></div>
+<div class="tabelle"><table><thead><tr><th>Frage</th><th>Unsere Go-App</th><th>Node.js-App</th><th>Java-App auf der JVM</th></tr></thead><tbody>
+<tr><td>Was läuft dauerhaft?</td><td>Kompilierte Binärdatei mit Go-Laufzeit.</td><td>Node-Prozess mit JavaScript-Engine und Anwendung.</td><td>JVM-Prozess mit geladenen Anwendungsklassen.</td></tr>
+<tr><td>Wo liegt der Requestzustand?</td><td>In unserem eigenen <code>request</code>.</td><td>Etwa in lokalen Variablen und Requestobjekten des Handlers.</td><td>Etwa in Requestobjekten, lokalen Variablen und passenden Framework-Scopes.</td></tr>
+<tr><td>Wie wird Arbeit überlappt?</td><td>Goroutines, die die Go-Laufzeit auf Betriebssystemthreads ausführt.</td><td>Im üblichen Modell Event Loop und asynchrones I/O; zusätzliche Worker oder Prozesse nach Bedarf.</td><td>Je nach Server Plattformthreads, virtuelle Threads oder ein reaktives Modell.</td></tr>
+<tr><td>Wie sind unsere Kataloge modelliert?</td><td>Überwiegend <code>map[string]any</code>, daneben feste Structs.</td><td>Möglich wären JS-Objekte mit zusätzlicher Validierung, optional TypeScript-Typen.</td><td>Möglich wären Klassen/Records oder dynamische Maps mit JSON-Decodierung.</td></tr>
+<tr><td>Wie entsteht HTML?</td><td><code>html/template</code>, mit requestgebundenen Funktionen.</td><td>Eine gewählte Templatebibliothek oder eigener Renderer; Node verlangt keine SPA.</td><td>Eine gewählte Templatebibliothek oder eigener Renderer; Spring ist optional.</td></tr>
+</tbody></table></div>
+<h3>Node.js: ein Event Loop ist nicht ein Thread pro Request</h3>
+<p>Im üblichen Node-Server führt ein Event-Loop-Thread den JavaScript-Code vieler Anfragen aus. Wartet ein Handler per <code>await</code> auf eine asynchrone Netzwerkantwort, kann anderer Code weiterlaufen. Je nach Operation unterstützen Betriebssystem und interne Worker die Arbeit. Daraus folgt nicht, dass der gesamte Node-Prozess nur einen Thread besitzt. <a href="https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick">Node.js: Event Loop</a>.</p>
+<p>Für unser Formular wäre ein Node-Ablauf etwa <code>await verifyTurnstile(...)</code>, danach <code>await sendMail(...)</code>. Das lässt sich genauso schrittweise lesen wie die Go-Fassung. Aber <code>async</code> macht eine lange JavaScript-Berechnung nicht automatisch nebenläufig: Wenn ein Handler einen großen Index synchron aufbaut, bleibt dieser Event Loop so lange beschäftigt. Auch <code>await buildIndex()</code> hilft nicht, wenn der Funktionsaufruf seine ganze CPU-Arbeit schon synchron erledigt. <a href="https://nodejs.org/en/learn/asynchronous-work/dont-block-the-event-loop">Node.js: blockierende Arbeit vermeiden</a>.</p>
+<p>CPU-Arbeit kann in <code>worker_threads</code> ausgelagert werden. Diese Worker führen JavaScript parallel aus; sie haben eigene Ausführungsumgebungen und kommunizieren typischerweise über Nachrichten. Speicher kann auch ausdrücklich geteilt werden. Ein Worker-Pool ist für wiederkehrende Aufgaben sinnvoller als ein neuer Worker pro kleiner Anfrage. Das ist nicht derselbe Pool, den Node intern für bestimmte I/O-Aufgaben verwendet. <a href="https://nodejs.org/api/worker_threads.html">Node.js: Worker threads</a>.</p>
+<h3>Go: synchron lesbarer Code innerhalb vieler Goroutines</h3>
+<p>In unserer Go-Fassung ruft der Formularhandler <code>Verify</code> und <code>Send</code> normal nacheinander auf. Während ein Netzwerkaufruf wartet, kann die Laufzeit andere Goroutines ausführen. An jedem dieser Aufrufe steht deshalb kein <code>await</code>. <code>net/http</code> sorgt für nebenläufige Requestverarbeitung; wir brauchen keine selbst gestartete Goroutine um jeden Handler.</p>
+<p>Die dadurch mögliche Parallelität verlangt Disziplin beim Speicher: Zwei Handler können zur selben Zeit dieselbe Map erreichen. Daher bleiben unsere Kataloge nach dem Laden unverändert und Sprache sowie Route im jeweiligen Request. Eine später hinzugefügte Indexierungs-Goroutine könnte CPU und Speicher trotzdem so stark beanspruchen, dass die Website langsam wird. Goroutines ersetzen weder Kapazitätsplanung noch eine Begrenzung gleichzeitig laufender Jobs.</p>
+<h3>Java: mehrere Modelle sind üblich</h3>
+<p>Eine klassische Servlet-Anwendung bearbeitet Anfragen häufig auf Threads aus einem Pool. Wartet ein solcher Plattformthread auf einen externen Dienst, steht er in dieser Zeit nicht für eine weitere Anfrage bereit. Der Code kann trotzdem so sequenziell lesbar bleiben wie unser Go-Formularhandler. Die konkrete Threadzuordnung bestimmt der verwendete Server und seine Konfiguration.</p>
+<p>Seit Java 21 stehen virtuelle Threads regulär zur Verfügung. Sie werden von der JVM auf Betriebssystemthreads verteilt und können bei unterstützten blockierenden I/O-Operationen pausieren, ohne den tragenden Betriebssystemthread für die ganze Wartezeit zu belegen. Das nähert den Programmierstil in diesem Punkt Go an. Virtuelle Threads machen CPU-Berechnungen nicht schneller und beseitigen keine Datenrennen. Ob die HTTP-Anfragen einer konkreten App sie nutzen, hängt vom Server und seiner Einrichtung ab. <a href="https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html">Java: virtuelle Threads</a>.</p>
+<p>Daneben gibt es reaktive Server, etwa Spring WebFlux mit einem nichtblockierenden Ablauf. Dort hat blockierende Arbeit auf Event-Loop-Threads ähnliche Nachteile wie in Node. Java bedeutet also nicht automatisch „ein großer Betriebssystemthread für jede Verbindung“. <a href="https://docs.spring.io/spring-framework/reference/web/webflux/new-framework.html">Spring WebFlux: Ausführungsmodell</a>.</p>
+<h3>Dasselbe Problem in allen drei Welten: eine globale Sprache</h3>
+<p>Angenommen, wir verschieben <code>request.lang</code> in einen global veränderlichen Wert. In Go und einer nebenläufigen Java-App könnten sich zwei Anfragen unmittelbar überschreiben. In Node kann die Verwechslung auch ohne parallel ausgeführten JavaScript-Code entstehen:</p>
+<figure class="codebeispiel"><figcaption>Ablaufschema · absichtlich fehlerhafte gemeinsame Variable</figcaption><pre><code>Anfrage A: globale Sprache = "de"
+Anfrage A: wartet auf eine asynchrone Operation
+Anfrage B: globale Sprache = "en"
+Anfrage A: läuft weiter und liest jetzt "en"</code></pre></figure>
+<p>Ein einzelner Event-Loop-Thread verhindert diese logische Überlappung nicht. Der robuste Entwurf bleibt in allen Varianten derselbe: Sprache und Route gehören zur Anfrage. Ebenso braucht unser Versand auch in Node oder Java einen Schutz gegen doppelte Verarbeitung. Ein <code>await</code>, eine Goroutine oder ein virtueller Thread ist noch keine Transaktion.</p>
+<h3>Was an der Codearchitektur anders aussehen würde</h3>
+<p>Die Go-App verbindet ihre Bausteine ausdrücklich in <code>site.New</code>. Tests ersetzen <code>Now</code>, <code>Verify</code> und <code>Send</code> durch Funktionswerte. In Node könnten dieselben Abhängigkeiten als Funktionen in einem Objekt übergeben werden. In Java könnten dafür Interfaces und Konstruktorparameter dienen. Ein Spring-Container könnte deren Erzeugung und Verdrahtung übernehmen; er ist dafür keine Voraussetzung. Unsere einfache Verdrahtung ist eine Projektentscheidung, kein grundsätzliches Alleinstellungsmerkmal von Go.</p>
+<p>Go und Java können feste Datentypen bereits beim Kompilieren prüfen. JavaScript benötigt für Eingabedaten Laufzeitprüfungen; TypeScript kann zusätzlich den eigenen Code statisch prüfen. Auch ein TypeScript-Typ beweist aber nicht, dass fremdes JSON diesem Typ entspricht. In unserer Go-App gilt dasselbe für die offen gehaltenen <code>M</code>-Records: Die gewählte Sprache allein macht daraus noch kein fachlich geprüftes Ontologiemodell.</p>
+<h3>Build, Laufzeit und Auslieferung</h3>
+<p>Unser Go-Build erzeugt Maschinencode für ein bestimmtes Betriebssystem und eine Architektur. Die benötigte Go-Laufzeit steckt im Programm. In der üblichen Node-Auslieferung kommen JavaScript, Abhängigkeiten und eine passende Node-Laufzeit zusammen; ein TypeScript-/Bundling-Schritt hängt vom Projekt ab. Bei einer üblichen JVM-Auslieferung wird Java zu Bytecode kompiliert und in Klassen beziehungsweise JAR-Dateien bereitgestellt. Eine kompatible JVM führt ihn aus und kann häufig benutzten Code während der Laufzeit weiter kompilieren. Hintergrund: <a href="https://www.oracle.com/java/technologies/javase/javase-core-technologies-apis.html">Oracle: HotSpot und dynamische Kompilierung</a>; Werkzeuge dazu beschreibt <a href="https://dev.java/learn/jvm/">Dev.java: JVM und JDK-Werkzeuge</a>.</p>
+<p>Das sind verbreitete Auslieferungswege, keine unveränderlichen Grenzen: Laufzeiten können mitgebündelt werden, und es gibt beispielsweise native Java-Images. Ein Java-Webserver kann in einem ausführbaren Anwendungspaket stecken; ein separat installierter großer Application Server ist keine zwingende Voraussetzung. Ebenso verlangt Node weder Docker noch ein bestimmtes Webframework.</p>
+<p>Für Jackie Leven müssten alle Varianten zusätzlich einen klaren Umgang mit JSON, Markdown, Templates und Assets festlegen. Unsere Dateien liegen neben der Binärdatei und werden gemeinsam als Release ausgeliefert. In einer Node- oder Java-Portierung könnten sie ebenfalls externe Dateien bleiben. Neustarts, Logdateien, Anbieterzugänge und geordnetes Beenden bleiben in jeder Variante Betriebsaufgaben.</p>
+<h3>Was das für dieses Projekt und die geplante Suche bedeutet</h3>
+<p>Für die heutige Site ist Go vor allem wegen der überschaubaren Standardbibliothekslösung und des klaren Releasepakets gut nachvollziehbar. Node würde deine vorhandenen JavaScript-Kenntnisse unmittelbar nutzbar machen; Java könnte dieselbe Anwendung mit festen Fachmodellen und einem anderen Bibliotheksumfeld abbilden. Aus diesen Eigenschaften folgt keine pauschale Rangliste für Geschwindigkeit oder Speicherbedarf. Dafür wären vergleichbare Implementierungen und Messungen nötig.</p>
+<p>Bei einer späteren Suche ist die Architekturfrage konkreter: Wann werden Dokumente eingelesen, wann wird ein Index aufgebaut, und welche Arbeit darf während einer Besucheranfrage stattfinden? Ein Offline-Indexierungsjob kann in allen drei Varianten die HTTP-Anwendung entlasten. Wird ein externer Embeddingdienst aufgerufen, dominieren unter Umständen dessen Latenz und Kapazität. Die Sprache des HTTP-Servers ersetzt diese Entwurfsentscheidung nicht.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="uebungen"><h2>20. Vier Übungen mit überprüfbarem Ergebnis</h2>
+<p>Benutze für diese Übungen den zusätzlichen Server auf 8081 und kleine lokale Änderungen. Die Aufgaben bauen aufeinander auf; sie brauchen weder produktive Schlüssel noch ein Deployment.</p>
+<h3>Übung 1: Eine Änderung sichtbar machen</h3>
+<p>Starte den Übungsserver. Ergänze in <code>templates/diskografie.gohtml</code> innerhalb von <code>disk-kopf</code> vorübergehend <code>&lt;p&gt;Mein Go-Lernversuch&lt;/p&gt;</code>. Lade die Seite neu. Stoppe dann den Server, starte ihn erneut und lade noch einmal. Entferne anschließend genau deinen Zusatz und starte erneut.</p>
+<details><summary>Erwartetes Ergebnis und Erklärung</summary><p>Vor dem Neustart bleibt die alte Vorlage sichtbar, danach erscheint der Absatz. Beim Start wurde die Templatequelle in den Prozess eingelesen und geparst. Ein Browser-Reload liest sie nicht neu. Hast du die Binärdatei verwendet, genügt deren Neustart; der Go-Code hat sich nicht verändert.</p></details>
+<h3>Übung 2: Eine Antwort im Speicher prüfen</h3>
+<p>Lege die vollständige Testdatei aus <a href="#tests">Testkapitel</a> an und führe nur <code>TestLernenDiskografie</code> aus. Ändere die erwartete Sprache von <code>de</code> auf <code>en</code>, ohne die Anfrage zu ändern. Lass den Test noch einmal laufen und korrigiere anschließend die Erwartung.</p>
+<details><summary>Erwartetes Ergebnis und Erklärung</summary><p>Der erste Lauf ist grün. Der zweite meldet die Abweichung der Sprache. Du hast eine sichtbare Eigenschaft des HTTP-Vertrags geprüft, ohne Browser und ohne laufenden Server. Der Compiler prüft die Typen; erst der Test prüft die von dir formulierte Verhaltenserwartung.</p></details>
+<h3>Übung 3: Die Sprachwahl nachvollziehen</h3>
+<figure class="codebeispiel"><figcaption>Terminal · Sprachauswahl</figcaption><pre><code>curl -I -H &#x27;Accept-Language: en&#x27; http://127.0.0.1:8081/
+curl -I -H &#x27;Accept-Language: de&#x27; http://127.0.0.1:8081/</code></pre></figure>
+<p>Suche in <code>server.go</code> nach <code>preferredLanguage</code> und dem Zweig <code>len(parts) == 0</code>. Erkläre dir selbst, warum die Sprache bei <code>/</code> aus einem Header kommt, bei <code>/de/</code> aber aus dem Pfad.</p>
+<details><summary>Erwartetes Ergebnis und Erklärung</summary><p>Die Antworten haben Status 302 und <code>Location: /en/</code> beziehungsweise <code>/de/</code>, außerdem <code>Vary: Accept-Language</code>. Ein expliziter Sprachpfad ist bereits eine Auswahl; dort wird die Seitensprache nicht erneut durch den bevorzugten Browserwert ersetzt.</p></details>
+<h3>Übung 4: Einen Datensatz ohne <code>any</code> lesen</h3>
+<p>Dieses vollständige kleine Programm kann außerhalb der Anwendung gespeichert werden, etwa unter <code>/tmp/go-release-lernen.go</code>. Es führt eine einzelne JSON-Zeile in einen typisierten Wert über:</p>
+<figure class="codebeispiel"><figcaption>Go · vollständiges eigenständiges Lernprogramm</figcaption><pre><code id="exercise-program">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;log&quot;
+)
+
+type Release struct {
+    ID    string `json:&quot;id&quot;`
+    Title string `json:&quot;title&quot;`
+    Year  int    `json:&quot;year&quot;`
+}
+
+func main() {
+    raw := []byte(`{&quot;id&quot;:&quot;1975-control&quot;,&quot;title&quot;:&quot;Control&quot;,&quot;year&quot;:1975}`)
+    var release Release
+    if err := json.Unmarshal(raw, &amp;release); err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf(&quot;%s (%d)\n&quot;, release.Title, release.Year)
+}</code></pre></figure><figure class="codebeispiel"><figcaption>Terminal · Lernprogramm ausführen</figcaption><pre><code>go run /tmp/go-release-lernen.go</code></pre></figure>
+<p>Ändere im JSON die Jahreszahl zu <code>"unbekannt"</code> und beobachte den Fehler. Ändere anschließend im Go-Code <code>release.Title</code> zu <code>release.Titel</code>. Vergleiche, wann diese beiden Fehler auffallen.</p>
+<details><summary>Erwartetes Ergebnis und Erklärung</summary><p>Das unveränderte Programm schreibt <code>Control (1975)</code>. Die unpassende JSON-Zeichenkette scheitert beim Decodieren, also zur Laufzeit. Das nicht vorhandene Structfeld scheitert bereits beim Kompilieren. <code>&amp;release</code> erlaubt dem Decoder, den vorhandenen Structwert zu befüllen.</p></details>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section><section id="weiter"><h2>21. Lesepfad im Code und weiterführende Quellen</h2>
+<p>Lies den Code zuerst in dieser Reihenfolge: <code>main.go</code> für den Prozess, <code>server.go</code> für eine Anfrage, <code>templates.go</code> für die Ausgabe. Danach passen <code>data.go</code> und <code>content.go</code> zu den Inhalten, schließlich <code>contact.go</code> zu veränderlichem Zustand. Die langen Kompatibilitätshelfer musst du nicht vor dem ersten eigenen Test vollständig durcharbeiten.</p>
+<p>Für die PHP-Seite des Vergleichs kannst du historische Quellen lesen, ohne deinen aktuellen Branch umzuschalten:</p>
+<figure class="codebeispiel"><figcaption>Terminal · historische Quellen nur lesen</figcaption><pre><code>git show php-before-go-migration:app/bootstrap.php
+git ls-tree -r --name-only php-before-go-migration app/</code></pre></figure>
+<p>Als Nächstes bieten sich kleine typisierte Viewmodelle an, bevor du das gesamte Datenmodell umbaust. Generics, Channel-Pipelines und umfangreiche Architekturpatterns sind keine Voraussetzung, um diese Site zu verstehen. Für die geplante Suche werden Datenmodell, Indexierung und Suchqualität eigene Themen; dass die HTTP-Schicht nun Go ist, beantwortet diese Fragen noch nicht.</p>
+<div class="tabelle"><table><thead><tr><th>Zum Nachlesen</th><th>Wofür?</th></tr></thead><tbody>
+<tr><td><a href="https://go.dev/doc/tutorial/getting-started">Go: Getting started</a></td><td>Offizieller Einstieg mit Werkzeugen und erstem Programm.</td></tr>
+<tr><td><a href="https://go.dev/doc/effective_go">Effective Go</a></td><td>Idiome zu Namen, Kontrollfluss, Methoden und Interfaces; ein älterer Grundlagentext, kein vollständiger Überblick über alle neueren Sprachfunktionen.</td></tr>
+<tr><td><a href="https://go.dev/ref/spec">Sprachspezifikation</a></td><td>Präzise Regeln, wenn eine Syntaxfrage offenbleibt.</td></tr>
+<tr><td><a href="https://pkg.go.dev/net/http">net/http</a> und <a href="https://pkg.go.dev/html/template">html/template</a></td><td>Die beiden zentralen Standardpakete unseres Webservers.</td></tr>
+<tr><td><a href="../docs/go-migration.md">Migrationsstand</a> und <a href="../werkzeug/parity.md">Vergleichsregeln</a></td><td>Welche Übereinstimmung geprüft wurde und welche Grenzen die Nachweise haben.</td></tr>
+<tr><td><a href="../ops/GO-BETRIEB.md">Go-Betrieb</a></td><td>Releasewechsel, Dienste und erhaltener PHP-Rückfall.</td></tr>
+</tbody></table></div>
+<p>Die Erläuterungen zur Implementierung beruhen auf den lokalen Quellen dieses Projekts. Die verlinkten Go-Dokumentationen ergänzen die Sprach- und Bibliotheksregeln; ihre Onlinefassung kann eine neuere Version als unsere lokale Toolchain zeigen. Den zur installierten Version passenden API-Text erhältst du direkt mit <code>go doc net/http.Handler</code>, <code>go doc html/template</code> oder <code>go doc context.WithTimeout</code>.</p>
+<p class="back"><a href="#inhalt">Zum Inhaltsverzeichnis ↑</a></p></section>
+<footer><p>Lokales Lerndokument · Gestaltung nach <a href="suche-architektur.html">suche-architektur.html</a>. Die Übungen sind zusätzliche Beispiele; sie ändern weder die produktive Website noch deren Konfiguration von selbst.</p><p><a href="#anfang">Zum Anfang ↑</a></p></footer>
+</main></body></html>

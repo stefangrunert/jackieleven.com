@@ -20,6 +20,7 @@ sketches.zip
 /.dev/*
 !/.dev/ontologie.html
 !/.dev/suche-architektur.html
+!/.dev/go-tutorial.html
 !/.dev/erschliessung.html
 !/.dev/pruefung-ontologie-suche-2026-10-25.html
 
