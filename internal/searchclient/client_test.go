@@ -191,3 +191,23 @@ func TestPassageCannotSubstituteAnotherID(t *testing.T) {
 	_, err := c.Passage(context.Background(), "document#p1", "en")
 	assertStatus(t, err, 503)
 }
+
+func TestEntityPinnedAndIdentityChecked(t *testing.T) {
+	wrong := false
+	c := clientFor(t, func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v1/entities" || r.URL.Query().Get("id") != "event/one" || r.Header.Get("X-Archive-Content-Version") != "content-a" {
+			t.Error("wrong entity request")
+		}
+		id := "event/one"
+		if wrong {
+			id = "event/two"
+		}
+		_ = json.NewEncoder(w).Encode(EntityResponse{Versions: Versions{APIVersion: "v1", ContentVersion: "content-a", DataVersion: "data-a", SearchRelease: "v1"}, Entity: json.RawMessage(`{"id":"` + id + `","label":"Event"}`)})
+	})
+	if _, err := c.Entity(context.Background(), "event/one"); err != nil {
+		t.Fatal(err)
+	}
+	wrong = true
+	_, err := c.Entity(context.Background(), "event/one")
+	assertStatus(t, err, 503)
+}

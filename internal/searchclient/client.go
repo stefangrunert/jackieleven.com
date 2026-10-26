@@ -56,6 +56,10 @@ type SearchResponse struct {
 	DurationMS float64 `json:"duration_ms"`
 	Hits       []Hit   `json:"hits"`
 }
+type EntityResponse struct {
+	Versions
+	Entity json.RawMessage `json:"entity"`
+}
 type PassageResponse struct {
 	Versions
 	Passage Hit `json:"passage"`
@@ -171,7 +175,7 @@ func (c *Client) Search(ctx context.Context, values url.Values) (*SearchResponse
 	}
 	// Never forward arbitrary public query parameters such as a build selector.
 	allowed := url.Values{}
-	for _, key := range []string{"q", "lang", "mode", "voice", "from", "to", "rerank"} {
+	for _, key := range []string{"q", "lang", "mode", "voice", "from", "to", "rerank", "section", "grouped"} {
 		if value := values.Get(key); value != "" {
 			allowed.Set(key, value)
 		}
@@ -206,6 +210,27 @@ func (c *Client) Passage(ctx context.Context, id, lang string) (*PassageResponse
 		return nil, err
 	}
 	if result.Passage.ID != id || result.Passage.DocumentID == "" || result.Passage.Text == "" {
+		return nil, failure(503, "invalid_response")
+	}
+	return &result, nil
+}
+
+// Entity preserves the original archive graph rather than choosing canonical claims.
+func (c *Client) Entity(ctx context.Context, id string) (*EntityResponse, error) {
+	if id == "" || len(id) > 1024 {
+		return nil, failure(400, "invalid_query")
+	}
+	var result EntityResponse
+	if err := c.get(ctx, "/v1/entities", url.Values{"id": {id}}, &result); err != nil {
+		return nil, err
+	}
+	if err := c.check(result.Versions); err != nil {
+		return nil, err
+	}
+	var identity struct {
+		ID string `json:"id"`
+	}
+	if json.Unmarshal(result.Entity, &identity) != nil || identity.ID != id {
 		return nil, failure(503, "invalid_response")
 	}
 	return &result, nil

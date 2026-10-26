@@ -1,4 +1,8 @@
 {
+    "nav.suche": "Search",
+    "search.prompt": "What would you like to discover?",
+    "search.submit": "Search",
+    "search.privacy": "Search uses DeepInfra · About this search",
     "disk.youtube_lied": "Listen to {titel} on YouTube",
     "disk.live": "Live",
     "disk.youtube_live": "Listen to {titel} live on YouTube: {ort}",

@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{base_path}}/assets/fonts/home.css">
 {{end}}
 <link rel="stylesheet" href="{{base_path}}/assets/css/site.css?v={{(filemtime (cat "" "/assets/css/site.css"))}}">
+{{if search_enabled}}<link rel="stylesheet" href="{{base_path}}/assets/css/search.css">{{end}}
 </head>
 <body{{(attrs (choose (equal $nav "start") " class=\"home-page\"" ""))}}>
 
@@ -30,6 +31,7 @@
       <a href="{{(url "ueber")}}"{{(attrs (choose (equal $nav "ueber") " class=\"hier\"" ""))}}>{{(t "nav.ueber")}}</a>
       <a class="nav-mitmachen" href="{{(url "mitmachen")}}"{{(attrs (choose (equal $nav "mitmachen") " aria-current=\"page\"" ""))}}>{{(t "nav.mitmachen")}}</a>
     </nav>
+    {{if search_enabled}}<a class="site-search-link" href="{{search_url}}"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>{{t "nav.suche"}}</a>{{end}}
     <nav class="sprachen" aria-label="{{(t "sprache.wahl")}}">
       {{range $pair1 := pairs (list "de" "en")}}{{$s = $pair1.Value}}
         {{if (truth (equal $s (sprache)))}}

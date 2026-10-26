@@ -78,7 +78,9 @@ func (c *request) functions() template.FuncMap {
 			}
 			return attrs(` lang="` + l + `"`)
 		},
-		"base_path": func() string { return c.app.basePath }, "asset": c.assetURL, "canonical_alternative": c.canonicalAlternative, "canonical_alternativen": func(slug ...string) string { return c.alternativesJSON(true, slug...) },
+		"search_enabled": func() bool { return c.app.search != nil },
+		"search_url":     func() string { return c.app.basePath + publicSearchPath(c.lang) },
+		"base_path":      func() string { return c.app.basePath }, "asset": c.assetURL, "canonical_alternative": c.canonicalAlternative, "canonical_alternativen": func(slug ...string) string { return c.alternativesJSON(true, slug...) },
 		"t": c.tr, "url": c.url, "sprache": func() string { return c.lang }, "alternativ_url": c.alternative, "absolut": func(s string) string { return origin + s }, "seo_live": func() bool { return c.live }, "seo_daten": c.seo, "jsonld": c.jsonLD, "seoAttribut": func(name string, p any, title string) string {
 			b, _ := json.Marshal(c.seoFor(title, name, str(get(p, "slug"))))
 			return string(b)

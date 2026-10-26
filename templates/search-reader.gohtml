@@ -1,0 +1,19 @@
+{{template "public-search-head" .}}
+<a class="discovery-back" href="{{.Action}}">← {{.L.Back}}</a>
+{{if .Error}}<p class="discovery-notice discovery-error" role="alert">{{.Error}}</p>{{end}}
+{{if .Passage}}<article class="discovery-reader">
+<p class="discovery-eyebrow">{{.L.Stored}}</p><h1>{{.Passage.Title}}</h1>
+<p class="discovery-reader-meta">{{.Passage.Date}}{{if and .Passage.Date .Passage.Place}} · {{end}}{{.Passage.Place}}</p>
+{{if .Passage.Fiction}}<p class="discovery-fiction-note">{{.L.FictionNote}}</p>{{end}}
+<p class="discovery-reader-meta">{{.Passage.Kind}}{{if and .Passage.Kind .Passage.Status}} · {{end}}{{.Passage.Status}}</p>
+<dl class="discovery-voices"><div><dt>{{.L.TextVoice}}</dt><dd>{{.Passage.Voice}}</dd></div><div><dt>{{.L.SourceVoice}}</dt><dd>{{.Passage.SourceVoiceLabel}}</dd></div></dl>
+<div class="discovery-full-text" lang="{{.Passage.Language}}">{{.Passage.Text}}</div>
+{{if .Passage.OriginalURL}}<a class="discovery-original" href="{{.Passage.OriginalURL}}" rel="noreferrer">{{.L.Original}} →</a>{{else}}<p>{{.L.NoOriginal}}</p>{{end}}
+<details class="discovery-provenance"><summary>{{.L.Provenance}}</summary><p>{{.L.SourceNote}}</p><dl><dt>{{.L.Identifier}}</dt><dd>{{.Passage.ID}}</dd><dt>{{.L.Document}}</dt><dd>{{.Passage.DocumentID}}</dd><dt>{{.L.Snapshot}}</dt><dd>{{.Versions.ContentVersion}}</dd><dt>{{.L.SourceVoice}}</dt><dd>{{.Passage.SourceVoice}}</dd><dt>{{.L.TextVoice}}</dt><dd>{{.Passage.TextVoice}}</dd><dt>{{.L.TextKind}}</dt><dd>{{.Passage.TextKind}}</dd></dl>{{if .Passage.MetadataText}}<details><summary>{{.L.Metadata}}</summary><pre>{{.Passage.MetadataText}}</pre></details>{{end}}</details>
+</article>{{else if .Entity}}
+<article class="discovery-reader discovery-entity"><p class="discovery-eyebrow">{{.L.EntityTitle}} · {{.Entity.Type}}</p><h1>{{.Entity.Title}}</h1><p class="discovery-reader-intro">{{.L.EntityNote}}</p>{{if .Entity.Note}}<p>{{.Entity.Note}}</p>{{end}}
+<h2>{{.L.Claims}}</h2>
+{{range .Entity.Facts}}<section class="discovery-claim-group"><h3>{{.Label}}</h3>{{range .Values}}<div class="discovery-claim"><p>{{if .Link}}<a href="{{.Link}}">{{.Text}}</a>{{else}}{{.Text}}{{end}}</p>{{if .Status}}<p class="discovery-claim-status">{{.Status}}</p>{{end}}{{if .Note}}<p class="discovery-claim-note">{{.Note}}</p>{{end}}
+{{if .References}}<details class="discovery-evidence"><summary>{{$.L.Evidence}} ({{len .References}})</summary><ul>{{range .References}}<li>{{if .Link}}<a href="{{.Link}}">{{.Title}}</a>{{else}}{{.Title}}{{end}}{{if .Kind}}<span> · {{.Kind}}</span>{{end}}{{if .Locator}}<p>{{.Locator}}</p>{{end}}{{if .Quote}}<blockquote>{{.Quote}}</blockquote>{{end}}</li>{{end}}</ul></details>{{end}}</div>{{end}}</section>{{end}}
+<details class="discovery-provenance"><summary>{{.L.Recorded}}</summary><p>{{.L.Snapshot}}: {{.Versions.ContentVersion}}</p><pre>{{.Entity.Raw}}</pre></details></article>{{end}}
+{{template "public-search-foot" .}}

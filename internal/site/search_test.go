@@ -95,7 +95,7 @@ func TestSearchSSRAndMountedPassage(t *testing.T) {
 		t.Fatalf("reader: %d", w.Code)
 	}
 	w = searchRequest(a, "GET", "/preview/en/search/passage?id=document%23passage-1")
-	if w.Code != 200 || !strings.Contains(w.Body.String(), "Stored passage") || w.Header().Get("Content-Language") != "en" {
+	if w.Code != 200 || !strings.Contains(w.Body.String(), "Passage from the archive") || w.Header().Get("Content-Language") != "en" {
 		t.Fatal("English passage failed")
 	}
 }
@@ -110,7 +110,7 @@ func TestSearchEmptyErrorsAndMethods(t *testing.T) {
 		}
 		_ = json.NewEncoder(w).Encode(searchclient.SearchResponse{Versions: testVersions(), Mode: "hybrid", Hits: []searchclient.Hit{}})
 	})
-	for _, path := range []string{"/de/suche", "/de/suche-test", "/en/search", "/en/search-test"} {
+	for _, path := range []string{"/de/suche-test", "/en/search-test"} {
 		w := searchRequest(a, "GET", path+"?q=nomatch")
 		if w.Code != 200 || (!strings.Contains(w.Body.String(), "Keine Textstellen") && !strings.Contains(w.Body.String(), "No passages found")) {
 			t.Fatalf("empty %s: %d", path, w.Code)
@@ -137,7 +137,7 @@ func TestSearchValidatesBeforeCallingService(t *testing.T) {
 	var calls atomic.Int64
 	a := newSearchTestApp(t, "", func(http.ResponseWriter, *http.Request) { calls.Add(1) })
 	for _, query := range []string{"q=x&q=y", "q=%xx", "q=hello%0Aworld", "q=" + strings.Repeat("a", 1025), "q=x&mode=other", "q=x&lang=no", "q=x&voice=source", "q=x&from=2000&to=1990", "q=x&from=0", "q=x&to=10000", "q=x&rerank=true", "q=x&from=notyear", "q=" + strings.Repeat("x", 8193)} {
-		w := searchRequest(a, "GET", "/de/suche?"+query)
+		w := searchRequest(a, "GET", "/de/suche-test?"+query)
 		if w.Code != 400 {
 			t.Errorf("invalid query status %d", w.Code)
 		}

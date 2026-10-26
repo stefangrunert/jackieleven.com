@@ -58,6 +58,9 @@ func searchMessage(lang, de, en string) string {
 }
 
 func (a *App) serveSearch(w http.ResponseWriter, r *http.Request) bool {
+	if a.servePublicSearch(w, r) {
+		return true
+	}
 	lang, passage := "", false
 	switch r.URL.EscapedPath() {
 	case "/de/suche", "/de/suche-test":

@@ -1,0 +1,28 @@
+{{template "public-search-head" .}}
+<section class="discovery-intro"><p class="discovery-eyebrow">Jackie Leven · {{.L.Title}}</p><h1>{{.L.Heading}}</h1><p>{{.L.Intro}}</p></section>
+<form class="discovery-form" action="{{.Action}}" method="get" role="search">
+<div class="discovery-query"><label class="search-visually-hidden" for="discovery-q">{{.L.Heading}}</label><input id="discovery-q" type="search" name="q" value="{{.Q}}" placeholder="{{.L.Placeholder}}" maxlength="1024" required><button type="submit">{{.L.Submit}} <span aria-hidden="true">→</span></button></div>
+<details class="discovery-refine"><summary>{{.L.Refine}}</summary><div class="discovery-filter-grid">
+<label>{{.L.Area}}<select name="section"><option value="">{{.L.Everywhere}}</option>{{range .Options}}<option value="{{.Key}}"{{if eq $.Section .Key}} selected{{end}}>{{.Label}}{{if eq .Key "biography"}} · {{$.L.Fiction}}{{end}}</option>{{end}}</select></label>
+<label>{{.L.Voice}}<select name="voice"><option value="">{{.L.All}}</option><option value="leven"{{if eq .Voice "leven"}} selected{{end}}>{{.L.Leven}}</option><option value="third_party"{{if eq .Voice "third_party"}} selected{{end}}>{{.L.ThirdParty}}</option><option value="editorial"{{if eq .Voice "editorial"}} selected{{end}}>{{.L.Editorial}}</option><option value="pastiche"{{if eq .Voice "pastiche"}} selected{{end}}>{{.L.Pastiche}}</option></select></label>
+<label>{{.L.From}}<input type="number" name="from" min="1" max="9999" value="{{.From}}" aria-describedby="discovery-years"></label><label>{{.L.To}}<input type="number" name="to" min="1" max="9999" value="{{.To}}" aria-describedby="discovery-years"></label>
+<p id="discovery-years" class="discovery-filter-help">{{.L.YearHint}}</p></div></details>
+</form>
+{{if .Filters}}<ul class="discovery-active" aria-label="{{.L.Refine}}">{{range .Filters}}<li><a href="{{.RemoveURL}}" aria-label="{{$.L.FilterRemove}}: {{.Label}}">{{.Label}} <span aria-hidden="true">×</span></a></li>{{end}}</ul>{{end}}
+<details class="discovery-privacy"><summary>{{.L.DeepInfra}} <span>{{.L.PrivacyDetails}}</span></summary><p>{{.L.PublicPrivacy}}</p></details>
+{{if .Error}}<p class="discovery-notice discovery-error" role="alert">{{.Error}}</p>{{else if .Searched}}
+{{if .Notice}}<p class="discovery-notice" role="status">{{.Notice}}</p>{{end}}
+{{if .Groups}}<p class="discovery-count">{{.Count}} {{.L.Found}}</p>
+{{range .Groups}}<section class="discovery-section discovery-section-{{.Key}}" aria-labelledby="section-{{.Key}}"><div class="discovery-section-heading"><h2 id="section-{{.Key}}">{{.Title}}</h2><a href="{{.MoreURL}}">{{$.L.More}} <span aria-hidden="true">→</span></a></div>
+{{if eq .Key "biography"}}<p class="discovery-fiction-note">{{$.L.FictionNote}}</p>{{end}}
+<div class="discovery-cards">{{range .Cards}}<article class="discovery-card{{if .Fiction}} discovery-fiction{{end}}">
+{{if eq .Section "music"}}<a class="discovery-cover" href="{{.PassageURL}}" aria-label="{{.Title}}">{{if .Image}}<img src="{{.Image}}" alt="" width="400" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{else}}<span aria-hidden="true">♫</span>{{end}}</a>{{end}}
+<div class="discovery-card-text">{{if or .Date .Place}}<p class="discovery-card-date">{{.Date}}{{if and .Date .Place}} · {{end}}{{.Place}}</p>{{end}}
+<h3><a href="{{.PassageURL}}">{{.Title}}</a></h3>
+{{if or .Kind .Status}}<p class="discovery-card-kind">{{.Kind}}{{if and .Kind .Status}} · {{end}}{{.Status}}</p>{{end}}
+<p class="discovery-excerpt" lang="{{.Language}}">{{.Excerpt}}</p>
+<p class="discovery-card-bottom"><span>{{.Voice}}</span><a href="{{.PassageURL}}">{{$.L.Read}} <span aria-hidden="true">→</span></a></p></div>
+</article>{{end}}</div></section>{{end}}
+{{else}}<p class="discovery-empty">{{.L.Empty}}</p>{{end}}
+{{else}}<section class="discovery-examples" aria-label="{{.L.ExamplesLabel}}"><p>{{.L.ExamplesLabel}}</p><a href="{{.Action}}?q={{.L.Example1}}">{{.L.Example1}} <span aria-hidden="true">↗</span></a><a href="{{.Action}}?q={{.L.Example2}}">{{.L.Example2}} <span aria-hidden="true">↗</span></a><a href="{{.Action}}?q={{.L.Example3}}">{{.L.Example3}} <span aria-hidden="true">↗</span></a></section>{{end}}
+{{template "public-search-foot" .}}
