@@ -1,37 +1,37 @@
-# Architektur der Go-Migration
+# Go migration architecture
 
-Die erste Ausbaustufe ersetzt die serverseitige Laufzeit und bewahrt den bestehenden öffentlichen Vertrag: URLs, Weiterleitungen, Sprachen, Inhalte, HTML-Struktur, CSS-/JavaScript-Anknüpfungspunkte, Metadaten und Formularverhalten. Ontologie und Suche folgen als gesonderte Funktionen. Damit können Unterschiede der Migration von späteren Produktänderungen getrennt geprüft werden.
+The first stage replaces the server runtime while preserving the existing public contract: URLs, redirects, languages, content, HTML structure, CSS/JavaScript hooks, metadata and form behaviour. Ontology and search follow as separate features. This allows migration differences to be checked separately from later product changes.
 
-## Laufzeit und Inhalte
+## Runtime and content
 
-`cmd/jackieleven` startet einen `net/http`-Server. `internal/site` enthält Routing, Inhaltsaufbereitung, SEO, Templates und Kontakt. Die Anwendung benötigt keine Bibliothek außerhalb der Go-Standardbibliothek und keinen PHP-Prozess.
+`cmd/jackieleven` starts a `net/http` server. `internal/site` contains routing, content preparation, SEO, templates and contact handling. The application needs no libraries beyond the Go standard library and no PHP process.
 
-`data/` enthält die bisherigen strukturierten Kataloge und Übersetzungen als JSON. Go lädt sie beim Start. Die Kataloge behalten ihre Feldnamen in Inhaltsrecords; Routing-, Sitzungs- und Konfigurationszustand haben eigene Go-Typen. Die offen gehaltenen Katalogrecords erleichtern zunächst die überprüfbare Übertragung des bestehenden Datenbestands. Sie sind noch kein ontologisches Domänenmodell.
+`data/` contains the existing structured catalogues and translations as JSON. Go loads them at startup. Catalogue records retain their content field names; routing, session and configuration state have dedicated Go types. The flexible catalogue records initially make the transfer of the existing dataset easier to verify. They are not yet an ontological domain model.
 
-`templates/` enthält echte `html/template`-Vorlagen. Es gibt keine vorgerenderten Seitensnapshots als Laufzeitquelle. Pro Anfrage werden Sprache, Route und Templatefunktionen an einen eigenen Request gebunden. Gemeinsame Inhaltsdaten werden nach dem Laden nur gelesen. Dieser Unterschied zu PHP ist wesentlich: Ein Go-Prozess verarbeitet mehrere Anfragen gleichzeitig und darf Sprach- oder Routenzustand nicht in veränderlichen globalen Variablen halten.
+`templates/` contains actual `html/template` templates. Prerendered page snapshots are not used as runtime sources. Language, route and template functions are bound to each individual request. Shared content data is read-only after loading. This is an important difference from PHP: a Go process handles several requests concurrently and must not keep language or route state in mutable global variables.
 
-Die ausgewählten Texte in `research/columns/` und `autobiografie/` bleiben Markdownquellen. Der bewusst kleine Renderer reproduziert die bestehenden Leseregeln einschließlich Verszeilen, wiederholter alter Überschriften und Übersetzungsfallbacks. Die Go-Fassung wurde gegen alle 73 veröffentlichten Kolumnenmodelle und HTML-Lesefassungen, beide Kapitelsprachen und 202 Markdownbeispiele verglichen.
+The selected texts in `research/columns/` and `autobiografie/` remain Markdown sources. The deliberately small renderer reproduces the existing reading rules, including verse lines, repeated historical headings and translation fallbacks. The Go version was compared against all 73 published column models and their HTML reading versions, both chapter languages and 202 Markdown examples.
 
-## HTML und Adressen
+## HTML and addresses
 
-`html/template` übernimmt kontextbezogenes Escaping. Freigegebenes HTML entsteht nur an begrenzten Stellen: aus bereits gerenderten eigenen Templates, dem vorab escapenden Markdownleser und ausdrücklich erlaubten Attributfragmenten. Die komplette öffentliche Identität bleibt `https://jackieleven.com`; fremde Hostheader erzeugen keine beliebigen Canonical-Adressen. Lokale und andere nichtproduktive Hosts bleiben noindex.
+`html/template` handles contextual escaping. Trusted HTML is produced only in a few controlled places: already rendered application templates, the Markdown reader that escapes its input first, and explicitly permitted attribute fragments. The entire public identity remains `https://jackieleven.com`; arbitrary Host headers cannot generate arbitrary canonical URLs. Local and other non-production hosts remain noindex.
 
-Nur `/assets/` liefert Dateien aus. Daten, Templates, Forschung und Punktdateien erhalten keine allgemeine Dateiauslieferung. Releasepakete erlauben zusätzlich nur eine explizite Auswahl der tatsächlich benötigten Dateien. Ein Produktionsprozess liest seine Inhalte aus einem einmal aufgelösten Releaseverzeichnis, einschließlich Assets.
+Only `/assets/` serves files directly. Data, templates, research and dotfiles have no general file-serving route. Release packages additionally allow only an explicit selection of the files actually needed. A production process reads its content, including assets, from a release directory resolved once at startup.
 
-## Kontakt und Parallelität
+## Contact handling and concurrency
 
-Kontaktkonfiguration kommt ausschließlich aus Prozessvariablen. Tests können Turnstile- und Versandfunktionen ersetzen, ohne echte Anbieter zu kontaktieren. Sitzungen, Formulartokens, Wiederholungskennungen und IP-Limits liegen in privaten Zustandsdateien. Dateisperren serialisieren konkurrierende Verarbeitung derselben Sitzung und schützen die IP-Zähler. Dadurch bleiben CSRF-Lebensdauer, Formularalter, mehrere offene Tabs, Abkühlzeit und Wiederholungsschutz auch bei Parallelität und Neustart erhalten.
+Contact configuration comes exclusively from process environment variables. Tests can replace Turnstile and delivery functions without contacting real providers. Sessions, form tokens, retry identifiers and IP limits are stored in private state files. File locks serialise concurrent processing of the same session and protect IP counters. This preserves CSRF lifetime, form age, multiple open tabs, cooldown and retry protection across concurrency and restarts.
 
-Ein Versandversuch mit unverändertem Formularinhalt behält nach einem ungewissen Ergebnis seine Idempotenzkennung. Der erfolgreiche Versand wird unter derselben Sitzungssperre vermerkt. Externe Antworten müssen vollständig und valide sein; Anfrage- und Antwortgrößen sind begrenzt. Sensible Formularinhalte und Schlüssel werden nicht protokolliert.
+A delivery attempt with unchanged form content retains its idempotency identifier after an uncertain outcome. Successful delivery is recorded under the same session lock. External responses must be complete and valid; request and response sizes are bounded. Sensitive form contents and credentials are not logged.
 
-Proxyheader gelten nur bei aktiviertem `-trust-proxy` und einem direkten Loopback-Peer. nginx überschreibt sie mit den eigenen, aus vertrauenswürdigen Quellen gewonnenen Werten. Der Backendport bleibt lokal. Bei SIGTERM wartet der Hauptprozess auf den geordneten Abschluss laufender Anfragen, höchstens bis zur dokumentierten Shutdownfrist.
+Proxy headers are trusted only with `-trust-proxy` enabled and a direct loopback peer. nginx replaces them with its own values obtained from trusted sources. The backend port remains local. On SIGTERM, the main process waits for requests to finish gracefully, up to the documented shutdown deadline.
 
-## Nachweise und Grenzen
+## Evidence and limits
 
-Der HTTP-Abgleich prüft sämtliche Sitemapziele plus Alias-, Sprach-, Filter-, Fragment- und Fehlerfälle. Normalisierungen sind in `werkzeug/parity.md` aufgeführt. Insbesondere bleiben echte Inline-Leerzeichen und geschützte Leerzeichen erhalten; als JSON konsumierte Attribute werden nach Datenwerten verglichen.
+The HTTP comparison covers every sitemap target plus alias, language, filter, fragment and error cases. Normalisation rules are listed in `werkzeug/parity.md`. In particular, meaningful inline spaces and non-breaking spaces are retained; attributes consumed as JSON are compared by data value.
 
-Der eingefrorene PHP-Snapshot ist eine Testreferenz, kein Bestandteil des Go-Servers. Ein Apache-generierter Fehler für einen kodierten Pfadtrenner wird ausdrücklich nur auf 404 und fehlende Datenpreisgabe geprüft; sein Fehlerseiten-HTML ist keine behauptete Gleichheit.
+The frozen PHP snapshot is a test reference, not part of the Go server. An Apache-generated error for an encoded path separator is explicitly checked only for a 404 status and absence of data disclosure; equality of its error-page HTML is not claimed.
 
-Zusätzlich wurden neun Seitentypen bei 1440×1000 und 390×844 im Browser verglichen: gleiche DOM-Geometrie und pixelgleiche Screenshots nach abgeschlossenem Laden der Bilder. Interaktionsprüfungen decken dynamische Zeitreise, Sprachwechsel, Verlauf und Filterkontext ab. Diese Nachweise betreffen die geprüften Zustände und ersetzen keine Behauptung über jede denkbare Browser- oder Netzwerksituation.
+Nine page types were also compared in the browser at 1440×1000 and 390×844: identical DOM geometry and pixel-identical screenshots after images had finished loading. Interaction checks cover the dynamic timeline, language changes, history and filter context. This evidence concerns the states tested; it does not establish equivalence in every possible browser or network situation.
 
-Die separate Linux-Testinstanz ist auf Hetzner installiert und unter `https://unpubli.sh/jackieleven/` geprüft; Details stehen in `ops/GO-PREVIEW.md`. Echte Anbieterintegration und ein Produktionswechsel bilden weiterhin eine eigene Abnahme. Die bisherige Seite bleibt bis dahin verfügbar.
+The separate Linux test instance is installed on Hetzner and was checked at `https://unpubli.sh/jackieleven/`; see `ops/GO-PREVIEW.md`. Real provider integration and the production cutover are separate acceptance steps. The existing site remains available until then.

@@ -2,7 +2,7 @@
 
 This contract fixes the first working local implementation on `codex/search-development`.
 Source website revision: ea653b6 (content adapters read a pinned Git revision); archive revision: 7d353a4.
-Private website sidecars may assign document identities for columns without mutating the public archive.
+Website sidecars may assign document identities for columns without mutating the public archive.
 
 ## Ownership
 

@@ -1,269 +1,267 @@
-# Wie Jackie Leven eine Autobiografie bekam, die er nie geschrieben hat
+# How Jackie Leven acquired an autobiography he never wrote
 
-Werkstattbericht über die Zusammenarbeit von Stefan und Claude Code am Projekt jackieleven. Aufgezeichnet am 17. September 2026, am Abend desselben Tages, an dem die Arbeit begonnen hat. Der Bericht beschreibt die Rekonstruktion von Levens eigenen Websites aus dem Internet Archive, die Entstehung einer erfundenen Autobiografie in seiner Stimme und vor allem das, was danach kam: das Entfernen von KI-Sprache aus einem Text, der inhaltlich bereits stimmte.
+Workshop report on Stefan and Claude Code’s collaboration on jackieleven. Recorded on 17 September 2026, on the evening of the day the work began. It describes reconstructing Leven’s own websites from the Internet Archive, writing an invented autobiography in his voice, and above all what followed: removing AI language from a text whose content was already sound.
 
-## Ein Projekt, das am Herzen liegt
+This is a historical account of that day’s work. German conversation excerpts and tool comments below are translated into English; quoted English prose and statistical results are preserved.
 
-Stefan begann mit einem Satz, der den Maßstab für alles Weitere setzte:
+## A personal project
 
-> „wir haben hier en neues projekt, eines das mir besonders am herzen lieg."
+Stefan began with a sentence that set the standard for everything that followed:
 
-Es sollte eine Hommage-Seite für den schottischen Songwriter Jackie Leven werden (1950–2011). Ein biografisches Kompendium lag bereits vor: acht Dateien, aus Leitmedien, Musikpresse, Nachrufen und Diskografien zusammengetragen, mit Fußnoten und dokumentierten Widersprüchen. Damit ließ sich eine Seite bauen. Aber es war Material *über* ihn.
+> “We have a new project here, one particularly close to my heart.”
 
-## Die Detektivaufgabe
+It was to be a tribute website for the Scottish songwriter Jackie Leven (1950–2011). A biographical compendium already existed: eight files assembled from major newspapers, music journalism, obituaries and discographies, with footnotes and documented contradictions. That was enough to build a site. But it was material *about* him.
 
-> „erst weiter recherchieren. du bekommst eine detektivaufgabe. ich erinnere mich gut, dass jackie eine eigene homepage hatte, die dann nach 2011 offline ging. dort hatte er einen blog, konzertkalender und anderes. jackieleven uk oder com oder so. finde das heraus im web archiv"
+## The detective assignment
 
-Eine Erinnerung, zwei mögliche Domains, kein Link. Die Suche über die CDX-Schnittstelle des Internet Archive ergab mehr, als die Erinnerung versprochen hatte: nicht eine Seite, sondern drei, hintereinander über dreißig Jahre.
+> “First, more research. I have a detective assignment for you. I remember clearly that Jackie had his own homepage, which went offline after 2011. It had a blog, concert calendar and other things. Jackieleven uk or com or something. Find it in the web archive.”
 
-**jackieleven.com** entstand 1996 als Fanseite, betrieben von einem Italiener, technisch untergebracht unter der wenig glamourösen Adresse `home.xnet.it/tout/HTML/`. Ab Oktober 2002 schrieb Leven dort eine Monatskolumne, „The Deep Pool". **jackieleven.co.uk** war ab 2008 die offizielle Seite mit Blog und mehreren Rubriken; sie lief bis 2025 weiter und wurde 2024 vom Hoster gesperrt. **jackie-leven.com** ist die Gedenkseite nach seinem Tod.
+One memory, two possible domains, no link. Searching the Internet Archive’s CDX interface yielded more than the memory promised: not one site, but three, in succession over thirty years.
 
-Damit war die eigentliche Entdeckung gemacht, und sie war größer als die Aufgabe: Leven hatte neun Jahre lang regelmäßig geschrieben. Nicht Interviews, nicht Pressetexte — eigene Prosa, monatlich, für ein Publikum von vielleicht ein paar hundert Menschen.
+**jackieleven.com** began in 1996 as a fan site run by an Italian, hosted at the unglamorous address `home.xnet.it/tout/HTML/`. From October 2002, Leven wrote a monthly column there, “The Deep Pool”. **jackieleven.co.uk** became the official site in 2008, with a blog and several sections; it continued until 2025 and was suspended by its host in 2024. **jackie-leven.com** is the memorial site established after his death.
 
-## Die Ernte
+That was the real discovery, larger than the assignment: Leven had written regularly for nine years. Not interviews or press copy, but his own prose, monthly, for an audience of perhaps a few hundred people.
 
-> „wichtig: alle inhalte aus jackies kolumnen in research/colums sammeln. ein file pro post"
+## The harvest
 
-> „auch die bilder, falls vorhanden"
+> “Important: collect all the content from Jackie’s columns in research/colums. One file per post.”
 
-Am Ende standen **76 Dateien mit rund 90.000 Wörtern** in `research/columns/`, dazu 19 Bilder. Der Text ist wortgetreu übernommen, samt Levens Eigenheiten: durchgehend kleines „i", Tippfehler, eigenwillige Zeichensetzung. Jede Datei trägt einen YAML-Kopf mit Rubrik, Datum, Quell-URL, Archivlink und Capture-Datum.
+> “The pictures too, if there are any.”
 
-Der Weg dorthin bestand zu großen Teilen aus dem Beheben eigener Fehler, und die sind aufschlussreicher als das Ergebnis:
+The result was **76 files containing around 90,000 words** in `research/columns/`, plus 19 images. The text was reproduced verbatim, including Leven’s habits: lowercase “i”, typing errors and idiosyncratic punctuation. Each file has a YAML header recording section, date, source URL, archive link and capture date.
 
-- **Führende Leerzeichen** hebelten die Regeln zum Entfernen von Navigation und Kopfzeilen aus. Jede Zeile musste vorher beschnitten werden.
-- **Die Trennlinien in den Kolumnen** bestanden aus denselben Zeichen wie die Trennlinien zwischen Kolumnen. Ein Text wurde dadurch in vier Stücke zerlegt. Erst eine engere Regel (`(\+-){4,}`) trennte richtig.
-- **Eine Ähnlichkeitsprüfung mit Schwelle 0,9** verschmolz den Nachruf vom November 2011 mit einer Seite vom August 2011, weil beide dieselbe Navigation trugen. Die unscharfe Zusammenführung flog raus; nur exakte Dubletten werden noch zusammengefasst.
-- **Umlaute in Dateinamen** erzeugten Slugs wie `m-rz` für „März". Eine Transkriptionstabelle hat das geheilt.
+Much of the work consisted of fixing our own mistakes, which are more revealing than the result:
 
-Keiner dieser Fehler war spektakulär. Zusammen hätten sie den Korpus unbrauchbar gemacht, ohne dass es aufgefallen wäre — ein Textkonvolut sieht auch dann vollständig aus, wenn ein Viertel fehlt.
+- **Leading spaces** defeated the rules for removing navigation and headers. Every line needed trimming first.
+- **Dividers within columns** used the same characters as dividers between columns. One text was split into four pieces. Only a narrower rule (`(\+-){4,}`) separated them correctly.
+- **A similarity check with a 0.9 threshold** merged the November 2011 obituary with an August 2011 page because both carried the same navigation. Fuzzy merging was removed; only exact duplicates are now combined.
+- **Umlauts in filenames** produced slugs such as `m-rz` for “März”. A transliteration table fixed this.
 
-Eine Einschränkung technischer Art gehört hierher: **Unteragenten konnten in dieser Umgebung keine Dateien schreiben.** Die Analysen liefen parallel und korrekt, aber ihre Berichte landeten nirgends. Sie mussten aus den Transkripten der Agentenläufe extrahiert werden. Bei den folgenden Aufträgen bekamen die Agenten die Anweisung, den vollständigen Bericht direkt zurückzugeben.
+None of these mistakes was spectacular. Together they could have made the corpus unusable without anyone noticing: a collection of texts still looks complete when a quarter is missing.
 
-## Erst die Fakten ordnen
+One technical limitation belongs here: **subagents could not write files in this environment.** Their analyses ran correctly in parallel, but their reports were not saved. They had to be extracted from the agent-run transcripts. Subsequent assignments instructed agents to return their complete reports directly.
 
-> „erst mal die fakten ordnen, denn die sind voraussetzung für das buch."
+## Put the facts in order first
 
-Aus den Kolumnen und den rekonstruierten Seiten entstanden vier weitere Rechercheakten:
+> “First put the facts in order, because they are the prerequisite for the book.”
 
-| Datei | Inhalt |
+The columns and reconstructed sites produced four further research files:
+
+| File | Contents |
 |---|---|
-| `09-websites.md` | Geschichte der drei Domains, Betreiber, Technik, Inventar des Presse- und Interviewarchivs, die Lücken |
-| `10-konzertkalender.md` | 470 Auftritte 1997–2011, zusammengeführt aus 26 Kalenderfassungen beider Seiten |
-| `11-zeitleiste.md` | Durchgehende Chronologie mit einer eigenen Tabelle aller Datierungskonflikte |
-| `12-biografie-aus-den-kolumnen.md` | Faktensammlung aus Levens eigenen Texten, thematisch, jeder Fakt mit Belegstelle |
+| `09-websites.md` | History of the three domains, operators, technology, inventory of the press and interview archive, gaps |
+| `10-konzertkalender.md` | 470 performances from 1997–2011, combined from 26 calendar versions across both sites |
+| `11-zeitleiste.md` | Continuous chronology with a separate table of all conflicting dates |
+| `12-biografie-aus-den-kolumnen.md` | Facts from Leven’s own writing, arranged by topic, every fact with a source location |
 
-Der Punkt an dieser Reihenfolge war, dass die Fakten *vor* der Prosa fertig sein mussten. Wer erst schreibt und dann belegt, belegt, was er geschrieben hat.
+The point of this order was to finish the facts *before* the prose. Writing first and supplying evidence afterwards means finding evidence for what you have already written.
 
-Die Zeitleiste enthält deshalb eine Tabelle, die eher ein Eingeständnis ist: Geburtsdatum (18. oder 19. Juni), Bandgründung (1975 nach Leven, 1977 nach allen anderen), der Überfall (1983 oder 1984), die Krebsart (drei Angaben, keine Primärquelle). Bei einem Mann, der seine eigene Biografie gern ausschmückte, ist die Widerspruchstabelle kein Mangel der Recherche, sondern ihr Ergebnis.
+The timeline therefore includes a table that reads almost like an admission: birthday (18 or 19 June), band formation (1975 according to Leven, 1977 according to everyone else), the assault (1983 or 1984), the type of cancer (three accounts, no primary source). For a man who liked embellishing his biography, the contradiction table is a research finding, not a defect.
 
-## Die haarsträubende Idee
+## The outrageous idea
 
-> „mir kommt eine haarsträubende idee: wie wäre es jackie eine autobiographie schreiben zu lassen. wir wissen ja nun in welchem stil er schreibt, wie er sich ausdrückt, wo sein feiner humor, sarkasmus, ironie sitzten"
+> “An outrageous idea occurs to me: what about letting Jackie write an autobiography? We now know his writing style, how he expresses himself, where his subtle humour, sarcasm and irony sit.”
 
-Drei Entscheidungen fielen sofort: freie Pastiche in seiner Stimme statt Montage aus Zitaten; Englisch mit späterer deutscher Fassung; das ganze Leben in zwölf bis fünfzehn Kapiteln.
+Three decisions followed immediately: free pastiche in his voice rather than a montage of quotations; English, with a German version later; his whole life in twelve to fifteen chapters.
 
-## Der Rahmen, der vor dem ersten Satz stand
+## The framework before the first sentence
 
-Die Idee ist heikel, und sie wurde als Erstes eingehegt. `autobiografie/00-rahmen.md` legt fest:
+The idea needed clear boundaries. `autobiografie/00-rahmen.md` establishes:
 
-- Der Text ist **nicht von Jackie Leven**. Jedes Kapitel trägt diesen Hinweis.
-- Er wird **nirgends als Levens Wort veröffentlicht**, weder auf der Hommage-Seite noch anderswo.
-- **Jedes Kapitel endet mit einem Abschnitt „Belegt / erfunden"**, der beides einzeln aufführt.
+- The text is **not by Jackie Leven**. Every chapter carries this notice.
+- It is **never published as Leven’s own words**, on the tribute site or elsewhere.
+- **Every chapter ends with a “Documented / invented” section** listing both separately.
 
-Die Begründung steht im Rahmen selbst und ist der eigentliche Grund, weshalb das Projekt vertretbar ist: Leven war ein notorischer Ausschmücker — Bob Dylan als angeblicher Ko-Autor, eine Profikillerin als Song-Inspiration, ein eigener Whisky, den sein Labelchef später „a complete scam" nannte. **Seine echten Erinnerungen klingen bereits wie Erfindungen.** Wenn ungekennzeichnete erfundene Ich-Prosa danebensteht, kann später niemand mehr trennen, was von ihm stammt und was von uns. Bei einem anderen Autor wäre die Kennzeichnung Höflichkeit. Bei diesem ist sie die Bedingung.
+The reason appears in the framework itself: Leven was a notorious embellisher—Bob Dylan as an alleged co-writer, a professional killer as a song’s inspiration, his own whisky, later called “a complete scam” by his label boss. **His real recollections already sound invented.** If unlabelled fictional first-person prose sits beside them, nobody will later be able to distinguish his words from ours. For another author, labelling might be a courtesy. Here it is a condition.
 
-In der Praxis hat sich der Belegt/erfunden-Abschnitt als das nützlichste Instrument des ganzen Projekts erwiesen, und zwar aus einem unerwarteten Grund: Er zwingt dazu, nach dem Schreiben jeden Satz einer Quelle zuzuordnen. Dabei fiel in Kapitel 5 ein Fehler auf, der sonst stehen geblieben wäre. Ich hatte Tony Stratton Smith zum Zeitpunkt des Solovertrags für tot gehalten; er starb 1987, also nach dem Überfall. Die Szene und die Belegnotiz wurden korrigiert.
+In practice, the documented/invented section proved the project’s most useful instrument for an unexpected reason: after writing, it forces every sentence back to a source. This exposed a mistake in chapter 5 that would otherwise have remained. I had thought Tony Stratton Smith was dead when the solo contract was signed; he died in 1987, after the assault. The scene and its evidence note were corrected.
 
-## Die Stimme messen, bevor man sie nachmacht
+## Measure the voice before imitating it
 
-Der Korpus zerfällt stilistisch in zwei Phasen, und der Unterschied ist so deutlich, dass er sich zählen lässt:
+Stylistically, the corpus falls into two phases, with a difference clear enough to count:
 
-| | Kolumnen 2002–2007 (43.600 W.) | Blog 2008–2012 (46.900 W.) |
+| | Columns 2002–2007 (43,600 words) | Blog 2008–2012 (46,900 words) |
 |---|---|---|
-| Erste Person | 578× kleines „i", 257× „I" | 22× kleines „i", 829× „I" |
-| Gedankenstrich ` - ` | 22,8 je 1000 Wörter | 1,2 |
-| Auslassungspunkte | 4,8 | 2,3 |
-| Halbe Anführungszeichen | 14,9 | 0,3 |
-| Satzlänge (Median / längster) | 29 / 323 Wörter | 26 / 157 Wörter |
+| First person | 578 lowercase “i”, 257 “I” | 22 lowercase “i”, 829 “I” |
+| Dash ` - ` | 22.8 per 1,000 words | 1.2 |
+| Ellipses | 4.8 | 2.3 |
+| Single quotation marks | 14.9 | 0.3 |
+| Sentence length (median / longest) | 29 / 323 words | 26 / 157 words |
 
-Gewählt wurde die frühe Kolumnenstimme. Die Kapitel 14 und 15 wechseln bewusst in die späte Blogstimme mit großem „I", weil sie in den Jahren spielen, in denen er so schrieb; das steht in ihrem Frontmatter.
+We chose the early column voice. Chapters 14 and 15 deliberately switch to the later blog voice with capital “I”, because they are set in the years when he wrote that way; their front matter records this.
 
-Daraus entstanden zehn Stilregeln und vier Fallen. Die wichtigste Regel lautet: **Keine Pointe am Kapitelende, sondern ein ruhiges Bild.** Sie wurde in der ersten Fassung fünfzehnmal gebrochen.
+This produced ten style rules and four traps. The most important rule was: **end a chapter with a quiet image, not a punchline.** The first draft broke it fifteen times.
 
-## Fünfzehn Kapitel
+## Fifteen chapters
 
-Die erste Fassung entstand in einem Zug. Sie war inhaltlich dicht, sie hielt die Fakten sauber getrennt, und Stefan las sie mit Interesse:
+The first draft was written in one pass. It was rich in content, kept facts properly separated, and Stefan read it with interest:
 
-> „ja, weiter mit kapitel 7 bis 15 - ich bin gespannt sie zu lesen"
+> “Yes, continue with chapters 7 to 15—I’m looking forward to reading them.”
 
-## Der Einspruch
+## The objection
 
-Dann kam der Satz, um den herum sich die zweite Hälfte des Projekts organisiert hat:
+Then came the sentence around which the second half of the project took shape:
 
-> „es gibt zahlreiche forumulierungen in den texten, die ganz klar ki sind - und nicht jackie. […] das zieht die ansonsten inhaltlichen guten texte in richtung ki slop. das muss unbeding verhindert werden. du musst abschitt für abschnitt dahingehend analysieren und den text flüssiger \"leven like\" machen. wir haben sprache ja schon - wenn auch für einen andern stil - gemeinsam im christ projekt getrimmt. du sollst das nicht 1:1 nachahmen, aber verstehen warum dort die sprache die geworden ist, die ich will"
+> “There are numerous formulations in the texts that are clearly AI, not Jackie. […] That pulls otherwise good content towards AI slop. This absolutely has to be prevented. You need to analyse it section by section and make the text more fluent, more ‘Leven-like’. We have already worked on language together in the Christ project, albeit for a different style. Don’t imitate that one-to-one, but understand why the language there became what I wanted.”
 
-Fünf Belegstellen lagen bei:
+Five examples accompanied it:
 
-> „Both facts are true. Only one of them is a room."
-> „Now the money, because nobody does the money."
-> „When he died i did the thing that men of my type do, which is that i went out and worked. Not a little."
-> „Kevin Coyne i never got to work with, and that is one of my real regrets."
-> „I never got the big audience. I got the right one."
+> “Both facts are true. Only one of them is a room.”
+> “Now the money, because nobody does the money.”
+> “When he died i did the thing that men of my type do, which is that i went out and worked. Not a little.”
+> “Kevin Coyne i never got to work with, and that is one of my real regrets.”
+> “I never got the big audience. I got the right one.”
 
-Der entscheidende Umstand war, dass der Maßstab bereits im Haus lag. Für die Frage „klingt das nach Leven?" gab es 90.000 Wörter von Leven. Daraus entstand `werkzeug/messen.py`, und die erste Messung war unbequem:
+The crucial point was that we already had a benchmark. To ask “does this sound like Leven?”, we had 90,000 words by Leven. This led to `werkzeug/messen.py`, and the first measurement was uncomfortable:
 
-| | Leven | erste Fassung |
+| | Leven | First draft |
 |---|---|---|
-| Satzlänge, Mittel | 35,1 Wörter | 21,5 |
-| Streuung der Satzlänge | 30,0 | 17,9 |
-| längster Satz | 362 Wörter | 99 |
-| Sätze unter 5 Wörtern | 2,1 % | 12,6 % |
-| Gedankenstriche je 1000 W. | 20,1 | 8,5 |
-| Auslassungspunkte je 1000 W. | 3,6 | 0,0 |
-| bewertender Schluss | 0,16 | 1,67 |
-| Antithese | 0,22 | 0,67 |
-| Ankündigung | 0,16 | 0,47 |
+| Mean sentence length | 35.1 words | 21.5 |
+| Sentence-length standard deviation | 30.0 | 17.9 |
+| Longest sentence | 362 words | 99 |
+| Sentences under 5 words | 2.1% | 12.6% |
+| Dashes per 1,000 words | 20.1 | 8.5 |
+| Ellipses per 1,000 words | 3.6 | 0.0 |
+| Evaluative conclusion | 0.16 | 1.67 |
+| Antithesis | 0.22 | 0.67 |
+| Announcement | 0.16 | 0.47 |
 
-Nicht Passiv oder Nominalstil waren das Problem — die gab es gar nicht. Das Problem war der **Takt**. Levens Sätze mäandern durch Kommas und Gedankenstriche und kommen oft nirgends an. Die erste Fassung zerlegte dasselbe Material in gebaute Einheiten mit Landung: zehnmal so viele bewertende Schlüsse wie er, sechsmal so viele Sätze unter fünf Wörtern, und kein einziges Auslassungszeichen, wo er im Schnitt alle dreihundert Wörter eines setzt.
+Passive voice and nominal style were not the problem; neither was present. The problem was **rhythm**. Leven’s sentences meander through commas and dashes and often arrive nowhere. The first draft broke the same material into constructed units with neat landings: ten times as many evaluative conclusions, six times as many sentences under five words, and no ellipses where he averages one every three hundred words.
 
-Genau das ist, was „KI-Slop" auf Satzebene bedeutet. Es fehlt nichts, es ist nichts falsch. Jeder Absatz landet nur zu sauber.
+That is what “AI slop” means at sentence level here. Nothing is missing or incorrect. Every paragraph simply lands too neatly.
 
-## Der Fehlversuch: die Messung als Dogma
+## The failed attempt: measurement as dogma
 
-Die Korrektur ging sofort schief. Ich nahm den Mittelwert als Zielgröße und zog die Satzlänge hoch — auf über 50 Wörter. Stefan stoppte das im nächsten Zug:
+The correction immediately went wrong. I treated the mean as a target and increased sentence length to more than fifty words. Stefan stopped it in the next turn:
 
-> „stop - das darf nicht zum manierismus werden. jetz wird der text grausam unleserlich. du musst eine balance finden, kein dogma anwenden. jackies texte sind nicht immer leicht zu lesen. darauf müssen wir rücksicht nehmen. vorallem wei es eine lange autobiografie ist, die auch gelesen werden soll. finde den sweet spot"
+> “Stop—this mustn’t become mannerism. Now the text is horribly unreadable. You need a balance, not a dogma. Jackie’s texts aren’t always easy to read. We have to take that into account, especially because this is a long autobiography that people should actually read. Find the sweet spot.”
 
-Das ist der wichtigste Eingriff des ganzen Tages, und der Fehler dahinter ist lehrreich genug, um ihn ausdrücklich festzuhalten: **Der Mittelwert war die falsche Kennzahl.** Levens Zahl ist die Streuung — 30 bei einem Mittel von 35. Er schreibt Sätze von zwölf Wörtern und Sätze von hundertzwanzig, unmittelbar nacheinander. Die 362-Wörter-Sätze sind Ausreißer aus einzelnen Kolumnen, keine Schreibweise. Sein eigener Blogeintrag über die Markthallenuhr läuft bei 24, 30 und 15 Wörtern und liest sich mühelos.
+This was the day’s most important intervention, and the mistake deserves recording: **the mean was the wrong measure.** Leven’s characteristic figure is the variation—30 against a mean of 35. He writes twelve-word sentences and hundred-and-twenty-word sentences immediately after one another. The 362-word sentences are outliers in individual columns, not a general style. His own blog entry about the market-hall clock runs at 24, 30 and 15 words and reads effortlessly.
 
-Dazu kommt ein Gattungsunterschied, den keine Messung erfasst: Eine Autobiografie von fünfzehn Kapiteln wird anders gelesen als eine Monatskolumne von zweitausend Wörtern. Was dort als Eigenart trägt, ermüdet über hundert Seiten.
+There is also a genre difference that no measurement captures: a fifteen-chapter autobiography is read differently from a two-thousand-word monthly column. What works as a quirk there becomes tiring over a hundred pages.
 
-Die neue Zielmarke: **Mittel zwischen 24 und 32 Wörtern, Streuung über 20, pro Kapitel höchstens ein bis zwei Sätze über achtzig Wörter.** Der Fehlversuch steht mitsamt Stefans Zitat in `00-sprache.md`, damit er nicht wiederholt wird.
+The new target: **a mean between 24 and 32 words, standard deviation above 20, and at most one or two sentences over eighty words per chapter.** The failed attempt and Stefan’s response are recorded in `00-sprache.md` so they will not be repeated.
 
-## Der zweite Einspruch: der platte Anfang
+## The second objection: the flat opening
 
-> „platter start, jackie hätte das niemals geschrieben: i was born in Kirkcaldy in the June of 1950, in the town that made linoleum for most of the world and produced one Prime Minister."
+> “Flat opening. Jackie would never have written: i was born in Kirkcaldy in the June of 1950, in the town that made linoleum for most of the world and produced one Prime Minister.”
 
-Statt zu raten, wie er stattdessen angefangen hätte, wurden seine eigenen dreißig Kolumnenanfänge ausgelesen. Das Ergebnis war eindeutig: **Leven beginnt mit Wetter, Ort, Jahreszeit oder Körper. Nie mit Biografie.** Von seinen 979 Absätzen beginnt kein einziger mit einer Datumsangabe der Form „In 1971…“, „On 14 November…“, „By 1983…“.
+Instead of guessing how he would have begun, we extracted thirty of his own column openings. The result was clear: **Leven begins with weather, place, season or the body. Never with biography.** Not one of his 979 paragraphs begins with a date phrase such as “In 1971…”, “On 14 November…” or “By 1983…”.
 
-Das neue erste Kapitel beginnt jetzt so:
+The revised first chapter begins:
 
-> „May, and the hawthorn out all along the path by the railway line between Leslie and Markinch - ne'er cast a clout till May is out…"
+> “May, and the hawthorn out all along the path by the railway line between Leslie and Markinch - ne'er cast a clout till May is out…”
 
-Linoleum und Premierminister stehen weiterhin drin, zwei Absätze später, beiläufig.
+The linoleum and Prime Minister remain, casually, two paragraphs later.
 
-## Der dritte Einspruch: Sätze, die vorstellen statt erzählen
+## The third objection: sentences that introduce rather than tell
 
-> „viel besser. sachen, die ich nicht erklären kann warum sie nicht echt klingen. kannst du?"
+> “Much better. Things where I can’t explain why they don’t sound real. Can you?”
 
-Sieben Belegstellen, alle ähnlich gebaut. Die Messung fand die Regel dahinter:
+Seven examples, all similarly constructed. Measurement revealed the pattern:
 
 | | Leven | Pastiche |
 |---|---|---|
-| Absätze, die mit „There was/is…" beginnen | 0,8 % | 5,4 % |
-| Absätze, die mit „X ist/war ein Y" beginnen | 1,3 % | 7,7 % |
+| Paragraphs beginning “There was/is…” | 0.8% | 5.4% |
+| Paragraphs beginning “X is/was a Y” | 1.3% | 7.7% |
 
-Das ist der **Registerauszug**: Eine Sache wird dem Leser vorgestellt, bevor sie etwas tut. Leven führt Dinge nie ein. Sie kommen in Bewegung herein — über eine Assoziation, eine Erinnerung oder weil er gerade daran vorbeigeht. Aus „There is a ferry to Kerrera" wurde deshalb „You go down to the slip for the Kerrera ferry and there is a board propped up there…". Die Fähre existiert im zweiten Satz genauso; der Unterschied ist, dass jemand zu ihr hinuntergeht.
+This is the **register entry**: something is introduced to the reader before it does anything. Leven does not introduce things. They arrive in motion, through association, memory, or because he happens to pass them. “There is a ferry to Kerrera” therefore became “You go down to the slip for the Kerrera ferry and there is a board propped up there…”. The ferry still exists; the difference is that someone walks down to it.
 
-## Satz für Satz, durch alle fünfzehn Kapitel
+## Sentence by sentence, through all fifteen chapters
 
-> „nicht auf diese spezifischen stellen begrenzen, die waren beispiele. du musst das generell berücksichtigen, also satz für satz sinn und unsinn analysierern. und dann auch auf noch nicht umgeschriebene kapitel anwenden. aber wiederum: nicht in dogmatismus verfallen"
+> “Don’t limit this to those specific passages; they were examples. Take it into account generally, analysing sense and nonsense sentence by sentence. Then apply it to the chapters not yet rewritten. But again: don’t become dogmatic.”
 
-Dafür entstand das zweite Werkzeug, `werkzeug/pruefen.py`. Es meldet zehn Satzformen, die bei Leven selten oder gar nicht vorkommen — Existenz-Eröffnung, Kopula-Definition, Datum am Absatzanfang, Rückverweis-Cleft, bewertender Anschluss, Antithese, Selbstcharakterisierung, Ankündigung, nummerierte Weisheit, Merksatz-Verdacht — dazu kurze Absatzschlüsse als Pointenverdacht.
+This produced the second tool, `werkzeug/pruefen.py`. It flags ten sentence forms rare or absent in Leven: existential openings, copular definitions, dates at paragraph openings, backward-pointing clefts, evaluative continuations, antithesis, self-characterisation, announcements, numbered wisdom and suspected aphorisms. It also flags short paragraph endings as possible punchlines.
 
-Der erste Lauf über alle fünfzehn Kapitel ergab über hundert Kandidaten. Was davon entfernt wurde:
+The first run across fifteen chapters produced more than a hundred candidates. Examples of changes:
 
-| Figur | vorher | nachher |
+| Figure | Before | After |
 |---|---|---|
-| nummerierte Weisheit | „**One.** … **Two.** … **Three.** … **Four.**" (Kap. 15) | dieselben vier Gedanken als Absätze, ohne Zählung |
-| Registerauszug | „Mikki Rain is the chieftain. John Ralph is the tribal seer." | „Mikki Rain has been its chieftain since Dorset … John Ralph carries the relics about and does the seeing" |
-| Stakkato-Pointe | „Alone. Sitting. Watching somebody else's departure." | „On my own, on the sand, watching other people leave, and pleased about it in a way i could not have defended to a committee." |
-| Satz über den eigenen Satz | „That is a shameful sentence and it is accurate." | „…and i have never yet found a way of putting that down which does not shame me while i am putting it down." |
-| Ankündigung | „Now the money, because nobody does the money." | „Nobody ever does the money, so." — und sofort die Zahl |
-| Antithese | „It was not a crisis, it was a solution." | „…so plainly then - it worked. It took the trouble away every time, for about four hours." |
+| Numbered wisdom | “**One.** … **Two.** … **Three.** … **Four.**” (chapter 15) | The same four thoughts as paragraphs, without numbering |
+| Register entry | “Mikki Rain is the chieftain. John Ralph is the tribal seer.” | “Mikki Rain has been its chieftain since Dorset … John Ralph carries the relics about and does the seeing” |
+| Staccato punchline | “Alone. Sitting. Watching somebody else's departure.” | “On my own, on the sand, watching other people leave, and pleased about it in a way i could not have defended to a committee.” |
+| Sentence about itself | “That is a shameful sentence and it is accurate.” | “…and i have never yet found a way of putting that down which does not shame me while i am putting it down.” |
+| Announcement | “Now the money, because nobody does the money.” | “Nobody ever does the money, so.”—immediately followed by the figure |
+| Antithesis | “It was not a crisis, it was a solution.” | “…so plainly then - it worked. It took the trouble away every time, for about four hours.” |
 
-Nebenbei fiel ein Perspektivfehler auf, den kein Stilwerkzeug meldet: In Kapitel 10 stand „the reason i stayed with him until the end of my life". Das kann ein Erzähler nicht schreiben, der noch lebt.
+We also found a perspective error that no style tool would report: chapter 10 said “the reason i stayed with him until the end of my life”. A narrator who is still alive cannot write that.
 
-## Was das Werkzeug nicht kann
+## What the tool cannot do
 
-Hier liegt der methodische Kern des ganzen Tages, und er ist aus dem Christ-Projekt übernommen: **Die mechanische Prüfung meldet, sie entscheidet nicht.** Der Docstring von `pruefen.py` sagt das an sich selbst gerichtet:
+The day’s methodological core came from the Christ project: **mechanical checks report; they do not decide.** The `pruefen.py` docstring addresses itself:
 
-> „Das Werkzeug entscheidet nichts. Jeder Treffer ist ein Kandidat, der im Zusammenhang gelesen werden muss: ‚They danced.' ist ein Satz über tanzende Männer, ‚Only one of them is a room.' ist eine Pointe. Der Zähler sieht den Unterschied nicht."
+> “The tool decides nothing. Every match is a candidate that must be read in context: ‘They danced.’ is a sentence about men dancing; ‘Only one of them is a room.’ is a punchline. The counter cannot tell the difference.”
 
-Von den 31 am Ende verbliebenen Treffern wurde jeder einzeln geprüft und keiner geändert, weil sie alle in eine von vier Gruppen fallen:
+Each of the 31 remaining matches was individually reviewed and left unchanged, because all belonged to one of four groups:
 
-- **Levens eigene Wörter:** „Shame." · „Not everyone can do this." · „Smartie is a retired racehorse." · „DOLL BY DOLL HAVE MOVED."
-- **Wörtliche Rede Dritter:** Blys „That is what the death of a father does to a man's soul. Look at it." · Hillmans „Let the snake be a snake."
-- **Nackte Tatsachen:** „He stayed five weeks." · „He was my little brother." · „i was in the room."
-- **Witze in seinem Register:** „i simply have an excellent memory and a website."
+- **Leven’s own words:** “Shame.” · “Not everyone can do this.” · “Smartie is a retired racehorse.” · “DOLL BY DOLL HAVE MOVED.”
+- **Other people’s direct speech:** Bly’s “That is what the death of a father does to a man's soul. Look at it.” · Hillman’s “Let the snake be a snake.”
+- **Plain facts:** “He stayed five weeks.” · “He was my little brother.” · “i was in the room.”
+- **Jokes in his register:** “i simply have an excellent memory and a website.”
 
-Eine Zeile im Skript hätte jede dieser Stellen glattgezogen. Das Ergebnis wäre ein Text ohne Auffälligkeiten und ohne Verfasser gewesen — also genau der Slop, gegen den die Übung gerichtet war. Die Messung verhindert KI-Sprache nur, solange ein Urteil dazwischensteht.
+One line of script could have smoothed every one of these away. The result would have been a text with no irregularities and no author—exactly the slop this exercise sought to remove. Measurement prevents AI language only when judgement intervenes.
 
-## Was aus dem Christ-Projekt kam
+## What came from the Christ project
 
-Stefan hat ausdrücklich auf `~/www/christ` verwiesen, mit der Einschränkung, das nicht nachzuahmen, sondern zu verstehen, weshalb die Sprache dort geworden ist, was sie ist. Übernommen wurden drei Dinge, keines davon eine Formulierung:
+Stefan explicitly referred to `~/www/christ`, with the qualification that we should understand how its language had developed rather than imitate it. We adopted three things, none of them a formulation:
 
-1. **Die Trennung von mechanischer Prüfung und Urteil.** Dort „report, don't decide", hier derselbe Satz im Docstring.
-2. **Der Katalog der KI-Figuren.** Elf Figuren aus einem deutschen, schriftlichen Stil, übertragen auf eine englische, mündliche Stimme — mit ausdrücklicher Streichung derer, die hier nicht gelten. Der Gedankenstrich-Einschub ist bei Leven kein Fehler, sondern sein Hauptgelenk. Das Stakkato existiert bei ihm als seltene Ausnahme, nicht als Verbot.
-3. **Der dokumentierte Fehlversuch.** Im Christ-Projekt stehen die missratenen Fassungen mit Begründung neben den gelungenen. Deshalb steht hier die 50-Wörter-Katastrophe mitsamt Stefans Stopp-Zitat im Sprachdokument und nicht nur in einem verlorenen Gesprächsverlauf.
+1. **The separation of mechanical checking and judgement.** “Report, don’t decide” there; the same instruction in the docstring here.
+2. **The catalogue of AI figures.** Eleven figures from a German written style, adapted to an English spoken voice, explicitly dropping those that did not apply. The dash insertion is Leven’s principal hinge, not an error. Staccato exists as a rare exception, not a prohibition.
+3. **The documented failed attempt.** In the Christ project, unsuccessful versions sit beside successful ones with explanations. That is why the fifty-word catastrophe and Stefan’s stop instruction are in the language document, not merely a lost conversation.
 
-Was *nicht* übernommen wurde, ist der Ton. Der Christ-Text ist deutsch, schriftlich, ruhig. Leven ist englisch, mündlich, schnell, grob und plötzlich zärtlich.
+The tone was *not* adopted. The Christ text is German, written and calm. Leven is English, spoken, fast, coarse and suddenly tender.
 
-## Der Stand nach diesem Durchgang
+## Where this pass left the work
 
-Alle fünfzehn Kapitel sind geschrieben, geprüft und überarbeitet. Die Messung am Ende:
+All fifteen chapters were written, checked and revised. Final measurements:
 
-| | Leven | 1. Fassung | 2. Fassung |
+| | Leven | Draft 1 | Draft 2 |
 |---|---|---|---|
-| Ankündigung je 1000 W. | 0,16 | 0,47 | **0,07** |
-| Antithese je 1000 W. | 0,22 | 0,67 | **0,14** |
-| Absatzschluss unter 8 Wörtern | 6,3 % | 7,2 % | **4,4 %** |
-| Sätze unter 5 Wörtern | 2,1 % | 9,4 % | **8,1 %** |
-| Satzlänge Ø / Streuung | 35,1 / 30,0 | 22,5 / 17,1 | **23,7 / 17,3** |
+| Announcements per 1,000 words | 0.16 | 0.47 | **0.07** |
+| Antitheses per 1,000 words | 0.22 | 0.67 | **0.14** |
+| Paragraph endings under 8 words | 6.3% | 7.2% | **4.4%** |
+| Sentences under 5 words | 2.1% | 9.4% | **8.1%** |
+| Sentence length: mean / standard deviation | 35.1 / 30.0 | 22.5 / 17.1 | **23.7 / 17.3** |
 
-Zwei Werte weichen weiterhin ab, und beide bleiben bewusst stehen. Die **kurzen Sätze** sind nachgesehen fast alle Szenenüberschriften („Then Reading.", „And then Austria.", „Little Venice."), Zitate oder Tatsachen; ein Buch braucht Schnitte, die eine Monatskolumne nicht braucht. Die **Streuung** bleibt bei 17 statt 30, weil Levens Extremwert aus einzelnen dreihundertwortigen Kolumnensätzen stammt — auf hundert Seiten wäre genau das der Manierismus, vor dem Stefan gewarnt hat.
+Two figures remain different, deliberately. Almost all the **short sentences**, on review, are scene headings (“Then Reading.”, “And then Austria.”, “Little Venice.”), quotations or facts; a book needs cuts that a monthly column does not. **Standard deviation** remains at 17 rather than 30 because Leven’s extreme comes from isolated three-hundred-word column sentences. Across a hundred pages, that would produce exactly the mannerism Stefan warned against.
 
-Offen bleibt eine Schwäche, die benannt und nicht behoben ist: **Die Kapitel 11, 13 und 14 liegen mit einer Streuung von 14 bis 15 am flachsten.** Dort fehlt je ein langer, anrollender Satz. Das steht in `00-sprache.md` als nächster Schritt.
+One weakness was identified but left unresolved: **chapters 11, 13 and 14 have the flattest variation, with standard deviations of 14–15.** Each lacks a long, gathering sentence. `00-sprache.md` records that as the next step.
 
-Und es ist festzuhalten, was dieser Tag *nicht* erbracht hat. Der Text ist von einem einzigen Leser beurteilt worden, und der ist am Projekt beteiligt. Ob die Kapitel jemanden erreichen, der Leven nicht kennt, ist unbekannt. Ob sie jemanden erreichen, der ihn kennt und liebt, ist die eigentliche Frage und ebenfalls unbeantwortet. Die deutsche Fassung existiert nicht. Ein Durchgang über das ganze Buch auf wiederkehrende Bilder — Kohlenschuppen, Fähre, Kohlenfeld — steht aus; einzelne Kapitel sind geprüft, das Buch als Ganzes nicht.
+The day’s limits also need recording. One reader judged the text, and he was involved in the project. Whether the chapters reach someone unfamiliar with Leven is unknown. Whether they reach someone who knows and loves him is the real question, also unanswered. The German version did not yet exist. A whole-book pass for recurring images—coal shed, ferry, coalfield—was still outstanding; individual chapters had been checked, the book as a whole had not.
 
-Die Messwerte belegen ausschließlich, dass bestimmte Satzformen seltener geworden sind. Sie belegen nicht, dass der Text gut ist.
+The figures establish only that certain sentence forms became less frequent. They do not establish that the text is good.
 
 ---
 
-## Redaktionelle Unterlagen für die Weiterarbeit
+## Editorial notes for continued work
 
-Dieser Abschnitt dient der eigenen Erinnerung und kann bei einer Weitergabe entfernt werden.
+These notes preserve the working context of the report.
 
-- **Erzählperspektive:** Der Bericht verwendet „wir" für die gemeinsamen Entscheidungen und „ich" dort, wo es um meine eigenen Fehler geht. Das ist beabsichtigt: Die Fehlentscheidungen (Mittelwert statt Streuung, die Extraktionsfehler, Stratton Smith) waren meine, nicht unsere.
+- **Narrative perspective:** “We” refers to shared decisions; “I” refers to Claude Code’s own mistakes. This is deliberate: the errors concerning mean rather than variation, extraction and Stratton Smith were the agent’s, not shared decisions.
+- **Conversation quotations:** The original report reproduced Stefan’s wording, including lowercase spelling and typos. This English edition translates the German excerpts; English prose examples remain unchanged. The surrounding account summarises the process.
+- **Roles:** Stefan set the goal and detective assignment, insisted on facts before prose, proposed the autobiography, made the three foundational decisions (free pastiche, English with a German version, the whole life), and identified AI language in three passes that the agent had missed. His intervention against overcorrection was the most important single change. Claude Code researched, built extraction, assembled the corpus, wrote the fifteen chapters and two measurement tools, and revised the text. Subagents performed parallel corpus analysis; they could not write files in that environment.
+- **Attribution:** Leven’s texts retain their authorship and rights. The corpus in `research/columns/` is the project’s source material. The song lyric ending Leven’s last blog post was omitted from chapter 15; the pastiche is explicitly labelled and is never presented as his own writing.
+- **Filename collision:** At the time of this report, `research/` contained two files numbered 09: `09-websites.md` from this work and `09-alan-moffatt-genealogie.md` from a parallel session. Both were valid research files; the numbering still needed attention.
 
-- **Gesprächszitate:** Alle eingerückten Zitate sind Stefans Formulierungen im Wortlaut, Kleinschreibung und Tippfehler beibehalten. Die übrige Darstellung fasst den Verlauf zusammen.
+### Project files
 
-- **Rollen:** Stefan gab das Ziel vor, stellte die Detektivaufgabe, bestand auf der Reihenfolge Fakten-vor-Prosa, hatte die Idee der Autobiografie, traf die drei Grundentscheidungen (freie Pastiche, Englisch mit deutscher Fassung, ganzes Leben) und erkannte in drei Durchgängen die KI-Sprache, die ich selbst nicht gesehen hatte. Sein Stopp gegen die Übersteuerung war der wichtigste einzelne Eingriff. Claude Code recherchierte, baute die Extraktion, legte den Korpus an, schrieb die fünfzehn Kapitel und die beiden Messwerkzeuge und führte die Überarbeitung durch. Unteragenten wurden für parallele Korpusanalysen eingesetzt; sie konnten in dieser Umgebung keine Dateien schreiben.
+- [research/README.md](../research/README.md) — biographical compendium, twelve files plus corpus
+- [research/columns/README.md](../research/columns/README.md) — primary source: 76 texts, approximately 90,000 words, with archive links per contribution
+- [autobiografie/00-rahmen.md](../autobiografie/00-rahmen.md) — what the book is and is not; labelling requirements
+- [autobiografie/00-kapitelplan.md](../autobiografie/00-kapitelplan.md) — fifteen chapters with sources for each
+- [autobiografie/00-sprache.md](../autobiografie/00-sprache.md) — language rules: measurements, figure catalogue, documented failed attempt and sentence-by-sentence review log
+- [werkzeug/messen.py](../werkzeug/messen.py) — measures chapters against the corpus
+- [werkzeug/pruefen.py](../werkzeug/pruefen.py) — reports candidates per chapter without deciding
 
-- **Was vor einer Veröffentlichung zu klären ist:** Die Rechte an Levens Texten liegen nicht bei uns. Der Korpus in `research/columns/` ist Arbeitsgrundlage, keine Veröffentlichung. Für die Hommage-Seite wären Zitatumfang und Rechteinhaber zu klären; der Songtext, mit dem Levens letzter Blogeintrag endet, steht aus genau diesem Grund nicht in Kapitel 15. Die Pastiche selbst darf nach dem Rahmen ohnehin nicht als sein Wort erscheinen.
-
-- **Namenskollision:** In `research/` existieren zwei Dateien mit der Nummer 09 — `09-websites.md` aus diesem Verlauf und `09-alan-moffatt-genealogie.md` aus einer parallelen Sitzung. Beide sind inhaltlich in Ordnung; die Nummerierung ist noch zu bereinigen.
-
-### Dateien des Projekts
-
-- [research/README.md](../research/README.md) — das biografische Kompendium, zwölf Akten plus Korpus
-- [research/columns/README.md](../research/columns/README.md) — die Primärquelle: 76 Texte, ~90.000 Wörter, mit Archivlinks je Beitrag
-- [autobiografie/00-rahmen.md](../autobiografie/00-rahmen.md) — was das Buch ist und was nicht; die Kennzeichnungspflicht
-- [autobiografie/00-kapitelplan.md](../autobiografie/00-kapitelplan.md) — fünfzehn Kapitel mit Quellen je Kapitel
-- [autobiografie/00-sprache.md](../autobiografie/00-sprache.md) — das Sprachgesetz: Messungen, Figurenkatalog, der dokumentierte Fehlversuch, das Protokoll des Satz-für-Satz-Durchgangs
-- [werkzeug/messen.py](../werkzeug/messen.py) — misst die Kapitel gegen den Korpus
-- [werkzeug/pruefen.py](../werkzeug/pruefen.py) — meldet Kandidaten pro Kapitel, entscheidet nichts
-
-### Aufrufe
+### Commands
 
 ```sh
-python3 werkzeug/messen.py              # Gesamtvergleich Leven / Pastiche
+python3 werkzeug/messen.py              # Overall Leven / pastiche comparison
 python3 werkzeug/messen.py autobiografie/07-electric-fur.md
-python3 werkzeug/pruefen.py             # alle Kapitel
-python3 werkzeug/pruefen.py 07 08       # einzelne, mit führender Null
+python3 werkzeug/pruefen.py             # All chapters
+python3 werkzeug/pruefen.py 07 08       # Selected chapters, with leading zero
 ```
 
-### Verwandte Arbeitsgrundlage
+### Related working material
 
-- `~/www/testhost/christ` — Herkunft der Methode: Trennung von mechanischer Prüfung und Urteil, Figurenkatalog der KI-Sprache, dokumentierte Fehlversuche
+- `~/www/testhost/christ` — source of the method: separation of mechanical checking and judgement, catalogue of AI language figures, documented failed attempts

@@ -1,66 +1,66 @@
-# Lokale Archivsuche bedienen und entwickeln
+# Operating and developing local archive search
 
-Stand: 26. Oktober 2026. Diese Dokumentation beschreibt die implementierte lokale Testfassung. Sie ist keine öffentliche Freigabe und kein Nachweis einer abgeschlossenen Qualitäts- oder Gesamtprüfung.
+As of 26 October 2026. This document describes the implemented local test version. It is not approval for public operation or evidence of completed quality or end-to-end assessment.
 
-## Suche öffnen
+## Open search
 
-Die eigenständige Testwebsite ist für diese Adressen eingerichtet:
+The standalone test website is configured at:
 
-- Deutsch: <http://127.0.0.1:8082/de/suche-test>
-- Englisch: <http://127.0.0.1:8082/en/search-test>
+- German: <http://127.0.0.1:8082/de/suche-test>
+- English: <http://127.0.0.1:8082/en/search-test>
 
-`/de/suche` und `/en/search` zeigen dasselbe Formular. Die Seiten funktionieren ohne JavaScript. Der Suchdienst läuft getrennt auf `127.0.0.1:8081`; seine PostgreSQL-Datenbank ist ausschließlich über `127.0.0.1:55473` erreichbar. Alle drei gehören zur lokalen Entwicklung. Die Testwebsite ersetzt weder den bestehenden Websiteprozess auf Port 8080 noch eine veröffentlichte Website.
+`/de/suche` and `/en/search` show the same form. Pages work without JavaScript. The search service runs separately on `127.0.0.1:8081`; PostgreSQL is reachable only through `127.0.0.1:55473`. All three belong to local development. The test website replaces neither the existing website process on port 8080 nor a published website.
 
-Für Suchtests direkt Port 8082 benutzen. Der bestehende Apache-/MAMP-Weg ist dafür nicht vorgesehen: Dort müssen insbesondere die SSL-Zugriffsprotokolle noch so geprüft und angepasst werden, dass Suchtexte nicht über URL-Querystrings protokolliert werden.
+Use port 8082 directly for search tests. The existing Apache/MAMP route is not intended for them: its SSL access logs in particular still need review and adjustment so query strings do not log search text.
 
-## Suchmodi und Filter
+## Search modes and filters
 
-| Einstellung | Wirkung |
+| Setting | Effect |
 | --- | --- |
-| `lexical` | Wortsuche mit BM25. Geeignet für Namen, Titel und erkennbare Formulierungen. Ohne Reranking braucht diese Suche keinen externen Modellaufruf. |
-| `semantic` | Ähnlichkeitssuche mit Qwen-Embeddings. Geeignet für Umschreibungen und inhaltliche Fragen. Bei nicht verfügbarer semantischer Suche kann der Dienst auf Wortsuche zurückfallen. |
-| `hybrid` | Verbindet Wortsuche und semantische Kandidaten durch Reciprocal Rank Fusion. Dies ist die Voreinstellung. |
-| Reranking | Optionaler zusätzlicher Modellaufruf, der die gefundenen Kandidaten neu ordnet. Die Anzeige „Reranking verwendet“ zeigt, ob er tatsächlich erfolgreich eingesetzt wurde. |
+| `lexical` | BM25 word search. Useful for names, titles and recognisable wording. Without reranking, no external model call is needed. |
+| `semantic` | Similarity search with Qwen embeddings. Useful for paraphrases and questions about content. If semantic search is unavailable, the service can fall back to word search. |
+| `hybrid` | Combines word-search and semantic candidates through Reciprocal Rank Fusion. This is the default. |
+| Reranking | An optional additional model call that reorders candidates. The “Reranking used” indicator shows whether it actually succeeded. |
 
-Semantische und hybride Anfragen übertragen den Suchtext an DeepInfra. Angefordertes Reranking überträgt zusätzlich Texte der Kandidaten. Der Hinweis vor dem Formular beschreibt diese Übermittlung. Für Tests ohne externe Übermittlung `lexical` wählen und Reranking ausgeschaltet lassen. Der API-Schlüssel bleibt beim Suchdienst; die Website und der Browser benötigen ihn nicht.
+Semantic and hybrid requests send search text to DeepInfra. Requested reranking also sends candidate texts. The notice before the form describes this transfer. For tests without external transfer, select `lexical` and leave reranking off. The API key stays with the search service; neither website nor browser needs it.
 
-„Textstimme“ filtert `text_voice`: `leven`, `third_party`, `editorial` oder `pastiche`. Die Quellenstimme `source_voice` wird separat angezeigt. Eine redaktionelle Zusammenfassung einer Konzertkritik kann daher die Quellenstimme `third_party`, aber die Textstimme `editorial` tragen. Der aktuelle Export schließt die Pastiche aus; ihr Filter kann entsprechend keine Treffer liefern.
+Text voice filters `text_voice`: `leven`, `third_party`, `editorial` or `pastiche`. Source voice, `source_voice`, is displayed separately. An editorial summary of a concert review can therefore have source voice `third_party` but text voice `editorial`. The current export excludes pastiche, so that filter cannot return results.
 
-Die Jahresfilter beziehen sich auf das **Erscheinungsjahr des Dokuments**, nicht auf das Datum eines darin erwähnten Konzerts. „Sprache der Zielseiten“ wählt deutsche oder englische Dokumentlinks; sie beschränkt nicht die Sprache der durchsuchten Texte. Die tatsächliche Textsprache steht am Treffer. Eine Anfrage darf höchstens 1024 UTF-8-Bytes enthalten. Das Formular zeigt höchstens 20 Treffer; diese Anzahl ist keine Gesamtzählung aller passenden Dokumente.
+Year filters refer to the **document's publication year**, not the date of a concert mentioned in it. Target-page language selects German or English document links; it does not restrict the language of searched texts. Actual text language is shown on each result. A query may contain at most 1024 UTF-8 bytes. The form displays at most 20 results; that number is not a total count of all matching documents.
 
-Diese Beispiele eignen sich zum Vergleichen der Modi, ohne bestimmte Treffer oder eine vollständige Antwort vorauszusetzen:
+These examples help compare modes without presupposing particular results or complete answers. German query strings are retained so the documented experiments remain reproducible:
 
-| Anfrage | Versuch |
+| Query | Experiment |
 | --- | --- |
-| `Doll by Doll` | Zunächst `lexical`, anschließend `hybrid`; Titel und Textstellen vergleichen. |
-| `Norwegen` | Wortsuche mit und ohne Textstimmenfilter vergleichen. |
-| `Welche Erinnerungen beschreibt Leven an seine Kindheit?` | `semantic` und `hybrid` vergleichen, danach Textstimme `leven` wählen. |
-| `Verlust und Trauer` | Inhaltliche Suche mit und ohne Reranking vergleichen. |
-| `Fife` | `lexical` suchen und Erscheinungsjahre eingrenzen; die Jahresauswahl nicht als Ereigniszeitraum lesen. |
+| `Doll by Doll` | Try `lexical`, then `hybrid`; compare titles and passages. |
+| `Norwegen` | Compare word search with and without a text-voice filter. |
+| `Welche Erinnerungen beschreibt Leven an seine Kindheit?` | Compare `semantic` and `hybrid`, then select text voice `leven`. |
+| `Verlust und Trauer` | Compare thematic search with and without reranking. |
+| `Fife` | Use `lexical` and narrow publication years; do not interpret the year selection as an event period. |
 
-## Ergebnisse lesen
+## Read results
 
-Maßgeblich ist der **verwendete Modus** in der Ergebnisanzeige, nicht allein die Auswahl im Formular. `degraded`, der angezeigte Grund und `reranked` machen Rückfallbetrieb und ausgebliebenes Reranking sichtbar. Hinzu kommen die Suchdauer, die Version des Suchdienstes und die `content_version` des Inhaltsstands.
+The **mode used**, as shown in the results, is authoritative, not just the form selection. `degraded`, the displayed reason and `reranked` expose fallback operation and skipped reranking. Results also show search duration, service version and the content snapshot's `content_version`.
 
-Ein Treffer öffnet die gespeicherte Textstelle unter `/de/suche/textstelle?id=…` beziehungsweise `/en/search/passage?id=…`. Dort stehen der vollständige gespeicherte Text, Kennungen, Stimmen, Textart und vorhandene weitere Metadaten. Der Link „Originalseite öffnen“ führt separat zum Dokument. Es werden keine Absatzanker auf der Originalseite erfunden. Der gelesene Suchtext gehört zum gepinnten Inhaltsstand; eine inzwischen geänderte Originalseite muss damit nicht wortgleich sein.
+A result opens the stored passage at `/de/suche/textstelle?id=…` or `/en/search/passage?id=…`. It shows the full stored text, identifiers, voices, text kind and other available metadata. “Open original page” links separately to the document. No paragraph anchors are invented on original pages. The passage belongs to the pinned content snapshot; an original page changed since then need not remain identical.
 
-„Keine Textstellen gefunden“ ist ein reguläres Ergebnis. Fehler werden davon getrennt dargestellt:
+“No passages found” is a normal result. Errors are displayed separately:
 
-| Status | Bedeutung |
+| Status | Meaning |
 | --- | --- |
-| 400 | Ungültige Anfrage oder Filter. |
-| 404 | Die angeforderte Textstelle existiert in diesem Inhaltsstand nicht. |
-| 409 | Website und Suchdienst verwenden unterschiedliche Inhaltsstände. |
-| 429 | Die begrenzte Suchkapazität ist ausgelastet. |
-| 503 | Suche, Datenbank oder interne Verbindung ist nicht verfügbar beziehungsweise die Antwort nicht verwendbar. |
+| 400 | Invalid query or filters. |
+| 404 | The requested passage does not exist in this snapshot. |
+| 409 | Website and search service use different content snapshots. |
+| 429 | Bounded search capacity is exhausted. |
+| 503 | Search, database or internal connection is unavailable, or the response is unusable. |
 
-Suchseiten senden `Cache-Control: no-store`, `noindex` und `Referrer-Policy: no-referrer`. Die Go-Komponenten protokollieren keine Suchtexte. GET-Anfragen bleiben dennoch in der Browseradresse sichtbar und können im Browserverlauf stehen. Die normale Website benötigt für ihre übrigen Seiten keine Datenbankverbindung zum Suchdienst.
+Search pages send `Cache-Control: no-store`, `noindex` and `Referrer-Policy: no-referrer`. Go components do not log search text. GET queries nevertheless remain visible in the address bar and may enter browser history. The website's other pages require no connection to the search database.
 
-## Lokale Prozesse verwalten
+## Manage local processes
 
-Die Befehle im Repository-Hauptverzeichnis ausführen. Voraussetzungen sind Go, Python 3, Docker Desktop mit dem Kontext `desktop-linux` und für den persistenten Betrieb die macOS-Benutzersitzung. Das Werkzeug [ops/search/local.py](../../ops/search/local.py) verwaltet ausschließlich die lokale Suchumgebung. Sein Compose-Projekt heißt `jackieleven-search-dev` und besitzt ein eigenes Datenvolume.
+Run commands from the repository root. Prerequisites are Go, Python 3, Docker Desktop using the `desktop-linux` context, and a macOS user session for persistent operation. [ops/search/local.py](../../ops/search/local.py) manages only this local search environment. Its Compose project is `jackieleven-search-dev`, with a dedicated data volume.
 
-Bei bereits importiertem und veröffentlichtem Inhaltsstand:
+For an already imported and published snapshot:
 
 ```sh
 python3 ops/search/local.py db-up
@@ -69,9 +69,9 @@ python3 ops/search/local.py install
 python3 ops/search/local.py install-test
 ```
 
-`grant-reader` setzt die lesende Datenbankrolle auf einem bereits angelegten Suchschema auf. `install` baut den Suchdienst und startet ihn als Benutzer-LaunchAgent. `install-test` baut und startet den separaten Website-LaunchAgent auf Port 8082. Die Prozesse werden durch `launchd` in der Benutzersitzung betreut. Das lokale Startwerkzeug aktiviert den DeepInfra-Zugriff für den Suchdienst; der Schlüssel muss dafür bereits geschützt hinterlegt sein.
+`grant-reader` configures the read-only database role on an existing search schema. `install` builds the search service and starts it as a user LaunchAgent. `install-test` builds and starts the separate website LaunchAgent on port 8082. `launchd` supervises both within the user session. The local launcher enables DeepInfra access for the search service; its key must already be stored securely.
 
-Weitere Befehle:
+Other commands:
 
 ```sh
 python3 ops/search/local.py status
@@ -80,17 +80,17 @@ python3 ops/search/local.py stop-test
 python3 ops/search/local.py stop
 ```
 
-`status` zeigt Datenbank und Suchdienst. `restart` baut und startet den Suchdienst erneut; für die Testwebsite erneut `install-test` verwenden. `stop-test` und `stop` stoppen die jeweiligen geladenen Benutzerjobs, löschen aber weder Datenbank noch Importzustand. Die angelegten LaunchAgent-Dateien bleiben vorhanden. Die Datenbank lässt sich gesondert mit `db-stop` stoppen.
+`status` shows the database and search service. `restart` rebuilds and restarts search; use `install-test` again for the test website. `stop-test` and `stop` stop the respective loaded user jobs without deleting database or import state. LaunchAgent files remain installed. Stop the database separately with `db-stop`.
 
-Zur Funktionsprüfung dienen <http://127.0.0.1:8081/healthz> und <http://127.0.0.1:8081/readyz>. `healthz` bestätigt nur den laufenden HTTP-Prozess. `readyz` prüft den gebundenen Datenbestand und die Datenbank, nicht die Verfügbarkeit von DeepInfra. Erst eine Suchanfrage mit Kontrolle von Modus und Rückfallanzeige prüft den gewünschten Suchweg.
+Use <http://127.0.0.1:8081/healthz> and <http://127.0.0.1:8081/readyz> for checks. `healthz` confirms only that the HTTP process is running. `readyz` checks the bound corpus and database, not DeepInfra availability. Only a search request, with inspection of mode and fallback indicators, tests the intended search path.
 
-Wer die Website unmittelbar als Entwicklungsprozess startet, setzt `JACKIE_SEARCH_URL=http://127.0.0.1:8081` und `JACKIE_SEARCH_MANIFEST` auf den absoluten Manifestpfad. Gleichwertige Website-Flags heißen `-search-url` und `-search-manifest`; `-base-path` unterstützt einen URL-Präfix. Die Website akzeptiert nur einen Loopback-HTTP-Ursprung und folgt keinen Weiterleitungen. Ihr HTTP-Client hat eine Gesamtfrist von elf Sekunden und begrenzte Antwortgrößen.
+When starting the website directly as a development process, set `JACKIE_SEARCH_URL=http://127.0.0.1:8081` and `JACKIE_SEARCH_MANIFEST` to the absolute manifest path. Equivalent website flags are `-search-url` and `-search-manifest`; `-base-path` supports a URL prefix. The website accepts only a loopback HTTP origin and follows no redirects. Its HTTP client has an eleven-second overall deadline and bounded response sizes.
 
-## Importzustand und Manifestwechsel
+## Import state and manifest switching
 
-Der anfängliche Export liest Website-Revision `ea653b6` und Archiv-Revision `7d353a4`. Dieser ausgewählte Bestand umfasst 572 Dokumente, 7993 Textstellen und 965 Archiv-Entitäten. Die Zahlen beschreiben diesen Export, nicht den Umfang eines vollständig erschlossenen Archivs. Änderungen der Arbeitskopien gelangen nicht automatisch in den Index.
+The initial export reads website revision `ea653b6` and archive revision `7d353a4`. This selection comprises 572 documents, 7993 passages and 965 archive entities. These counts describe that export, not a completely catalogued archive. Working-copy edits do not automatically enter the index.
 
-Importdetails und Wiederaufnahme beschreibt [tools/search/README.md](../../tools/search/README.md). Vor dem ersten Import die private Python-Umgebung mit den festgelegten Abhängigkeiten einrichten:
+[tools/search/README.md](../../tools/search/README.md) describes importing and resuming. Before the first import, create the private Python environment with pinned dependencies:
 
 ```sh
 uv venv .dev/runtime/search/venv
@@ -98,7 +98,7 @@ uv pip install --python .dev/runtime/search/venv/bin/python \
   -r tools/search/requirements.txt
 ```
 
-Der lokale Einstieg ist `index`. Er lädt die private Datenbankkonfiguration und gibt dem Importer den geschützten Schlüsseldateipfad mit; Zugangsdaten müssen nicht in Shellbefehle kopiert werden. Das Archiv wird standardmäßig im Nachbarverzeichnis `../jackieleven-archive` erwartet.
+The local entry point is `index`. It loads private database configuration and passes the protected key-file path to the importer; credentials need not be copied into shell commands. By default, the archive is expected in the neighbouring directory `../jackieleven-archive`.
 
 ```sh
 python3 ops/search/local.py index --plan
@@ -106,40 +106,40 @@ python3 ops/search/local.py db-up
 python3 ops/search/local.py index --workers 4
 ```
 
-`--plan` schreibt bereits den privaten Export und das Kennungsregister, erzeugt aber keine Embeddings und führt keine Datenbank- oder Provideraufrufe aus. Ohne `--plan` erzeugt `index` standardmäßig Embeddings; bis zu vier Batches werden gleichzeitig verarbeitet. `--workers 1` reduziert die Parallelität. Für einen Stand ohne Embeddings:
+`--plan` writes the private export and identity registry, but creates no embeddings and makes no database or provider calls. Without `--plan`, `index` generates embeddings by default, processing up to four batches concurrently. `--workers 1` reduces concurrency. For a snapshot without embeddings:
 
 ```sh
 python3 ops/search/local.py index --lexical-only
 ```
 
-Neue Quellstände ausdrücklich festlegen, beispielsweise zunächst für eine Planung:
+Specify new source revisions explicitly, for example first in a planning run:
 
 ```sh
 python3 ops/search/local.py index --plan \
   --website-revision ea653b6 --archive-revision 7d353a4
 ```
 
-Die beiden Revisionen durch die gewünschten, vorhandenen Git-Revisionen ersetzen und für den anschließenden Import dieselben Argumente ohne `--plan` verwenden. Nach dem ersten Import `grant-reader`, `install` und `install-test` wie oben ausführen. Keine Schlüsseldatei ausgeben, keine DSN mit Passwort in Befehlsargumente kopieren und weder Zugangsdaten noch privaten Laufzeitbestand committen.
+Replace both revisions with the desired existing Git revisions, then use the same arguments without `--plan` for the import. After the first import, run `grant-reader`, `install` and `install-test` as above. Do not print key files, copy password-bearing DSNs into command arguments, or commit credentials or private runtime state.
 
-Der dauerhafte private Zustand liegt unter `.dev/runtime/search/`: insbesondere `registry.sqlite3`, die wiederverwendbaren Vektoren unter `artifacts/`, die kanonischen Exporte unter `exports/` und `manifest.json`. Hinzu kommen die Datenbanktabellen für Importfortschritt und veröffentlichte Builds. Das Kennungsregister, die Artefakte, aufbewahrte Manifeste und das Datenbankvolume gehören zusammen in die Sicherung. Sie sind keine wegwerfbaren Builddateien. Ein unterbrochener Import kann mit denselben Eingaben wiederholt werden; bereits validierte Artefakte werden wiederverwendet.
+Durable private state lives under `.dev/runtime/search/`: notably `registry.sqlite3`, reusable vectors in `artifacts/`, canonical exports in `exports/`, and `manifest.json`. Database tables also retain import progress and published builds. Back up the identity registry, artifacts, retained manifests and database volume together. They are not disposable build files. An interrupted import can be repeated with the same inputs; validated artifacts are reused.
 
-Der Importer ersetzt das Manifest erst nach einem fertigen Datenbank-Build. Website und Suchdienst lesen es **nur beim Start** und halten danach ihren Inhaltsstand fest. Nach jedem Manifestwechsel deshalb beide Prozesse neu starten:
+The importer replaces the manifest only after a database build is complete. Website and search service read it **only at startup**, then hold their content snapshot fixed. Restart both after every manifest switch:
 
 ```sh
 python3 ops/search/local.py install
 python3 ops/search/local.py install-test
 ```
 
-Anschließend `readyz` und eine Suche kontrollieren. Solange erst ein Prozess den neuen Stand geladen hat, kann die Website 409 melden. Für ein Rollback ein zuvor gesichertes Manifest wieder als aktives Manifest bereitstellen und dieselben beiden Befehle ausführen. Der dazugehörige frühere Build muss noch in der Datenbank vorhanden sein; ein altes Manifest allein stellt keine gelöschten Daten wieder her.
+Then check `readyz` and run a search. While only one process has loaded the new snapshot, the website may return 409. To roll back, restore a previously saved manifest as the active manifest and run the same commands. The corresponding earlier database build must still exist; an old manifest alone cannot restore deleted data.
 
-## Grenzen und weitere Prüfung
+## Limits and further validation
 
-Die Suche liefert Textstellen aus dem ausgewählten Bestand. Sie beantwortet keine Vollständigkeitsfragen wie „alle belegten Konzerte in Norwegen 2004“ und erzeugt keine belegte Gesamterzählung. Archiv-Entitäten bleiben als strukturierte Daten erhalten; daraus folgt noch keine vollständig ausgebaute Suche über sämtliche Aussagen und Beziehungen.
+Search retrieves passages from the selected corpus. It does not answer completeness questions such as “all documented concerts in Norway in 2004” or generate an evidence-backed overall narrative. Archive entities remain available as structured data; this does not yet constitute a fully developed search across every assertion and relationship.
 
-Semantische Ähnlichkeit ist kein Beleg für sachliche Richtigkeit. Eine brauchbare Bewertung braucht nachvollziehbare Anfragen, relevante Textstellen und einen getrennten Testsatz. Die Beispiele oben sind Bedienbeispiele, keine abgeschlossene Evaluation. Laufzeiten, Rückfallhäufigkeit und Trefferqualität müssen am realen Bestand gemessen werden. Provideraufrufe können kostenpflichtig sein; Modellverfügbarkeit und Laufzeiten sind nicht durch die lokale Datenbank abgesichert.
+Semantic similarity does not establish factual correctness. Useful evaluation needs traceable queries, relevant passages and a separate test set. The examples above are usage examples, not completed evaluation. Latency, fallback frequency and relevance must be measured on the real corpus. Provider calls may incur charges; the local database does not guarantee model availability or latency.
 
-Der lokale Startweg aktiviert den lesenden MCP-Endpunkt `http://127.0.0.1:8081/mcp` mit den Werkzeugen `search`, `get_passage` und `get_entity`. Auch dort gelten Inhaltsstand, Stimmen und die genannten externen Übermittlungen. Das ist kein Nachweis der Kompatibilität mit einem öffentlichen OpenAI-Connector. Eine Anbindung externer Assistenten, öffentliche Erreichbarkeit, Proxy- und Zugriffsprotokolle sowie ein öffentlicher Betrieb benötigen eine eigene Freigabe und Prüfung. `noindex` und Loopback-Adressen sind kein Ersatz für diese Arbeit. Der verbindliche technische Schnittstellenvertrag steht in [implementation-contract.md](implementation-contract.md).
+The local launcher enables the read-only MCP endpoint `http://127.0.0.1:8081/mcp` with `search`, `get_passage` and `get_entity`. Snapshot, voice and external-transfer rules apply there too. This does not establish compatibility with a public OpenAI connector. External assistant connections, public reachability, proxy/access logging and public operation require separate approval and checks. `noindex` and loopback addresses do not replace that work. The binding technical interface contract is [implementation-contract.md](implementation-contract.md).
 
-`local.py index` sichert veröffentlichte Manifeste zusätzlich unter `.dev/runtime/search/manifests/<content_version>.json`. Für einen lokalen Rollback bei unverändertem Website-Inhalt das gewünschte Manifest nach `manifest.json` kopieren, dann `install` und `install-test` ausführen. Dazu müssen die alten Datenbankzeilen erhalten bleiben. Bei geändertem Website-Inhalt gehört auch dessen passende Revision zum Rollback.
+`local.py index` also preserves published manifests under `.dev/runtime/search/manifests/<content_version>.json`. For a local rollback with unchanged website content, copy the desired manifest to `manifest.json`, then run `install` and `install-test`. The old database rows must still exist. If website content changed, its matching revision must also be restored.
 
-Funktions- und Ausfallprüfung: `python3 ops/search/check.py` beziehungsweise `python3 ops/search/check-failures.py`. Mit `check.py --external` werden zusätzlich echte Anbieteraufrufe geprüft. Ein externer Ausfall kann diese ausdrücklich strenge Prüfung fehlschlagen lassen, während die Oberfläche korrekt Rückfallbetrieb anzeigt. Ergebnisse und fachliche Grenzen stehen im [Abnahmebericht](acceptance.md).
+Functional and failure checks: `python3 ops/search/check.py` and `python3 ops/search/check-failures.py`. `check.py --external` additionally tests real provider calls. External failure can fail this deliberately strict check while the interface correctly shows fallback mode. Results and domain limits are in the [acceptance report](acceptance.md).

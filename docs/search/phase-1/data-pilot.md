@@ -1,70 +1,70 @@
-# Datenpilot für die Suche, Phase 1
+# Search data pilot, phase 1
 
-Stand: 26. Oktober 2026. Der Pilot enthält **16 Dokumentkandidaten: 14 vorhandene Archivdokumente und zwei ausdrücklich vorgeschlagene Kolumnenidentitäten**. Davon liefern 15 Kandidaten 119 vorhandene Textstellen; der verbleibende Paywall-Eintrag ist eine negative Metadatenkontrolle. Er ist kein Suchrelease und enthält weder eine Pipeline noch neue HTML-Anker.
+As of 26 October 2026. The pilot contains **16 document candidates: 14 existing archive documents and two explicitly proposed column identities**. Fifteen candidates provide 119 existing passages; the remaining paywall entry is a negative metadata control. This is not a search release and contains neither a pipeline nor new HTML anchors.
 
-Maschinenlesbarer Bestand: [pilot-manifest.json](pilot-manifest.json). Gemeinsamer Vertragsvorschlag: [data-contract.md](data-contract.md). Reproduzierbare lokale Prüfung: [data-check.py](data-check.py).
+Machine-readable inventory: [pilot-manifest.json](pilot-manifest.json). Shared contract proposal: [data-contract.md](data-contract.md). Reproducible local check: [data-check.py](data-check.py).
 
-## Gebundene Quellenbasis
+## Pinned source baseline
 
-- Website-Basis: `3fd28a9` (vollständige Commit-ID im Manifest); Messort/Arbeitsbaum `/Users/stefan/.codex/worktrees/search-pilot-data/jackieleven`, Aufgabenbranch `codex/search-pilot-data`.
-- Archiv: `7d353a4ce8043e284619fe409bfe87238dae2257`, ausschließlich lesend unter `/Users/stefan/www/jackieleven-archive`.
-- 96 Eingabedateien sind mit Repository, relativem Pfad, Git-Blob und SHA-256 gebunden. Darunter befinden sich Quellnotizen, ausgewählte Archivdokumente/Ereignisse und direkte Metadatenabhängigkeiten, veröffentlichter Katalog, drei Originalseitenbilder, Sprachrouten, Vorlagen, Schema und Abdeckungsregister. `local_root` bezeichnet den historischen Messort und ist über Prüferargumente ersetzbar.
-- Keine Anbieteraufrufe, kein Nachladen externer Originale, kein Lesen/Kopieren von API-Schlüsseln, keine Archivänderung. Vorhandene Angaben `live`/`paywall` sind historische Quellenmetadaten, kein aktueller Erreichbarkeitstest.
+- Website baseline: `3fd28a9` (full commit in the manifest); measurement location/worktree `/Users/stefan/.codex/worktrees/search-pilot-data/jackieleven`, task branch `codex/search-pilot-data`.
+- Archive: `7d353a4ce8043e284619fe409bfe87238dae2257`, read-only at `/Users/stefan/www/jackieleven-archive`.
+- Ninety-six input files are bound by repository, relative path, Git blob and SHA-256. These include source notes, selected archive documents/events and direct metadata dependencies, the published catalogue, three original page images, language routes, templates, schema and coverage register. `local_root` identifies the historical measurement location and can be overridden through checker arguments.
+- No provider calls, external-original downloads, API-key reads/copies or archive changes. Existing `live`/`paywall` values are historical source metadata, not current reachability tests.
 
-Die örtlichen Recherchedateien wurden gelesen; die DE/EN-Textlagen und Originalzitate des Websitekatalogs wurden voneinander getrennt. Drei lokale Originalseitenbilder wurden zusätzlich visuell geprüft: NME vom 28.10.1972, Druckseiten 24/33, und Record Mirror vom 20.06.1981, Seite 18. Die zwei ausgewählten Kolumnentranskriptionen wurden vollständig gelesen. Für andere Presseartikel liegt hier kein vollständiger Originaltext als Transkription vor: vorhandene Zusammenfassungen und Auszüge sind nicht zu Volltexten umgedeutet worden. Eine erneute unabhängige Originalprüfung aller historischen Erschließungen ist nicht Teil dieses Nachweises.
+Local research files were read; DE/EN text layers and original quotations in the website catalogue were separated. Three local original page images were also visually checked: NME, 28 October 1972, printed pages 24/33, and Record Mirror, 20 June 1981, page 18. Both selected column transcriptions were read in full. Other press articles have no complete original transcription here: existing summaries and excerpts were not reclassified as full texts. Independently rechecking every historical cataloguing decision against originals is outside this evidence's scope.
 
-## Auswahl und tatsächliche Verfügbarkeit
+## Selection and actual availability
 
-„DE/EN“ bezeichnet redaktionelle Zusammenfassungen der Website. Die Sprache des Originals steht getrennt. Kennungen, Dateipfade, konkrete JSON-Pointer/Zeilenbereiche, Textprüfsummen, Archivbelegverweise und Ziele stehen pro Zeile im Manifest; keine fremden Volltexte werden in die Lieferdateien dupliziert.
+DE/EN means editorial website summaries. Original language is recorded separately. IDs, paths, specific JSON pointers/line ranges, text checksums, archive evidence references and targets are in each manifest entry; third-party full texts are not duplicated in deliverables.
 
-| Pilot | Quelle | Vorhandene Texte/Originalsprache | Zweck und Grenze |
+| Pilot | Source | Available text/original language | Purpose and limit |
 |---|---|---|---|
-| D01 | NME, 28.10.1972, Gig Guide | DE/EN; englische Originalseiten als Bilder | Drei Folkclub-Ankündigungen; `primary_document` und `inferred`. Archiv-ID enthält `gig-guide`, Website-ID nicht. Keine Durchführung ableiten. |
-| D02 | Ya, 28.01.1976, La Boîte Madrid | DE/EN; zwei spanische Originalauszüge samt DE/EN-Übersetzungen | `paywall`, nur BNE-Suchauszüge; kein vollständiger Wortlaut, ungenauer Konzertmonat. Doppelte Zitate werden nicht doppelt indexiert. |
-| D03 | Record Mirror, 28.10.1978, Roundhouse | DE/EN + englische Originalzitate | Frontmatter anonym/Byline fehlt; Inhalt und Archiv nennen Alex Skorecki. Widerspruch bleibt sichtbar. |
-| D04 | Sounds, 23.02.1980, Marquee | Nur bibliografisch nutzbar; Originalsprache EN | Titel „Shattered Dolls“, kein einsehbares Urteil. `stufe=weitere`: keine Detailseite und null Passagen. Unsichere Zusammenlegung zum 05.02.1980. |
-| D05 | Record Mirror, 09.08.1980, Torrington | DE/EN + englische Originalzitate | Notiz über abgeschnittenes OCR/Byline steht neben später ausgebautem Inhalt mit Graham Stevens. Kein automatischer Unsicherheitsabbau. |
-| D06 | Record Business, 15.06.1981, Venue | DE/EN + englischer Originalauszug | Datum 08.06.1981? und Identität mit D07 erschlossen. |
-| D07 | Record Mirror, 20.06.1981, Venue | DE/EN + englische Originalzitate; Originalscan lokal | Scan bestätigt Robin Smiths Doll-by-Doll-Text; „Crystal Balls Up“ gehört zum Nachbarartikel. Alte ID bleibt nur aus Linkstabilität. |
-| D08 | Nordlands Framtid, 15.04.1997, Bodø | DE/EN + norwegische Originalzitate (`no`) | Konzertbericht über Den Siste Glæde. Überlieferter Bühnenwitz bleibt Aussage im Bericht Dritter. |
-| D09 | Nordlandsposten, 15.04.1997, Bodø | DE/EN + norwegische Originalzitate (`no`) | Zweite Stimme zur selben Veranstaltung. Archiv hält außerdem frühe Terminmenge 05./06./13.04. fest. Überschrift im Recherchevermerk unsicher. |
-| D10 | Guardian, 03.02.2003, Korks Otley | DE/EN + englische Originalzitate | Publikationsdatum ist kein Konzerttag. Rückblick auf Levens Bühnenerzählung nicht als unabhängig belegte Biografie ausgeben. |
-| D11 | Gaesteliste, 23.02.2003, Gloria Köln | DE/EN + deutsche Originalzitate | DE-Original plus EN-Zusammenfassung; Namens-/Titelfehlschreibungen nicht zu neuen Entitäten machen. |
-| D12 | Whisperin & Hollerin, Leeds 19th Feb | DE/EN + englische Originalzitate | 2005 ist erschlossen; Datum im Dateinamen hat keine höhere Beweiskraft. |
-| D13 | KindaMuzik, 22.09.2010, Paradiso | DE/EN + niederländische Originalzitate | Bericht über 19.09.2010; unbenannter Begleitmusiker bleibt unbenannt. Herkunftsbehauptung als Zuschreibung des Rezensenten. |
-| D14 | theArtsDesk, 13.08.2011, Fringe | DE/EN + englische Originalzitate | Nur Leven-Teil der Sammelkritik. Cabaret Voltaire/11.08.2011 stammt aus ungeprüftem Kalender, im Archiv `inferred`. |
-| D15 | Deep Pool, Februar 2003 | Vollständige englische Originaltranskription lokal; drei Pilotabsätze | Levens Stimme: Otley-Aufenthalt, geplantes Tromsø, Tour. Neue Archiv-Dokumentkennung nur vorgeschlagen; Tromsø-Zukunftsplan ist kein Durchführungsbeleg. |
-| D16 | Blog, Bergen/Odda, Capture Dezember 2009 | Vollständige englische Originaltranskription lokal; drei Pilotabsätze | Reise, phantastischer Gletschertunnel, Odda. Capture-Monat ist kein Veranstaltungsdatum; Ich-Erzählung ist kein unabhängiger Beleg. Archivkennung nur vorgeschlagen. |
+| D01 | NME, 28 October 1972, Gig Guide | DE/EN; English original pages as images | Three folk-club announcements; `primary_document` and `inferred`. Archive ID contains `gig-guide`, website ID does not. Do not infer that events took place. |
+| D02 | Ya, 28 January 1976, La Boîte Madrid | DE/EN; two Spanish original excerpts with DE/EN translations | `paywall`, BNE search excerpts only; no complete text, imprecise concert month. Duplicate quotations are not indexed twice. |
+| D03 | Record Mirror, 28 October 1978, Roundhouse | DE/EN + English original quotations | Frontmatter anonymous/byline absent; body and archive name Alex Skorecki. Contradiction remains visible. |
+| D04 | Sounds, 23 February 1980, Marquee | Bibliographic use only; original EN | Title “Shattered Dolls”, no accessible verdict. `stufe=weitere`: no detail page, zero passages. Uncertain merge with 5 February 1980. |
+| D05 | Record Mirror, 9 August 1980, Torrington | DE/EN + English original quotations | Note about truncated OCR/byline coexists with later expanded content naming Graham Stevens. No automatic removal of uncertainty. |
+| D06 | Record Business, 15 June 1981, Venue | DE/EN + English original excerpt | Date 8 June 1981? and identity with D07 inferred. |
+| D07 | Record Mirror, 20 June 1981, Venue | DE/EN + English original quotations; local original scan | Scan confirms Robin Smith's Doll by Doll text; “Crystal Balls Up” belongs to the neighbouring article. Old ID retained solely for link stability. |
+| D08 | Nordlands Framtid, 15 April 1997, Bodø | DE/EN + Norwegian original quotations (`no`) | Review of Den Siste Glæde. Reported stage joke remains an assertion in a third-party report. |
+| D09 | Nordlandsposten, 15 April 1997, Bodø | DE/EN + Norwegian original quotations (`no`) | Second voice on the same event. Archive also retains an earlier date set, 5/6/13 April. Heading in research note uncertain. |
+| D10 | Guardian, 3 February 2003, Korks Otley | DE/EN + English original quotations | Publication date is not concert date. Recollection of Leven's stage story must not become independently verified biography. |
+| D11 | Gaesteliste, 23 February 2003, Gloria Cologne | DE/EN + German original quotations | German original plus English summary; misspelled names/titles do not create new entities. |
+| D12 | Whisperin & Hollerin, Leeds 19th Feb | DE/EN + English original quotations | 2005 is inferred; filename date has no greater evidential weight. |
+| D13 | KindaMuzik, 22 September 2010, Paradiso | DE/EN + Dutch original quotations | Report on 19 September 2010; unnamed accompanist remains unnamed. Origin claim stays attributed to the reviewer. |
+| D14 | theArtsDesk, 13 August 2011, Fringe | DE/EN + English original quotations | Leven portion of a combined review only. Cabaret Voltaire/11 August 2011 comes from an unchecked calendar and is `inferred` in the archive. |
+| D15 | Deep Pool, February 2003 | Complete local English original transcription; three pilot paragraphs | Leven's voice: Otley stay, planned Tromsø visit, tour. New archive document ID only proposed; a future Tromsø plan is not evidence of occurrence. |
+| D16 | Blog, Bergen/Odda, December 2009 capture | Complete local English original transcription; three pilot paragraphs | Journey, fantastical glacier tunnel, Odda. Capture month is not an event date; first-person narrative is not independent evidence. Archive ID only proposed. |
 
-Die Auswahl deckt fünf Originalsprachen (`en`, `de`, `no`, `es`, `nl`) und drei **vorhandene** Archivbelegtypen (`third_party`, `primary_document`, `inferred`) ab. `self_statement` ist eine spätere Bindungsmöglichkeit für die Kolumnen, im ausgewählten Manifest aber noch kein bestehender Archivbeleg. Norwegisch wird nicht stillschweigend von `no` zu `nb` präzisiert. Pastiche, vollständige Fremdtexte und neu erschlossene Ereignisse wurden nicht hinzugefügt.
+The selection covers five original languages (`en`, `de`, `no`, `es`, `nl`) and three **existing** archive evidence types (`third_party`, `primary_document`, `inferred`). `self_statement` is a possible later binding for columns, not an existing archive reference in this manifest. Norwegian is not silently narrowed from `no` to `nb`. No pastiche, complete third-party texts or newly researched events were added.
 
-Direkte Solltreffer-Überschneidungen mit dem unabhängigen Testplan bestehen für D01 (Ankündigung 1972, Fall 008), D02 (Madrid 1976, Fall 009) und D08 (Bodø 1997, Fall 006). D09 ergänzt als zweite Quelle das Bodø-Ereignis, ist aber kein eigener verpflichtender Solltreffer dieses Testfalls. Andere dort untersuchte Fälle (Tromsø 2000, Public/Sinus 2007, Sir Vincent Lone, Kevin Foster/O’Foster) bleiben bewusst außerhalb dieses kleinen Importpiloten. Sie sind weiterhin sinnvolle zusätzliche Evaluationsfälle, sobald passende Quellen und Identitätsbindungen freigegeben sind.
+Direct expected-result overlaps with the independent test plan are D01 (1972 announcement, case 008), D02 (Madrid 1976, case 009) and D08 (Bodø 1997, case 006). D09 supplements the Bodø event as a second source but is not independently required by that case. Other cases—Tromsø 2000, Public/Sinus 2007, Sir Vincent Lone, Kevin Foster/O’Foster—remain deliberately outside this small import pilot. They remain useful additional evaluation cases once sources and identity bindings are approved.
 
-## Quelle → Aussage/Entität → Website
+## Source → assertion/entity → website
 
-48 ausgewählte Belegverweise verbinden die 14 Archivdokumente mit Ereigniszeit, Spielstätte und Durchführungsstatus. Mehrfach durch D06/D07 beziehungsweise D08/D09 belegte Aussagen führen zu insgesamt 42 unterschiedlichen Aussagekennungen. Diese Stichprobe ersetzt keinen vollständigen Graphenexport. Ganze Quelldateien sind gehasht, damit zusätzliche Belege, Notizen und konkurrierende Aussagen beim späteren Import erhalten bleiben können.
+Forty-eight selected evidence references link the 14 archive documents to event time, venue and occurrence status. Assertions supported by both D06/D07 or D08/D09 yield 42 distinct assertion IDs. This sample does not replace a complete graph export. Entire source files are hashed so later imports can retain additional evidence, notes and competing assertions.
 
-Besonders prüfbare Ketten:
+Particularly inspectable chains:
 
-- D01 → `event/1972-10-27-portsmouth-star-inn`, `st-886f2bd92670`, Status `announced`, `primary_document` → `/de/stimmen/1972-10-28-nme-john-st-field-folkclubs`. Die beiden weiteren Termine stehen in eigenen Ereignissen; Wochentage führen teils zu `inferred`-Datierungen.
-- D06/D07 → `event/1981-06-08-london-the-venue`, `st-6d1e5b18eb22`, EDTF `1981-06-08?`, `inferred` → zwei verschiedene Kritiker-Seiten. Nicht zu einer einzigen Stimme fusionieren.
-- D08/D09 → `event/1997-04-13-bodo-den-siste-glaede`, `st-483d637aef04` → zwei verschiedene Quellen-Seiten. Die ganze Ereignisdatei enthält außerdem `st-7a54fe0fa988` mit unsicherer Terminmenge. Diese Alternative ist in der Stichprobenauswahl nicht erneut als eigene Referenz enthalten, muss im späteren Export erhalten bleiben.
-- D14 → `st-975cb783ec84` (Zeit) und `st-327363694cc8` (Spielstätte), beide `inferred` → ArtsDesk-Quellenseite. Der Originalkritik keine selbst nicht enthaltenen Orts-/Tagesangaben unterschieben.
-- D04 → zusammengelegtes Marquee-Ereignis, aber als Websiteziel nur `/de/stimmen?auswahl=0#1980-02-23-sounds-doll-by-doll-marquee-london` im geschlossenen Metadatenblock. Kein `.../stimmen/<id>`-Detailziel und kein Passage-Treffer.
+- D01 → `event/1972-10-27-portsmouth-star-inn`, `st-886f2bd92670`, status `announced`, `primary_document` → `/de/stimmen/1972-10-28-nme-john-st-field-folkclubs`. The other two dates are separate events; weekdays sometimes lead to `inferred` dating.
+- D06/D07 → `event/1981-06-08-london-the-venue`, `st-6d1e5b18eb22`, EDTF `1981-06-08?`, `inferred` → two different critic pages. Do not merge into a single voice.
+- D08/D09 → `event/1997-04-13-bodo-den-siste-glaede`, `st-483d637aef04` → two source pages. The complete event file also contains `st-7a54fe0fa988` with an uncertain date set. This alternative is not separately referenced in the sample but must survive the later export.
+- D14 → `st-975cb783ec84` (time) and `st-327363694cc8` (venue), both `inferred` → ArtsDesk source page. Do not attribute location/day information absent from the original review to that review.
+- D04 → merged Marquee event, but website target only `/de/stimmen?auswahl=0#1980-02-23-sounds-doll-by-doll-marquee-london` in the closed metadata block. No `.../stimmen/<id>` detail target and no passage result.
 
-Zwölf Zitatverweise haben eine exakte Teilzeichenketten-Übereinstimmung mit vorhandenen Originalauszügen. Das Manifest nennt die Kandidaten, lässt die fachliche Bindung aber offen: Textübereinstimmung allein beweist nicht die ganze Aussage. Aktuell sind keine `passage`-Verweise im geprüften Archivbestand dieser Auswahl gesetzt.
+Twelve quotation references match exact substrings in existing original excerpts. The manifest lists candidates but leaves domain-level binding open: textual agreement alone does not establish the whole assertion. No `passage` references are currently set in the checked archive selection.
 
-## Ziele, Rechte und Prüfgrenzen
+## Targets, rights and verification limits
 
-Die Pfade sind aus tatsächlichen Katalogeinträgen, `sourcePage`, `routePath`, Sprachdateien und Vorlagen abgeleitet. Die Detailseiten rendern DE/EN-Zusammenfassungen sowie Originalzitate; Originalsprache und UI-Sprache können auseinanderfallen. Kolumnen werden in beiden Oberflächensprachen auf Englisch gezeigt. Das vorliegende Ergebnis ist eine Quellcode-/Dateiprüfung, noch kein HTTP-/Browsernachweis.
+Paths derive from actual catalogue entries, `sourcePage`, `routePath`, language files and templates. Detail pages render DE/EN summaries and original quotations; original and UI languages may differ. Columns appear in English in both interfaces. This result is a source-code/file check, not yet HTTP/browser evidence.
 
-Vorhandene Abschnitte heißen `#quelle`, teils `#beleg`, bei Kolumnen `#quellenhinweis`. **Keine der 119 vorgeschlagenen Passagekennungen ist schon ein HTML-Anker.** Bei den Kolumnen wäre außerdem eine Freigabe der neuen Archividentität nötig. Diese Lücken verhindern einen sofort als fertig bezeichneten Belegdurchstich; der Vertragsentwurf beschreibt die nächsten Schritte.
+Existing sections use `#quelle`, sometimes `#beleg`, and columns use `#quellenhinweis`. **None of the 119 proposed passage IDs is already an HTML anchor.** Columns also require approval of their new archive identities. These gaps prevent claiming a completed evidence-to-passage path; the draft contract describes next steps.
 
-Die Archivlizenz `LICENSE-DATA.md` nennt CC BY-NC 4.0 für die eigenen Daten und nimmt Fremdzitate, Leven-Texte und Fremdbilder aus. D08/D09 tragen im Websitekatalog `ccbyncnd`, geprüft am 23.10.2026; das wird als vorhandener Metadatenwert erhalten, nicht als neue umfassende Nutzungserlaubnis interpretiert. Viele Quellen haben `lizenz=null`. Zugriff (`frei`, `online`, `abo`) ist keine Lizenz. Der Pilot dupliziert keine Volltexte, lädt nichts herunter und trifft keine neue rechtliche Bewertung.
+The archive's `LICENSE-DATA.md` specifies CC BY-NC 4.0 for original project data, excluding third-party quotations, Leven texts and third-party images. D08/D09 have `ccbyncnd` in the website catalogue, checked on 23 October 2026; this is retained as existing metadata, not interpreted as new blanket permission. Many sources have `lizenz=null`. Access (`frei`, `online`, `abo`) is not a licence. The pilot duplicates no full texts, downloads nothing and makes no new legal assessment.
 
-## Prüfungen und Wiederaufnahme
+## Checks and resumption
 
-Der Prüfer arbeitet ausschließlich lesend über `git show <commit>:<path>` und ersetzt bei Bedarf die historischen Root-Pfade:
+The checker is read-only, using `git show <commit>:<path>`, and can replace historical root paths:
 
 ```sh
 /Users/stefan/www/jackieleven-archive/.venv/bin/python \
@@ -73,6 +73,6 @@ Der Prüfer arbeitet ausschließlich lesend über `git show <commit>:<path>` und
   --archive-root /Users/stefan/www/jackieleven-archive
 ```
 
-Er benötigt Python und PyYAML (im bereits vorhandenen Archiv-venv verfügbar; nichts installiert). Er prüft JSON, gebundene Revisionen/Hashes, alle Textselektoren und Einzeltexthashes, eindeutige vorgeschlagene Passage-IDs, vorhandene Archiv-/Aussage-/Referenzkennungen, tatsächlich übernommene Belegtypen und Zitatkandidaten, Website-Datensatzzuordnungen, Detail-/Katalogpfade, Kolumnenallowlist und die fehlenden Absatzanker. Das Bestehen bestätigt keine Originalrechte, fachlich richtige Aussagen oder bereits funktionierenden HTTP-Beleglinks.
+It needs Python and PyYAML (already available in the archive venv; nothing installed). It checks JSON, pinned revisions/hashes, all text selectors and individual text hashes, unique proposed passage IDs, existing archive/assertion/reference IDs, carried-over evidence types and quotation candidates, website record mappings, detail/catalogue paths, column allowlist and absent paragraph anchors. Passing does not confirm original-content rights, factual correctness or already-working HTTP evidence links.
 
-Offen bleiben die Register-/Kennungsfreigabe, verbindlicher Teilgraph und Belegprüfung, die Umsetzung präziser Anker samt HTTP-Test sowie der eigentliche wiederaufnehmbare Import. Bei Fortsetzung zuerst Commit/Worktree prüfen, dann den Prüfer wiederholen und den Vertrag gemeinsam festschreiben. Keine laufenden Dienste oder Versuchsprozesse gehören zu diesem Arbeitspaket.
+Outstanding work: registry/identity approval, binding subgraph and evidence review, precise anchors with HTTP tests, and the resumable import itself. On resumption, inspect commit/worktree first, rerun the checker and jointly formalise the contract. No running service or experimental process belongs to this work package.

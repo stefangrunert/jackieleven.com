@@ -1,49 +1,44 @@
-# Go-Migration: Stand und Wiederaufnahme
+# Go migration: status and resuming work
 
-Stand: 26. Oktober 2026. Arbeitsverzeichnis: `/Users/stefan/www/jackieleven`, Branch `main`. Die Go-Migration ist vollständig integriert; der separate Migrationsworktree und der Branch `go-migration` wurden lokal und auf origin entfernt.
+As of 26 October 2026. Working directory: `/Users/stefan/www/jackieleven`, branch `main`. The Go migration is fully integrated; the separate migration worktree and `go-migration` branch were removed locally and on origin.
 
-Die serverseitige Go-Umsetzung ist fertig und auf `main` veröffentlicht. Der PHP-Ausgangsstand ist Commit `869442365d26a697f4f630b03ac073d4899055d6`, im annotierten Tag `php-before-go-migration` gesichert. Der Archiv-/Ontologie-Agent arbeitet in einem anderen Repository; neue Ontologie- und Suchfunktionen sind nicht Teil dieses Laufzeitwechsels.
+The server-side Go implementation is complete and published on `main`. The PHP starting point is commit `869442365d26a697f4f630b03ac073d4899055d6`, preserved in the annotated `php-before-go-migration` tag. The archive/ontology agent works in another repository; new ontology and search features are outside this runtime migration.
 
-## Abnahme und Nachweise
+## Acceptance and evidence
 
-| Prüfung | Ergebnis |
+| Check | Result |
 |---|---|
-| Vollständiger HTTP-Abgleich einschließlich Sprachen, Aliasse, Filter, Fragmente, Metadaten und Fehlerfälle | 1.613 Fälle, keine ungeklärte Abweichung |
-| Referenzierte CSS-/JavaScriptdateien | 9 von 11 byteidentisch; `home.css` und `zeitgraph.js` weichen ausschließlich in den separat hashdokumentierten, streng geprüften Mount-Transformationen ab |
-| Separater `/jackieleven`-Mount | 1.613 von 1.613 Seitenverträgen und 11 von 11 Assets ohne ungeklärte Abweichung; 600 Canonical-Alternativen, Noindex und Kontakt-Cookiepfad geprüft |
-| Derselbe Vollabgleich gegen das isolierte Releasepaket | 1.613 Fälle und 11 Assets bestanden |
-| Desktop 1440×1000 und Mobil 390×844 | Neun Seitentypen je Größe: DOM-Geometrie identisch, alle 18 Screenshots pixelgleich |
-| Dynamische Zeitreise | Stationswechsel, Titel/Canonical, Sprachlink und Browser-Zurück geprüft |
-| Diskografieinteraktion | Kombinierte Filter, fünf Doll-by-Doll-Alben, Detailnavigation und erhaltener Filterkontext bei Zurück geprüft |
-| Markdown-/Lesefassungen | 73 Kolumnenmodelle/HTML, beide Kapitelsprachen und 202 Markdownfälle exakt wie PHP |
-| Go-Tests und statische Analyse | `go test -race ./...` und `go vet ./...` bestanden |
-| Isolierter Kontakt-HTTP-Abgleich | 15 von 15 Fällen identisch: DE/EN, Cookieflags, CSRF, Honeypot/Arrays, Ablauf, Fehlertext, Escaping, Header und Tokenretention |
-| E-Mailvalidierung | 612 aus PHP abgeleitete Fälle Bestandteil der normalen Testsuite |
-| Unabhängiger Review | Alle reproduzierten Befunde behoben; keine bekannten offenen P1/P2-Befunde im geprüften Umfang |
-| Releasegrenzen | Explizite Allowlist, Traversal-/Symlink-/Überschreibschutz getestet; SHA-256-Manifeste gültig, kein PHP und keine lokalen Zugangskonfigurationen im Paket |
-| Plattformbuild | macOS/arm64 und Linux/amd64 erfolgreich gebaut; separate Linux-Testinstanz auf Hetzner in Betrieb |
+| Full HTTP comparison including languages, aliases, filters, fragments, metadata and error cases | 1,613 cases, no unexplained differences |
+| Referenced CSS/JavaScript files | 9 of 11 byte-identical; `home.css` and `zeitgraph.js` differ only in separately hash-documented, strictly verified mount transformations |
+| Separate `/jackieleven` mount | 1,613 of 1,613 page contracts and 11 of 11 assets without unexplained differences; 600 canonical alternatives, noindex and contact cookie paths checked |
+| Same full comparison against the isolated release package | 1,613 cases and 11 assets passed |
+| Desktop 1440×1000 and mobile 390×844 | Nine page types per size: identical DOM geometry, all 18 screenshots pixel-identical |
+| Dynamic timeline | Milestone changes, title/canonical, language link and browser Back tested |
+| Discography interaction | Combined filters, five Doll by Doll albums, detail navigation and preserved filter context on return tested |
+| Markdown/reading versions | 73 column models/HTML, both chapter languages and 202 Markdown cases exactly match PHP |
+| Go tests and static analysis | `go test -race ./...` and `go vet ./...` passed |
+| Isolated contact HTTP comparison | 15 of 15 cases identical: DE/EN, cookie flags, CSRF, honeypot/arrays, expiry, error text, escaping, headers and token retention |
+| Email validation | 612 PHP-derived cases included in the standard test suite |
+| Independent review | All reproduced findings fixed; no known open P1/P2 findings within the reviewed scope |
+| Release boundaries | Explicit allowlist; traversal/symlink/overwrite protection tested; SHA-256 manifests valid; no PHP or local credential configuration in the package |
+| Platform build | macOS/arm64 and Linux/amd64 builds successful; separate Linux test instance running on Hetzner |
 
-Ein Kontakt-HTTP-Vergleich mit leeren Zugangsschlüsseln ergänzt die Paket- und Mocktests. Sein Ergebnis steht im zugehörigen lokalen Bericht und in `werkzeug/parity.md`. Es wurden keine echten Nachrichten versandt.
+A contact HTTP comparison with empty credentials supplements package and mock tests. Its result is recorded in the local report and `werkzeug/parity.md`. Those comparison checks sent no real messages.
 
-Das Ziel ist gleiche Inhalte, Darstellung und Verhalten. Die Nachweise belegen den beschriebenen Prüfumfang. Zufällige CSRF-Werte, Asset-Zeitstempel und semantisch gleichwertige Serialisierung werden ausdrücklich normalisiert. Inline-Leerzeichen und geschützte Leerzeichen bleiben erhalten. JSON-Attribute werden nur dort strukturiert verglichen, wo JavaScript sie tatsächlich als JSON konsumiert.
+The objective is equal content, presentation and behaviour. The evidence covers the stated test scope. Random CSRF values, asset timestamps and semantically equivalent serialisation are explicitly normalised. Inline and non-breaking spaces are retained. JSON attributes are compared structurally only where JavaScript actually consumes them as JSON.
 
-Der optionale Vorschau-Mount wurde zusätzlich gegen denselben unveränderten
-PHP-v2-Snapshot geprüft. Sein Bericht liegt unter
-`.dev/migration-state/jackie-prefix-parity-full.json`; die genaue
-Normalisierungspolitik und beide Asset-Hashes stehen in `werkzeug/parity.md`.
-Canonical, hreflang, Sitemap und JSON-LD bleiben Production-Werte und werden im
-Prefix-Abgleich nicht umgeschrieben. Der Prüflauf sendete keine POST-Anfrage.
+The optional preview mount was also checked against the same unchanged PHP v2 snapshot. Its report is `.dev/migration-state/jackie-prefix-parity-full.json`; the exact normalisation policy and both asset hashes are in `werkzeug/parity.md`. Canonical, hreflang, sitemap and JSON-LD remain production values and are not rewritten in the prefix comparison. The run sent no POST requests.
 
-Ein Infrastrukturfall wird gesondert ausgewiesen: `/de%2Fueber` liefert bei Apache und Go 404 ohne Datenpreisgabe. Apache erzeugt diese Antwort vor dem PHP-Programm. Sein HTML-Fehlertext wird nicht als gleiche App-Ausgabe ausgegeben und nicht zur behaupteten Bodyparität umetikettiert.
+One infrastructure case is reported separately: `/de%2Fueber` returns 404 without data disclosure in both Apache and Go. Apache generates this response before the PHP program. Its HTML error text is not presented as equal application output or relabelled as body parity.
 
-## Start und Prüfkommandos
+## Startup and verification commands
 
 ```sh
 cd /Users/stefan/www/jackieleven
 go run ./cmd/jackieleven -root "$PWD" -listen 127.0.0.1:8080
 ```
 
-Danach ist Go unter `http://127.0.0.1:8080/de/` erreichbar. Keine produktiven Schlüssel zum Vergleichen laden.
+Go is then available at `http://127.0.0.1:8080/de/`. Do not load production delivery credentials for comparisons.
 
 ```sh
 go test -race ./...
@@ -55,73 +50,36 @@ python3 werkzeug/parity.py --baseline .dev/migration-state/php-baseline-v2 \
   --candidate http://127.0.0.1:8080 --report /tmp/jackie-go-parity.json
 ```
 
-Der normale Seitenvergleich oben verwendet keine pauschale Bytegleichheit für Assets: Die zwei dokumentierten Mount-Anpassungen werden mit `werkzeug/prefix_parity.py` streng geprüft; Aufruf und Normalisierungsregeln stehen in `werkzeug/parity.md`.
+The ordinary page comparison above does not assume blanket byte equality for assets: the two documented mount adjustments are strictly checked by `werkzeug/prefix_parity.py`; invocation and normalisation rules are in `werkzeug/parity.md`.
 
-Der eingefrorene Snapshot liegt zusätzlich unter `/tmp/jackie-php-baseline-v2`; maßgeblich für Wiederaufnahme ist die dauerhafte lokale Kopie `.dev/migration-state/php-baseline-v2`. v1 bleibt separat erhalten. Screenshots, Layout-/Pixelresultate, Prüfberichte und Agenten-Checkpoints liegen unter `.dev/migration-state/`. Diese lokalen Arbeitsartefakte sind bewusst nicht in Git; der Prüfer und seine Normalisierungsregressionen sind versioniert.
+The frozen snapshot is also at `/tmp/jackie-php-baseline-v2`; the durable local copy `.dev/migration-state/php-baseline-v2` is authoritative when resuming work. v1 remains separate. Screenshots, layout/pixel results, reports and agent checkpoints are in `.dev/migration-state/`. These local working artifacts are deliberately not in Git; the checker and its normalisation regressions are versioned.
 
-Der direkte Leser-Differentialtest lässt sich zusätzlich mit `JACKIE_READING_FIXTURE="$PWD/.dev/migration-state/readers-expected.json"` und `JACKIE_CONTENT_ROOT="$PWD"` vor `go test ./internal/site` ausführen.
+The direct reader differential test can additionally be run by setting `JACKIE_READING_FIXTURE="$PWD/.dev/migration-state/readers-expected.json"` and `JACKIE_CONTENT_ROOT="$PWD"` before `go test ./internal/site`.
 
-## Pause und Fortsetzung
+## Pausing and resuming
 
-„Pause“ hält laufende Agentenarbeit an. Vor der Fortsetzung zuerst Gitstatus und diesen Stand lesen; nicht fremde Änderungen zurücksetzen. Die Arbeit hängt nicht vom Kontext eines bestimmten Agenten oder einem laufenden Browser ab. Nach einem Neustart können die Server mit den dokumentierten Befehlen gestartet werden. Es gibt keine automatische Fortsetzung und keinen automatischen Produktionswechsel.
+“Pause” stops ongoing agent work. Before resuming, first read the Git status and this document; do not reset other people's changes. The work does not depend on one agent's context or a running browser. After a restart, servers can be started with the documented commands. There is no automatic resumption or automatic production cutover.
 
-Entwicklung und Review waren getrennt. Der spätere vollständige Abgleich lief ausdrücklich auf dem günstigeren Modell GPT-5.6 mit hohem Reasoning-Aufwand. Root übernahm Integration, Leseregeln, Releasepaket und Browserprüfungen.
+Development and review were separate. The later full comparison explicitly ran on the cheaper GPT-5.6 model with high reasoning effort. Root handled integration, reading rules, release packaging and browser checks.
 
-## Produktionsstand
+## Production state
 
-Seit dem 25. Oktober 2026 bedient Go die Hauptdomain `jackieleven.com`, einschließlich
-Formular. Runtime-Release `ba3224f`, Installer `e1d159a`. Öffentliche Seiten-, SEO-,
-Asset-, Cookie- und Originprüfungen sowie negative Turnstiletests bestanden. Eine
-vom Nutzer autorisierte Nachricht wurde über das echte Browserformular von Resend
-angenommen; der Nutzer hat den Eingang im Postfach am 25. Oktober 2026 bestätigt.
-Der vollständige Formularweg einschließlich Zustellung ist damit abgenommen.
+Since 25 October 2026, Go serves the main domain `jackieleven.com`, including the form. Runtime release `ba3224f`, installer `e1d159a`. Public page, SEO, asset, cookie and origin checks and negative Turnstile tests passed. A user-authorised message submitted through the real browser form was accepted by Resend; the user confirmed receipt on 25 October 2026. The full form path, including delivery, is therefore accepted.
 
-PHP-FPM, bisheriges Release und Sicherung bleiben als Rückfall erhalten.
-Rückfallkommando und Deploymentnachweise stehen in `ops/GO-BETRIEB.md`.
-Die separate Testinstanz bleibt verfügbar. Der abgenommene Entwicklungsstand ist
-in `main` integriert und auf origin veröffentlicht.
+PHP-FPM, the previous release and backups remain available for rollback. Rollback instructions and deployment evidence are in `ops/GO-BETRIEB.md`. The separate test instance remains available. The accepted development state is integrated into `main` and published on origin.
 
-## Bereinigung des Migrationsbranches
+## Migration branch cleanup
 
-Nach Einrichtung der Testinstanz wurden auf Wunsch des Nutzers die alte Anwendung
-(`app/`, `index.php`, `.htaccess`), die doppelten JSON-Kataloge und die zugehörigen
-Release-/FastCGI-/Installationswerkzeuge entfernt. Der Betriebsweg dieses Branches
-ist ausschließlich Go; Inhaltspflege erfolgt über die Werkzeuge in `werkzeug/`.
-Die alten Quellen bleiben über den Sicherungstag wiederherstellbar. Das PHP-Release
-auf dem Server bleibt als Rückfall erhalten. Die Git-Historie wird nicht umgeschrieben.
+After the test instance was established, the old application (`app/`, `index.php`, `.htaccess`), duplicate JSON catalogues and associated release/FastCGI/installation tools were removed at the user's request. This branch operates exclusively through Go; content maintenance uses `werkzeug/`. Old sources remain recoverable through the backup tag. The PHP release on the server remains a fallback. Git history is not rewritten.
 
-Historische Quellen-URLs mit `.php`, Herkunftsangaben der Vergleichsfixtures,
-Migrationsberichte und absichtliche Sperrtests gegen alte private Pfade sind
-weiterhin Belege, keine ausführbare Abhängigkeit. Die Go-Leseregel für historische
-Monats-URLs bleibt erforderlich, damit die Datierung der veröffentlichten Texte stimmt.
+Historical `.php` source URLs, comparison-fixture provenance, migration reports and intentional blocking tests for old private paths remain evidence, not executable dependencies. The Go reading rule for historical monthly URLs remains necessary to date published texts correctly.
 
-Die Bereinigung wurde zusätzlich geprüft: Alle 238 Laufzeit-Inhaltsdateien bleiben
-SHA-256-identisch zum live geprüften Release `d94e88c` (68 Assets, 19 JSON-Daten,
-33 Templates, 45 Kapiteldateien, 73 Kolumnen). Der frische Server besteht erneut
-1.613/1.613 gemountete Seitenfälle und alle elf Assetverträge, einschließlich
-600 Canonical-Alternativen, Noindex und beider Kontakt-Cookiepfade.
-Bericht: `.dev/migration-state/jackie-cleanup-prefix-parity.json`.
-Go-Race-Suite, Leserreferenztest, `go vet`, JavaScript-Abläufe und Release-/Installertests
-bestehen ohne die entfernte Anwendung.
+Cleanup was additionally verified: all 238 runtime content files remain SHA-256-identical to live-tested release `d94e88c` (68 assets, 19 JSON files, 33 templates, 45 chapter files, 73 columns). The fresh server again passes 1,613/1,613 mounted page cases and all eleven asset contracts, including 600 canonical alternatives, noindex and both contact cookie paths. Report: `.dev/migration-state/jackie-cleanup-prefix-parity.json`. The Go race suite, reader-reference test, `go vet`, JavaScript workflows and release/installer tests pass without the removed application.
 
-Die bisherigen Pflegefunktionen liegen jetzt in `werkzeug/quellen.py`,
-`werkzeug/livevideos.py`, `werkzeug/zitate.py` und `werkzeug/inhalte.py`.
-Der Quellen-Generator reproduziert den vorhandenen Katalog exakt (741 öffentlich,
-25 intern, keine veralteten Übersetzungen); die zehn Originalzitate sind unverändert.
-Werkzeug- und Zustandsbereinigungsregressionen laufen ohne Netzaufrufe. Details und
-Abhängigkeiten stehen in `werkzeug/README.md`.
+Former maintenance functions now reside in `werkzeug/quellen.py`, `werkzeug/livevideos.py`, `werkzeug/zitate.py` and `werkzeug/inhalte.py`. The source generator reproduces the existing catalogue exactly (741 public, 25 internal, no stale translations); the ten original quotations are unchanged. Tool and state-cleanup regressions run without network access. Details and dependencies are in `werkzeug/README.md`.
 
-## Abschluss am 26. Oktober 2026
+## Completion on 26 October 2026
 
-Der vollständig integrierte Branch `go-migration` und sein Worktree wurden entfernt.
-Alle 4.278 ignorierten Dateien des Worktrees wurden vorher in
-`.dev/worktree-backups/go-migration-2026-10-26.tar.gz` gesichert und anhand von
-SHA-256-Prüfsummen verifiziert. Das zugehörige Manifest liegt daneben als
-`go-migration-2026-10-26.manifest.json`. Das Archiv enthält auch die bisherigen
-lokalen Releasepakete und Laufzeitdaten und bleibt außerhalb von Git.
+The fully integrated `go-migration` branch and its worktree were removed. Before removal, all 4,278 ignored worktree files were saved in `.dev/worktree-backups/go-migration-2026-10-26.tar.gz` and verified with SHA-256 checksums. The corresponding manifest is alongside it as `go-migration-2026-10-26.manifest.json`. The archive includes previous local release packages and runtime data and stays outside Git.
 
-Die Prüfberichte, Screenshots und eingefrorenen PHP-Referenzdaten stehen zusätzlich
-unter `.dev/migration-state/` im Hauptverzeichnis bereit. Der lokale Testserver auf
-Port 8080 verwendet jetzt dieses Hauptverzeichnis; produktive Versandzugänge
-sind dort nicht geladen. Produktionsinstanz, Vorschau und PHP-Rückfall wurden
-bei dieser lokalen Bereinigung nicht verändert.
+Reports, screenshots and frozen PHP reference data are also available in `.dev/migration-state/` in the main directory. The local test server on port 8080 now uses that directory, without production delivery credentials. This local cleanup changed neither the production instance, preview nor PHP fallback.

@@ -1,12 +1,12 @@
-# Go-Betrieb und Versionswechsel
+# Go operations and version switching
 
-Die Hauptdomain läuft seit dem 25. Oktober 2026 auf Go. Die separate Testinstanz bleibt verfügbar (siehe `GO-PREVIEW.md`). Diese Anleitung beschreibt Betrieb und Rückfall; sie führt selbst keine Serveränderung aus. Die bestehende PHP-Konfiguration und `site-current` bleiben als Rückfall verfügbar. Die Go-Migration muss vor einem Wechsel den vollständigen HTTP-, Browser-, Kontakt- und Review-Abgleich bestehen.
+The main domain has run on Go since 25 October 2026. The separate test instance remains available (see `GO-PREVIEW.md`). This guide describes operations and rollback; it performs no server changes. The existing PHP configuration and `site-current` remain available as a fallback. Before a switch, the Go migration must pass the full HTTP, browser, contact and review comparisons.
 
-## Lokal
+## Local operation
 
-Auf diesem MacBook ist der Go-Dienst dauerhaft eingerichtet: `https://jackieleven.localhost` führt über MAMP zum lokalen Go-Prozess. Start, Build und Neustart sind in [GO-LOKAL.md](GO-LOKAL.md) dokumentiert. Port 8080 gehört dem LaunchAgent; für einen zusätzlichen manuellen Testserver Port 8081 verwenden.
+A persistent Go service is configured on this MacBook: `https://jackieleven.localhost` reaches the local Go process through MAMP. Startup, builds and restarts are documented in [GO-LOKAL.md](GO-LOKAL.md). Port 8080 belongs to the LaunchAgent; use 8081 for an additional manual test server.
 
-Im Hauptverzeichnis `/Users/stefan/www/jackieleven` auf Branch `main`:
+In the main directory `/Users/stefan/www/jackieleven`, on branch `main`:
 
 ```sh
 go test ./...
@@ -14,104 +14,71 @@ go test -race ./...
 go run ./cmd/jackieleven -root "$PWD" -listen 127.0.0.1:8081
 ```
 
-Go ist lokal unter `http://jackieleven.localhost:8080` beziehungsweise `http://127.0.0.1:8080` erreichbar. Die frühere lokale PHP-Anwendung wurde durch den Go-Stand ersetzt; PHP bleibt über den Tag `php-before-go-migration` und als Rückfall auf dem Server erhalten. Lokale Kontaktprüfungen verwenden keine produktiven Versandzugänge. Der öffentliche Turnstile-Sitekey beeinflusst die sichtbare Formularausgabe; beide Vergleichsinstanzen benötigen dafür dieselbe öffentliche Konfiguration.
+Go is available locally at `http://jackieleven.localhost:8080` or `http://127.0.0.1:8080`. Go replaced the former local PHP application; PHP remains in the `php-before-go-migration` tag and as a server fallback. Local contact checks use no production delivery credentials. The public Turnstile sitekey affects the visible form output; both comparison instances need the same public configuration.
 
-## Release-Paket
+## Release package
 
 ```sh
 python3 ops/prepare-go-release.py /tmp/jackieleven-go-release
-# Linux-Zielarchitektur vor Auslieferung auf dem Server prüfen:
+# Verify the Linux target architecture on the server before deployment:
 python3 ops/prepare-go-release.py /tmp/jackieleven-go-linux --goos linux --goarch amd64
 ```
 
-`ops/go-release-files.json` ist die ausdrückliche Dateiauswahl. Neue veröffentlichte Inhalte oder Templates müssen dort ergänzt werden. Das Werkzeug baut die Binärdatei, bewahrt die Asset-Zeitstempel und schreibt SHA-256-Prüfsummen sowie Revision/Dirty-Status. Runtime: Binärdatei, JSON-Daten, Go-Templates, ausgewählte Markdowntexte und Assets. Weder Quellcode noch PHP, Forschungsentwürfe oder Geheimnisse werden paketiert.
+`ops/go-release-files.json` is the explicit file selection. Add new published content or templates there. The tool builds the binary, preserves asset timestamps and writes SHA-256 checksums plus revision/dirty status. Runtime contents comprise the binary, JSON data, Go templates, selected Markdown texts and assets. Source code, PHP, research drafts and secrets are not packaged.
 
-Den Paketinhalt vor der Freigabe selbst starten und gegen denselben PHP-Snapshot prüfen. Ein erfolgreicher Quellbaumtest allein genügt nicht.
+Before approval, start the package itself and check it against the same PHP snapshot. Passing source-tree tests alone is insufficient.
 
-## Erstinstallation auf dem Server – erst nach Abnahme
+## Initial server installation — after acceptance
 
-Voraussetzung: bestehender Benutzer `jackieleven`, nginx, TLS-Zertifikate sowie die vorhandenen site-spezifischen Cloudflare-Origin-, Real-IP- und Rate-Limit-Konfigurationen. Die tatsächliche Linux-Architektur ist vor dem Build zu prüfen. Es wird ausschließlich die Jackie-Leven-Site umgestellt.
+Prerequisites: existing `jackieleven` user, nginx, TLS certificates and the existing site-specific Cloudflare origin, real-IP and rate-limit configuration. Check the actual Linux architecture before building. Only the Jackie Leven site is switched.
 
-1. Release in ein neues unveränderliches Verzeichnis `/var/www/jackieleven/go-releases/RELEASE` übertragen; `sha256sum --check release-manifest.sha256` dort prüfen. Verzeichnisse und Dateien für Benutzer `jackieleven` lesbar machen, aber nicht schreibbar. Keine Geheimnisse in das Release schreiben.
-2. `run-go-release.sh` als `/usr/local/libexec/jackieleven-go-start` installieren; `jackieleven-go.service` nach `/etc/systemd/system/` kopieren. Der Starter löst `go-current` genau einmal auf. Der Prozess bedient dadurch Templates, Texte und Assets derselben Version.
-3. `/etc/jackieleven/go.env` durch root mit Modus 0600 anlegen. Benötigt werden `JACKIE_RESEND_API_KEY`, `JACKIE_TURNSTILE_SITEKEY`, `JACKIE_TURNSTILE_SECRET`. Keine Werte in Befehlsargumenten, Protokollen oder Git ablegen. `StateDirectory=jackieleven-go` hält Kontaktzustand privat und über Neustarts hinweg. Die PHP-Sitzungsdateien bleiben separat.
-4. `go-current` auf das neue Release verlinken. Mit `systemd-analyze verify` die Unit prüfen, dann `systemctl daemon-reload` und `systemctl start jackieleven-go`. Zunächst nur auf `127.0.0.1:18765` prüfen, einschließlich de/en, Fehlerseite, Sitemap, Assets und Kontakt-GET. Keine Testmail über echte Zugänge senden.
-5. Aktuelle nginx-Sitekonfiguration außerhalb des aktiven Include-Verzeichnisses sichern. `nginx-go-proxy.conf` als `/etc/nginx/jackieleven-go-proxy.conf` installieren. `nginx-go-site.conf` ersetzt erst bei Freigabe die bisherige Sitekonfiguration. Vor Reload `nginx -t`, dann kontrollierter Reload und lokale sowie externe HTTP-Prüfungen. Origin-Gate, Sicherheitsheader und Limits bleiben aktiv.
-6. Erst nach erfolgreichen Prüfungen den Dienst dauerhaft aktivieren. Die PHP-FPM-Konfiguration und das PHP-Release während der Beobachtungsphase behalten.
+1. Transfer the release to a new immutable directory `/var/www/jackieleven/go-releases/RELEASE`; run `sha256sum --check release-manifest.sha256` there. Make directories and files readable but not writable by `jackieleven`. Put no secrets in the release.
+2. Install `run-go-release.sh` as `/usr/local/libexec/jackieleven-go-start`; copy `jackieleven-go.service` to `/etc/systemd/system/`. The starter resolves `go-current` exactly once, so templates, texts and assets come from the same version.
+3. Create `/etc/jackieleven/go.env` as root with mode 0600. Required values: `JACKIE_RESEND_API_KEY`, `JACKIE_TURNSTILE_SITEKEY`, `JACKIE_TURNSTILE_SECRET`. Never put values in command arguments, logs or Git. `StateDirectory=jackieleven-go` keeps contact state private and persistent across restarts. PHP session files remain separate.
+4. Point `go-current` to the new release. Validate the unit with `systemd-analyze verify`, then run `systemctl daemon-reload` and `systemctl start jackieleven-go`. Initially test only through `127.0.0.1:18765`, including de/en, error pages, sitemap, assets and contact GET. Do not send test email through real credentials.
+5. Back up the current nginx site configuration outside the active include directory. Install `nginx-go-proxy.conf` as `/etc/nginx/jackieleven-go-proxy.conf`. Replace the existing site configuration with `nginx-go-site.conf` only after approval. Run `nginx -t` before reloading, then perform a controlled reload and local/external HTTP checks. The origin gate, security headers and limits remain active.
+6. Enable the service persistently only after successful checks. Retain PHP-FPM configuration and the PHP release during the observation period.
 
-Weitergeleitete Client-IP und HTTPS-Information werden nur bei bewusst aktiviertem `-trust-proxy` und lokalem TCP-Peer vertraut. nginx überschreibt diese Header; der Go-Port darf nicht öffentlich erreichbar sein.
+Forwarded client IP and HTTPS information are trusted only with `-trust-proxy` deliberately enabled and a local TCP peer. nginx overwrites these headers; the Go port must not be publicly reachable.
 
-## Weitere Go-Releases
+## Subsequent Go releases
 
-Neue Version zunächst in ein neues Verzeichnis übertragen und prüfen. Vorheriges Ziel von `go-current` festhalten; Link atomar ersetzen und den Go-Dienst neu starten. Ein Neustart kann kurzzeitig Anfragen unterbrechen; dieses einfache Betriebsmodell verspricht kein Zero-Downtime-Deployment. Der alte Prozess verwendet bis zum Ende seinen aufgelösten Releasepfad. Graceful Shutdown muss laufende Anfragen vor Prozessende abarbeiten.
+Transfer and check a new version in a new directory first. Record the previous `go-current` target, atomically replace the link and restart Go. A restart may briefly interrupt requests; this simple operating model does not promise zero-downtime deployment. The old process uses its resolved release path until it exits. Graceful shutdown must finish active requests before process exit.
 
-Bei fehlgeschlagenem Start oder Smoke-Test den Link auf die vorherige Version zurücksetzen und erneut starten. Kein Releaseverzeichnis entfernen, solange es für Rückfall oder laufende Prozesse benötigt wird.
+If startup or smoke tests fail, restore the previous link target and restart. Do not remove release directories still needed for rollback or running processes.
 
-## Rückfall auf PHP
+## PHP rollback
 
-Die gesicherte PHP-nginx-Konfiguration wiederherstellen, `nginx -t` ausführen und nginx neu laden. Die unveränderte PHP-Anwendung unter `site-current` übernimmt wieder. Go erst danach stoppen. Bei jeder Rückfallprobe auch HTTPS, Sprachumschaltung und Kontakt-GET prüfen.
+Restore the saved PHP nginx configuration, run `nginx -t` and reload nginx. The unchanged PHP application under `site-current` resumes service. Stop Go only afterwards. Every rollback test must also check HTTPS, language switching and contact GET.
 
-## Noch vor Produktionsfreigabe nachzuweisen
+## Evidence required before production approval
 
-Die Vorlagen müssen auf dem tatsächlichen Linux-System mit `systemd-analyze verify` und `nginx -t` geprüft werden. Linux-Start, graceful Shutdown, Netzwerk-/Proxy-Vertrauensgrenze, Zustandsrechte, Wiederanlauf und Rückfall sind eine eigene Betriebsabnahme. Eine erfolgreiche lokale macOS-Migration ersetzt diese Nachweise nicht.
+Validate templates on the actual Linux system with `systemd-analyze verify` and `nginx -t`. Linux startup, graceful shutdown, network/proxy trust boundaries, state permissions, restart and rollback require separate operational acceptance. Successful local macOS migration does not replace those checks.
 
-## Zustandsbereinigung
+## State cleanup
 
-`ops/clean-state.py --state-dir /var/lib/jackieleven-go/contact` entfernt ausschließlich
-48-stellige hexadezimale Sitzungsdateien unter `sessions/` und 64-stellige
-hexadezimale Zählerdateien direkt im Zustandsverzeichnis, jeweils mit `.json`.
-Die Aufbewahrung beträgt wie in der Go-Laufzeit zwei Tage. Aktive Sperren, Symlinks
-und fremde Dateinamen bleiben erhalten. Fehlende Verzeichnisse sind beim ersten
-Start erlaubt. `jackieleven-clean-state.service` und `.timer` sind dafür die
-Vorlagen; sie ersetzen keine laufende Bestandsbereinigung ohne gesonderte Installation.
-Die Vorschau verwendet ihren eigenen Zustand unter `/var/lib/jackieleven-go-preview/contact`.
+`ops/clean-state.py --state-dir /var/lib/jackieleven-go/contact` removes only 48-character hexadecimal session files under `sessions/` and 64-character hexadecimal counter files directly in the state directory, both ending in `.json`. Retention is two days, matching the Go runtime. Active locks, symlinks and unrelated filenames are preserved. Missing directories are allowed on first startup. `jackieleven-clean-state.service` and `.timer` are templates for this; they do not replace existing cleanup without separate installation. The preview has its own state under `/var/lib/jackieleven-go-preview/contact`.
 
-## Produktionswechsel am 25. Oktober 2026
+## Production cutover on 25 October 2026
 
-`https://jackieleven.com` läuft auf dem geprüften Runtime-Release
-`ba3224f4314b0eef687e17adf3260cf9c4e592d7`. Der aktive Dienst `jackieleven-go.service`
-ist aktiviert und bindet ausschließlich `127.0.0.1:18765`. `go-current` zeigt auf
-`/var/www/jackieleven/go-releases/ba3224f`. Der Prozess verwendet den aufgelösten
-Releasepfad; alle 240 Paketdateien wurden vor der Installation geprüft.
+`https://jackieleven.com` runs on the verified runtime release `ba3224f4314b0eef687e17adf3260cf9c4e592d7`. The active `jackieleven-go.service` is enabled and binds only to `127.0.0.1:18765`. `go-current` points to `/var/www/jackieleven/go-releases/ba3224f`. The process uses the resolved release path; all 240 package files were checked before installation.
 
-Installer: Commit `e1d159a`, `ops/install-go-production.py`; zwölf Offline-Tests
-und unabhängiger Review bestanden. Der Installer ist für die einmalige Umstellung
-ausgelegt und lehnt bereits vorhandene Go-Produktionsartefakte ab. Seine vier
-Vorlagendateien müssen im selben Verzeichnis liegen. Weitere Releases folgen dem
-oben beschriebenen Versionswechsel.
+Installer: commit `e1d159a`, `ops/install-go-production.py`; twelve offline tests and independent review passed. The installer is designed for the one-time cutover and rejects existing Go production artifacts. Its four template files must reside in the same directory. Further releases use the version-switch procedure above.
 
-Die drei vorhandenen Anbieterzugänge wurden ausschließlich serverseitig aus dem
-bestehenden Pool übernommen. `/etc/jackieleven/go.env` gehört root und hat Modus
-0600. Der laufende Go-Prozess hat exakt dieselben Werte geladen; es wurden keine
-Schlüsselwerte ausgegeben oder versioniert.
+The three existing provider credentials were transferred exclusively on the server from the existing pool. `/etc/jackieleven/go.env` is root-owned with mode 0600. The running Go process loaded exactly the same values; no credential values were printed or versioned.
 
-Öffentliche Abnahme bestanden: DE/EN, Inhaltsseiten, SEO, 1.370 Sitemapziele,
-Indexierungssperren für Pastiche/Fragmente, 17 referenzierte Assets, HTTPS-/www-
-Weiterleitungen, private Pfade, Cookieattribute und Cache-Control. Direkter Origin-
-Zugriff bleibt auch mit gefälschten Proxyheadern gesperrt. Negative Turnstiletests
-in beiden Sprachen weisen fehlende/ungültige Nachweise ab und erhalten den Text.
+Public acceptance passed: DE/EN, content pages, SEO, 1,370 sitemap targets, indexing restrictions for pastiche/fragments, 17 referenced assets, HTTPS/www redirects, private paths, cookie attributes and Cache-Control. Direct origin access remains blocked even with forged proxy headers. Negative Turnstile tests in both languages reject missing/invalid proofs while preserving text.
 
-Genau eine ausdrücklich autorisierte Testnachricht wurde im Browser durch das
-reguläre Formular gesendet. Turnstile wurde akzeptiert, Resend bestätigte die
-Annahme und die Seite zeigte die Erfolgsnachricht. Der Nutzer hat den Eingang im Postfach am 25. Oktober 2026 bestätigt.
-Damit ist der vollständige Formularweg einschließlich Zustellung abgenommen. Nachweisbild:
-`.dev/migration-state/production-form-success.png` (lokal, ignoriert).
+Exactly one explicitly authorised test message was sent through the regular browser form. Turnstile was accepted, Resend confirmed acceptance, and the page showed success. The user confirmed receipt on 25 October 2026. The complete form path, including delivery, is therefore accepted. Evidence image: `.dev/migration-state/production-form-success.png` (local, ignored).
 
-### Erhaltener Rückfall
+### Retained fallback
 
-PHP-FPM, Socket `/run/php/jackieleven.sock`, Poolkonfiguration, Sicherheitsregeln
-und der Link `site-current` blieben unverändert. Das PHP-Release ist weiterhin
-`/var/www/jackieleven/site-releases/20261024110408-7001`.
+PHP-FPM, socket `/run/php/jackieleven.sock`, pool configuration, security rules and the `site-current` link remained unchanged. The PHP release is still `/var/www/jackieleven/site-releases/20261024110408-7001`.
 
-Sicherung: `/var/backups/jackieleven-go-production/20261025T190144-6uclpdnf`.
-Der folgende Befehl wird bei Bedarf als root auf Hetzner ausgeführt:
+Backup: `/var/backups/jackieleven-go-production/20261025T190144-6uclpdnf`. If needed, run this command as root on Hetzner:
 
 ```sh
 python3 /var/backups/jackieleven-go-production/20261025T190144-6uclpdnf/installer.py --rollback /var/backups/jackieleven-go-production/20261025T190144-6uclpdnf
 ```
 
-Die Rücknahme prüft, dass keine fremde Vhoständerung überschrieben wird, stellt die
-PHP-Konfiguration wieder her und wartet nach nginx-Reload auf das Ende der alten
-Worker, bevor Go gestoppt wird. Wenn Reload oder Drain scheitert, bleibt Go samt
-Startdateien verfügbar. Ein tatsächlicher Rückwechsel der jetzt funktionierenden
-Hauptdomain wurde nicht durchgeführt. Die separate Vorschau blieb bytegleich.
+Rollback checks that no unrelated virtual-host changes are overwritten, restores PHP configuration, and waits for old nginx workers to exit after reload before stopping Go. If reload or draining fails, Go and its startup files remain available. The now-working main domain was not actually switched back. The separate preview remained byte-identical.

@@ -1,19 +1,19 @@
-# Separate Go-Testinstanz auf Hetzner
+# Separate Go test instance on Hetzner
 
-Ziel: `https://unpubli.sh/jackieleven/`. Diese Instanz ersetzt weder die PHP-Seite noch den produktiven Jackie-Leven-VHost.
+Target: `https://unpubli.sh/jackieleven/`. This instance replaces neither the PHP site nor the production Jackie Leven virtual host.
 
-## Aufbau
+## Layout
 
-- Go-Dienst: `jackieleven-go-preview.service`, eigener Systembenutzer `jackieleven-preview`.
-- Backend: ausschließlich `127.0.0.1:18766`, URL-Mount `/jackieleven` bleibt beim Proxying erhalten.
-- Releases: `/var/www/jackieleven-go-preview/releases/RELEASE`; die Unit verwendet jeweils den unveränderlichen absoluten Releasepfad.
-- Privater Zustand: `/var/lib/jackieleven-go-preview/contact`.
-- nginx: ein zusätzliches Include im vorhandenen HTTPS-VHost `unpublish`, eigenes Snippet und eigene Limitzonen.
-- Die Go-Antworten unter `/jackieleven/` sind `noindex`. Der reine nginx-Einstiegsredirect `/jackieleven` und vorgelagerte Cloudflare-Sperrseiten sind davon ausgenommen. Canonical, hreflang, JSON-LD und Sitemap behalten die produktive Identität unter `jackieleven.com`. Sichtbare Navigation, Assets und Formular-Weiterleitungen bleiben im Vorschaupfad.
+- Go service: `jackieleven-go-preview.service`, dedicated system user `jackieleven-preview`.
+- Backend: only `127.0.0.1:18766`; the `/jackieleven` URL mount is preserved during proxying.
+- Releases: `/var/www/jackieleven-go-preview/releases/RELEASE`; the unit uses an immutable absolute release path.
+- Private state: `/var/lib/jackieleven-go-preview/contact`.
+- nginx: an additional include in the existing `unpublish` HTTPS virtual host, with a dedicated snippet and limit zones.
+- Go responses under `/jackieleven/` use `noindex`. The nginx-only `/jackieleven` entry redirect and upstream Cloudflare block pages are exceptions. Canonical, hreflang, JSON-LD and sitemap retain the production identity at `jackieleven.com`. Visible navigation, assets and form redirects stay within the preview path.
 
-Die drei Kontakt-Schlüssel sind in der Preview-Unit ausdrücklich leer. Damit lässt sich die Oberfläche prüfen, es werden aber keine echten Nachrichten versandt. Echte Turnstile-/Resend-Integration ist ein eigener Folgeschritt; produktive Geheimnisse werden nicht automatisch in eine Testinstanz kopiert.
+The three contact credentials are explicitly empty in the preview unit. This permits interface testing without sending real messages. Actual Turnstile/Resend integration is a separate later step; production secrets are not automatically copied into a test instance.
 
-## Prüfen und installieren
+## Test and install
 
 ```sh
 go test -race ./...
@@ -23,53 +23,42 @@ python3 -B ops/test_go_preview.py
 python3 ops/prepare-go-release.py NEW_RELEASE_DIRECTORY --goos linux --goarch amd64
 ```
 
-`install-go-preview.py` wird zusammen mit `jackieleven-preview.service`, `nginx-preview-location.conf` und `nginx-preview-limits.conf` auf den Server übertragen. Das Release muss vorher in ein neues Releaseverzeichnis hochgeladen werden. Der Installer wird als root mit `--release RELEASE --expected-vhost-sha SHA256` ausgeführt.
+Transfer `install-go-preview.py` together with `jackieleven-preview.service`, `nginx-preview-location.conf` and `nginx-preview-limits.conf` to the server. Upload the release to a new release directory first. Run the installer as root with `--release RELEASE --expected-vhost-sha SHA256`.
 
-Vor einer Änderung prüft er alle Release-Prüfsummen und die erwartete Prüfsumme der bestehenden VHostdatei. Dadurch überschreibt er keine zwischenzeitliche Änderung. Er sichert vorhandene Konfigurationsdateien nach `/var/backups/jackieleven-go-preview/`, prüft die neue Unit mit `systemd-analyze verify` und nginx mit `nginx -t`, startet nur den Preview-Dienst und prüft zuerst den Backend- und anschließend den lokalen HTTPS-Pfad. Fehler stellen die gesicherten Dateien und den vorherigen Dienstzustand wieder her. Ein solcher Fehler wurde vor Einsatz simuliert und die Wiederherstellung geprüft.
+Before changing anything, it verifies all release checksums and the expected checksum of the existing virtual-host file, preventing overwrites of intervening edits. It backs up existing configuration to `/var/backups/jackieleven-go-preview/`, validates the new unit with `systemd-analyze verify` and nginx with `nginx -t`, starts only the preview service, then checks the backend followed by local HTTPS. Failures restore the backed-up files and previous service state. Such a failure was simulated and recovery verified before use.
 
-Nach der Installation sind öffentliche HTTPS-Aufrufe, die Referenz-Startseiten, Serverstatus und die unveränderte PHP-VHost-Prüfsumme zu kontrollieren. Der Preview-Port darf nicht an eine öffentliche Schnittstelle gebunden sein.
+After installation, check public HTTPS requests, reference homepages, server status and the unchanged PHP virtual-host checksum. The preview port must not bind to a public interface.
 
-## Parität beim Unterpfad
+## Subpath parity
 
-Der eingefrorene PHP-Seitenvertrag bleibt maßgeblich. Das Prefix-Prüfwerkzeug darf ausschließlich sichtbare interne Mountadressen normalisieren; produktive Canonical-/JSON-LD-Adressen bleiben unangetastet. Cookiepfad und noindex werden zusätzlich geprüft. Zwei bewusst veränderte Assets benötigen eigene Nachweise: `home.css` verwendet stylesheet-relative Fontadressen, und `zeitgraph.js` trennt bei einem Mount sichtbare Navigationsadressen von SEO-Adressen. Diese Dateien sind deshalb nicht mehr bytegleich mit der eingefrorenen PHP-Fassung. Die genauen Unterschiede werden ausgewiesen; der Defaultbetrieb wird weiterhin auf identisches Verhalten geprüft.
+The frozen PHP page contract remains authoritative. The prefix checker may normalise only visible internal mount URLs; production canonical/JSON-LD URLs remain untouched. Cookie path and noindex are checked separately. Two deliberately modified assets require dedicated evidence: `home.css` uses stylesheet-relative font URLs, and `zeitgraph.js` separates visible navigation URLs from SEO URLs when mounted. These files are no longer byte-identical to the frozen PHP version. Exact differences are reported; default operation is still checked for identical behaviour.
 
-## Rücknahme
+## Removal
 
-Vor einer Rücknahme die gesicherte VHostdatei mit dem aktuellen Stand vergleichen, damit spätere Änderungen anderer Anwendungen erhalten bleiben. Ausschließlich das Include `snippets/jackieleven-preview.conf` entfernen beziehungsweise die zugehörige Sicherung kontrolliert wiederherstellen, `nginx -t` ausführen und nginx neu laden. Danach nur `jackieleven-go-preview.service` stoppen und deaktivieren. PHP und die Hauptseite bleiben verfügbar. Release- und Backupverzeichnisse für einen erneuten Start erhalten.
+Before removal, compare the saved virtual-host file with the current version to preserve later changes by other applications. Remove only the `snippets/jackieleven-preview.conf` include or carefully restore its backup, run `nginx -t` and reload nginx. Then stop and disable only `jackieleven-go-preview.service`. PHP and the main site remain available. Retain release and backup directories for a later restart.
 
-## Liveabnahme 25. Oktober 2026
+## Live acceptance, 25 October 2026
 
-Die separate Instanz ist unter <https://unpubli.sh/jackieleven/> installiert und erreichbar.
+The separate instance is installed and reachable at <https://unpubli.sh/jackieleven/>.
 
-- Runtime-Release: `d94e88c98a8143fbefe03d6c18049fc992c43b61`, Linux/amd64, sauberer Build; alle 240 Manifestdateien auf Hetzner geprüft.
-- Installer: Commit `36c6b09`; aktiver, aktivierter Dienst auf ausschließlich `127.0.0.1:18766`.
-- Konfigurationssicherung: `/var/backups/jackieleven-go-preview/20261025T182756.480327Z`.
-- Lokaler unabhängiger Abgleich: je 1.613/1.613 Seitenfälle im normalen und im gemounteten Betrieb; neun unveränderte Assets und zwei exakt geprüfte Mount-Anpassungen.
-- Öffentliche HTTPS-Prüfung: Sprachredirects, DE/EN, Zeitreise, Diskografie, CSS, Font, JavaScript, Sitemap, Robots und Kontakt-GET bestanden. Kontaktcookies tragen `Secure`, `HttpOnly`, `SameSite=Lax` und `Path=/jackieleven/`. Kein POST gesendet.
-- Interne Daten und unbekannte Pfade liefern 404. `.env` und `.git/config` werden bereits vorgelagert mit 403 gesperrt.
-- Browser: DE/EN-Wechsel, dynamischer Stationswechsel, fortbestehender Mount und produktive Canonical-/hreflang-Adressen geprüft; Kontaktversand sichtbar deaktiviert.
-- Hauptseiten von unpubli.sh und der produktiven PHP-App nach Installation bytegleich zu den vorherigen Abrufen. PHP-VHost unverändert: SHA-256 `f5e6560f894ae4c840e8a0af22e53f474ce2d85d9a3d6ac70bdb8ed99e6ccbdb`.
-- `nginx -t` erfolgreich. Bereits vorhandene Warnungen zu mehrfach definierten TLS-Protokolloptionen wurden nicht verändert.
+- Runtime release: `d94e88c98a8143fbefe03d6c18049fc992c43b61`, Linux/amd64, clean build; all 240 manifest files checked on Hetzner.
+- Installer: commit `36c6b09`; service active and enabled, bound only to `127.0.0.1:18766`.
+- Configuration backup: `/var/backups/jackieleven-go-preview/20261025T182756.480327Z`.
+- Independent local comparison: 1,613/1,613 page cases each in normal and mounted operation; nine unchanged assets and two precisely verified mount changes.
+- Public HTTPS checks passed for language redirects, DE/EN, timeline, discography, CSS, fonts, JavaScript, sitemap, robots and contact GET. Contact cookies have `Secure`, `HttpOnly`, `SameSite=Lax` and `Path=/jackieleven/`. No POST was sent.
+- Internal data and unknown paths return 404. `.env` and `.git/config` are blocked upstream with 403.
+- Browser checks covered DE/EN switching, dynamic milestone changes, preservation of the mount, and production canonical/hreflang URLs; contact delivery was visibly disabled.
+- The unpubli.sh homepage and production PHP homepage remained byte-identical to pre-installation responses. PHP virtual host unchanged: SHA-256 `f5e6560f894ae4c840e8a0af22e53f474ce2d85d9a3d6ac70bdb8ed99e6ccbdb`.
+- `nginx -t` passed. Existing warnings about duplicate TLS protocol options were left unchanged.
 
-Der erste Installationsversuch wurde korrekt zurückgerollt: Der unmittelbar nach `systemctl reload` erfolgte HTTPS-Check traf noch einen alten nginx-Worker (404). Der Installer wartet nun mit begrenzten Wiederholungen auf die neue Konfiguration; sowohl Übergang als auch dauerhafter Fehler sind getestet. Beim zweiten Versuch bestanden Backend- und HTTPS-Check.
+The first installation attempt rolled back correctly: the HTTPS check immediately after `systemctl reload` hit an old nginx worker and returned 404. The installer now waits for the new configuration with bounded retries; both transition and permanent failure are tested. Backend and HTTPS checks passed on the second attempt.
 
-Prüfberichte und Screenshot liegen lokal unter `.dev/migration-state/` (ignoriert). Die PHP-App und `main` bleiben der produktive Stand. Das Kontaktformular der Vorschau versendet weiterhin keine E-Mails.
+Reports and the screenshot are stored locally under `.dev/migration-state/` (ignored). At this acceptance stage, the PHP app and `main` remained the production state. The preview contact form still sends no email.
 
-## Aktualisierung auf den bereinigten Branchstand
+## Update to the cleaned branch state
 
-Am 25. Oktober 2026 wurde die Testinstanz auf Release
-`ba3224f4314b0eef687e17adf3260cf9c4e592d7` aktualisiert. Das saubere Linux/amd64-Paket
-liegt unter `/var/www/jackieleven-go-preview/releases/ba3224f`; die aktive systemd-Unit
-verweist auf genau dieses Release. Alle 240 Manifestdateien wurden auf dem Server
-verifiziert. Dienst aktiv und aktiviert, Backend ausschließlich `127.0.0.1:18766`.
+On 25 October 2026, the test instance was updated to release `ba3224f4314b0eef687e17adf3260cf9c4e592d7`. The clean Linux/amd64 package is at `/var/www/jackieleven-go-preview/releases/ba3224f`; the active systemd unit points to exactly that release. All 240 manifest files were verified on the server. The service is active and enabled, with the backend bound only to `127.0.0.1:18766`.
 
-Sicherung vor dem Wechsel: `/var/backups/jackieleven-go-preview/20261025T184735.773481Z`.
-Das vorherige Release `d94e88c` bleibt für einen Rückfall erhalten. Die nginx-VHosts
-von unpubli.sh und der Hauptdomain blieben bei diesem Update bytegleich.
+Pre-switch backup: `/var/backups/jackieleven-go-preview/20261025T184735.773481Z`. The previous release `d94e88c` remains available for rollback. The nginx virtual hosts for unpubli.sh and the main domain remained byte-identical during this update.
 
-Öffentliche HTTPS-Prüfung bestanden: Einstiegs-/Sprachweiterleitungen, DE/EN,
-Zeitreise, Diskografie, CSS/JavaScript/Font, Sitemap, Robots, Kontakt-GET und
-Sperren privater Pfade. Cookiepfad und Sicherheitsflags stimmen, die Vorschau
-bleibt noindex und ohne E-Mail-Versand. Beide bisherigen Hauptseiten blieben
-bytegleich zu den Referenzabrufen. Es wurde keine Nachricht abgesandt.
-Bericht: `.dev/migration-state/live-ba3224f.json` (lokal, ignoriert).
+Public HTTPS checks passed: entry/language redirects, DE/EN, timeline, discography, CSS/JavaScript/fonts, sitemap, robots, contact GET and private-path restrictions. Cookie path and security flags are correct; the preview remains noindex with email delivery disabled. Both existing homepages remained byte-identical to reference responses. No message was sent. Report: `.dev/migration-state/live-ba3224f.json` (local, ignored).
