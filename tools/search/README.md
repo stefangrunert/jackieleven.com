@@ -1,6 +1,6 @@
 # Local search importer
 
-Python 3.11+; install `requirements.txt` into a private venv. The exporter reads pinned Git snapshots, never changing archive files. Default snapshots are website `ea653b6` and archive `7d353a4`. Pastiche is excluded. Every archive entity is preserved as its complete JSON object, including conflicting statements and references.
+Python 3.11+; install `requirements.txt` into a private venv. The exporter reads pinned Git snapshots, never changing archive files. Default snapshots are website `a1ea027` and archive `7d353a4`. Published pastiche is explicitly marked as fiction and requires service opt-in; see [full-coverage.md](full-coverage.md). Every archive entity is preserved as its complete JSON object, including conflicting statements and references.
 
 ```sh
 uv venv .dev/runtime/search/venv
@@ -20,7 +20,7 @@ Private durable state consists of `registry.sqlite3`, content-addressed validate
 
 Published snapshots are immutable. All passage/entity rows and the ready transition commit together; the manifest is atomically replaced afterward. Failed builds never replace the previous manifest. If a process dies after database commit but before manifest replacement, the next run finds the ready build and writes the manifest without new embeddings. External requests whose responses are lost before cache persistence may be repeated; this does not claim exactly-once billing.
 
-The adapter includes visible source catalog summaries, detail paragraphs, correction notes, deduplicated original quotations, evidence translations and quote captions; entries with `stufe=weitere` do not expose those paragraphs and are excluded. Every allowlisted column is read using the website's special heading/date rules. Column authors other than Jackie Leven are editorial voices. Unknown archive document identities are explicitly `private_search`; they do not create public archive entities. Publication-year filtering does not substitute a capture or concert date. Stored text is readable evidence, and links identify original document pages without fabricated paragraph anchors.
+The adapters cover published press, writing, discography, timeline, listening and general pages, labelled archive records, and explicitly marked pastiche. Entries with `stufe=weitere` expose only their actual catalog fields; hidden detail paragraphs remain excluded. The detailed field and section inventory is in [full-coverage.md](full-coverage.md). Every allowlisted column is read using the website's special heading/date rules. Column authors other than Jackie Leven are editorial voices. Unknown archive document identities are explicitly `private_search`; they do not create public archive entities. Publication-year filtering does not substitute a capture or concert date. Stored text is readable evidence, and links identify original document pages without fabricated paragraph anchors.
 
 The initial BM25 profile uses the Unicode/default analyzer and title boost 3. Its index SQL is shared with the service; every retrieval must filter by the pinned `build_id`. No approximate vector index is required for this initial exact-search corpus.
 
