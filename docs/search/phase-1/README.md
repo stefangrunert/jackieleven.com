@@ -1,54 +1,54 @@
-# Phase 1: Grundlagen der Suche
+# Phase 1: search foundations
 
-Stand: 26. Oktober 2026. Integrationsbranch `codex/search-development`.
+As of 26 October 2026. Integration branch `codex/search-development`.
 
-Die [Architektur mit Agentenplan und Arbeitsstand](../../../.dev/suche-architektur.html) ist das zusammenhängende Hauptdokument. Phase 1 liefert Daten-, Technik- und Prüfgrundlagen. Sie implementiert noch keinen produktiven Suchdienst oder Importer.
+The [architecture, agent plan and work status](../../../.dev/suche-architektur.html) form the main continuous document. Phase 1 establishes data, technology and validation foundations. It does not yet implement a production search service or importer.
 
-## Ergebnisse
+## Results
 
-| Arbeitspaket | Liefergegenstand | Tatsächlich geprüft |
+| Work package | Deliverable | Actually checked |
 |---|---|---|
-| Datenpilot | [Bericht](data-pilot.md), [Vertragsentwurf](data-contract.md), [Manifest](pilot-manifest.json), [Prüfer](data-check.py) | 96 Dateihashes, 16 Dokumentkandidaten, 119 Textselektoren, 48 Belegverweise auf 42 Aussagen, 12 exakte Zitatkandidaten |
-| Datenbankpilot | [Bericht](database-pilot.md), [Messbelege](database-evidence/manifest.txt), [Versuchsdateien](../../../ops/search-pilot/) | Beide Kandidaten auf PG 17.11/ARM64; 14 SQL-Assertions; 1.000 synthetische Zeilen, je 100 warme Einzelclient-Messungen |
-| Unabhängige Validierung | [Prüfplan](validation-plan.md), [zehn Fälle](validation-cases.json) | Gebundene Quellen, Kennungen, Routen und Textlagen; spätere Import-/Such-/Lasttests ausdrücklich nicht ausgeführt |
+| Data pilot | [Report](data-pilot.md), [draft contract](data-contract.md), [manifest](pilot-manifest.json), [checker](data-check.py) | 96 file hashes, 16 document candidates, 119 text selectors, 48 evidence references to 42 assertions, 12 exact quotation candidates |
+| Database pilot | [Report](database-pilot.md), [measurements](database-evidence/manifest.txt), [experiment files](../../../ops/search-pilot/) | Both candidates on PG 17.11/ARM64; 14 SQL assertions; 1,000 synthetic rows, 100 warm single-client measurements each |
+| Independent validation | [Test plan](validation-plan.md), [ten cases](validation-cases.json) | Bound sources, IDs, routes and text locations; later import/search/load tests explicitly not executed |
 
-Der Datenpilot enthält 14 bestehende Archivdokumente und zwei Kolumnen mit vorgeschlagenen Archividentitäten. Ein Metadateneintrag hat keinen indexierbaren Text. Die 119 Passagekennungen sind Vorschläge, keine bereits veröffentlichten HTML-Anker. Quellenstimme und tatsächliche Textstimme bleiben getrennt.
+The data pilot contains 14 existing archive documents and two columns with proposed archive identities. One metadata entry has no indexable text. The 119 passage IDs are proposals, not already published HTML anchors. Source voice and actual text voice remain separate.
 
-Website-Quellenbasis: `3fd28a91f7bae2355492b24979ec9688f593c216`. Archivbasis: `7d353a4ce8043e284619fe409bfe87238dae2257`. Keine Änderung oder Veröffentlichung im Archiv-Repository, keine DeepInfra-Aufrufe. Die bestehenden Website-Laufzeitdateien wurden in dieser Phase nicht geändert.
+Website source baseline: `3fd28a91f7bae2355492b24979ec9688f593c216`. Archive baseline: `7d353a4ce8043e284619fe409bfe87238dae2257`. No changes or publication in the archive repository, no DeepInfra calls. Existing website runtime files were unchanged in this phase.
 
-## Integrationsentscheidungen
+## Integration decisions
 
-- **ParadeDB 0.26.3 als vorläufiger Kandidat für Phase 2.** Die Funktionsprüfung spricht für den direkteren Mehrfeld-/Phrasenpfad. Relevanz, reale Archivtexte, Produktionsarchitektur amd64 und Belastbarkeit des Servers sind noch nicht abgenommen. pg_textsearch 1.5.1 bleibt dokumentierte Vergleichsoption.
-- **Textstimme ist eine eigene Eigenschaft.** Der Vertrag verwendet `source_voice` und `text_voice`; redaktionelle Zusammenfassungen sind keine Originalzitate. Gruppierung zunächst nach `text_voice`.
-- **Pipelinezustände:** `pending`, `running`, `done`, `failed`, mit gesonderten Wiederholungsdaten. `done` erfordert ein validiertes dauerhaftes Ergebnis. Die Benennung wurde zwischen Architektur und Vertragsentwurf angeglichen.
-- **Freigabe ist nicht gleich Deployment.** Eine transaktionale Registerfreigabe ersetzt keine koordinierte Aktivierung von zwei Diensten und nginx; die Inhaltsversionsprüfung bleibt erforderlich.
-- **Kein automatischer Ausbau des öffentlichen Archivs.** Für Kolumnenidentitäten, Passage-Register und Belegbindungen wird in Phase 2 eine nachvollziehbare Zuordnung vorbereitet.
+- **ParadeDB 0.26.3 is the provisional phase-2 candidate.** Functional checks favour its more direct multi-field/phrase path. Relevance, real archive texts, production amd64 architecture and server capacity are not yet accepted. pg_textsearch 1.5.1 remains a documented alternative.
+- **Text voice is a separate property.** The contract uses `source_voice` and `text_voice`; editorial summaries are not original quotations. Initial grouping uses `text_voice`.
+- **Pipeline states:** `pending`, `running`, `done`, `failed`, with separate retry metadata. `done` requires a validated durable result. Naming was aligned between architecture and draft contract.
+- **Publication is not deployment.** Transactional registry publication does not replace coordinated activation of two services and nginx; content-version checks remain necessary.
+- **No automatic expansion of the public archive.** Phase 2 prepares traceable mappings for column identities, the passage registry and evidence bindings.
 
-## Abgleich von Pilotbestand und Prüffällen
+## Aligning pilot data and test cases
 
-Die Daten- und Validierungsagenten haben unabhängig ausgewählt. Das ergibt bewusst keine sofort vollständig ausführbare zehnteilige Suchsuite:
+Data and validation agents selected independently. This deliberately does not produce an immediately executable ten-case search suite:
 
-| Fall | Dokument im aktuellen Pilot | Noch erforderlich |
+| Case | Document in current pilot | Still required |
 |---|---|---|
-| `p1-date-conflict-006` | ja, D08/D09 | vollständige konkurrierende Aussagen im Teilgraph; echte Anker |
-| `p1-announcement-only-008` | ja, D01 | Ankündigungsstatus erhalten; echte Anker |
-| `p1-cross-language-inference-009` | ja, D02 | Originalauszüge, Übersetzungen und Unsicherheit getrennt erhalten |
-| `001`, `002`, `003`, `004`, `005`, `007` | erwartete Dokumente außerhalb dieser Auswahl | kontrollierte Erweiterung des Pilotmanifests vor Ausführung |
-| `p1-negative-010` | kein positiver Solltreffer | Negativraum explizit auf den freigegebenen Korpus begrenzen; Kontextdaten für die Ortsverwechslung ergänzen |
+| `p1-date-conflict-006` | yes, D08/D09 | complete competing assertions in the subgraph; real anchors |
+| `p1-announcement-only-008` | yes, D01 | preserve announcement status; real anchors |
+| `p1-cross-language-inference-009` | yes, D02 | preserve original excerpts, translations and uncertainty separately |
+| `001`, `002`, `003`, `004`, `005`, `007` | expected documents outside this selection | controlled pilot-manifest expansion before execution |
+| `p1-negative-010` | no expected positive hit | explicitly bound the negative space to the published corpus; add context for the place-name confusion |
 
-Fehlende Eingaben bedeuten `blocked` beziehungsweise `not_run`, keine fehlerhafte Suche und keinen bestandenen Test. Vor dem Rankingvergleich werden Korpus und erwartete Belege gemeinsam eingefroren. Eine deutsche Anfrage mit deutscher Zusammenfassung als Treffer ist noch kein Nachweis rein semantischer sprachübergreifender Leistung.
+Missing inputs mean `blocked` or `not_run`, not failed search or a passed test. Freeze the corpus and expected evidence together before comparing rankings. A German query retrieving a German summary does not establish purely semantic cross-language performance.
 
-## Unabhängiger Review
+## Independent review
 
-Der Validierungsagent hat den Datencommit `cfc811ecceec7709e9542991f477136c1ed44153` zusätzlich unabhängig geprüft: keine Blocker für den Phase-1-Vorschlag. Neben dem lesenden Prüfer wurden alle 119 Entwurfs-IDs aus der Bootstrapregel reproduziert und Textstimmen/Sprachen sowie die drei direkten Testfallüberschneidungen gegengeprüft. Der Koordinator hat den Prüfer im Integrationsrepo erneut erfolgreich ausgeführt und die elf Quellprüfsummen des Datenbankversuchs mit den übernommenen Dateien abgeglichen.
+The validation agent additionally reviewed data commit `cfc811ecceec7709e9542991f477136c1ed44153` independently: no blockers for the phase-1 proposal. Alongside the read-only checker, all 119 draft IDs were reproduced from the bootstrap rule, and text voices/languages plus the three direct test-case overlaps were cross-checked. The coordinator reran the checker successfully in the integration repository and compared the database experiment's eleven source checksums with the integrated files.
 
-Vor Phase 2 wird der verbindliche Validator um explizite Regeln für Übersetzungsstimme/Versionsgruppe und die Zuordnung des Kolumnenautors zu `source_voice=leven` ergänzt. Der aktuelle Bestand wurde dafür manuell geprüft; der Phase-1-Prüfer behauptet keine vollständige Schemaabdeckung. Die abweichenden Zustandsnamen und die ungenaue Überschneidungsbeschreibung wurden bei Integration korrigiert.
+Before phase 2, the binding validator will gain explicit rules for translation voice/version group and mapping column authors to `source_voice=leven`. The current data was checked manually for these properties; the phase-1 checker does not claim full schema coverage. Inconsistent state names and the imprecise overlap description were corrected during integration.
 
-## Wiederaufnahme
+## Resuming work
 
-Die drei Aufgabenbranches heißen `codex/search-pilot-data`, `codex/search-pilot-database` und `codex/search-pilot-validation`; die zugehörigen verwalteten Worktrees liegen unter `/Users/stefan/.codex/worktrees/search-pilot-*/jackieleven`. Sie bleiben für Nachprüfung und spätere Aufgaben erhalten. Der Integrationsbranch enthält ihre geprüften Liefergegenstände und die dokumentierten Vertragskorrekturen.
+The three task branches are `codex/search-pilot-data`, `codex/search-pilot-database` and `codex/search-pilot-validation`; managed worktrees are under `/Users/stefan/.codex/worktrees/search-pilot-*/jackieleven`. They remain available for review and later tasks. The integration branch contains their checked deliverables and documented contract corrections.
 
-Lesende Quellenprüfung vom Integrationsrepo aus:
+Read-only source check from the integration repository:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 /Users/stefan/www/jackieleven-archive/.venv/bin/python \
@@ -57,12 +57,12 @@ PYTHONDONTWRITEBYTECODE=1 /Users/stefan/www/jackieleven-archive/.venv/bin/python
   --archive-root /Users/stefan/www/jackieleven-archive
 ```
 
-Ein erneuter Datenbankversuch ist separat und nur bei Bedarf auszuführen:
+Repeat the database experiment separately only if needed:
 
 ```sh
 python3 ops/search-pilot/run.py
 ```
 
-Das erzeugt eigene temporäre Container/Volumes, verwendet synthetische Daten und räumt sie wieder auf. Der abgeschlossene Versuch hat seine Container, Volumes und sein Netz entfernt. Docker Desktop bleibt gestartet; Images und Paketdownloads bleiben im lokalen Cache. Keine laufende Pilotdatenbank muss für Phase 2 übernommen werden.
+It creates dedicated temporary containers/volumes, uses synthetic data and cleans up afterwards. The completed experiment removed its containers, volumes and network. Docker Desktop remains running; images and package downloads stay cached locally. No running pilot database needs to be carried into phase 2.
 
-Nächster Entwicklungsschritt: den Datenvertrag als Schema und API-Vertrag festschreiben, Registerort und Identitäten zuordnen, einen vollständigen Pilot-Teilgraph erstellen und dann den lesenden BM25-Durchstich zwischen separatem Dienst und Website implementieren. Die detaillierten Schritte und Abnahmen stehen im Hauptdokument. Noch keine Test- oder Produktionsbereitstellung.
+Next development step: formalise the data contract as schema and API contract, assign registry location and identities, create a complete pilot subgraph, then implement the read-only BM25 path between the separate service and website. Detailed steps and acceptance criteria are in the main document. No test or production deployment yet.

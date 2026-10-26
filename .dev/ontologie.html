@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Archiv-Ontologie · Entwurf</title>
-<meta name="description" content="Entwurf der Ontologie des Jackie-Leven-Archivs: Klassen, Aussagen mit Belegen, Zeitangaben, Beziehungsarten, Adressen, Abgleich und Umsetzung.">
+<title>Archive ontology · Draft</title>
+<meta name="description" content="Draft ontology for the Jackie Leven archive: classes, statements with evidence, dates, relationships, addresses, reconciliation and implementation.">
 <style>
-/* Gemeinsame Gestaltung der Entwurfsdokumente in .dev/ */
+/* Shared styling for draft documents in .dev/ */
 
 :root {
   --bg: #fbfbfa;
@@ -185,129 +185,129 @@ footer {
 <main>
 
 <header>
-  <h1>Ontologie des Jackie-Leven-Archivs: Entwurf</h1>
+  <h1>Ontology of the Jackie Leven archive: draft</h1>
   <div class="angaben">
-    <div>Entwurf · Stand 25. Oktober 2026, überarbeitet nach der <a href="pruefung-ontologie-suche-2026-10-25.html">technischen Prüfung</a> · Stefan Grunert</div>
-    <div>Bezug: <a href="suche-architektur.html">Architekturentwurf der Suche</a> · <a href="erschliessung.html">Erschließungsstrategie</a></div>
+    <div>Draft · Updated 25 October 2026 following the <a href="pruefung-ontologie-suche-2026-10-25.html">technical review</a> · Stefan Grunert</div>
+    <div>Related: <a href="suche-architektur.html">Search architecture draft</a> · <a href="erschliessung.html">Cataloguing strategy</a></div>
   </div>
 </header>
 
-<nav class="inhalt" aria-label="Inhalt">
+<nav class="inhalt" aria-label="Contents">
   <ol>
-    <li><a href="#zweck">Zweck und Geltungsbereich</a></li>
-    <li><a href="#ebenen">Drei Ebenen</a></li>
-    <li><a href="#grundsaetze">Grundsätze der Modellierung</a></li>
-    <li><a href="#kennungen">Kennungen und Adressen</a></li>
-    <li><a href="#klassen">Klassen</a></li>
-    <li><a href="#aussagen">Aussagen und Belege</a></li>
-    <li><a href="#zeit">Zeitangaben</a></li>
-    <li><a href="#beziehungen">Beziehungsarten</a></li>
-    <li><a href="#fiktion">Fiktion</a></li>
-    <li><a href="#abgleich">Abgleich und Freigabe</a></li>
-    <li><a href="#repository">Datenrepository und Lizenz</a></li>
-    <li><a href="#umsetzung">Technische Umsetzung</a></li>
-    <li><a href="#uebernahme">Übernahme des Bestands</a></li>
-    <li><a href="#entscheidungen">Entscheidungen</a></li>
+    <li><a href="#zweck">Purpose and scope</a></li>
+    <li><a href="#ebenen">Three layers</a></li>
+    <li><a href="#grundsaetze">Modelling principles</a></li>
+    <li><a href="#kennungen">Identifiers and addresses</a></li>
+    <li><a href="#klassen">Classes</a></li>
+    <li><a href="#aussagen">Statements and evidence</a></li>
+    <li><a href="#zeit">Dates and times</a></li>
+    <li><a href="#beziehungen">Relationship types</a></li>
+    <li><a href="#fiktion">Fiction</a></li>
+    <li><a href="#abgleich">Reconciliation and approval</a></li>
+    <li><a href="#repository">Data repository and licence</a></li>
+    <li><a href="#umsetzung">Technical implementation</a></li>
+    <li><a href="#uebernahme">Migrating existing material</a></li>
+    <li><a href="#entscheidungen">Decisions</a></li>
   </ol>
 </nav>
 
 <section id="zweck">
-  <h2>1. Zweck und Geltungsbereich</h2>
-  <p>Die Ontologie legt fest, welche Arten von Gegenständen das Archiv beschreibt, wie sie miteinander verknüpft werden und wie jede Angabe auf ihre Belege zurückgeführt wird. Sie ist die gemeinsame Grundlage für die Datendateien im Datenrepository, das Lesemodell in Postgres, die Suche und die maschinenlesbare Ausgabe der Website. Neue Inhaltsarten wie Konzerte, Termine oder Personen sollen sich als Daten ergänzen lassen, ohne vorhandene Einträge umzubauen.</p>
-  <p>Die Anforderungen ergeben sich aus dem Bestand. Leven hat seine Lebensgeschichte ausgeschmückt; die Recherche unterscheidet deshalb Selbstaussagen von Angaben, die Dritte oder Dokumente stützen, und führt für mehrere Ereignisse widersprüchliche Datierungen nebeneinander. Der Konzertkalender beruht überwiegend auf Ankündigungen der Websites, die eine Durchführung nicht belegen. Ein Modell, das nur Tatsachen kennt, kann diese Unterscheidungen nicht abbilden. Die Ontologie behandelt Angaben daher als Aussagen, die einer Quelle zugeordnet sind und neben abweichenden Aussagen bestehen können.</p>
-  <p>Bezeichner von Klassen, Eigenschaften und Vokabularen sind englisch. Der erläuternde Text dieses Dokuments ist deutsch; wo ein Gegenstand zum ersten Mal genannt wird, steht sein Bezeichner dabei.</p>
+  <h2>1. Purpose and scope</h2>
+  <p>The ontology defines the kinds of things the archive describes, how they are linked, and how each claim can be traced to its evidence. It is the shared foundation for the files in the data repository, the Postgres read model, search, and the website’s machine-readable output. New content types, such as concerts, dates or people, should be added as data without restructuring existing entries.</p>
+  <p>The requirements arise from the collection. Leven embellished his life story, so the research distinguishes his own accounts from information supported by third parties or documents, and records conflicting dates for several events side by side. The concert calendar relies mainly on website announcements, which do not prove that a performance took place. A model that recognises only facts cannot express these distinctions. The ontology therefore treats claims as statements attributed to a source that can coexist with differing statements.</p>
+  <p>Class, property and vocabulary identifiers are English. The explanatory text is also English; each concept is accompanied by its identifier when first introduced.</p>
 </section>
 
 <section id="ebenen">
-  <h2>2. Drei Ebenen</h2>
-  <p>Das Modell trennt drei Ebenen. Die <b>Gegenstandsebene</b> enthält die Entitäten des Archivs: Personen, Gruppen, Orte, Ereignisse, Werke, Aufnahmen, Ausgaben, Dokumente und Medienobjekte. Die <b>Aussagen- und Belegebene</b> verbindet diese Entitäten untereinander oder mit Werten und hält fest, worauf sich jede Verbindung stützt. Die <b>Darstellungsebene</b> umfasst die redaktionellen Einheiten der Website, etwa die Stationen der Zeitreise, die Hörempfehlungen oder die Kapitelfolge der Biografie.</p>
-  <p>Einheiten der Darstellungsebene verweisen auf Entitäten, ersetzen sie aber nicht. Eine Station der Zeitreise ist eine Auswahl mit eigenem Text, die sich auf ein Ereignis und einen Ort bezieht. Wird die Datierung dieses Ereignisses korrigiert, ändert sich die Angabe an einer Stelle und wirkt auf alle Darstellungen, die das Ereignis verwenden.</p>
+  <h2>2. Three layers</h2>
+  <p>The model separates three layers. The <b>entity layer</b> contains the archive’s entities: people, groups, places, events, works, recordings, releases, documents and media objects. The <b>statement and evidence layer</b> connects these entities with one another or with values and records the basis for each connection. The <b>presentation layer</b> contains the website’s editorial units, such as timeline entries, listening recommendations and the sequence of biography chapters.</p>
+  <p>Presentation units refer to entities but do not replace them. A timeline entry is an editorial selection with its own text referring to an event and a place. If the event’s date is corrected, the information changes in one place and applies to every presentation using that event.</p>
 </section>
 
 <section id="grundsaetze">
-  <h2>3. Grundsätze der Modellierung</h2>
+  <h2>3. Modelling principles</h2>
 
-  <h3>Ereignisse als eigene Entitäten</h3>
-  <p>Ein großer Teil dessen, was das Archiv über Leven festhält, betrifft Ereignisse: Konzerte, Aufnahmesitzungen, Interviews, Sendungen, seine Geburt, den Überfall in den 1980er-Jahren, Umzüge, Todesfälle in der Familie. Ereignisse werden deshalb als Entitäten mit Zeit, Ort und Beteiligten geführt. Personen, Werke und Orte sind über ihre Beteiligung an Ereignissen miteinander verbunden. Ein Konzert verknüpft so Leven und seine Begleitmusiker mit einer Spielstätte, mit den aufgeführten Werken, mit Mitschnitten und mit Berichten darüber. Das Prinzip stammt aus dem CIDOC Conceptual Reference Model (CIDOC CRM), dem Referenzmodell für die Dokumentation von Kulturerbe.</p>
+  <h3>Events as entities in their own right</h3>
+  <p>Much of what the archive records about Leven concerns events: concerts, recording sessions, interviews, broadcasts, his birth, the assault in the 1980s, moves, and deaths in the family. Events are therefore entities with a time, place and participants. People, works and places are connected through participation in events. A concert thus links Leven and his accompanying musicians to a venue, the works performed, recordings, and reports of the performance. This principle comes from the CIDOC Conceptual Reference Model (CIDOC CRM), the reference model for cultural heritage documentation.</p>
 
-  <h3>Werk, Aufnahme und Ausgabe</h3>
-  <p>Das Modell unterscheidet ein Lied als Komposition (Werk), eine bestimmte Einspielung dieses Liedes (Aufnahme) und eine Veröffentlichung, auf der die Einspielung erscheint (Ausgabe). Die Unterscheidung folgt LRMoo, dem Nachfolger von FRBRoo, und der Praxis von MusicBrainz. Die heutige Zuordnung der YouTube-Videos zeigt, warum sie nötig ist: Sie folgt dem Liedtitel und nicht der Aufnahme, sodass bei jedem Vorkommen eines Liedes dieselben Videos erscheinen, unabhängig davon, ob es sich um eine Studio- oder Livefassung handelt. Mit getrennten Aufnahmen lässt sich ein Livevideo dem Mitschnitt eines bestimmten Konzerts zuordnen.</p>
+  <h3>Work, recording and release</h3>
+  <p>The model distinguishes a song as a composition (work), a particular performance recorded of that song (recording), and a publication on which that recording appears (release). This distinction follows LRMoo, the successor to FRBRoo, and MusicBrainz practice. The current assignment of YouTube videos shows why it is necessary: it follows song titles rather than recordings, so every occurrence of a song shows the same videos, regardless of whether it is a studio or live version. Separate recordings allow a live video to be assigned to a recording of a particular concert.</p>
 
-  <h3>Eigenes Modell mit Abbildung auf Standards</h3>
-  <p>CIDOC CRM unmittelbar als Arbeitsmodell zu verwenden, würde die Datendateien unhandlich machen. Schon die Angabe eines Geburtsdatums erfordert dort mehrere Zwischenknoten. Der Entwurf verwendet daher ein kompaktes Modell, dessen Klassen und Eigenschaften auf etablierte Vokabulare abgebildet werden: schema.org für die Ausgabe auf der Website, CIDOC CRM und LRMoo für einen vollständigen Export, SKOS für kontrollierte Vokabulare, PROV-O für die redaktionelle Herkunft und das W3C Web Annotation Data Model für Erwähnungen in Texten. Die Identität von Personen, Orten und Veröffentlichungen wird über Wikidata, MusicBrainz und GeoNames hergestellt (Abschnitt 10).</p>
+  <h3>A local model mapped to standards</h3>
+  <p>Using CIDOC CRM directly as the working model would make the data files unwieldy. Even a date of birth requires several intermediate nodes. The draft therefore uses a compact model whose classes and properties map to established vocabularies: schema.org for website output, CIDOC CRM and LRMoo for a complete export, SKOS for controlled vocabularies, PROV-O for editorial provenance, and the W3C Web Annotation Data Model for mentions in texts. People, places and publications are identified through Wikidata, MusicBrainz and GeoNames (section 10).</p>
 </section>
 
 <section id="kennungen">
-  <h2>4. Kennungen und Adressen</h2>
-  <p>Jede Entität erhält eine Kennung der Form <code>type/key</code>, etwa <code>person/jackie-leven</code> oder <code>event/2004-03-26-bonn-harmonie</code>. Der Schlüssel besteht aus Kleinbuchstaben, Ziffern und Bindestrichen. Er wird einmal vergeben und danach weder geändert noch wiederverwendet. Stellt sich ein Bestandteil des Schlüssels später als falsch heraus, etwa ein Datum, bleibt der Schlüssel bestehen; angezeigt werden die aktuellen Werte aus den Aussagen. Lesbare Schlüssel erleichtern die Arbeit mit den Dateien und das Prüfen von Änderungen im Repository.</p>
-  <p>Werden zwei Einträge als derselbe Gegenstand erkannt, etwa beim Abgleich mit Wikidata, bleibt einer bestehen. Der andere erhält die Eigenschaft <code>replaced_by</code> und behält seine Kennung, damit ältere Verweise auflösbar bleiben.</p>
+  <h2>4. Identifiers and addresses</h2>
+  <p>Each entity receives an identifier of the form <code>type/key</code>, such as <code>person/jackie-leven</code> or <code>event/2004-03-26-bonn-harmonie</code>. The key consists of lowercase letters, digits and hyphens. It is assigned once and is never changed or reused. If part of the key later proves incorrect, such as a date, the key remains; the current values from statements are displayed instead. Readable keys make files easier to work with and repository changes easier to review.</p>
+  <p>When two entries are identified as the same thing, for example during Wikidata reconciliation, one is retained. The other receives the property <code>replaced_by</code> and keeps its identifier so that older references still resolve.</p>
 
-  <h3>Adressen unter <code>/id/</code></h3>
-  <p>Jede Kennung ist von Beginn an unter <code>https://jackieleven.com/id/</code> erreichbar, beispielsweise <code>https://jackieleven.com/id/person/jackie-leven</code>. Diese Adresse bezeichnet den Gegenstand selbst; die Seiten unter <code>/de/</code> und <code>/en/</code> beschreiben ihn in einer Sprache und können sich wie bisher über Aliaslisten ändern. Die Antwort richtet sich nach dem <code>Accept</code>-Header der Anfrage:</p>
+  <h3>Addresses under <code>/id/</code></h3>
+  <p>Every identifier is available from the outset under <code>https://jackieleven.com/id/</code> for example <code>https://jackieleven.com/id/person/jackie-leven</code>. This address identifies the thing itself; the pages under <code>/de/</code> and <code>/en/</code> describe it in a particular language and may continue to change through alias lists. The response depends on the request’s <code>Accept</code> header:</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Anfrage</th><th>Antwort</th></tr></thead>
+      <thead><tr><th>Request</th><th>Response</th></tr></thead>
       <tbody>
-        <tr><td><code>Accept: application/ld+json</code></td><td>200 mit der Beschreibung der Entität als JSON-LD</td></tr>
-        <tr><td><code>Accept: text/markdown</code></td><td>200 mit einer Markdown-Fassung für KI-Assistenten und Agenten</td></tr>
-        <tr><td><code>Accept: text/html</code>, Entität mit eigener Seite</td><td>303 auf die Seite in der Sprache nach <code>Accept-Language</code></td></tr>
-        <tr><td><code>Accept: text/html</code>, Entität ohne eigene Seite</td><td>303 auf eine einfache Entitätsseite der Website, die aus dem Lesemodell erzeugt wird: Bezeichnung, Aussagen mit Belegen, Verknüpfungen</td></tr>
-        <tr><td>Kennung mit <code>replaced_by</code></td><td>301 auf die Adresse der verbleibenden Entität</td></tr>
-        <tr><td>unbekannte Kennung</td><td>404</td></tr>
+        <tr><td><code>Accept: application/ld+json</code></td><td>200 with the entity’s description as JSON-LD</td></tr>
+        <tr><td><code>Accept: text/markdown</code></td><td>200 with a Markdown version for AI assistants and agents</td></tr>
+        <tr><td><code>Accept: text/html</code>, entity with its own page</td><td>303 to the page in the language selected by <code>Accept-Language</code></td></tr>
+        <tr><td><code>Accept: text/html</code>, entity without its own page</td><td>303 to a simple entity page generated from the read model: label, statements with evidence, and links</td></tr>
+        <tr><td>Identifier with <code>replaced_by</code></td><td>301 to the address of the retained entity</td></tr>
+        <tr><td>Unknown identifier</td><td>404</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Die Antworten tragen <code>Vary: Accept, Accept-Language</code>. Die 303-Weiterleitung folgt der Konvention für Linked Data, nach der eine Adresse für einen Gegenstand nicht unmittelbar ein Dokument liefert. Jede Seite der Website verweist umgekehrt mit <code>&lt;link rel="alternate" type="application/ld+json"&gt;</code> auf die <code>/id/</code>-Adresse und verwendet sie im JSON-LD als <code>@id</code>. Da die Adressen von Beginn an angeboten werden, gehört ihre Auflösung zur ersten Ausbaustufe; für Entitäten ohne eigene Seite, etwa die meisten Personen und Orte, entsteht damit zugleich eine einfache Darstellung.</p>
+  <p>Responses include <code>Vary: Accept, Accept-Language</code>. The 303 redirect follows the Linked Data convention that an address for a thing does not directly return a document. Conversely, every website page uses <code>&lt;link rel="alternate" type="application/ld+json"&gt;</code> to link to the <code>/id/</code> address and uses it in JSON-LD as <code>@id</code>. Because the addresses are provided from the outset, resolving them belongs to the first implementation stage; this also provides a simple presentation for entities without their own page, such as most people and places.</p>
 
-  <h3>Externe Kennungen</h3>
-  <p>Externe Kennungen werden je Schema gespeichert und in der Ausgabe als <code>sameAs</code> verwendet, sobald ihr Abgleich bestätigt ist (Abschnitt 10).</p>
+  <h3>External identifiers</h3>
+  <p>External identifiers are stored by scheme and used in output as <code>sameAs</code> once their reconciliation has been confirmed (section 10).</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Schema</th><th>Verwendet für</th></tr></thead>
+      <thead><tr><th>Scheme</th><th>Used for</th></tr></thead>
       <tbody>
-        <tr><td>Wikidata</td><td>Personen, Gruppen, Orte, Organisationen, Veröffentlichungen</td></tr>
-        <tr><td>MusicBrainz</td><td>Künstler, Release Groups, Releases, Recordings, Works, Orte, Events, Labels</td></tr>
-        <tr><td>GeoNames</td><td>Orte</td></tr>
-        <tr><td>VIAF, GND</td><td>Personen und Organisationen, vor allem Autoren der Quellen</td></tr>
-        <tr><td>Discogs</td><td>Ausgaben und Labels, wo MusicBrainz keinen Eintrag hat</td></tr>
-        <tr><td>YouTube</td><td>Videos als Medienobjekte; die Video-ID unterscheidet Groß- und Kleinschreibung und wird daher nicht als Schlüssel verwendet</td></tr>
+        <tr><td>Wikidata</td><td>People, groups, places, organisations, publications</td></tr>
+        <tr><td>MusicBrainz</td><td>Artists, release groups, releases, recordings, works, places, events, labels</td></tr>
+        <tr><td>GeoNames</td><td>Places</td></tr>
+        <tr><td>VIAF, GND</td><td>People and organisations, especially source authors</td></tr>
+        <tr><td>Discogs</td><td>Releases and labels where MusicBrainz has no entry</td></tr>
+        <tr><td>YouTube</td><td>Videos as media objects; the video ID is case-sensitive and therefore is not used as a key</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <section id="klassen">
-  <h2>5. Klassen</h2>
+  <h2>5. Classes</h2>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Klasse</th><th>Bedeutung</th><th>Beispiele aus dem Bestand</th></tr></thead>
+      <thead><tr><th>Class</th><th>Meaning</th><th>Examples from the collection</th></tr></thead>
       <tbody>
-        <tr><td><code>Person</code></td><td>natürliche Person</td><td>Jackie Leven, sein Bruder Ed, Autoren der Quellen</td></tr>
-        <tr><td><code>Persona</code></td><td>Künstlername, unter dem eine Person eigenständig auftritt oder veröffentlicht</td><td>John St. Field, Sir Vincent Lone, Jackie Balfour</td></tr>
-        <tr><td><code>Group</code></td><td>Band oder Ensemble</td><td>Doll by Doll, Concrete Bulletproof Invisible</td></tr>
-        <tr><td><code>Organization</code></td><td>Label, Verlag, Redaktion, Sender, Veranstalter, Verein</td><td>Cooking Vinyl, Magnet, CORE Trust</td></tr>
-        <tr><td><code>Place</code></td><td>Land, Region, Stadt, Spielstätte, Gebäude</td><td>Kirkcaldy, Harmonie Bonn, Oban</td></tr>
-        <tr><td><code>Event</code></td><td>zeitlich begrenztes Geschehen; Untertypen über das Vokabular <code>event_type</code></td><td>Konzert, Tournee, Aufnahmesitzung, Interview, Sendung, Geburt, Überfall</td></tr>
-        <tr><td><code>Work</code></td><td>Komposition oder Text unabhängig von einer Fassung</td><td>„Classic Northern Diversions“, „Finest Hour“</td></tr>
-        <tr><td><code>Recording</code></td><td>bestimmte Einspielung eines oder mehrerer Werke</td><td>Livemitschnitt eines Liedes beim Rockpalast 2004</td></tr>
-        <tr><td><code>ReleaseGroup</code></td><td>Zusammenfassung aller Ausgaben eines Albums oder einer Single</td><td><i>Control</i> als Album</td></tr>
-        <tr><td><code>Release</code></td><td>konkrete Ausgabe mit Label, Katalognummer, Format und Datum</td><td><i>Grand Passion</i>, LP, Magnet MAGL 5047</td></tr>
-        <tr><td>(Titel)</td><td>Platz einer Aufnahme auf einer Ausgabe; keine eigene Klasse, sondern Aussage der Beziehung <code>tracks</code></td><td>Seite A, Titel 1</td></tr>
-        <tr><td><code>Document</code></td><td>Text- oder Sendungsquelle</td><td>Kolumne, Interview, Kritik, Nachruf, Buch, Pressemitteilung, Website-Seite</td></tr>
-        <tr><td><code>Publication</code></td><td>Periodikum oder Website, in der Dokumente erscheinen</td><td><i>Sounds</i>, <i>The Guardian</i>, jackieleven.co.uk</td></tr>
-        <tr><td><code>MediaObject</code></td><td>Bild, Scan, Video oder Tonaufnahme als Datei oder Link</td><td>Faksimile-Ausschnitt, Konzertfilm, Coverbild</td></tr>
-        <tr><td><code>Passage</code></td><td>Abschnitt eines Dokuments mit Anker (Textstelle)</td><td>Absatz einer Kolumne</td></tr>
-        <tr><td><code>Concept</code></td><td>Eintrag eines kontrollierten Vokabulars</td><td>Ereignisart „concert“, Rolle „vocals“, Thema „addiction“</td></tr>
+        <tr><td><code>Person</code></td><td>Natural person</td><td>Jackie Leven, his brother Ed, source authors</td></tr>
+        <tr><td><code>Persona</code></td><td>Stage name under which a person performs or publishes independently</td><td>John St. Field, Sir Vincent Lone, Jackie Balfour</td></tr>
+        <tr><td><code>Group</code></td><td>Band or ensemble</td><td>Doll by Doll, Concrete Bulletproof Invisible</td></tr>
+        <tr><td><code>Organization</code></td><td>Label, publisher, editorial team, broadcaster, promoter, association</td><td>Cooking Vinyl, Magnet, CORE Trust</td></tr>
+        <tr><td><code>Place</code></td><td>Country, region, town, venue, building</td><td>Kirkcaldy, Harmonie Bonn, Oban</td></tr>
+        <tr><td><code>Event</code></td><td>An occurrence bounded in time; subtypes use the vocabulary <code>event_type</code></td><td>Concert, tour, recording session, interview, broadcast, birth, assault</td></tr>
+        <tr><td><code>Work</code></td><td>Composition or text independent of a particular version</td><td>„Classic Northern Diversions“, „Finest Hour“</td></tr>
+        <tr><td><code>Recording</code></td><td>A particular recording of one or more works</td><td>Live recording of a song at Rockpalast 2004</td></tr>
+        <tr><td><code>ReleaseGroup</code></td><td>Groups all editions of an album or single</td><td><i>Control</i> as an album</td></tr>
+        <tr><td><code>Release</code></td><td>Specific edition with label, catalogue number, format and date</td><td><i>Grand Passion</i>, LP, Magnet MAGL 5047</td></tr>
+        <tr><td>(Track)</td><td>Position of a recording on a release; a statement using the relationship, not a separate class <code>tracks</code></td><td>Side A, track 1</td></tr>
+        <tr><td><code>Document</code></td><td>Textual or broadcast source</td><td>Column, interview, review, obituary, book, press release, website page</td></tr>
+        <tr><td><code>Publication</code></td><td>Periodical or website in which documents appear</td><td><i>Sounds</i>, <i>The Guardian</i>, jackieleven.co.uk</td></tr>
+        <tr><td><code>MediaObject</code></td><td>Image, scan, video or audio recording as a file or link</td><td>Facsimile extract, concert film, cover image</td></tr>
+        <tr><td><code>Passage</code></td><td>Section of a document with an anchor (text passage)</td><td>Paragraph of a column</td></tr>
+        <tr><td><code>Concept</code></td><td>Entry in a controlled vocabulary</td><td>Event type ‘concert’, role ‘vocals’, subject ‘addiction’</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Hinzu kommen die Strukturen der Aussagen- und Belegebene, <code>Statement</code>, <code>Reference</code> und <code>Mention</code>, die in Abschnitt 6 und unter „Textstellen und Erwähnungen“ beschrieben sind.</p>
+  <p>The statement and evidence layer also contains the structures <code>Statement</code>, <code>Reference</code> and <code>Mention</code>, described in section 6 and under ‘Passages and mentions’.</p>
 
-  <h3>Namen, Personas und Nennungen</h3>
-  <p>Leven erscheint im Bestand unter mehreren Namen. Sie alle führen auf dieselbe Person, bezeichnen aber Verschiedenes und werden deshalb unterschiedlich modelliert.</p>
-  <p>Der Geburtsname Alan Moffatt, seine Schreibvariante „Moffat“ in einzelnen Quellen und der Künstlername Jackie Leven sind Namen der Person. Sie stehen in der Liste <code>names</code> mit der Namensart <code>birth_name</code>, <code>variant_spelling</code> oder <code>stage_name</code>, gegebenenfalls mit Zeitraum und Belegen.</p>
-  <p>Unter John St. Field, Sir Vincent Lone und Jackie Balfour hat Leven eigenständig veröffentlicht; Sir Vincent Lone trat ab Oktober 2004 außerdem als Vorgruppe von Levens eigenen Konzerten auf. Diese Künstlernamen sind Personas, eigene Entitäten der Klasse <code>Persona</code>, die mit der Person über <code>performs_as</code> verbunden sind, entsprechend der Beziehung „performs as“ bei MusicBrainz. Eine Ausgabe bleibt so der Persona zugeschrieben, unter der sie erschien, und ist über die Persona zugleich der Person zugeordnet.</p>
-  <p>Wie ein Name auf einer Veröffentlichung gedruckt ist, hält die Beteiligung im Wortlaut fest (<code>credited_as</code>). Der Sampler <i>Take Off Your Head And Listen</i> von 1971 nennt als Interpret und Autor von „Finest Hour“ Alan Moffatt. Die Beteiligung verweist auf die Person, der gedruckte Name bleibt erhalten; eine Persona ist dafür nicht nötig.</p>
+  <h3>Names, personas and credits</h3>
+  <p>Leven appears in the collection under several names. All lead to the same person, but they denote different things and are therefore modelled differently.</p>
+  <p>The birth name Alan Moffatt, its variant spelling ‘Moffat’ in individual sources, and the stage name Jackie Leven are names of the person. They appear in the list <code>names</code> with the name type <code>birth_name</code>, <code>variant_spelling</code> or <code>stage_name</code>, with dates and evidence where applicable.</p>
+  <p>Leven released work independently as John St. Field, Sir Vincent Lone and Jackie Balfour; from October 2004, Sir Vincent Lone also appeared as the support act at Leven’s own concerts. These stage names are personas, separate entities of class <code>Persona</code>, linked to the person through <code>performs_as</code>, corresponding to the ‘performs as’ relationship in MusicBrainz. A release remains attributed to the persona under which it appeared and is also associated with the person through that persona.</p>
+  <p>The participation record preserves the name exactly as printed on a release (<code>credited_as</code>). The 1971 compilation <i>Take Off Your Head And Listen</i> credits Alan Moffatt as the performer and writer of ‘Finest Hour’. The participation points to the person and preserves the printed name; no persona is needed for this.</p>
 <pre><code>id: person/jackie-leven
 type: Person
 names:
@@ -335,15 +335,15 @@ participants:
     role: performer
     credited_as: Alan Moffatt
     references: [document/1971-11-06-sounds-take-off-your-head-and-listen]</code></pre>
-  <p>Suche, Seiten und Export lösen alle Namen, Personas und Nennungen auf die Person auf. Eine Anfrage nach John St. Field findet die Persona und die Person; die Seite der Person führt alle Personas mit ihren Veröffentlichungen und alle abweichenden Nennungen auf.</p>
-  <p class="hinweis">Kennungen von Dokumenten und externe Kennungen sind in den Beispielen dieses Entwurfs verkürzt.</p>
+  <p>Search, pages and exports resolve all names, personas and credits to the person. A query for John St. Field finds both the persona and the person; the person’s page lists all personas with their releases and all alternative credits.</p>
+  <p class="hinweis">Document identifiers and external identifiers are abbreviated in this draft’s examples.</p>
 
-  <h3>Orte</h3>
-  <p>Orte bilden über <code>located_in</code> eine Hierarchie von der Spielstätte über Stadt und Region bis zum Land. Die Recherche schreibt Ortsnamen in der Landessprache; weitere Namensformen werden wie bei Personen als Namen mit Sprache geführt. Koordinaten und GeoNames-Kennung sind für Städte vorgesehen, für Spielstätten nur, wo sie sich sicher bestimmen lassen.</p>
+  <h3>Places</h3>
+  <p>Places form a hierarchy through <code>located_in</code> from venue through town and region to country. Research records place names in the local language; other forms are recorded as names with a language, as for people. Coordinates and GeoNames identifiers are intended for towns, and for venues only where they can be determined reliably.</p>
 
-  <h3>Ereignisse</h3>
-  <p>Jedes Ereignis hat eine Art aus dem Vokabular <code>event_type</code>, eine Zeitangabe, in der Regel einen Ort und Beteiligte mit Rollen. Über <code>part_of</code> lassen sich Ereignisse verschachteln: ein Konzert als Teil einer Tournee, ein Auftritt als Teil eines Festivals. Die Aufführung eines Werks innerhalb eines Konzerts ist ein Ereignis der Art <code>performance</code> mit Verweis auf das Werk; aus den Aufführungen eines Konzerts ergibt sich seine Setlist.</p>
-  <p>Für Konzerte wird die Durchführung als eigene Aussage <code>performance_status</code> geführt, mit den Werten <code>announced</code>, <code>took_place</code>, <code>cancelled</code> und <code>unknown</code>. Ein Eintrag im Kalender einer Website belegt nur die Ankündigung. Den Wert <code>took_place</code> erhält ein Konzert erst, wenn ein weiterer Beleg vorliegt, etwa ein Foto, ein Bericht, ein Mitschnitt oder eine spätere Erwähnung in einer Kolumne.</p>
+  <h3>Events</h3>
+  <p>Each event has a type from the vocabulary <code>event_type</code>, a time, usually a place, and participants with roles. Through <code>part_of</code>, events can be nested: a concert within a tour, a performance within a festival. The performance of a work within a concert is an event of type <code>performance</code> with a reference to the work; the performances within a concert form its setlist.</p>
+  <p>For concerts, whether the performance took place is recorded as a separate statement <code>performance_status</code> with the values <code>announced</code>, <code>took_place</code>, <code>cancelled</code> and <code>unknown</code>. An entry in a website calendar establishes only the announcement. A concert receives the value <code>took_place</code> only when further evidence exists, such as a photograph, report, recording or later mention in a column.</p>
 <pre><code>id: event/2004-03-26-bonn-harmonie
 type: Event
 event_type: concert
@@ -359,65 +359,65 @@ performances:
   - work_performed: work/the-butterfly-story
     timestamp: {media: media/rockpalast-2004-concert-film, start: 584}</code></pre>
 
-  <h3>Werke, Aufnahmen und Ausgaben</h3>
-  <p>Ein Werk trägt Titel und Titelvarianten, Urheber mit ihren Rollen, gegebenenfalls eine Entstehungszeit und Verweise auf Werke, auf denen es beruht. Eine Aufnahme verweist über <code>recording_of</code> auf das eingespielte Werk, hat eine Art aus dem Vokabular <code>recording_type</code> (Studio, live, Demo, Rundfunk) und ist über <code>recorded_at</code> mit dem Ereignis verbunden, bei dem sie entstand. Beim Rockpalast-Konzert von 2004 entsteht so je Lied eine Aufnahme; die Titel der Ausgaben von 2011 und 2024, die den Mitschnitt enthalten, verweisen auf diese Aufnahmen.</p>
-  <p>Aufnahme- und Veröffentlichungsdatum sind getrennte Aussagen. Für das Doll-by-Doll-Livealbum <i>Revenge of Memory</i> nennen die Quellen als Aufnahmejahr 1977 oder 1980 und als Veröffentlichung Jahre zwischen 2003 und 2006. Beide Konflikte werden unabhängig voneinander als konkurrierende Aussagen abgebildet.</p>
-  <p>Eine <code>ReleaseGroup</code> fasst die Ausgaben eines Albums oder einer Single zusammen, etwa Erstausgabe und spätere Wiederveröffentlichungen. Einträge der heutigen Diskografie, die mehrere Single-Varianten bündeln, werden dabei in getrennte Ausgaben aufgelöst. Ein Titel auf einer Ausgabe ist keine eigene Klasse, sondern eine Aussage der Beziehung <code>tracks</code> mit den Qualifikatoren Medium (etwa Seite A oder CD 2), Position, Dauer und gedruckter Titel, der vom Werktitel abweichen kann. Als Aussage hat er eine feste Kennung und kann Belege tragen. Welche Titel verschiedener Ausgaben dieselbe Aufnahme enthalten, wird vor der Übernahme recherchiert (Abschnitt 13).</p>
+  <h3>Works, recordings and releases</h3>
+  <p>A work has a title and title variants, creators with their roles, a creation date where known, and references to works on which it is based. A recording uses <code>recording_of</code> to refer to the work recorded, has a type from the vocabulary <code>recording_type</code> (studio, live, demo, broadcast), and is connected through <code>recorded_at</code> to the event at which it was made. The 2004 Rockpalast concert thus produces one recording per song; tracks on the 2011 and 2024 releases containing that performance refer to these recordings.</p>
+  <p>Recording and release dates are separate statements. For the Doll by Doll live album <i>Revenge of Memory</i> , sources give 1977 or 1980 as the recording year and years between 2003 and 2006 for its release. Both conflicts are represented independently as competing statements.</p>
+  <p>A <code>ReleaseGroup</code> groups the editions of an album or single, such as the first issue and later reissues. Entries in the current discography that bundle several single variants are split into separate releases. A track on a release is not a separate class but a statement using the relationship <code>tracks</code> with qualifiers for medium (such as side A or CD 2), position, duration and printed title, which may differ from the work’s title. As a statement, it has a stable identifier and can carry evidence. Which tracks on different releases contain the same recording is researched before migration (section 13).</p>
 
-  <h3>Dokumente und Publikationen</h3>
-  <p>Ein Dokument hat eine Art aus dem Vokabular <code>document_type</code>, Beteiligte mit Rollen (Autor, Interviewer, Fotograf, Übersetzer), eine Sprache und eine Zeitangabe. Es erscheint über <code>published_in</code> in einer Publikation, gegebenenfalls mit Heft und Seite. Adresse, Archivadresse, Zugang und Lizenz entsprechen den heutigen Kopfdaten der Quellen.</p>
-  <p>Ein Interview ist zugleich ein Ereignis, das Gespräch mit Datum, Ort und Teilnehmern, und ein Dokument, seine Veröffentlichung. Das Ereignis wird nur angelegt, wenn über das Gespräch selbst etwas bekannt ist; das Dokument verweist dann über <code>documents</code> darauf.</p>
+  <h3>Documents and publications</h3>
+  <p>A document has a type from the vocabulary <code>document_type</code>, participants with roles (author, interviewer, photographer, translator), a language and a date. Through <code>published_in</code>, it appears in a publication, with issue and page where applicable. Address, archive address, access and licence correspond to the current source headers.</p>
+  <p>An interview is both an event—the conversation with its date, place and participants—and a document, its publication. The event is created only if something is known about the conversation itself; the document then points to it through <code>documents</code>.</p>
 
-  <h3>Medienobjekte</h3>
-  <p>Medienobjekte sind Bilder, Scans, Videos und Tonaufnahmen, als lokale Datei oder als Verweis auf einen externen Dienst. Sie tragen Herkunft (<code>official</code> oder <code>fan</code>), Rechte und Lizenz. Über <code>depicts</code> werden sie mit abgebildeten Personen, Orten oder Ereignissen verbunden, über <code>encodes</code> mit einer Aufnahme, über <code>excerpt_of</code> mit dem Dokument, aus dem ein Faksimile-Ausschnitt stammt, samt Seite und Bildbereich.</p>
+  <h3>Media objects</h3>
+  <p>Media objects are images, scans, videos and audio recordings, either local files or references to external services. They carry provenance (<code>official</code> or <code>fan</code>), rights and licence information. Through <code>depicts</code>, they connect to depicted people, places or events; through <code>encodes</code>, to a recording; and through <code>excerpt_of</code>, to the document from which a facsimile extract originates, with its page and image region.</p>
 
-  <h3>Textstellen und Erwähnungen</h3>
-  <p>Textstellen (<code>Passage</code>) sind Abschnitte eines Dokuments, in der Regel Absätze, mit einem Anker auf der Zielseite. Sie dienen als Indexeinheit der Suche, als genaue Fundstelle eines Belegs und als Ziel von Erwähnungen. Eine Erwähnung (<code>Mention</code>) verknüpft eine Textstelle mit einer Entität und hält fest, ob die Verknüpfung manuell gesetzt oder maschinell vorgeschlagen und anschließend geprüft wurde.</p>
-  <p>Eine Textstelle erhält eine feste Kennung der Form <code>document/&lt;key&gt;#&lt;passage&gt;</code>, die nicht aus der Absatzfolge abgeleitet wird. Wird ein Absatz eingefügt, korrigiert oder geteilt, behalten die vorhandenen Textstellen ihre Kennung; eine ersetzte Textstelle verweist auf ihre Nachfolger. Zur Wiederzuordnung werden Dokumentrevision, Position und ein kurzer Zitatkontext gespeichert, wie es das Web Annotation Data Model mit seinen Selektoren vorsieht; reine Positionsangaben wären bei jeder Textänderung brüchig. Die Segmente, die die Suche indexiert, sind davon getrennt. Sie entstehen im Build aus einer oder mehreren Textstellen und verweisen auf deren Kennungen (<a href="suche-architektur.html#datenmodell">Architekturentwurf, Abschnitt 4</a>).</p>
-  <p>Erwähnungen werden getrennt vom Text gespeichert (Stand-off-Annotation, entsprechend dem W3C Web Annotation Data Model). Die Originaltexte der Kolumnen bleiben dadurch unverändert, wie es das Projekt für die Lesefassungen bereits vorsieht.</p>
+  <h3>Passages and mentions</h3>
+  <p>Passages (<code>Passage</code>) are sections of a document, usually paragraphs, with an anchor on the target page. They serve as search index units, precise evidence locations and targets for mentions. A mention (<code>Mention</code>) links a passage to an entity and records whether the link was made manually or proposed by a machine and subsequently reviewed.</p>
+  <p>A passage receives a stable identifier of the form <code>document/&lt;key&gt;#&lt;passage&gt;</code>, which is not derived from paragraph order. When a paragraph is inserted, corrected or split, existing passages retain their identifiers; a replaced passage points to its successors. Document revision, position and a short quotation context are stored for reattachment, as provided by the Web Annotation Data Model’s selectors; positions alone would break with every text change. Search index segments are separate. They are generated during the build from one or more passages and refer to their identifiers (<a href="suche-architektur.html#datenmodell">architecture draft, section 4</a>).</p>
+  <p>Mentions are stored separately from the text (stand-off annotation, following the W3C Web Annotation Data Model). This leaves original column texts unchanged, as the project already requires for reading editions.</p>
 
-  <h3>Vokabulare</h3>
-  <p>Kontrollierte Vokabulare werden als SKOS-Begriffe (<code>Concept</code>) mit deutscher und englischer Bezeichnung, Synonymen, Ober- und Unterbegriffen und Abbildungen auf externe Vokabulare geführt. Vorgesehen sind <code>event_type</code>, <code>role</code>, <code>document_type</code>, <code>name_type</code>, <code>place_type</code>, <code>recording_type</code>, <code>evidence_type</code>, <code>link_type</code> und <code>topic</code>. Die Rollen werden auf die MARC-Relatorcodes und die Beziehungstypen von MusicBrainz abgebildet, die Dokumentarten auf die heutigen Kategorien der Quellen.</p>
+  <h3>Vocabularies</h3>
+  <p>Controlled vocabularies are maintained as SKOS concepts (<code>Concept</code>) with German and English labels, synonyms, broader and narrower concepts, and mappings to external vocabularies. The planned vocabularies are <code>event_type</code>, <code>role</code>, <code>document_type</code>, <code>name_type</code>, <code>place_type</code>, <code>recording_type</code>, <code>evidence_type</code>, <code>link_type</code> and <code>topic</code>. Roles map to MARC relator codes and MusicBrainz relationship types; document types map to the current source categories.</p>
 </section>
 
 <section id="aussagen">
-  <h2>6. Aussagen und Belege</h2>
-  <p>Eine Aussage (<code>Statement</code>) verbindet eine Entität über eine Eigenschaft mit einem Wert oder einer anderen Entität. Sie kann Qualifikatoren tragen, etwa einen Zeitraum oder eine Rolle, und verweist auf einen oder mehrere Belege. Jede Aussage hat eine feste Kennung (<code>statement_id</code>), über die Belege, Prüfungen und andere Aussagen auf sie verweisen; die Kennung wird beim Anlegen vergeben und bleibt erhalten, wenn der Inhalt korrigiert wird. Mehrere Aussagen zur selben Eigenschaft können nebeneinander bestehen, auch wenn sie sich widersprechen. Das Modell entspricht dem Aussagenmodell von Wikidata und lässt sich auf die Klasse E13 Attribute Assignment von CIDOC CRM abbilden, die solche zugeschriebenen Angaben beschreibt.</p>
+  <h2>6. Statements and evidence</h2>
+  <p>A statement (<code>Statement</code>) connects an entity through a property to a value or another entity. It may carry qualifiers, such as a period or role, and refers to one or more references. Each statement has a stable identifier (<code>statement_id</code>), through which references, reviews and other statements can point to it; the identifier is assigned at creation and retained when the content is corrected. Several statements about the same property may coexist even when they contradict one another. The model follows Wikidata’s statement model and can be mapped to CIDOC CRM class E13 Attribute Assignment, which describes such attributed claims.</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Feld</th><th>Inhalt</th></tr></thead>
+      <thead><tr><th>Field</th><th>Content</th></tr></thead>
       <tbody>
-        <tr><td><code>statement_id</code></td><td>feste Kennung der Aussage</td></tr>
-        <tr><td><code>value</code></td><td>Wert oder Kennung einer Entität</td></tr>
-        <tr><td><code>time</code></td><td>Geltungszeitraum der Aussage als EDTF (Abschnitt 7)</td></tr>
-        <tr><td><code>role</code>, weitere Qualifikatoren</td><td>je nach Eigenschaft, im Schema festgelegt</td></tr>
-        <tr><td><code>rank</code></td><td><code>preferred</code>, <code>normal</code> oder <code>deprecated</code>; bestimmt nur die Standardanzeige</td></tr>
-        <tr><td><code>certainty</code></td><td>redaktionelle Einschätzung der Gewissheit: <code>certain</code>, <code>probable</code>, <code>uncertain</code>, <code>unknown</code></td></tr>
-        <tr><td><code>references</code></td><td>Liste von Belegen</td></tr>
-        <tr><td><code>note</code></td><td>redaktionelle Erläuterung, deutsch und englisch</td></tr>
-        <tr><td><code>recorded_by</code></td><td>wer die Aussage erfasst hat: Person oder Agent mit Modell und Auftrag</td></tr>
-        <tr><td><code>reviewed_by</code>, <code>reviewed_at</code>, <code>review_hash</code></td><td>wer die Aussage wann geprüft hat, mit einer Prüfsumme ihres Inhalts; ändert sich der Inhalt danach, gilt die Prüfung nicht mehr (<a href="erschliessung.html#arbeitsweise">Erschließung, Abschnitt 7</a>)</td></tr>
+        <tr><td><code>statement_id</code></td><td>Stable identifier of the statement</td></tr>
+        <tr><td><code>value</code></td><td>Value or entity identifier</td></tr>
+        <tr><td><code>time</code></td><td>Period for which the statement applies, as EDTF (section 7)</td></tr>
+        <tr><td><code>role</code>, other qualifiers</td><td>Property-specific, defined in the schema</td></tr>
+        <tr><td><code>rank</code></td><td><code>preferred</code>, <code>normal</code> or <code>deprecated</code>; determines only the default display</td></tr>
+        <tr><td><code>certainty</code></td><td>Editorial assessment of certainty: <code>certain</code>, <code>probable</code>, <code>uncertain</code>, <code>unknown</code></td></tr>
+        <tr><td><code>references</code></td><td>List of references</td></tr>
+        <tr><td><code>note</code></td><td>Editorial explanation in German and English</td></tr>
+        <tr><td><code>recorded_by</code></td><td>Who recorded the statement: person or agent, with model and task</td></tr>
+        <tr><td><code>reviewed_by</code>, <code>reviewed_at</code>, <code>review_hash</code></td><td>Who reviewed the statement and when, with a checksum of its content; if the content subsequently changes, the review is no longer valid (<a href="erschliessung.html#arbeitsweise">cataloguing, section 7</a>)</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Ein Beleg (<code>Reference</code>) verweist auf ein Dokument, eine Textstelle oder ein Medienobjekt. Er kann eine Fundstelle (<code>locator</code>: Seite, Zeile, Zeitmarke), einen kurzen wörtlichen Auszug (<code>quote</code>) und den Umfang angeben, in dem er die Aussage stützt (<code>scope</code>). Mit <code>asserted_by</code> hält er fest, wessen Behauptung er vermittelt. Ein Zeitungsinterview enthält Aussagen des Interviewers und Selbstaussagen Levens, und eine Inhaltsangabe der Website ist eigener Text über eine fremde Behauptung; die Stimme eines Dokuments sagt daher nicht allein, wer eine darin belegte Angabe macht. Seine Belegart übernimmt die Unterscheidung der Recherche:</p>
+  <p>A reference (<code>Reference</code>) points to a document, passage or media object. It can specify a location (<code>locator</code>: page, line, timestamp), a short verbatim extract (<code>quote</code>) and the extent to which it supports the statement (<code>scope</code>). With <code>asserted_by</code>, it records whose claim it conveys. A newspaper interview contains the interviewer’s statements and Leven’s own accounts, while a website synopsis is original writing about someone else’s claim; a document’s voice therefore does not by itself identify who makes a claim evidenced within it. Its evidence type adopts the research’s distinctions:</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th><code>evidence_type</code></th><th>Bedeutung</th><th>Kennzeichnung in der Recherche</th></tr></thead>
+      <thead><tr><th><code>evidence_type</code></th><th>Meaning</th><th>Notation in the research</th></tr></thead>
       <tbody>
-        <tr><td><code>self_statement</code></td><td>nur durch Leven selbst belegt, möglicherweise ausgeschmückt</td><td>[SA]</td></tr>
-        <tr><td><code>third_party</code></td><td>Angabe Dritter, etwa in Presse oder Nachrufen</td><td>[belegbar]</td></tr>
-        <tr><td><code>primary_document</code></td><td>Primärdokument wie Labelkatalog, Kalender, Urkunde oder Website-Protokoll</td><td>[belegbar]</td></tr>
-        <tr><td><code>inferred</code></td><td>Schlussfolgerung der Recherche aus anderen Belegen</td><td>(erschlossen)</td></tr>
+        <tr><td><code>self_statement</code></td><td>Supported only by Leven’s own account, possibly embellished</td><td>[SA]</td></tr>
+        <tr><td><code>third_party</code></td><td>Third-party information, for example in press coverage or obituaries</td><td>[belegbar]</td></tr>
+        <tr><td><code>primary_document</code></td><td>Primary document such as a label catalogue, calendar, certificate or website log</td><td>[belegbar]</td></tr>
+        <tr><td><code>inferred</code></td><td>Research inference from other evidence</td><td>(erschlossen)</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>Rang und Status</h3>
-  <p>Der Rang wird redaktionell vergeben; seine drei Werte entsprechen den Rängen von Wikidata. Eine bevorzugte Aussage ist die Angabe, die die Website anzeigt; abweichende Aussagen werden als solche genannt. Verworfene Aussagen bleiben mit ihren Belegen erhalten, weil auch ein verbreiteter Irrtum dokumentiert werden soll. Die Korrekturabschnitte der Quellen, etwa zum Erscheinungsjahr von <i>Control</i>, entsprechen solchen Aussagen.</p>
-  <p>Rang, Gewissheit und Konflikt sind getrennte Angaben. Der Rang wählt nur die Standardanzeige. Wie gewiss eine Angabe ist, hält <code>certainty</code> fest: Auch eine allein überlieferte Selbstaussage kann unsicher sein, und eine bevorzugte Datierung kann weiterhin bestritten werden. Bleibt eine Unsicherheit, zeigt die Website sie auch an der Standardangabe.</p>
-  <p>Ob ein Konflikt besteht, wird aus den Aussagen abgeleitet und nicht eingetragen. Dabei zählt, wie viele Werte eine Eigenschaft zugleich haben kann: Mehrere Bandmitglieder oder nacheinander bewohnte Orte widersprechen sich nicht, zwei Geburtsdaten schon. Bestehen bei einer einwertigen Eigenschaft wie Zeit oder Ort eines Ereignisses mehrere nicht verworfene Aussagen mit unvereinbaren Werten und keine bevorzugte, ist die Angabe strittig (<code>disputed</code>); gibt es eine bevorzugte, liegen abweichende Angaben vor (<code>deviating</code>). Bei der Durchführung eines Konzerts widerspricht <code>announced</code> keinem anderen Wert, da ein Konzert, das stattfand, in der Regel auch angekündigt war. Die Validierung des Datenrepositorys setzt diese Regeln bereits um.</p>
-  <p>Das Geburtsdatum ist ein Beispiel für eine geklärte Angabe mit abweichenden Werten. Ein Beleg kann eine Aussage auch nur teilweise stützen: Levens eigene Erwähnung seines Geburtstags nennt Tag und Monat, nicht das Jahr.</p>
+  <h3>Rank and status</h3>
+  <p>Rank is assigned editorially; its three values match Wikidata ranks. A preferred statement is the information the website displays; differing statements are identified as such. Deprecated statements retain their evidence because a widespread error also merits documentation. Source correction sections, such as those concerning the release year of <i>Control</i>, correspond to such statements.</p>
+  <p>Rank, certainty and conflict are separate attributes. Rank selects only the default display. Certainty is recorded by <code>certainty</code>: even a sole surviving personal account may be uncertain, and a preferred date may remain disputed. Where uncertainty remains, the website also shows it with the default value.</p>
+  <p>Conflict is derived from statements rather than entered. This depends on how many values a property can have at once: several band members or successive places of residence do not contradict one another, whereas two dates of birth do. If a single-valued property, such as an event’s time or place, has several non-deprecated statements with incompatible values and none is preferred, the information is disputed (<code>disputed</code>); if one is preferred, there are differing accounts (<code>deviating</code>). For a concert’s performance status, <code>announced</code> does not contradict any other value, since a concert that took place was usually also announced. Data repository validation already implements these rules.</p>
+  <p>The date of birth illustrates resolved information with differing values. A reference may support a statement only partly: Leven’s own mention of his birthday gives the day and month, but not the year.</p>
 <pre><code>id: event/birth-jackie-leven
 type: Event
 event_type: birth
@@ -444,7 +444,7 @@ time:
     rank: deprecated
     references:
       - document: document/…-guardian-music-blog</code></pre>
-  <p>Die Gründung von Doll by Doll ist dagegen strittig. Leven selbst nannte 1975 und an anderer Stelle „'76 or '77“, die Nachrufe sind uneinheitlich. Keine der Aussagen ist bevorzugt.</p>
+  <p>The founding of Doll by Doll, by contrast, is disputed. Leven himself gave 1975 and elsewhere ‘'76 or '77’; the obituaries are inconsistent. None of the statements is preferred.</p>
 <pre><code>id: event/founding-doll-by-doll
 type: Event
 event_type: founding
@@ -466,42 +466,42 @@ time:
       - document: document/…-obituary-times
         evidence_type: third_party</code></pre>
 
-  <h3>Abhängige Quellen</h3>
-  <p>Zwei Nachrufe, die dieselbe Pressemitteilung wiedergeben, sind keine zwei unabhängigen Bestätigungen. Beruht ein Dokument erkennbar auf einem anderen, verweist es darauf über <code>derived_from</code> (PROV-O <code>wasDerivedFrom</code>). Kennzahlen über unabhängige Belege zählen nur Belege, deren Unabhängigkeit feststeht, und weisen ungeklärte Fälle gesondert aus. Ob zwei Quellen unabhängig sind, bleibt eine redaktionelle Beurteilung; das Modell hält sie nur fest.</p>
+  <h3>Dependent sources</h3>
+  <p>Two obituaries reproducing the same press release are not two independent confirmations. If a document demonstrably relies on another, it refers to it through <code>derived_from</code> (PROV-O <code>wasDerivedFrom</code>). Metrics for independent evidence count only references whose independence is established and report unresolved cases separately. Whether two sources are independent remains an editorial judgement; the model merely records it.</p>
 
-  <h3>Belegpflicht</h3>
-  <p>Eine Eigenschaft mit einfachem Wert ist eine Kurzform für eine einzelne Aussage mit normalem Rang. Für die meisten Eigenschaften genügt diese Kurzform. Das Schema kennzeichnet aber Eigenschaften als belegpflichtig, bei denen die Recherche Widersprüche kennt oder erwartet: Zeit und Ort von Ereignissen, Durchführung von Konzerten, Beteiligungen, Mitgliedschaften, Verwandtschaft, Wohnorte und Aufnahmeidentität. Für sie verlangt die Validierung mindestens einen Beleg. Angaben, die ein Dokument über sich selbst trägt, etwa Titel und Autor in der Kopfzeile, gelten durch das Dokument als belegt.</p>
+  <h3>Evidence requirements</h3>
+  <p>A property with a simple value is shorthand for a single normal-rank statement. This is sufficient for most properties. The schema marks properties as requiring evidence where research has found or expects contradictions: event times and places, whether concerts took place, participation, memberships, family relationships, residences and recording identity. Validation requires at least one reference for these. Information a document supplies about itself, such as title and author in its header, is evidenced by the document.</p>
 </section>
 
 <section id="zeit">
-  <h2>7. Zeitangaben</h2>
-  <p>Zeitangaben folgen dem Extended Date/Time Format (EDTF), das in ISO 8601-2 aufgegangen ist. Es kann Unsicherheit, Ungefähres, Zeiträume und Alternativen ausdrücken, die in der Recherche häufig vorkommen:</p>
+  <h2>7. Dates and times</h2>
+  <p>Dates follow the Extended Date/Time Format (EDTF), incorporated into ISO 8601-2. It can express uncertainty, approximation, intervals and alternatives that frequently occur in the research:</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>EDTF</th><th>Bedeutung</th><th>Fall im Bestand</th></tr></thead>
+      <thead><tr><th>EDTF</th><th>Meaning</th><th>Case in the collection</th></tr></thead>
       <tbody>
-        <tr><td><code>1950-06-18</code></td><td>tagesgenau</td><td>Geburtsdatum</td></tr>
-        <tr><td><code>1975?</code></td><td>unsicher</td><td>Jahr mit nur einem schwachen Beleg</td></tr>
-        <tr><td><code>1975~</code></td><td>ungefähr</td><td>„um 1975“</td></tr>
-        <tr><td><code>[1976,1977]</code></td><td>eines von mehreren</td><td>„'76 or '77“</td></tr>
-        <tr><td><code>2004-10/2004-11</code></td><td>Zeitraum</td><td>Tod der Mutter, Ende Oktober oder Anfang November 2004</td></tr>
-        <tr><td><code>198X</code></td><td>Jahrzehnt</td><td>„in den Achtzigern“</td></tr>
-        <tr><td><code>2011-22</code></td><td>Jahreszeit (Sommer)</td><td>„Sommer 2011“</td></tr>
-        <tr><td><code>2008-10/..</code></td><td>offenes Ende</td><td>„ab Oktober 2008“</td></tr>
+        <tr><td><code>1950-06-18</code></td><td>Exact day</td><td>Date of birth</td></tr>
+        <tr><td><code>1975?</code></td><td>Uncertain</td><td>Year supported by only one weak reference</td></tr>
+        <tr><td><code>1975~</code></td><td>Approximate</td><td>‘Around 1975’</td></tr>
+        <tr><td><code>[1976,1977]</code></td><td>One of several</td><td>„'76 or '77“</td></tr>
+        <tr><td><code>2004-10/2004-11</code></td><td>Interval</td><td>Mother’s death, late October or early November 2004</td></tr>
+        <tr><td><code>198X</code></td><td>Decade</td><td>‘In the eighties’</td></tr>
+        <tr><td><code>2011-22</code></td><td>Season (summer)</td><td>‘Summer 2011’</td></tr>
+        <tr><td><code>2008-10/..</code></td><td>Open end</td><td>‘From October 2008’</td></tr>
       </tbody>
     </table>
   </div>
-  <p>EDTF ist eine Ausdruckssprache, keine Intervallrechnung. Aus <code>1975~</code> folgt keine allgemeingültige Grenze wie 1973 bis 1977, und ein Fragezeichen nennt keine Wahrscheinlichkeit. Die Daten speichern deshalb nur den Originalausdruck. Die maschinelle Interpretation entsteht im Build nach dokumentierten Regeln: unterstützte EDTF-Stufe, Konvention für Jahreszeiten, Behandlung offener Intervalle und eine feste Spanne für ungefähre Angaben. Eine Alternativenmenge bleibt eine Menge; bei <code>[1975,1977]</code> ist 1976 kein genannter Kandidat.</p>
-  <p>Zeitfilter unterscheiden daher zwischen Angaben, die sicher in einem Zeitraum liegen, und solchen, die möglicherweise hineinfallen. Ein äußerer Datumsbereich kann vorfiltern; Alternativen werden danach einzeln geprüft. Die Anzeige verwendet stets die ursprüngliche Form, sodass eine unscharfe Angabe nicht genauer erscheint, als sie belegt ist.</p>
-  <p>Erscheinungs- und Archivdatum sind getrennte Eigenschaften eines Dokuments (<code>published</code>, <code>archived</code>). Bei den Kolumnen ist der Erscheinungsmonat nur teilweise bekannt; wo er fehlt, kennzeichnet die Website heute das Datum der Archivierung ausdrücklich. Im Modell entspricht das zwei Aussagen mit eigenen Belegen. Historischer Zeitpunkt, Erscheinungsdatum und Archivdatum erhalten auch in Suche und Filtern jeweils eine eigene Bedeutung.</p>
+  <p>EDTF is an expression language, not interval arithmetic. An expression such as <code>1975~</code> does not imply a universal range such as 1973–1977, and a question mark specifies no probability. The data therefore stores only the original expression. Machine interpretation is produced during the build using documented rules: supported EDTF level, season convention, treatment of open intervals, and a fixed span for approximate dates. A set of alternatives remains a set; in <code>[1975,1977]</code>, 1976 is not a named candidate.</p>
+  <p>Date filters therefore distinguish information definitely within a period from information that might fall within it. An outer date range can prefilter candidates; alternatives are then checked individually. Display always uses the original form so that an imprecise date does not appear more precise than its evidence supports.</p>
+  <p>Publication and archive dates are separate document properties (<code>published</code>, <code>archived</code>). Publication months are known for only some columns; where missing, the website explicitly labels the archive date. In the model these are two statements with separate evidence. Historical date, publication date and archive date also retain distinct meanings in search and filters.</p>
 </section>
 
 <section id="beziehungen">
-  <h2>8. Beziehungsarten</h2>
-  <p>Beziehungsarten sind Einträge eines Vokabulars. Jede trägt Bezeichnungen in beiden Sprachen, eine Bezeichnung für die Gegenrichtung, die zulässigen Klassen auf beiden Seiten, die erlaubten Qualifikatoren und ihre Entsprechungen in externen Vokabularen. Gespeichert wird nur eine Richtung; die Gegenrichtung leitet der Build ab.</p>
+  <h2>8. Relationship types</h2>
+  <p>Relationship types are vocabulary entries. Each has labels in both languages, an inverse label, permitted classes on either side, allowed qualifiers and equivalents in external vocabularies. Only one direction is stored; the build derives the inverse.</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Bezeichner</th><th>von → zu</th><th>Qualifikatoren</th><th>Entsprechung</th></tr></thead>
+      <thead><tr><th>Identifier</th><th>From → to</th><th>Qualifiers</th><th>Equivalent</th></tr></thead>
       <tbody>
         <tr><td><code>performs_as</code></td><td>Person → Persona</td><td>time</td><td>MusicBrainz „performs as“</td></tr>
         <tr><td><code>member_of</code></td><td>Person → Group</td><td>time, role</td><td>schema:memberOf; MusicBrainz „member of band“</td></tr>
@@ -513,118 +513,118 @@ time:
         <tr><td><code>located_in</code></td><td>Place → Place</td><td>time</td><td>schema:containedInPlace; CRM P89</td></tr>
         <tr><td><code>work_performed</code></td><td>Event (performance) → Work</td><td>–</td><td>schema:workPerformed</td></tr>
         <tr><td><code>recording_of</code></td><td>Recording → Work</td><td>–</td><td>schema:recordingOf</td></tr>
-        <tr><td><code>recorded_at</code></td><td>Recording → Event</td><td>–</td><td>LRMoo: Pfad über F28 Expression Creation</td></tr>
+        <tr><td><code>recorded_at</code></td><td>Recording → Event</td><td>–</td><td>LRMoo: path through F28 Expression Creation</td></tr>
         <tr><td><code>tracks</code></td><td>Release → Recording</td><td>medium, position, printed_title, duration</td><td>schema:track; MusicBrainz Track</td></tr>
         <tr><td><code>release_of</code></td><td>Release → ReleaseGroup</td><td>–</td><td>schema:releaseOf</td></tr>
         <tr><td><code>record_label</code></td><td>Release → Organization</td><td>catalog_number</td><td>schema:recordLabel</td></tr>
         <tr><td><code>published_in</code></td><td>Document → Publication</td><td>issue, page</td><td>schema:isPartOf</td></tr>
-        <tr><td><code>about</code></td><td>Document, Work → Entität</td><td>–</td><td>schema:about</td></tr>
+        <tr><td><code>about</code></td><td>Document, Work → Entity</td><td>–</td><td>schema:about</td></tr>
         <tr><td><code>reviews</code></td><td>Document → Release, Event</td><td>–</td><td>schema:itemReviewed</td></tr>
         <tr><td><code>documents</code></td><td>Document, MediaObject → Event</td><td>–</td><td>CRM P70</td></tr>
-        <tr><td><code>depicts</code></td><td>MediaObject → Entität</td><td>–</td><td>CRM P62</td></tr>
-        <tr><td><code>encodes</code></td><td>MediaObject → Recording, ersatzweise Work</td><td>timestamp</td><td>schema:encodesCreativeWork</td></tr>
+        <tr><td><code>depicts</code></td><td>MediaObject → Entity</td><td>–</td><td>CRM P62</td></tr>
+        <tr><td><code>encodes</code></td><td>MediaObject → Recording, or Work as a fallback</td><td>timestamp</td><td>schema:encodesCreativeWork</td></tr>
         <tr><td><code>excerpt_of</code></td><td>MediaObject → Document</td><td>page, region</td><td>–</td></tr>
         <tr><td><code>based_on</code></td><td>Work → Work; Document → Statement</td><td>link_type</td><td>schema:isBasedOn</td></tr>
         <tr><td><code>derived_from</code></td><td>Document → Document</td><td>–</td><td>prov:wasDerivedFrom</td></tr>
-        <tr><td><code>linked_to</code></td><td>Entität → Entität</td><td>link_type, note</td><td>dcterms:relation</td></tr>
+        <tr><td><code>linked_to</code></td><td>Entity → Entity</td><td>link_type, note</td><td>dcterms:relation</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Die letzte Beziehungsart ist allgemein. Sie erlaubt, beliebige Entitäten zu verbinden, bevor es für einen Zusammenhang eine eigene Beziehungsart gibt; ihre Art stammt aus dem Vokabular <code>link_type</code> und kann um neue Einträge ergänzt werden. Tritt ein Zusammenhang wiederholt auf, wird eine eigene Beziehungsart mit festgelegten Klassen und Qualifikatoren angelegt, und die vorhandenen allgemeinen Verknüpfungen werden umgestellt. Da beide Formen als Aussagen gespeichert werden, ändert sich dabei nur das Vokabular, nicht das Datenbankschema. Die Validierung meldet allgemeine Verknüpfungen gesondert, damit sie nicht unbemerkt zur Regel werden.</p>
+  <p>The final relationship type is generic. It can connect any entities before a dedicated relationship type exists; its kind comes from the vocabulary <code>link_type</code> and can be extended with new entries. If a connection recurs, a dedicated relationship type with defined classes and qualifiers is introduced and existing generic links are converted. Since both forms are stored as statements, only the vocabulary changes, not the database schema. Validation reports generic links separately so that they do not silently become the norm.</p>
 </section>
 
 <section id="fiktion">
-  <h2>9. Fiktion</h2>
-  <p>Die Kapitel der Pastiche sind Dokumente mit der Eigenschaft <code>fiction: true</code>. Die Validierung lehnt sie als Belege für Aussagen ab; aus erfundener Ich-Prosa kann so keine Angabe über Levens Leben in das Modell gelangen. In der Gegenrichtung ist eine Verknüpfung vorgesehen: Die Abschnitte „Belegt / erfunden“ am Ende jedes Kapitels nennen, worauf es sich stützt, und können über <code>based_on</code> auf die entsprechenden Aussagen verweisen. Welche Passagen der Pastiche auf belegten Angaben beruhen, wird dadurch maschinenlesbar.</p>
+  <h2>9. Fiction</h2>
+  <p>Pastiche chapters are documents with the property <code>fiction: true</code>. Validation rejects them as evidence for statements, preventing invented first-person prose from entering the model as information about Leven’s life. A link is provided in the other direction: the ‘Documented / invented’ sections at the end of each chapter identify its basis and can use <code>based_on</code> to refer to the relevant statements. This makes the relationship between pastiche passages and documented information machine-readable.</p>
 </section>
 
 <section id="abgleich">
-  <h2>10. Abgleich und Freigabe</h2>
+  <h2>10. Reconciliation and approval</h2>
 
-  <h3>Abgleich mit Wikidata und MusicBrainz</h3>
-  <p>Für Personen, Gruppen, Orte, Organisationen, Veröffentlichungen, Aufnahmen und Werke sucht ein Werkzeug Kandidaten bei Wikidata und MusicBrainz. Jeder Kandidat wird mit seinem Prüfstand in der Datendatei der Entität gespeichert: <code>proposed</code>, <code>confirmed</code> oder <code>rejected</code>. Nur bestätigte Kennungen erscheinen in der Ausgabe als <code>sameAs</code>; abgelehnte bleiben vermerkt, damit derselbe Kandidat nicht erneut vorgeschlagen wird. Für größere Mengen, etwa die Orte des Konzertkalenders, eignet sich OpenRefine mit den Abgleichsdiensten beider Projekte.</p>
-  <p>Die Schnittstelle von MusicBrainz verlangt einen aussagekräftigen User-Agent und erlaubt etwa eine Anfrage je Sekunde. Das Werkzeug hält diese Grenze ein und speichert Antworten zwischen, sodass ein erneuter Abgleich nur neue Entitäten abfragt.</p>
+  <h3>Reconciliation with Wikidata and MusicBrainz</h3>
+  <p>For people, groups, places, organisations, releases, recordings and works, a tool searches Wikidata and MusicBrainz for candidates. Each candidate is saved in the entity’s data file with its review status: <code>proposed</code>, <code>confirmed</code> or <code>rejected</code>. Only confirmed identifiers appear in output as <code>sameAs</code>; rejected candidates remain recorded so that they are not proposed again. For larger sets, such as concert-calendar places, OpenRefine with both projects’ reconciliation services is suitable.</p>
+  <p>The MusicBrainz API requires a meaningful User-Agent and permits about one request per second. The tool respects this limit and caches responses so that subsequent reconciliation requests only new entities.</p>
 
-  <h3>Freigabe an Wikidata und MusicBrainz</h3>
-  <p>Bestätigte Angaben aus eigener Erschließung werden an beide Projekte zurückgegeben. Ein Export erzeugt dafür Bearbeitungsvorschläge: für Wikidata als QuickStatements-Stapel, für MusicBrainz als Liste der Änderungen je Veröffentlichung mit Quellenangaben für die Bearbeitungsnotiz. Die Vorschläge werden vor dem Einreichen durchgesehen und über die Konten des Projekts eingereicht; das Werkzeug bearbeitet keines der beiden Projekte selbständig.</p>
-  <p>Das Aussagenmodell lässt sich weitgehend unverändert übertragen. Die Ränge entsprechen denen von Wikidata, verworfene Aussagen können dort mit einem Grund für die Herabstufung (P2241) bestehen bleiben, und strittige Angaben werden als gleichrangige Werte mit ihren Belegen eingetragen. Belege werden als Referenzen mit „stated in“ (P248), „reference URL“ (P854) und Abrufdatum (P813) übertragen. Ungefähre Datumsangaben erhalten die passende Genauigkeit und den Qualifikator „sourcing circumstances“ (P1480). Nicht jede EDTF-Form hat eine Entsprechung; Alternativen wie <code>[1976,1977]</code> werden als zwei Aussagen übertragen.</p>
-  <p>Wikidata und die Kerndaten von MusicBrainz stehen unter CC0. Freigegeben werden daher nur strukturierte Angaben: Daten, Orte, Beziehungen, Kennungen und Titellisten. Texte, Inhaltsangaben, Zitate, Übersetzungen und Bilder werden nicht übertragen, auch nicht in Bearbeitungsnotizen über die Quellenangabe hinaus.</p>
+  <h3>Contributing to Wikidata and MusicBrainz</h3>
+  <p>Confirmed information from the project’s cataloguing is contributed to both projects. An export generates proposed edits: a QuickStatements batch for Wikidata, and a list of changes per release for MusicBrainz with sources for the edit note. Proposals are reviewed before submission through the project’s accounts; the tool does not edit either project independently.</p>
+  <p>The statement model transfers largely unchanged. Ranks match Wikidata’s; deprecated statements can remain there with a reason for deprecation (P2241), and disputed information is entered as equally ranked values with evidence. Evidence becomes references with ‘stated in’ (P248), ‘reference URL’ (P854) and retrieval date (P813). Approximate dates receive the appropriate precision and the ‘sourcing circumstances’ qualifier (P1480). Not every EDTF form has an equivalent; alternatives such as <code>[1976,1977]</code> are transferred as two statements.</p>
+  <p>Wikidata and MusicBrainz core data use CC0. Only structured information is contributed: dates, places, relationships, identifiers and track lists. Texts, synopses, quotations, translations and images are not transferred, including in edit notes beyond source attribution.</p>
 </section>
 
 <section id="repository">
-  <h2>11. Datenrepository und Lizenz</h2>
+  <h2>11. Data repository and licence</h2>
 
-  <h3>Aufteilung der Repositories</h3>
-  <p>Die Daten werden in einem eigenen, öffentlichen Repository geführt, <code>stefangrunert/jackieleven-archive</code> auf GitHub. Das Repository der Website, <code>stefangrunert/jackieleven</code>, bleibt privat. Die Trennung folgt den Ebenen aus Abschnitt 2: Das Datenrepository enthält, was das Archiv über Leven festhält, das Website-Repository, was die Website daraus macht.</p>
+  <h3>Repository separation</h3>
+  <p>The data is maintained in a separate public repository, <code>stefangrunert/jackieleven-archive</code> on GitHub. The website repository, <code>stefangrunert/jackieleven</code>, contains the application and its source collection. This separation follows the layers in section 2: the data repository contains what the archive records about Leven; the website repository contains what the website makes of it. Repository visibility is a separate publication decision.</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Repository</th><th>Inhalt</th></tr></thead>
+      <thead><tr><th>Repository</th><th>Contents</th></tr></thead>
       <tbody>
-        <tr><td>Daten (öffentlich)</td><td>LinkML-Schema, Vokabulare, Datendateien aller Entitäten, Beschreibungen der Quellen, Erwähnungen, Abgleichsstände, Aufträge und Abdeckungsregister der Erschließung, Werkzeuge für Validierung, Import, Abgleich, Tabellenansichten, Lückenbericht und Export</td></tr>
-        <tr><td>Website (privat)</td><td>Code, Darstellungsebene mit Stationen, Seitentexten und Übersetzungen, Pastiche, vollständige Texte Dritter, Faksimile- und Bilddateien, Rechercheakten, Testsatz der Suche, Deploy</td></tr>
+        <tr><td>Data repository</td><td>LinkML schema, vocabularies, entity data files, source descriptions, mentions, reconciliation status, cataloguing tasks and coverage registers, and tools for validation, import, reconciliation, table views, gap reports and export</td></tr>
+        <tr><td>Website repository</td><td>Code, presentation layer with timeline entries, page texts and translations, pastiche, full third-party texts, facsimile and image files, research files, search test set, deployment</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Vollständige Texte Dritter bleiben im privaten Repository. Levens Kolumnen und die Faksimiles erscheinen auf der Website mit den bisherigen Hinweisen; eine Lizenz des Datenrepositorys kann sie nicht erfassen, und ein öffentliches Repository würde sie gesammelt zum Herunterladen anbieten. Im Datenrepository stehen nur ihre Beschreibungen als Dokumente und Medienobjekte. Die Textstellen dieser Dokumente entstehen im Build der Website aus der Absatzfolge und erhalten gleichbleibende Anker. Belege und Erwähnungen im Datenrepository verweisen auf diese Kennungen; ob sie sich auflösen, prüft der Build der Website.</p>
-  <p>Die Rechercheakten in <code>research/</code> bleiben vorerst ebenfalls privat. Sie enthalten neben eigener Arbeit längere Zitate und genealogische Angaben zur Familie. Angaben über lebende Personen gelangen nur in das Datenrepository, soweit sie bereits veröffentlicht und für das Archiv erforderlich sind.</p>
+  <p>Full third-party texts belong to the website’s source collection. Leven’s columns and facsimiles appear on the website with their existing attribution; the data repository’s licence does not cover them. The data repository contains only their descriptions as documents and media objects. Passages in these documents are generated during the website build from paragraph order and receive stable anchors. References and mentions in the data repository point to these identifiers; the website build checks that they resolve.</p>
+  <p>The research files in <code>research/</code> also remain part of the website’s source collection. They document investigative work, including sources, quotations, unresolved leads and findings. Their presence in the repository does not make every research note part of the website’s published presentation.</p>
 
-  <h3>Versionen und Einbindung</h3>
-  <p>Das Datenrepository veröffentlicht Versionen mit dem Datum als Kennung, etwa <code>2026.11.02</code>. Jede Version durchläuft die Validierung und erzeugt einen Export: JSON-LD, ein Ladeformat für Postgres (NDJSON) und RDF in Turtle. Die Exporte werden der Version als Dateien mit Prüfsumme beigefügt und nicht im Repository versioniert. Das Schema trägt zusätzlich eine eigene Versionsnummer nach Semantic Versioning, weil Änderungen am Schema die Verarbeitung im Website-Repository betreffen können, Änderungen an den Daten dagegen nicht.</p>
-  <p>Das Website-Repository bindet eine bestimmte Datenversion über eine Sperrdatei mit Versionskennung und Prüfsumme des Exports ein. Der Build lädt diesen Export, prüft die Prüfsumme und verarbeitet ihn; Rohdateien und LinkML werden dort nicht benötigt. Für die Entwicklung kann die Sperrdatei auf eine lokale Arbeitskopie des Datenrepositorys verweisen. Jedes Release der Website ist so an eine Datenversion gebunden, und ein Rollback stellt auch den früheren Datenstand wieder her. Das Verfahren entspricht der Positivliste und den Prüfsummen, mit denen Releases heute gebaut werden.</p>
-  <p>Eine CI-Pipeline im Datenrepository prüft jede Änderung mit der Validierung aus Abschnitt 12.</p>
-  <p>Die Versionen sollen zusätzlich bei Zenodo archiviert werden, dem Forschungsdatenrepositorium des CERN. Die Archivierung ist vorgesehen, wird aber erst zu einem späteren Zeitpunkt eingerichtet; Zenodo archiviert nur Versionen, die danach veröffentlicht werden. Über die GitHub-Anbindung legt Zenodo bei jeder veröffentlichten Version eine Kopie des Repositorys ab und vergibt einen DOI, eine dauerhafte Kennung, mit der sich eine bestimmte Version zitieren lässt; ein weiterer DOI verweist stets auf die neueste Version. Die Kopien bleiben unabhängig von GitHub erhalten. Veröffentlichte Versionen lassen sich dort allerdings nur in Ausnahmefällen entfernen. Vor jeder Version muss daher feststehen, dass sie keine Texte Dritter und keine nicht veröffentlichten Angaben über lebende Personen enthält; die Validierung prüft das, soweit es sich prüfen lässt.</p>
+  <h3>Versions and integration</h3>
+  <p>The data repository publishes versions identified by date, such as <code>2026.11.02</code>. Each version passes validation and produces exports: JSON-LD, a Postgres loading format (NDJSON) and RDF in Turtle. Exports are attached to the release as files with checksums rather than versioned in the repository. The schema also has its own Semantic Versioning number, because schema changes may affect processing in the website repository whereas data changes do not.</p>
+  <p>The website repository pins a data version through a lock file containing its version identifier and export checksum. The build downloads the export, verifies the checksum and processes it; raw files and LinkML are not needed there. For development, the lock file may point to a local data repository checkout. Every website release is thus tied to a data version, and a rollback restores the earlier data state too. This follows the allowlist and checksum approach already used to build releases.</p>
+  <p>A CI pipeline in the data repository checks every change using the validation in section 12.</p>
+  <p>Versions are also intended to be archived in Zenodo, CERN’s research data repository. This is planned for a later stage; Zenodo archives only versions published after integration is enabled. Through the GitHub integration, Zenodo stores a repository copy for each published version and assigns a DOI, a persistent identifier for citing that version; another DOI always points to the latest version. Copies remain available independently of GitHub. Published versions can be removed there only in exceptional circumstances. Before each release, its publication scope and rights metadata therefore need review; validation checks the machine-verifiable parts.</p>
 
-  <h3>Lizenz</h3>
-  <p>Daten und eigene Texte des Datenrepositorys stehen unter der Lizenz Creative Commons Namensnennung – Nicht kommerziell 4.0 International (CC BY-NC 4.0). Jeder darf sie für nicht kommerzielle Zwecke nutzen, verändern und weitergeben, sofern er die Quelle nennt. Eine Creative-Commons-Lizenz, die nur die kommerzielle Nutzung ausschließt und auf die Namensnennung verzichtet, gibt es nicht; außer CC0 verlangen alle die Namensnennung. Die Lizenzen der Version 4.0 erfassen auch das Schutzrecht des Datenbankherstellers nach europäischem Recht, das bei einer strukturierten Sammlung wie dieser neben dem Urheberrecht bestehen kann. Einzelne Tatsachen wie ein Konzertdatum sind ohnehin nicht geschützt; die Lizenz betrifft die Sammlung und die eigenen Texte.</p>
-  <p>Als nicht kommerziell gilt nach der Lizenz eine Nutzung, die nicht vorrangig auf einen geschäftlichen Vorteil oder eine Vergütung gerichtet ist. Ein Label, das die Diskografie in ein kommerzielles Produkt übernimmt, ist danach ausgeschlossen. Für Grenzfälle, etwa ein Buch über Leven in einem kommerziellen Verlag, bleibt eine Genehmigung im Einzelfall möglich.</p>
-  <p>Die Lizenz erfasst nur, woran das Projekt Rechte hat: strukturierte Angaben, Schema, Vokabulare und eigene Texte wie die Inhaltsangaben der Quellen. Wörtliche Zitate aus Quellen, Texte Levens und Bilder Dritter sind ausgenommen. Die Datendateien kennzeichnen solche Bestandteile, und die README des Repositorys nennt die Ausnahmen.</p>
-  <p>Die Freigabe an Wikidata und MusicBrainz (Abschnitt 10) bleibt davon unberührt. Das Projekt stellt die dort eingereichten Angaben zusätzlich unter CC0; für den übrigen Bestand gilt weiter CC BY-NC 4.0. Für Dritte gelten die Lizenzbedingungen nur, soweit an den übernommenen Bestandteilen Rechte bestehen; einzelne Tatsachen und gesetzlich erlaubte Nutzungen bleiben unberührt. Umfangreiche Übernahmen aus der Sammlung in ein Projekt unter CC0 deckt die Lizenz dagegen nicht.</p>
-  <p>Wegen der nicht kommerziellen Bedingung ist der Bestand kein Open Data im Sinn der Open Definition und wird nicht so bezeichnet. Die FAIR-Grundsätze lassen sich trotzdem erfüllen: Auffindbarkeit, Zugänglichkeit, Interoperabilität und Nachnutzbarkeit mit maschinenlesbaren Metadaten, Rechte- und Herkunftsangaben. Die Validierung prüft vorhandene Rechteangaben, kann aber weder Rechte noch die Zulässigkeit personenbezogener Angaben selbst nachweisen.</p>
-  <p>Für die Werkzeuge im Repository eignet sich keine Creative-Commons-Lizenz; Creative Commons rät selbst davon ab, sie für Software zu verwenden. Der Code steht deshalb unter einer Open-Source-Lizenz, vorgesehen ist die MIT-Lizenz. Das Repository enthält damit zwei Lizenzdateien, und die README ordnet jedem Verzeichnis seine Lizenz zu.</p>
+  <h3>Licence</h3>
+  <p>The proposed licence for data and original writing in the data repository is Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0). It permits non-commercial use, adaptation and redistribution with attribution. There is no Creative Commons licence that excludes commercial use while dispensing with attribution; all except CC0 require attribution. Version 4.0 licences also cover European sui generis database rights, which may apply to a structured collection alongside copyright. Individual facts such as a concert date are not protected as such; the licence concerns the collection and original writing.</p>
+  <p>Under the licence, non-commercial means use not primarily intended for commercial advantage or monetary compensation. A label incorporating the discography into a commercial product would therefore be excluded. Individual permission remains possible for borderline cases, such as a book about Leven from a commercial publisher.</p>
+  <p>The licence covers only material in which the project holds rights: structured information, schema, vocabularies and original writing such as source synopses. Verbatim source quotations, Leven’s texts and third-party images are excluded. Data files identify these components and the repository README lists the exceptions.</p>
+  <p>Contributions to Wikidata and MusicBrainz (section 10) are unaffected. The project additionally releases the information submitted there under CC0; CC BY-NC 4.0 continues to apply to the rest of the collection. For third parties, licence conditions apply only where rights exist in the material reused; individual facts and legally permitted uses are unaffected. The licence does not, however, cover substantial transfers from the collection into a CC0 project.</p>
+  <p>Because of the non-commercial condition, the collection is not Open Data under the Open Definition and is not described as such. It can nevertheless follow FAIR principles: findability, accessibility, interoperability and reusability through machine-readable metadata, rights and provenance. Validation checks the presence of rights information but cannot itself establish rights or determine whether personal information may be published.</p>
+  <p>A Creative Commons licence is unsuitable for the repository’s tools; Creative Commons itself advises against using its licences for software. The planned software licence is therefore MIT. The repository will contain two licence files, with the README assigning a licence to each directory.</p>
 </section>
 
 <section id="umsetzung">
-  <h2>12. Technische Umsetzung</h2>
+  <h2>12. Technical implementation</h2>
 
   <h3>Schema in LinkML</h3>
-  <p>Das Schema wird in LinkML geschrieben, einer Modellierungssprache auf YAML-Basis. Sie beschreibt Klassen, Eigenschaften, Wertebereiche, Vokabulare und die Abbildungen auf externe Vokabulare in einer Datei. Die Generatoren von LinkML erzeugen daraus unter anderem JSON Schema für die Validierung der Datendateien, Pydantic-Klassen für die Python-Pipeline, SQL-DDL, einen JSON-LD-Kontext, SHACL-Formen und eine Dokumentation. Schema, Validierung und Ausgabeformate stammen damit aus derselben Quelle. Die Generatoren decken allerdings nicht alle Merkmale gleich ab. Dateischema, Verweisintegrität, fachliche Regeln und RDF-Export werden deshalb getrennt getestet, und die Suchtabellen entstehen nicht ungeprüft aus generiertem SQL-DDL.</p>
-  <p>Schema v0.2 liegt im Datenrepository vor. Es umfasst die Klassen des ersten Erschließungslaufs, Aussagen mit Kennung, Rang, Gewissheit und Belegen, Urheber von Behauptungen, abhängige Quellen und an den Inhalt gebundene Prüfangaben. Werke, Aufnahmen und Ausgaben im Einzelnen, Medienobjekte, Textstellen und Erwähnungen folgen in späteren Fassungen.</p>
+  <p>The schema is written in LinkML, a YAML-based modelling language. One file describes classes, properties, ranges, vocabularies and mappings to external vocabularies. LinkML generators produce, among other things, JSON Schema for data validation, Pydantic classes for the Python pipeline, SQL DDL, a JSON-LD context, SHACL shapes and documentation. Schema, validation and output formats thus share a source. The generators do not support every feature equally, however. File schemas, reference integrity, domain rules and RDF export are therefore tested separately, and search tables are not created from generated SQL DDL without review.</p>
+  <p>Schema v0.2 exists in the data repository. It covers the classes used in the first cataloguing pass, statements with identifiers, rank, certainty and evidence, claim authors, dependent sources, and content-bound review metadata. Detailed works, recordings and releases, media objects, passages and mentions follow in later versions.</p>
 
-  <h3>Datendateien</h3>
-  <p>Jede Entität erhält im Datenrepository eine Datei unter <code>data/&lt;type&gt;/&lt;key&gt;.yaml</code>. Beschreibungen von Quellen mit längerem eigenem Text, wie die heutigen Dateien in <code>research/quellen/</code>, bleiben Markdown-Dateien mit YAML-Kopf. Erwähnungen liegen je Dokument in einer eigenen Datei unter <code>data/mentions/</code>.</p>
-  <p>Die Regel gilt auch für gleichartige Massendaten wie die Konzerte. Ein Konzert besteht anfangs oft nur aus Datum, Spielstätte und einer Kalenderquelle, erhält aber im Lauf der Zeit Belege für die Durchführung, eine Setlist, Mitschnitte, Fotos und Berichte; abweichende Termine kommen hinzu. Solche verschachtelten Aussagen lassen sich in einer Tabellenzeile nicht sinnvoll unterbringen. Eine Sammeldatei je Jahr hinge zudem von einem Datum ab, das selbst strittig sein kann. Da die Schlüssel von Konzerten mit dem Datum beginnen, ergibt die Dateiliste ohnehin eine chronologische Übersicht.</p>
-  <p>Für Überblick und Massenbearbeitung erzeugt ein Werkzeug Tabellen aus den Dateien, etwa alle Konzerte eines Jahres mit Datum, Spielstätte, Durchführung und Quellen. Eine bearbeitete Tabelle kann zurückgespielt werden; das Werkzeug überträgt die Änderungen in die Dateien und validiert sie. Die Tabelle ist damit eine Ansicht und kein zweites Speicherformat. Der Konzertkalender in <code>research/10-konzertkalender.md</code> wird einmal eingelesen. Danach entsteht eine lesbare Kalenderübersicht aus den Daten, statt neben ihnen gepflegt zu werden.</p>
+  <h3>Data files</h3>
+  <p>Each entity receives a file in the data repository under <code>data/&lt;type&gt;/&lt;key&gt;.yaml</code>. Source descriptions with longer original prose, such as the current files in <code>research/quellen/</code>, remain Markdown files with YAML front matter. Mentions are stored in a separate file per document under <code>data/mentions/</code>.</p>
+  <p>The same rule applies to homogeneous bulk data such as concerts. A concert may initially contain only a date, venue and calendar source, but later acquire evidence that it took place, a setlist, recordings, photographs and reports; conflicting dates may also appear. Such nested statements do not fit sensibly in one table row. A collective file per year would also depend on a date that may itself be disputed. Since concert keys begin with the date, the file listing already provides a chronological overview.</p>
+  <p>For overview and bulk editing, a tool generates tables from the files, such as all concerts in a year with date, venue, performance status and sources. An edited table can be imported back; the tool applies and validates changes in the files. The table is thus a view, not a second storage format. The concert calendar in <code>research/10-konzertkalender.md</code> is imported once. Thereafter a readable calendar is generated from the data rather than maintained alongside it.</p>
 
-  <h3>Validierung</h3>
-  <p>Ein Werkzeug prüft vor jedem Build:</p>
+  <h3>Validation</h3>
+  <p>Before each build, a tool checks:</p>
   <ul>
-    <li>Übereinstimmung jeder Datei mit dem Schema;</li>
-    <li>Auflösbarkeit aller Verweise auf Kennungen, auch über <code>replaced_by</code>;</li>
-    <li>Belege bei belegpflichtigen Eigenschaften;</li>
-    <li>Lesbarkeit aller Zeitangaben als EDTF;</li>
-    <li>zulässige Klassen auf beiden Seiten jeder Beziehung;</li>
-    <li>Eindeutigkeit bestätigter externer Kennungen;</li>
-    <li>keine Belege aus Dokumenten mit <code>fiction: true</code>;</li>
-    <li>eindeutige Aussagekennungen;</li>
-    <li>keine Zyklen in <code>replaced_by</code>, <code>located_in</code> und <code>part_of</code>;</li>
-    <li>Prüfangaben, deren Prüfsumme zum aktuellen Inhalt passt;</li>
-    <li>Textstellen gegen das Verzeichnis der Textstellen, sofern es vorliegt.</li>
+    <li>Each file conforms to the schema;</li>
+    <li>All identifier references resolve, including through <code>replaced_by</code>;</li>
+    <li>Evidence exists for properties requiring it;</li>
+    <li>All dates parse as EDTF;</li>
+    <li>Both sides of each relationship have permitted classes;</li>
+    <li>Confirmed external identifiers are unique;</li>
+    <li>No evidence comes from documents with <code>fiction: true</code>;</li>
+    <li>Statement identifiers are unique;</li>
+    <li>There are no cycles in <code>replaced_by</code>, <code>located_in</code> and <code>part_of</code>;</li>
+    <li>Review checksums match the current content;</li>
+    <li>Passages match the passage registry, where available.</li>
   </ul>
-  <p>Zusätzlich berichtet es Entitäten ohne Verknüpfung, allgemeine Verknüpfungen über <code>linked_to</code>, unbestätigte Abgleichskandidaten und Medienobjekte, die noch auf ein Werk statt auf eine Aufnahme verweisen, ohne den Build abzubrechen.</p>
+  <p>It also reports unconnected entities, generic links through <code>linked_to</code>, unconfirmed reconciliation candidates, and media objects still pointing to a work rather than a recording, without failing the build.</p>
 
-  <h3>Lesemodell in Postgres</h3>
-  <p>Postgres speichert das Modell als Graph aus wenigen Tabellen: <code>entity</code>, <code>statement</code>, <code>reference</code>, <code>passage</code> und <code>mention</code>. Jede Aussage enthält neben der EDTF-Angabe den abgeleiteten Zeitraum als <code>daterange</code> mit GiST-Index für Zeitfilter. Hierarchien wie <code>part_of</code> und <code>located_in</code> werden über rekursive Abfragen aufgelöst. Eine materialisierte Sicht <code>entity_current</code> hält je Entität die angezeigten Werte als JSON vor; Website, <code>/id/</code>-Auflösung und Suche lesen in der Regel nur diese Sicht. Die Suchtabellen aus dem Architekturentwurf bauen auf <code>passage</code> auf.</p>
+  <h3>Read model in Postgres</h3>
+  <p>Postgres stores the model as a graph in a few tables: <code>entity</code>, <code>statement</code>, <code>reference</code>, <code>passage</code> and <code>mention</code>. Alongside the EDTF expression, each statement contains the derived period as a <code>daterange</code> with a GiST index for date filtering. Hierarchies such as <code>part_of</code> and <code>located_in</code> are resolved by recursive queries. A materialised view <code>entity_current</code> holds each entity’s displayed values as JSON; the website, <code>/id/</code> resolution and search usually read only this view. The search tables in the architecture draft build on <code>passage</code>.</p>
 
-  <h3>Ausgabe</h3>
-  <p>Jede Seite und jede <code>/id/</code>-Adresse liefert eine Beschreibung ihrer Entität als JSON-LD mit schema.org-Typen und bestätigten <code>sameAs</code>-Verweisen. Ein vollständiger Export als RDF mit den Abbildungen auf CIDOC CRM und LRMoo wird im Datenrepository erzeugt und jeder Version beigefügt. Eine SPARQL-Schnittstelle ist nicht vorgesehen, ließe sich aber aus diesem Export laden, etwa mit Oxigraph. Für KI-Assistenten und Agenten stellt die Website zusätzlich eine Such-Schnittstelle und einen MCP-Server bereit, die Aussagen mit Rang und Belegen liefern (<a href="suche-architektur.html#agenten">Architekturentwurf, Abschnitt 10</a>).</p>
+  <h3>Output</h3>
+  <p>Every page and every <code>/id/</code> address returns an entity description as JSON-LD using schema.org types and confirmed <code>sameAs</code> references. A complete RDF export with CIDOC CRM and LRMoo mappings is generated in the data repository and attached to each release. A SPARQL endpoint is not planned, but could be loaded from this export, for example using Oxigraph. For AI assistants and agents, the website also provides a search API and an MCP server that return statements with ranks and evidence (<a href="suche-architektur.html#agenten">architecture draft, section 10</a>).</p>
 
-  <h3>Abbildung der Klassen</h3>
+  <h3>Class mappings</h3>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Klasse</th><th>schema.org</th><th>CIDOC CRM / LRMoo</th><th>MusicBrainz</th></tr></thead>
+      <thead><tr><th>Class</th><th>schema.org</th><th>CIDOC CRM / LRMoo</th><th>MusicBrainz</th></tr></thead>
       <tbody>
         <tr><td><code>Person</code></td><td>Person</td><td>E21 Person</td><td>Artist (Person)</td></tr>
-        <tr><td><code>Persona</code></td><td>Person</td><td>eigene Abbildung, nicht E21</td><td>Artist mit „performs as“</td></tr>
+        <tr><td><code>Persona</code></td><td>Person</td><td>Separate mapping, not E21</td><td>Artist with ‘performs as’</td></tr>
         <tr><td><code>Group</code></td><td>MusicGroup</td><td>E74 Group</td><td>Artist (Group)</td></tr>
         <tr><td><code>Organization</code></td><td>Organization</td><td>E74 Group</td><td>Label</td></tr>
         <tr><td><code>Place</code></td><td>Place</td><td>E53 Place</td><td>Place, Area</td></tr>
@@ -634,71 +634,71 @@ time:
         <tr><td><code>Recording</code></td><td>MusicRecording</td><td>F2 Expression</td><td>Recording</td></tr>
         <tr><td><code>ReleaseGroup</code></td><td>MusicAlbum</td><td>–</td><td>Release Group</td></tr>
         <tr><td><code>Release</code></td><td>MusicRelease</td><td>F3 Manifestation</td><td>Release</td></tr>
-        <tr><td>(Titel, Aussage <code>tracks</code>)</td><td>ListItem</td><td>–</td><td>Track</td></tr>
+        <tr><td>(Track, statement <code>tracks</code>)</td><td>ListItem</td><td>–</td><td>Track</td></tr>
         <tr><td><code>Document</code></td><td>CreativeWork, Article, Review</td><td>E31 Document</td><td>–</td></tr>
         <tr><td><code>Publication</code></td><td>Periodical, WebSite</td><td>–</td><td>–</td></tr>
-        <tr><td><code>MediaObject</code></td><td>MediaObject</td><td>E73 Information Object; E36 nur für Bilder</td><td>–</td></tr>
+        <tr><td><code>MediaObject</code></td><td>MediaObject</td><td>E73 Information Object; E36 for images only</td><td>–</td></tr>
         <tr><td><code>Passage</code></td><td>–</td><td>E33 Linguistic Object</td><td>–</td></tr>
         <tr><td><code>Statement</code></td><td>–</td><td>E13 Attribute Assignment</td><td>–</td></tr>
         <tr><td><code>Concept</code></td><td>DefinedTerm</td><td>E55 Type</td><td>Genre, Tag</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Die Abbildungen beziehen sich auf CIDOC CRM 7.1.3 und LRMoo 1.1.1. In LRMoo 1.1.1 sind F26 Recording und F29 Recording Event aufgegeben; an ihre Stelle treten F2 Expression und F28 Expression Creation. Die Tabelle unterscheidet noch nicht durchgehend zwischen echten Entsprechungen, Spezialisierungen und verlustbehafteten Projektionen; das geschieht vor dem Bau des RDF-Exports. Eine Persona wird nicht als E21 Person exportiert, weil CIDOC CRM reale Personen ausdrücklich von Personas abgrenzt; der Export drückt die bibliografische Identität aus, ohne eine weitere reale Person zu behaupten.</p>
-  <p>Ein vollständiger Export erhält Aussagen, Qualifikatoren und Belege. Nicht bevorzugte und verworfene Aussagen erscheinen dort nicht als unqualifizierte Tatsachen; ein JSON-LD-Kontext allein leistet diese Umformung nicht. Geprüft wird der Export an kleinen Referenzgraphen mit erwarteten Tripeln und ausdrücklich verbotenen Schlussfolgerungen.</p>
+  <p>The mappings refer to CIDOC CRM 7.1.3 and LRMoo 1.1.1. In LRMoo 1.1.1, F26 Recording and F29 Recording Event have been deprecated; F2 Expression and F28 Expression Creation replace them. The table does not yet consistently distinguish true equivalents, specialisations and lossy projections; this will be done before implementing RDF export. A persona is not exported as E21 Person because CIDOC CRM explicitly distinguishes real people from personas; the export expresses bibliographic identity without asserting an additional real person.</p>
+  <p>A complete export preserves statements, qualifiers and evidence. Non-preferred and deprecated statements do not appear as unqualified facts; a JSON-LD context alone cannot perform this transformation. The export is checked against small reference graphs with expected triples and explicitly forbidden inferences.</p>
 </section>
 
 <section id="uebernahme">
-  <h2>13. Übernahme des Bestands</h2>
-  <p>Der vorhandene Bestand wird mit Importwerkzeugen in das Datenrepository übertragen. Die bisherigen Dateien im Website-Repository bleiben dabei unverändert, und die Website liest sie weiter, bis die jeweiligen Seiten auf das Lesemodell umgestellt sind; danach werden sie dort entfernt.</p>
+  <h2>13. Migrating existing material</h2>
+  <p>Import tools transfer the existing collection into the data repository. Existing files in the website repository remain unchanged and continue to be read until the relevant pages switch to the read model; they are then removed there.</p>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Bestand</th><th>Abbildung</th><th>Anmerkung</th></tr></thead>
+      <thead><tr><th>Existing material</th><th>Mapping</th><th>Note</th></tr></thead>
       <tbody>
-        <tr><td><code>research/columns/</code>, <code>app/data/kolumnen.php</code></td><td>Dokumente der Art Kolumne in der Publikation <i>The Deep Pool</i>; Textstellen je Absatz</td><td>Erscheinungs- und Archivdatum als getrennte Aussagen</td></tr>
-        <tr><td><code>research/quellen/</code></td><td>Dokumente, Publikationen, Personen als Autoren</td><td>Das Feld <code>thema</code> mischt Themen mit Ereignissen und Werken („Tod 14.11.2011“, „Call Mother A Lonely Field“); es wird in Begriffe und Verknüpfungen aufgeteilt und dabei geprüft. Felder, die die Website heute intern hält, etwa Fundweg und Verweise auf Rechercheakten, bleiben im privaten Repository</td></tr>
-        <tr><td><code>app/data/diskografie.json</code>, <code>diskografie-details.json</code></td><td>Veröffentlichungen, Ausgaben, Titel, Beteiligungen aus den Credits</td><td>erst nach der Recherche der Aufnahmen, je Veröffentlichung</td></tr>
-        <tr><td><code>app/data/youtube-titel.json</code></td><td>Medienobjekte mit <code>encodes</code></td><td>verweisen auf das Werk, bis die Aufnahme bestimmt ist</td></tr>
-        <tr><td><code>app/data/live-videos.json</code></td><td>Konzerte, Aufführungen mit Zeitmarken, Aufnahmen, Medienobjekte</td><td>Herkunft „official“ oder „fan“ wird Eigenschaft des Medienobjekts</td></tr>
-        <tr><td><code>research/10-konzertkalender.md</code></td><td>Konzerte, Orte mit Hierarchie, Durchführung</td><td>Quellenkürzel werden Dokumente (archivierte Kalenderfassungen); abweichende Termine werden konkurrierende Aussagen</td></tr>
-        <tr><td><code>research/11-zeitleiste.md</code></td><td>Lebensereignisse mit Aussagen und Belegen</td><td>[SA] und [belegbar] werden Belegarten; die Konflikttabelle ergibt konkurrierende Aussagen mit Rang</td></tr>
-        <tr><td><code>app/data/stationen.php</code></td><td>Darstellungsebene</td><td>Stationen verweisen auf Ereignisse und Orte</td></tr>
-        <tr><td><code>autobiografie/</code></td><td>Dokumente mit <code>fiction: true</code></td><td>Verknüpfung der Abschnitte „Belegt / erfunden“ mit Aussagen in einem späteren Schritt</td></tr>
+        <tr><td><code>research/columns/</code>, <code>app/data/kolumnen.php</code></td><td>Column documents in the publication <i>The Deep Pool</i>; passages per paragraph</td><td>Publication and archive dates as separate statements</td></tr>
+        <tr><td><code>research/quellen/</code></td><td>Documents, publications, people as authors</td><td>The field <code>thema</code> mixes subjects with events and works (‘Tod 14.11.2011’, ‘Call Mother A Lonely Field’); it is split into concepts and links and reviewed. Fields that the website currently keeps out of its public presentation, such as discovery paths and references to research files, remain in the website repository.</td></tr>
+        <tr><td><code>app/data/diskografie.json</code>, <code>diskografie-details.json</code></td><td>Release groups, releases, tracks and participants from credits</td><td>Only after recording research, release by release</td></tr>
+        <tr><td><code>app/data/youtube-titel.json</code></td><td>Media objects with <code>encodes</code></td><td>point to the work until the recording is identified</td></tr>
+        <tr><td><code>app/data/live-videos.json</code></td><td>Concerts, performances with timestamps, recordings, media objects</td><td>‘official’ or ‘fan’ provenance becomes a media-object property</td></tr>
+        <tr><td><code>research/10-konzertkalender.md</code></td><td>Concerts, hierarchical places, performance status</td><td>Source abbreviations become documents (archived calendar versions); conflicting dates become competing statements</td></tr>
+        <tr><td><code>research/11-zeitleiste.md</code></td><td>Life events with statements and evidence</td><td>[SA] and [belegbar] become evidence types; the conflict table produces competing ranked statements</td></tr>
+        <tr><td><code>app/data/stationen.php</code></td><td>Presentation layer</td><td>Timeline entries refer to events and places</td></tr>
+        <tr><td><code>autobiografie/</code></td><td>Documents with <code>fiction: true</code></td><td>Linking ‘Documented / invented’ sections to statements follows later</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>Recherche der Aufnahmen</h3>
-  <p>Ob zwei Titel auf verschiedenen Ausgaben dieselbe Aufnahme enthalten, geht aus den heutigen Daten meist nicht hervor. Diese Zuordnung wird vor der Übernahme der Diskografie recherchiert und nicht vorläufig je Titel angelegt. Ausgangspunkt sind die Recordings von MusicBrainz, wo die Ausgabe dort erfasst ist; MusicBrainz führt dieselbe Aufnahme auf verschiedenen Ausgaben bereits als ein Recording. Diese Zuordnungen werden anhand von Spieldauer, Credits, Angaben auf Hülle und Beiheft sowie Hinweisen der Labels zu Neuauflagen geprüft. Nach den Richtlinien von MusicBrainz gilt eine remasterte Fassung in der Regel als dieselbe Aufnahme, ein abweichender Mix oder Schnitt als eigene.</p>
-  <p>Die Übernahme erfolgt je Veröffentlichung, sobald deren Aufnahmen geklärt sind; bis dahin verwendet die Website die heutigen Diskografie-Dateien. Die Aufnahmeidentität ist belegpflichtig. Wo die Recherche eine Zuordnung bei MusicBrainz berichtigt oder ergänzt, geht sie in die Freigabe ein (Abschnitt 10). Mit der geklärten Aufnahme werden auch die YouTube-Medienobjekte von Werken auf Aufnahmen umgestellt.</p>
-  <p>Auch die Ableitung der Werke aus den Titeln ist nicht vollständig automatisch. Sie setzt die vorhandene Normalisierung der Titel voraus, die bei abweichenden Schreibweisen bereits Zuordnungen von Hand enthält.</p>
+  <h3>Researching recordings</h3>
+  <p>Current data usually does not establish whether tracks on different releases contain the same recording. This mapping is researched before discography migration rather than provisionally creating a recording per track. MusicBrainz recordings are the starting point where a release is catalogued there; MusicBrainz already represents the same recording across releases as one Recording. These mappings are checked against duration, credits, sleeve and booklet information, and label notes on reissues. Under MusicBrainz guidelines, a remaster generally counts as the same recording, while a different mix or edit counts as a separate one.</p>
+  <p>Migration proceeds release by release once its recordings are resolved; until then the website uses the current discography files. Recording identity requires evidence. Corrections or additions to MusicBrainz mappings are included in contributions (section 10). Once a recording is identified, YouTube media objects are also reassigned from works to recordings.</p>
+  <p>Deriving works from titles is not entirely automatic either. It relies on existing title normalisation, which already includes manual mappings for variant spellings.</p>
 </section>
 
 <section id="entscheidungen">
-  <h2>14. Entscheidungen</h2>
-  <h3>Getroffen am 25. Oktober 2026</h3>
+  <h2>14. Decisions</h2>
+  <h3>Decided on 25 October 2026; repository visibility wording updated during documentation preparation</h3>
   <div class="tabelle">
     <table>
-      <thead><tr><th>Frage</th><th>Entscheidung</th></tr></thead>
+      <thead><tr><th>Question</th><th>Decision</th></tr></thead>
       <tbody>
-        <tr><td>Personas und Namen</td><td>Personas sind eigene Entitäten mit <code>performs_as</code>; Geburtsname, Schreibvarianten und gedruckte Nennungen werden geführt und auf die Person aufgelöst</td></tr>
-        <tr><td>Sprache der Bezeichner</td><td>Englisch</td></tr>
-        <tr><td>Aufnahmen bei der Übernahme</td><td>Recherche der Aufnahmeidentität vor der Übernahme, je Veröffentlichung</td></tr>
-        <tr><td>Adressen unter <code>/id/</code></td><td>von Beginn an, mit Content Negotiation und einfachen Entitätsseiten</td></tr>
-        <tr><td>Wikidata und MusicBrainz</td><td>Abgleich der Kennungen und Freigabe bestätigter, strukturierter Angaben unter CC0</td></tr>
-        <tr><td>Lizenz</td><td>CC BY-NC 4.0 für Daten, Schema, Vokabulare und eigene Texte; Texte und Bilder Dritter ausgenommen</td></tr>
-        <tr><td>Repository</td><td>eigenes, öffentliches Datenrepository <code>stefangrunert/jackieleven-archive</code>; das Website-Repository bleibt privat</td></tr>
-        <tr><td>Lizenz der Werkzeuge</td><td>Open Source, vorgesehen MIT</td></tr>
-        <tr><td>Archivierung bei Zenodo</td><td>vorgesehen, mit DOI je Version; Einrichtung zu einem späteren Zeitpunkt (Abschnitt 11)</td></tr>
-        <tr><td>Massendaten</td><td>eine Datei je Datensatz, auch für Konzerte; Tabellen nur als erzeugte Ansicht mit Rückimport (Abschnitt 12)</td></tr>
+        <tr><td>Personas and names</td><td>Personas are separate entities with <code>performs_as</code>; birth name, spelling variants and printed credits are recorded and resolved to the person</td></tr>
+        <tr><td>Identifier language</td><td>English</td></tr>
+        <tr><td>Recordings during migration</td><td>Research recording identity before migration, release by release</td></tr>
+        <tr><td>Addresses under <code>/id/</code></td><td>From the outset, with content negotiation and simple entity pages</td></tr>
+        <tr><td>Wikidata and MusicBrainz</td><td>Reconcile identifiers and contribute confirmed structured information under CC0</td></tr>
+        <tr><td>Licence</td><td>CC BY-NC 4.0 for data, schema, vocabularies and original writing; third-party texts and images excluded</td></tr>
+        <tr><td>Repository</td><td>Separate public data repository <code>stefangrunert/jackieleven-archive</code>; website repository visibility is a separate publication decision</td></tr>
+        <tr><td>Tools licence</td><td>Open source, MIT planned</td></tr>
+        <tr><td>Zenodo archiving</td><td>Planned, with a DOI per version; setup at a later stage (section 11)</td></tr>
+        <tr><td>Bulk data</td><td>One file per record, including concerts; tables only as generated views with reimport (section 12)</td></tr>
       </tbody>
     </table>
   </div>
-  <h3>Offen</h3>
-  <p>Derzeit sind keine Entscheidungen zur Ontologie offen.</p>
+  <h3>Open questions</h3>
+  <p>There are currently no open ontology decisions.</p>
 </section>
 
-<footer>Entwurf in <code>.dev/</code>, nicht Teil der Website.</footer>
+<footer>Draft in <code>.dev/</code>, not part of the website.</footer>
 
 </main>
 </body>

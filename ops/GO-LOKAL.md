@@ -1,102 +1,66 @@
-# Go auf diesem MacBook
+# Go on this MacBook
 
-Seit dem 26. Oktober 2026 führt `https://jackieleven.localhost/de/` zur Go-Anwendung
-im Hauptverzeichnis `/Users/stefan/www/jackieleven`.
+Since 26 October 2026, `https://jackieleven.localhost/de/` points to the Go application in the main directory `/Users/stefan/www/jackieleven`.
 
-Der Weg ist Browser → MAMP Apache mit dem vorhandenen lokalen Zertifikat →
-`127.0.0.1:8080` → Go. MAMP muss für die HTTPS-Adresse laufen. Der Go-Prozess ist
-unabhängig von einem Terminal und startet als LaunchAgent bei Stefans Anmeldung.
-Er wird nach einem Prozessende automatisch neu gestartet. Nach Abmelden ist dieser
-Benutzerdienst nicht verfügbar; im Ruhezustand des MacBooks wird nichts bedient.
+Requests follow Browser → MAMP Apache with the existing local certificate → `127.0.0.1:8080` → Go. MAMP must run for the HTTPS address to work. The Go process is independent of a terminal and starts as a LaunchAgent when Stefan logs in. It restarts automatically after exiting. This user service is unavailable after logout, and the MacBook serves nothing while asleep.
 
-## Im Alltag
+## Everyday use
 
 ```sh
 cd /Users/stefan/www/jackieleven
 
-# Go-Code geändert: bauen und Dienst neu starten
+# Go code changed: build and restart the service
 ops/go-local.sh restart
 
-# Nur Templates, Kataloge oder Kolumnen geändert: ohne Build neu laden
+# Only templates, catalogues or columns changed: reload without building
 ops/go-local.sh reload
 
-# Diagnose
+# Diagnostics
 ops/go-local.sh status
 ops/go-local.sh logs
 curl -I https://jackieleven.localhost/de/
 
-# Für diese Anmeldung stoppen; danach wieder starten
+# Stop for this login session, then start again
 ops/go-local.sh stop
 ops/go-local.sh start
 ```
 
-`restart` baut zuerst eine neue Binärdatei und ersetzt sie erst nach erfolgreichem
-Build. Ein Compilerfehler lässt den bisherigen Dienst weiterlaufen. `build` baut
-nur und verändert den laufenden Prozess nicht. Es gibt keinen automatischen
-Dateiwächter. Für Experimente kann zusätzlich `go run` auf Port 8081 laufen; 8080
-gehört dem Anmeldedienst. Siehe auch `.dev/go-tutorial.html`.
+`restart` builds a new binary first and replaces it only after a successful build. A compiler error leaves the existing service running. `build` only builds and does not change the running process. There is no automatic file watcher. An additional experimental `go run` server can use port 8081; 8080 belongs to the login service. See also `.dev/go-tutorial.html`.
 
-`stop` entlädt den Dienst für die aktuelle Anmeldung. Beim nächsten Anmelden lädt
-macOS die weiterhin installierte plist wieder. Für dauerhaftes Abschalten:
+`stop` unloads the service for the current login session. At the next login, macOS loads the still-installed plist again. To disable it persistently:
 
 ```sh
 ops/go-local.sh stop
 launchctl disable "gui/$(id -u)/com.stefan.jackieleven.go"
 ```
 
-`ops/go-local.sh start` aktiviert und lädt ihn wieder.
+`ops/go-local.sh start` enables and loads it again.
 
-## Einrichtung und Dateien
+## Setup and files
 
-`ops/go-local.sh install` baut das Programm, schreibt die LaunchAgent-plist mit
-den tatsächlichen lokalen Pfaden und lädt sie. Der Befehl ist für macOS gedacht
-und erfordert Go sowie Python 3. Ein fremder Prozess auf Port 8080 muss vorher
-gezielt beendet oder umkonfiguriert werden.
+`ops/go-local.sh install` builds the program, writes the LaunchAgent plist with the actual local paths, and loads it. It is intended for macOS and requires Go and Python 3. Any unrelated process on port 8080 must first be deliberately stopped or reconfigured.
 
-- Dienst: `com.stefan.jackieleven.go`
+- Service: `com.stefan.jackieleven.go`
 - plist: `~/Library/LaunchAgents/com.stefan.jackieleven.go.plist`
-- Binärdatei: `.dev/bin/jackieleven-local`
-- Logs: `.dev/logs/go-local.err.log` und `.dev/logs/go-local.out.log`
-- Formularzustand: `.dev/runtime/local-contact`
-- MAMP-Include: `ops/apache-go-local.conf`
+- Binary: `.dev/bin/jackieleven-local`
+- Logs: `.dev/logs/go-local.err.log` and `.dev/logs/go-local.out.log`
+- Form state: `.dev/runtime/local-contact`
+- MAMP include: `ops/apache-go-local.conf`
 
-Die LaunchAgent-Konfiguration setzt alle drei Versand-/Turnstile-Anbieterwerte
-explizit leer. Die lokale Kontaktseite ist prüfbar, echter Mailversand ist nicht
-aktiviert. HTTPS-Cookies erhalten durch kontrollierte Proxyheader dennoch die
-korrekten Secure-, HttpOnly- und SameSite-Attribute. Der Backendport bindet nur an
-Loopback; Apache begrenzt diesen Host zusätzlich auf lokale Zugriffe.
+The LaunchAgent configuration explicitly clears all three delivery/Turnstile provider values. The local contact page can be tested, but real email delivery is disabled. Controlled proxy headers still give HTTPS cookies the correct Secure, HttpOnly and SameSite attributes. The backend binds only to loopback; Apache additionally limits this host to local access.
 
-In MAMP PRO, Host **jackieleven**, Register **Apache**, Feld
-**Additional parameters for <VirtualHost> directive**, ist gespeichert:
+In MAMP PRO, host **jackieleven**, **Apache** tab, **Additional parameters for <VirtualHost> directive** contains:
 
 ```apache
 Include "/Users/stefan/www/jackieleven/ops/apache-go-local.conf"
 ```
 
-Diese Einstellung überlebt MAMP-Konfigurationsgenerierung. Die erzeugte
-`httpd-ssl.conf` wird nicht von Hand gepflegt. Änderungen an der Include-Datei
-verlangen einen Apache-Neustart (Seitenleiste Apache → Kontextmenü → Restart
-server). Der Betrieb anderer Hosts und deren Konfiguration bleiben erhalten.
-Die normalen MAMP-HTTP-Ports wurden nicht verändert; der portlose Zugang ist die
-oben genannte HTTPS-Adresse, nicht ein neu eingerichteter HTTP-Port 80.
+This setting survives MAMP configuration generation. The generated `httpd-ssl.conf` is not maintained by hand. Include-file changes require an Apache restart (Apache sidebar → context menu → Restart server). Other hosts and their configuration remain unchanged. Normal MAMP HTTP ports were not changed; the address without an explicit port is the HTTPS address above, not a newly configured HTTP port 80.
 
-## Prüfung und Rücknahme
+## Verification and rollback
 
-Geprüft wurden DE/EN, Diskografie, CSS, Kontakt-GET und Secure-Cookie sowie 404 für
-`.env`, `.dev`, alte private PHP-Konfiguration und JSON-Daten. Das Zertifikat wurde
-normal validiert, ohne `curl -k`. Der automatische Wiederanlauf nach SIGTERM und
-der Build-/Neustartbefehl wurden ausgeführt. Die gespeicherte MAMP-Einstellung
-wurde nach der Konfigurationsgenerierung geprüft; ein vollständiger macOS-Neustart
-war dafür nicht nötig und wurde nicht durchgeführt.
+Checks covered DE/EN, discography, CSS, contact GET and Secure cookies, plus 404 responses for `.env`, `.dev`, old private PHP configuration and JSON data. The certificate was validated normally, without `curl -k`. Automatic restart after SIGTERM and the build/restart command were exercised. The saved MAMP setting was checked after configuration generation; a full macOS restart was unnecessary and was not performed.
 
-Die vorherigen MAMP-Einstellungen und SSL-Konfigurationen liegen lokal unter
-`.dev/local-service-backup-2026-10-26/` mit Prüfsummen. Zur gezielten Rücknahme nur
-obige Include-Zeile im Jackie-Leven-Host entfernen, speichern und Apache neu
-starten; danach den Go-Dienst stoppen/deaktivieren. Das stellt die frühere
-DocumentRoot-Zuordnung wieder her, aber keine entfernten PHP-Quelldateien.
-Die PHP-Quellen bleiben im Git-Tag `php-before-go-migration`, der produktive
-PHP-Rückfall bleibt auf Hetzner. Diese lokale Einrichtung ändert keinen Server.
+Previous MAMP settings and SSL configurations are stored locally in `.dev/local-service-backup-2026-10-26/` with checksums. To undo only this setup, remove the include line above from the Jackie Leven host, save and restart Apache, then stop/disable the Go service. This restores the previous DocumentRoot mapping, but not deleted PHP source files. PHP sources remain in the Git tag `php-before-go-migration`; the production PHP fallback remains on Hetzner. This local setup changes no remote server.
 
-Hintergrund: [Apple: LaunchAgents](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html),
-[Apache: Reverse Proxy](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html),
-[MAMP: Konfigurationen werden neu erzeugt](https://documentation.mamp.info/en/MAMP-PRO-Mac/FAQ/General/Changes-to-the-configuration-files-are-gone-when-I-restart-the-servers/).
+Background: [Apple: LaunchAgents](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html), [Apache: Reverse Proxy](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html), [MAMP: configuration files are regenerated](https://documentation.mamp.info/en/MAMP-PRO-Mac/FAQ/General/Changes-to-the-configuration-files-are-gone-when-I-restart-the-servers/).

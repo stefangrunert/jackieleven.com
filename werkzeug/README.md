@@ -1,57 +1,35 @@
-# Wartungswerkzeuge
+# Maintenance tools
 
-Die Website läuft ausschließlich als Go-Prozess. Die Werkzeuge hier bearbeiten
-neutrale JSON-Kataloge in `data/` und die erhaltenen Quellen in `research/` bzw.
-`autobiografie/`. Kein Werkzeug startet einen alten Anwendungsprozess oder liest
-eine lokale Konfigurationsdatei mit Zugangsdaten.
+The website runs exclusively as a Go process. These tools work with language-neutral JSON catalogues in `data/` and the retained sources in `research/` and `autobiografie/`. No tool starts a legacy application process or reads a local credentials file.
 
-## Inhalte erzeugen und prüfen
+## Generate and validate content
 
 ```sh
-python3 werkzeug/quellen.py --check       # offline: vollständigen Katalog im Speicher reproduzieren
-python3 werkzeug/inhalte.py              # Integrität, Übersetzungen, Verweise und lokale Medien
-python3 werkzeug/zitate.py               # Stationszitate wortgetreu gegen archivierte Texte
-python3 werkzeug/quellen.py              # geprüften Quellenkatalog atomar neu schreiben
+python3 werkzeug/quellen.py --check       # offline: reproduce the complete catalogue in memory
+python3 werkzeug/inhalte.py              # integrity, translations, references and local media
+python3 werkzeug/zitate.py               # compare timeline quotations verbatim with archived texts
+python3 werkzeug/quellen.py              # atomically rewrite the validated source catalogue
 ```
 
-`quellen.py` übernimmt die bisherigen Publikationsregeln: explizite redaktionelle
-Stufen, ausgewählte Quellen, private/interne Ausschlüsse, Entfernung von
-Arbeitsdateiverweisen, Kurztexte, wörtliche Belege, Korrekturen und Zuordnung zu
-Diskografieausgaben. Englische Fassungen werden nur bei passender Prüfsumme
-veröffentlicht. `--check` schreibt nichts und darf nicht mit einem Netzwerk-Update
-kombiniert werden. Die unveränderte Ausgabe umfasst derzeit 741 öffentliche und
-25 ausgeschlossene Quellen, ohne veraltete Übersetzungen.
+`quellen.py` preserves the existing publication rules: explicit editorial tiers, selected sources, private/internal exclusions, removal of working-file references, summaries, verbatim evidence, corrections and discography-release mappings. English versions are published only when their checksum matches. `--check` writes nothing and cannot be combined with a network update. The unchanged output currently comprises 741 public and 25 excluded sources, with no stale translations.
 
-`inhalte.py` prüft Veröffentlichungsgrenzen, eindeutige IDs, Quellen und
-Ausgabenbezüge, DE/EN-Felder, Albumangebote und Medienanbieter, Lied-/Videobezüge,
-Einbett-Prüfdaten, lokale Vorschauen, Startseitenauszüge und die Hör-Auswahl.
-Darstellung, Routing, Filter, Sessions, SEO und Releaseverhalten prüfen die
-Go-Tests, HTTP-Vertragsprüfungen und Browserabläufe.
+`inhalte.py` checks publication boundaries, unique IDs, source and release references, DE/EN fields, album offers and media providers, song/video mappings, embedding-check metadata, local previews, homepage excerpts and the listening selection. Go tests, HTTP contract checks and browser workflows verify presentation, routing, filters, sessions, SEO and release behaviour.
 
-## Bewusste Netzwerk- und Bildaktualisierungen
+## Explicit network and image updates
 
 ```sh
-python3 werkzeug/quellen.py --lizenzen    # Nationalbibliothek: Lizenz-/Zugangsmetadaten aktualisieren
-python3 werkzeug/quellen-scans.py        # NB-IIIF-Manifeste und belegte Seitenreferenzen
-python3 werkzeug/quellen-auszuege.py      # lokale Bildausschnitte + öffentlicher Katalog
-python3 werkzeug/livevideos.py           # YouTube-Freigaben + fehlende lokale Vorschauen
-python3 werkzeug/livevideos.py --vorschau # alle lokalen Videovorschauen erneuern
+python3 werkzeug/quellen.py --lizenzen    # National Library: update licence/access metadata
+python3 werkzeug/quellen-scans.py        # NB IIIF manifests and verified page references
+python3 werkzeug/quellen-auszuege.py      # local image excerpts + public catalogue
+python3 werkzeug/livevideos.py           # YouTube embedding checks + missing local previews
+python3 werkzeug/livevideos.py --vorschau # regenerate all local video previews
 ```
 
-Die Quellen-/Katalogprüfungen benötigen nur die Python-Standardbibliothek.
-`quellen-scans.py` verwendet zusätzlich `curl`. Die beiden Bildgeneratoren
-benötigen Pillow; `livevideos.py` lädt Pillow erst, wenn tatsächlich ein Bild
-geschrieben werden muss.
+Source/catalogue checks require only the Python standard library. `quellen-scans.py` also uses `curl`. Both image generators need Pillow; `livevideos.py` loads Pillow only when it actually needs to write an image.
 
-Der Video-Updater verwendet ausschließlich `JACKIE_YOUTUBE_API_KEY` aus seiner
-Prozessumgebung. Mit Schlüssel prüft er über die Data API Einbettfreigabe,
-Öffentlichkeit, Altersbeschränkung und Verfügbarkeit in Deutschland. Ohne
-Schlüssel verwendet er oEmbed; Länder- und Altersbeschränkungen sind damit nicht
-erfasst. Die Vorschauen bleiben lokale 480×270-WebP-Bilder. Diese Abfragen gehören
-zum bewusst gestarteten Wartungslauf und finden nie während eines Seitenaufrufs
-statt. Tests ersetzen alle Netzwerktransporte durch lokale Antworten.
+The video updater uses only `JACKIE_YOUTUBE_API_KEY` from its process environment. With a key, the Data API checks embedding permission, public visibility, age restrictions and availability in Germany. Without a key, it uses oEmbed, which does not cover country or age restrictions. Previews remain local 480×270 WebP images. These requests belong to an explicitly started maintenance run and never occur during a page request. Tests replace all network transports with local responses.
 
-## Regressionen
+## Regressions
 
 ```sh
 python3 -B -m unittest discover -s werkzeug -p 'test_*.py'
@@ -61,19 +39,8 @@ go test -race ./...
 go vet ./...
 ```
 
-Die neuen Werkzeugtests vergleichen den gesamten erzeugten Quellenkatalog mit
-dem vorhandenen `data/quellen.json`, prüfen Publikationsfilter und veraltete
-Übersetzungen sowie die Video-Freigabekriterien, API-Bündelung, oEmbed-Fehler,
-Vorschauauswahl und Bildmaße ohne Netz. Der Cleanup-Test verwendet temporäre
-Go-Sessions und Zähler, einschließlich aktiver Locks, Symlinks und fremder Dateien.
+The new tool tests compare the entire generated source catalogue with the existing `data/quellen.json`, check publication filters and stale translations, and verify video eligibility, API batching, oEmbed errors, preview selection and image dimensions without network access. The cleanup test uses temporary Go sessions and counters, including active locks, symlinks and unrelated files.
 
-Die alten interpreterspezifischen Runtime-, Router- und Paketprüfungen wurden
-entfernt. Aktuell maßgeblich sind die Go-Tests, `ops/prepare-go-release.py` und die
-HTTP-/Browserprüfungen. Die literarischen Analysewerkzeuge `messen.py`, `pruefen.py`
-und `uebersetzung.py` bleiben unverändert verfügbar.
+The old interpreter-specific runtime, router and package checks were removed. The current checks are the Go tests, `ops/prepare-go-release.py` and HTTP/browser checks. The literary analysis tools `messen.py`, `pruefen.py` and `uebersetzung.py` remain available unchanged.
 
-Der eingefrorene Migrationsvergleich und seine dokumentierten Normalisierungen
-stehen in [parity.md](parity.md). Er kann die gespeicherten Antwortverträge ohne
-laufende Referenz verwenden. Der zusätzliche historische Kontaktvergleich
-benötigt nur eine ausdrücklich isolierte externe HTTP-Referenz; deren alten
-Prozess installiert oder startet dieses Repository nicht.
+The frozen migration comparison and its documented normalisations are described in [parity.md](parity.md). It can use stored response contracts without a running reference. The additional historical contact comparison needs only an explicitly isolated external HTTP reference; this repository neither installs nor starts its legacy process.

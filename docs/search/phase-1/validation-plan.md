@@ -1,152 +1,152 @@
-# Validierungsplan für Phase 1
+# Phase-1 validation plan
 
-Stand: 26. Oktober 2026
+As of 26 October 2026
 
-Basis Website: `3fd28a91f7bae2355492b24979ec9688f593c216`
+Website baseline: `3fd28a91f7bae2355492b24979ec9688f593c216`
 
-Basis Archiv: `7d353a4ce8043e284619fe409bfe87238dae2257`
+Archive baseline: `7d353a4ce8043e284619fe409bfe87238dae2257`
 
-Status: Prüfplan; die beschriebenen Such- und Ausfalltests wurden noch nicht ausgeführt.
+Status: test plan; the search and failure tests described here have not yet been executed.
 
-## Zweck und Prüfgrenze
+## Purpose and scope
 
-Dieser Plan bereitet die unabhängige Abnahme des ersten Daten- und Suchpiloten vor. Er trennt vier Fragen: Ist der Import aus fest gebundenen Eingaben reproduzierbar? Werden fachliche Unterschiede wie Ankündigung, Durchführung und Unsicherheit erhalten? Halten Suchdienst und Website den Versionsvertrag ein? Bleiben gewöhnliche Seiten und das Formular bei Suchausfall und Suchlast benutzbar?
+This plan prepares independent acceptance of the first data/search pilot. It separates four questions: Is import reproducible from pinned inputs? Are domain distinctions such as announcement, occurrence and uncertainty preserved? Do search service and website honour the version contract? Do ordinary pages and the form remain usable during search outages and load?
 
-Die kleine Fallmenge in `validation-cases.json` ist eine quellenbasierte Ausgangsmenge, kein vollständiger Goldstandard. Sie darf für den technischen Durchstich und die erste fachliche Fehlersuche verwendet werden. Aussagen über allgemeine Suchqualität, nDCG, Recall oder die Überlegenheit einer BM25-, Vektor- oder Hybridkonfiguration setzen den späteren, bewerteten Entwicklungs- und Testsatz voraus.
+The small case set in `validation-cases.json` is a source-based starting set, not a complete gold standard. It can support the initial technical implementation and domain-level debugging. Claims about general search quality, nDCG, recall or superiority of BM25/vector/hybrid configurations require the later assessed development and test sets.
 
-Der Plan verändert weder das öffentliche Archiv noch Produktionsdienste. Alle Mutationen der Importprüfung finden in Kopien oder eigens erzeugten Fixtures statt. Externe kostenpflichtige Anbieter bleiben ausgeschaltet; ein zählender Ersatzanbieter bildet Embedding-Erfolg, Verzögerung und Fehler deterministisch nach.
+The plan changes neither the public archive nor production services. All import-test mutations occur in copies or dedicated fixtures. Paid external providers stay disabled; a counting substitute deterministically simulates embedding success, delays and failures.
 
-## Fest gebundene Prüfgrundlage
+## Pinned test foundation
 
-Die folgenden Quellen wurden für die Fallauswahl tatsächlich am genannten Stand gelesen:
+The following sources were actually read at the stated revisions when selecting cases:
 
-- Architektur und Entwicklungsplan: `.dev/suche-architektur.html` am Website-Commit `3fd28a9`.
-- Veröffentlichte redaktionelle Quellenansichten: `data/quellen.json`, insbesondere die Datensätze `1971-11-06-sounds-take-off-your-head-and-listen`, `1972-10-28-nme-john-st-field-folkclubs`, `1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite`, `1997-04-15-nordlands-framtid-en-poetisk-grisegutt`, `1998-10-23-lofotposten-en-perfekt-kveld`, `2000-03-04-nordlys-grisete-sentimental`, `2007-04-05-musicomh-jackie-leven-troubadour-london` und `2007-09-17-puls-jackie-leven-pa-omfattende-norgesturne` am Website-Commit `3fd28a9`.
-- Aktuelle Detaildarstellung: `templates/quelle.gohtml` sowie Routing in `internal/site/content.go` und `internal/site/server.go` am Website-Commit `3fd28a9`.
-- Strukturierte Archivdaten: die in `validation-cases.json` genannten Dateien unter `data/document`, `data/event`, `data/person` und `data/persona` am Archiv-Commit `7d353a4`.
+- Architecture and development plan: `.dev/suche-architektur.html` at website commit `3fd28a9`.
+- Published editorial source views: `data/quellen.json`, particularly records `1971-11-06-sounds-take-off-your-head-and-listen`, `1972-10-28-nme-john-st-field-folkclubs`, `1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite`, `1997-04-15-nordlands-framtid-en-poetisk-grisegutt`, `1998-10-23-lofotposten-en-perfekt-kveld`, `2000-03-04-nordlys-grisete-sentimental`, `2007-04-05-musicomh-jackie-leven-troubadour-london` and `2007-09-17-puls-jackie-leven-pa-omfattende-norgesturne`, at website commit `3fd28a9`.
+- Current detail presentation: `templates/quelle.gohtml`, routing in `internal/site/content.go` and `internal/site/server.go`, at website commit `3fd28a9`.
+- Structured archive data: files listed in `validation-cases.json` under `data/document`, `data/event`, `data/person` and `data/persona`, at archive commit `7d353a4`.
 
-Die Website-Datensätze enthalten redaktionelle Zusammenfassungen auf Deutsch und Englisch sowie teilweise ausgewählte Zitate in der Quellsprache. Sie sind nicht mit vollständigen Originalartikeln gleichzusetzen. `source_voice` bezeichnet deshalb die Stimme des historischen Dokuments, während `text_voice`, `text_kind` und `language` die konkret ausgegebene Textstelle beschreiben. Bei den ausgewählten Pressequellen ist das Dokument `third_party`; eine deutsche oder englische Zusammenfassung ist dagegen `editorial` und `summary`, ein direktes Zitat in der Quellsprache `third_party` und `original`. Eine deutsche Anfrage an ein norwegisches Dokument prüft mit dieser Ausgangsmenge vor allem richtige Dokument-, Sprach-, Textart- und Stimmenzuordnung. Sie beweist für sich allein noch keine rein semantische sprachübergreifende Leistung, wenn eine deutsche Zusammenfassung indexiert wurde.
+Website records contain editorial German/English summaries and sometimes selected quotations in the source language. They are not complete original articles. `source_voice` therefore identifies the historical document's voice, while `text_voice`, `text_kind` and `language` describe the actual passage returned. Selected press documents are `third_party`; a German/English summary is `editorial` and `summary`, while a direct source-language quotation is `third_party` and `original`. With this starting corpus, a German query targeting a Norwegian document primarily checks correct document, language, text-kind and voice mapping. It does not by itself prove purely semantic cross-language performance if a German summary was indexed.
 
-## Noch fehlende Textstellenkennungen
+## Passage identities still missing
 
-Am Prüfstand gibt es kein `passages/manifest.txt`, und die Quellen-Detailseiten vergeben keine stabilen Absatzanker. Die vorhandenen Abschnittsanker `#beleg` und `#quelle` bezeichnen ganze Darstellungsabschnitte, nicht die erwarteten zitierbaren Textstellen. Deshalb verwendet die Fallmenge echte Dokumentkennungen, setzt `passage_id` aber ausdrücklich auf `null` und kennzeichnet den Zustand als `not_assigned`.
+At the reviewed state, no `passages/manifest.txt` exists and source detail pages have no stable paragraph anchors. Existing section anchors `#beleg` and `#quelle` identify whole presentation sections, not expected citable passages. Cases therefore use real document IDs but explicitly set `passage_id` to `null` with status `not_assigned`.
 
-Vor einem Ende-zu-Ende-Test des Beleglinks muss der Datenvertrag für jeden Pilotbeleg eine stabile Textstellenkennung, Dokumentkennung, Quellart, Sprache, Stimme, Zieladresse und einen tatsächlich vorhandenen HTML-Anker liefern. Erst dann werden die offenen Felder in einem gesonderten, nachvollziehbaren Schritt belegt. Eine aus Dokumentkennung und Absatznummer erratene Kennung ist kein zulässiger Ersatz.
+Before an end-to-end evidence-link test, the data contract must provide a stable passage ID, document ID, source type, language, voice, target URL and an existing HTML anchor for every pilot evidence item. Only then can open fields be populated in a separate traceable step. Guessing an ID from document identity and paragraph number is not an acceptable substitute.
 
-## Prüfumgebungen und Beobachtbarkeit
+## Test environments and observability
 
-Die Datenprüfung benötigt nur einen fest gebundenen Export, den Importbefehl, ein leeres isoliertes Datenbankschema und lesenden Zugriff auf Importregister und Suchschema. Der Datenagent soll dafür normalisierte Exporte, Eingabemanifest, Hashregeln und Textstellenmanifest bereitstellen. Der Datenbank- beziehungsweise Suchdienstagent soll Startbefehl, Schemafassung, Readiness-Endpunkt, API-Vertrag und eine Methode zum Abfragen der aktiven Buildkennung liefern. Fehlt eine dieser Beobachtungsmöglichkeiten, ist der entsprechende Test blockiert und nicht stillschweigend bestanden.
+Data testing needs only a pinned export, import command, empty isolated database schema and read-only access to the import registry and search schema. The data agent should provide normalised exports, input manifest, hash rules and passage manifest. The database/search-service agent should supply startup command, schema version, readiness endpoint, API contract and a way to query the active build ID. Missing observability blocks the relevant test; it must not silently pass.
 
-Der Ersatzanbieter für Embeddings muss Aufrufe nach Profilkennung und Hash des vollständigen Eingabetexts zählen können. Er speichert keinen echten Suchtext außerhalb des Testlaufs. Für Wiederaufnahmeprüfungen muss sich der Import nach einer festgelegten Anzahl erledigter Elemente kontrolliert beenden lassen. Der Test liest danach Registerzustände und startet denselben Lauf erneut.
+The embedding substitute must count calls by profile ID and full-input-text hash. It stores no real query text outside the test run. Resumption tests must be able to stop import deliberately after a specified number of completed items, inspect registry state and restart the same run.
 
-Jeder Lauf protokolliert mindestens: Quellrevisionen, Eingabemanifest-Hash, Pipeline- und Profilversion, Lauf- und Buildkennung, Beginn und Ende, Zustandszähler, Ersatzanbieteraufrufe, normalisierten Export-Hash, aktives Schema und Ergebnis jeder Abnahmebedingung. Diese Prüfprotokolle dürfen keine Geheimnisse oder Besuchersuchtexte enthalten.
+Every run records at least source revisions, input-manifest hash, pipeline/profile version, run/build IDs, start/end times, state counters, substitute-provider calls, normalised export hash, active schema and each acceptance result. Test logs must contain neither secrets nor visitor search text.
 
-## Zeitpunkt der Ausführung
+## Execution schedule
 
-Phase 1 liefert mit diesem Dokument und der Fallmenge die geprüfte Testgrundlage. Sie führt mangels implementiertem Import-, API- und Website-Durchstich die nachfolgenden Abnahmetests noch nicht aus. In Phase 2 werden Import, Wiederaufnahme, Änderungen, Löschung, HTTP-Vertrag und der getrennte Prozessausfall geprüft. Phase 3 verwendet die fachlichen Suchfälle für die tatsächliche Rang- und Konfigurationsbewertung; erst dort werden Suchqualitätswerte erhoben. Die Hostlast-, Betriebs- und Rollbackprüfungen gehören zur Betriebsabnahme in Phase 4. Die Kriterien stehen bereits hier, damit Daten- und Suchdienstimplementierung unabhängig gegen dieselben Erwartungen entwickelt werden können.
+Phase 1 supplies the checked test foundation through this document and case set. Because import, API and website integration are not yet implemented, it does not execute the acceptance tests below. Phase 2 checks import, resumption, changes, deletion, HTTP contracts and separate-process outages. Phase 3 uses domain search cases for actual ranking/configuration assessment; only then are relevance metrics collected. Host-load, operational and rollback tests belong to phase-4 operational acceptance. Criteria are defined now so data and search-service implementations can develop independently against shared expectations.
 
-## Abnahme des Imports
+## Import acceptance
 
-### Reproduzierbarkeit und Idempotenz
+### Reproducibility and idempotency
 
-1. Derselbe fest gebundene Snapshot wird zweimal in jeweils ein leeres Schema importiert. Beide Läufe müssen denselben normalisierten Export-Hash, dieselbe Mitgliedsliste und fachlich identische Tabelleninhalte erzeugen. Laufkennungen, Zeitstempel und technische Reihenfolgen werden vor dem Vergleich als nichtfachliche Felder ausgeschlossen.
-2. Derselbe Snapshot wird anschließend noch einmal gegen den bereits vollständigen persistenten Indexierungsstand verarbeitet. Der neue Lauf darf keine fachlichen Zeilen ändern, keine Duplikate anlegen und beim Ersatzanbieter keinen Embedding-Aufruf für bereits validierte Kombinationen aus Profil und Eingabetexthash auslösen.
-3. Die Reihenfolge der Eingabedateien wird in einer Fixture variiert. Normalisierter Export, Mitgliedsliste und Suchergebnis-Tie-Breaks bleiben gleich. Die Pipeline darf sich nicht auf Dateisystemreihenfolge oder Dateiänderungszeiten stützen.
+1. Import the same pinned snapshot twice, each time into an empty schema. Both runs must produce the same normalised export hash, membership list and semantically identical table contents. Exclude run IDs, timestamps and technical ordering as non-domain fields before comparison.
+2. Process the same snapshot again against the already complete persistent indexing state. The run must neither change domain rows nor create duplicates, and must not call the embedding substitute for already validated profile/input-hash combinations.
+3. Vary input-file order in a fixture. Normalised export, membership and result tie-breaks remain identical. The pipeline must not rely on filesystem order or file modification times.
 
-Abnahme: alle drei Vergleiche sind gleich; der zweite Lauf meldet null unnötige Ersatzanbieteraufrufe; eindeutige Schlüssel und Referenzen bleiben gültig.
+Acceptance: all three comparisons agree; the repeat run reports zero unnecessary substitute-provider calls; unique keys and references remain valid.
 
-### Ergänzung, Änderung und Entfernung
+### Additions, changes and removal
 
-Die folgenden Varianten entstehen nur in einer Kopie des Pilotbestands:
+Create these variants only in a pilot-data copy:
 
-- **Ergänzung:** Ein neues freigegebenes Dokument mit neuer echter Fixture-Kennung wird in das Eingabemanifest aufgenommen. Nur dessen abhängige Segmente und fehlende Artefakte kommen hinzu; der vorige freigegebene Build bleibt bis zur Abnahme aktiv.
-- **Textänderung:** Der Text einer bestehenden Fixture-Textstelle wird korrigiert. Dokument- und Textstellenkennung bleiben stabil, der Eingabetexthash ändert sich, und nur die abhängigen Segmente erzeugen neue Embedding-Artefakte.
-- **Metadatenänderung:** Ein nicht eingebettetes Feld, etwa Beleglocator oder Zieladresse, wird geändert. Lesemodell und Linkziel ändern sich; bei identischem Einbettungstext und Profil bleibt die Zahl neuer Embedding-Aufrufe null. Falls das Feld laut Importvertrag im Kontextkopf liegt, muss es stattdessen ausdrücklich als Textänderung behandelt werden.
-- **Abhängige Änderung:** Eine Personenbezeichnung, die in `names` oder Kontextkopf abgeleitet wird, wird in der Fixture geändert. Der Import muss alle abhängigen Segmente neu bestimmen, auch wenn ihre Dokumentdatei unverändert blieb.
-- **Entfernung:** Ein zuvor freigegebenes Element fehlt im vollständigen neuen Eingabemanifest beziehungsweise ist ausdrücklich nicht mehr freigegeben. Es fehlt im neuen Build, seine Identitätsverweise und Linkziele werden geprüft, und der alte Build bleibt bis zur Freigabe unverändert. Ein Lesefehler, eine unvollständige Inventur oder ein fehlgeschlagener Import darf nicht als Entfernung gelten. Die Fixture kennzeichnet zusätzlich, ob es sich um eine gewöhnliche Snapshotänderung oder um eine verpflichtende Inhaltsrücknahme handelt.
+- **Addition:** add an approved document with a genuine new fixture ID to the input manifest. Only its dependent segments and missing artifacts are added; the previous approved build stays active until acceptance.
+- **Text correction:** correct an existing fixture passage. Document and passage IDs remain stable, input hash changes, and only dependent segments generate new embedding artifacts.
+- **Metadata change:** change a non-embedded field such as evidence locator or target URL. Reading model and link change; identical embedding input/profile produces zero new embedding calls. If the contract places that field in the context header, explicitly treat it as a text change instead.
+- **Dependent change:** alter a fixture person's label used in derived `names` or context headers. Import must recompute all dependent segments even if their document file is unchanged.
+- **Removal:** an approved item is absent from the complete new manifest or explicitly no longer approved. It is absent from the new build; identity references and targets are checked; the old build stays unchanged until approval. Read errors, incomplete inventories and failed imports must not count as removal. The fixture also distinguishes ordinary snapshot changes from mandatory content withdrawal.
 
-Abnahme: Der Diff des neuen Builds enthält ausschließlich die erwarteten fachlichen Änderungen. Im neuen Build entfernte Inhalte erscheinen dort weder in Suche noch Auflösung oder Cache. Bei einer gewöhnlichen Snapshotänderung darf ein ausdrücklich freigegebener Rollback auf den älteren Snapshot dessen damalige Mitgliedschaft wiederherstellen. Eine verpflichtende Inhaltsrücknahme sperrt dagegen auch alte Suchstände, gespeicherte Texte, Vektoren und Caches für die Veröffentlichung; kein Rollback darf den zurückgezogenen Inhalt erneut öffentlich machen. Der vorherige Build bleibt bei jedem fehlgeschlagenen Variantenlauf aktiv, sofern er nicht wegen einer solchen Rücknahme gesperrt wurde.
+Acceptance: the new build diff contains only expected domain changes. Removed content appears nowhere in its search, resolution or cache. For ordinary snapshot changes, an explicitly approved rollback may restore the older snapshot's membership. Mandatory withdrawal instead prevents publication through old search snapshots, stored texts, vectors and caches as well; rollback must never republish withdrawn content. A failed variant leaves the previous build active unless that build is blocked by such a withdrawal.
 
-### Abbruch und Wiederaufnahme
+### Interruption and resumption
 
-Ein Lauf wird nach mindestens einem dauerhaft gespeicherten Artefakt und mindestens einem noch reservierten Element beendet. Nach Ablauf beziehungsweise kontrollierter Freigabe der Reservierung wird dieselbe Laufkennung fortgesetzt.
+Stop a run after at least one artifact is durable and at least one item remains reserved. After expiry or controlled release of the reservation, resume the same run ID.
 
-Abnahme:
+Acceptance:
 
-- Bereits als `done` bestätigte Arbeit wird nicht erneut ausgeführt.
-- Eine abgelaufene `running`-Reservierung wird erneut bearbeitbar; ein alter Bearbeiter kann sie danach nicht widersprüchlich abschließen.
-- Ein validiertes Embedding ist vor `done` dauerhaft gespeichert und auf Dimension, endliche Zahlen und Prüfsumme geprüft.
-- Wiederholungen sind begrenzt; dauerhafte Fehler enden sichtbar in `failed` statt in einer Endlosschleife.
-- Nach Fortsetzung entsprechen Export und Build dem ununterbrochenen Referenzlauf.
-- Ein älterer, später fertiggestellter Lauf kann keinen neueren freigegebenen Build aktivieren.
+- Work confirmed as `done` is not repeated.
+- An expired `running` reservation becomes available; its old worker cannot then complete it inconsistently.
+- A validated embedding is durable before `done`, with dimensions, finite numbers and checksum checked.
+- Retries are bounded; permanent errors end visibly in `failed`, not an infinite loop.
+- Resumed export and build match the uninterrupted reference run.
+- An older run finishing later cannot supersede a newer approved build.
 
-Ein Netzwerkabbruch nach möglicherweise erfolgreicher Anbieterverarbeitung wird gesondert als Grenze dokumentiert: Ohne bestätigte Idempotenz des Anbieters wird kein genau-einmaliger kostenpflichtiger Aufruf behauptet.
+A network interruption after potentially successful provider processing is documented separately as a limit: without confirmed provider idempotency, exactly-once paid invocation is not claimed.
 
-## Fachliche Prüfung des Lesemodells
+## Domain validation of the reading model
 
-Vor einer Rangbewertung werden die Fälle direkt gegen Export beziehungsweise Datenbank geprüft. Jede erwartete Dokument- und Entitätskennung muss auflösbar sein; referenzierte Belege müssen zum gebundenen Dokument gehören. `announced`, `took_place`, `probable` und `uncertain` bleiben unterscheidbar. Eine Ankündigung darf weder durch das Feld `took_place_at` noch durch eine rangierte Textähnlichkeit als nachgewiesene Durchführung erscheinen.
+Before ranking assessment, check cases directly against export/database. Every expected document/entity ID must resolve; referenced evidence must belong to the pinned document. `announced`, `took_place`, `probable` and `uncertain` remain distinguishable. Neither `took_place_at` nor ranked textual similarity may turn an announcement into proof of occurrence.
 
-Beim Bodø-Fall vom April 1997 bleibt der unsichere frühe Datumsstand `[1997-04-05,1997-04-06,1997-04-13]` mit seinem Vorbericht erhalten; die nachträglichen Kritiken belegen den 13. April und die Durchführung. Beim Bodø-Fall vom September 2007 bleiben `Public` und `Sinus` zwei angekündigte, ungeklärte Datensätze. Weder Zusammenführung noch Auswahl einer Spielstätte darf ohne zusätzlichen Beleg erfolgen.
+For Bodø in April 1997, retain the uncertain early date set `[1997-04-05,1997-04-06,1997-04-13]` with its preview source; later reviews establish 13 April and occurrence. For Bodø in September 2007, retain `Public` and `Sinus` as two announced, unresolved records. Neither merging nor choosing a venue is permitted without additional evidence.
 
-Namen werden ebenfalls quellengebunden geprüft. `Sir Vincent Lone` ist eine Persona, die über die belegte `performs_as`-Aussage mit `person/jackie-leven` verbunden ist. `Kevin O’Foster` ist die Schreibweise der Quelle; das Archiv führt `Kevin O. Foster` als Variante von `person/kevin-foster`. Die Suche darf Varianten auflösen, muss aber im Belegzitat die Quellschreibweise bewahren. Für jeden ausgegebenen Text prüft der Test zusätzlich den in der JSON-Datei referenzierten Stimmenvertrag: Dokumentstimme, Passagenstimme, Textart und Sprache müssen gemeinsam zulässig sein. Eine redaktionelle Paraphrase darf nicht als Originalstimme des Kritikers oder Jackie Levens erscheinen.
+Names are also checked against sources. `Sir Vincent Lone` is a persona linked to `person/jackie-leven` through the documented `performs_as` assertion. `Kevin O’Foster` is the source spelling; the archive records `Kevin O. Foster` as a variant of `person/kevin-foster`. Search may resolve variants but must preserve source spelling in quotations. For every returned text, additionally check the voice contract referenced in the JSON case: document voice, passage voice, text kind and language must be jointly valid. Editorial paraphrase must not appear as the critic's or Jackie Leven's original voice.
 
-## Suchfälle und Bewertung
+## Search cases and evaluation
 
-`validation-cases.json` ist gültiges JSON und enthält pro Fall Anfrageart, fachliche Absicht, tatsächlich geprüfte Quellen, positive beziehungsweise ausgeschlossene Erwartungen und die offene Textstellenlage. Die erwartete Rangstufe `must_return` bedeutet für diesen Pilot: Mindestens ein genanntes Dokument steht innerhalb des angegebenen Grenzwerts, sofern dessen im Fall benannter Text tatsächlich zum Pilotindex gehört. Sie bedeutet nicht, dass alle anderen Treffer irrelevant sind. `must_not_assert` betrifft die fachliche Darstellung unabhängig vom Rang.
+`validation-cases.json` is valid JSON and records query type, domain intent, actually checked sources, positive/excluded expectations and unresolved passage state per case. For this pilot, `must_return` means at least one named document appears within the specified rank limit, provided the text named in the case is actually in the pilot index. It does not mean all other results are irrelevant. `must_not_assert` governs domain presentation regardless of rank.
 
-Die Fälle werden zunächst gegen BM25 und den deterministischen Namens-/Strukturpfad ausgeführt. Semantische Varianten kommen erst hinzu, wenn ein lokaler Ersatzvektorpfad oder ausdrücklich genehmigte Anbieterprüfung vorhanden ist. Ergebnisse werden mit Konfiguration, Inhaltsversion und Suchrelease gespeichert. Ein fehlendes Pilotdokument ist ein Korpusbefund, kein Nulltrefferbeweis für die Suchtechnik.
+Run cases first against BM25 and deterministic name/structure retrieval. Semantic variants follow only when a local substitute-vector path or explicitly approved provider test is available. Store results with configuration, content version and search release. Missing pilot documents are corpus findings, not proof that the search technology returns no matches.
 
-Der enge Negativfall behauptet nur, dass die gebundenen Quellen kein stattgefundenes Oslo-Konzert am 27. September 2007 belegen. Das System soll eine leere strukturierte Ergebnismenge oder eine als schwach beziehungsweise unbelegt gekennzeichnete Antwort liefern. Ein beliebiger semantischer Nachbar darf nicht als Tatsache ausgegeben werden.
+The narrow negative case asserts only that the pinned sources do not establish an Oslo concert on 27 September 2007. The system should return an empty structured result or an answer labelled weak/unsupported. An arbitrary semantic neighbour must not be presented as fact.
 
-## HTTP- und Versionsvertrag
+## HTTP and version contract
 
-Die Vertragstests starten Suchdienst und Website als getrennte Prozesse. Ein Stub kann den jeweils anderen Partner ersetzen, muss aber echte HTTP-Grenzen, Fristen und JSON-Decodierung verwenden.
+Contract tests start search service and website as separate processes. A stub may replace either partner but must use real HTTP boundaries, deadlines and JSON decoding.
 
-| Fall | Abnahme |
+| Case | Acceptance |
 | --- | --- |
-| Gültige Anfrage an `/v1/search` | Status 200; Antwort enthält `api_version`, `data_version`, `content_version`, `search_release`, `mode`, `degraded` und `hits`; Kennungen entsprechen dem gebundenen Readiness-Stand. |
-| Echte Nulltreffermenge | Status 200 und `hits: []`; nicht 404 oder 503. |
-| Abweichende erwartete Inhaltsversion | Status 409 und stabiler Code `content_version_mismatch`; keine Treffer aus dem fremden Stand. |
-| Fremde Inhaltsversion in einer 200-Antwort eines Stubs | Der Website-Client verwirft die Antwort und zeigt keine Treffer an. |
-| Nicht unterstützte API-Fassung oder inkompatibler Vertrag | Kontrollierter 4xx-Fehler beziehungsweise fehlgeschlagene Readiness; niemals stillschweigende Interpretation als v1. Das genaue Fehlerformat wird mit OpenAPI festgeschrieben. |
-| Embedding oder Reranking fällt aus | Status 200 mit lokal ermittelten Treffern, eingeschränktem `mode`, `degraded: true` und stabilem Grund. |
-| Ungültige Anfrage | Status 400 mit stabilem Fehlercode; keine SQL-, Dateipfad- oder Anbieterinterna. |
-| Kapazitätsgrenze | Status 429, soweit sinnvoll mit `Retry-After`; begrenzte Warteschlange. |
-| Postgres oder Suchdienst nicht erreichbar | Suchweg 503; Website stellt dies nicht als Nulltreffer dar. |
-| Zu große, verspätete oder ungültige Dienstantwort | Website-Client bricht innerhalb seines Budgets ab, begrenzt die gelesenen Bytes und zeigt eine verständliche Suchfehlermeldung. |
+| Valid `/v1/search` request | 200; response includes `api_version`, `data_version`, `content_version`, `search_release`, `mode`, `degraded`, `hits`; IDs match the bound readiness snapshot. |
+| Genuine empty result set | 200 and `hits: []`, not 404 or 503. |
+| Expected content version differs | 409 and stable code `content_version_mismatch`; no results from the other snapshot. |
+| Foreign content version in a stub's 200 response | Website client rejects the response and shows no results. |
+| Unsupported API version or incompatible contract | Controlled 4xx or failed readiness; never silently interpret as v1. Exact error format is fixed in OpenAPI. |
+| Embedding or reranking fails | 200 with local results, reduced `mode`, `degraded: true` and stable reason. |
+| Invalid request | 400 with stable error code; no SQL, filesystem or provider internals. |
+| Capacity limit | 429, with `Retry-After` where meaningful; bounded queue. |
+| PostgreSQL or search service unavailable | Search returns 503; website does not present an empty result set. |
+| Oversized, late or invalid service response | Website client aborts within budget, bounds bytes read and displays a comprehensible search error. |
 
-Jeder Erfolgstreffer wird zusätzlich gegen Dokumentkennung, Stimme, Quellsprache, Textart, Zieladresse und – sobald vorhanden – Textstellenkennung geprüft. HTML und JSON müssen dieselbe fachliche Suchsemantik verwenden; unterschiedliche Oberflächenbudgets werden als Konfiguration ausgewiesen.
+Every successful result is additionally checked against document ID, voice, source language, text kind, target URL and passage ID once available. HTML and JSON must share domain search semantics; different interface budgets are explicit configuration.
 
-## Ausfall- und Lastprüfung
+## Outage and load tests
 
-Vor dem Lastlauf werden bei ruhendem Suchdienst Basiswerte für eine gewöhnliche Inhaltsseite und einen lokalen Formularlauf mit Test-Mailtransport erhoben. Der Lastgenerator verwendet markierte synthetische Suchtexte, begrenzte Parallelitätsstufen und keine externen Anbieter. Er steigert die Last bis zur konfigurierten Suchgrenze; eine weitere Stufe prüft kontrollierte 429- beziehungsweise 503-Antworten statt unbegrenzten Wartens.
+Before load testing, measure baseline values for an ordinary content page and a local form submission with a test mail transport while search is idle. The load generator uses marked synthetic queries, bounded concurrency levels and no external providers. Increase load to the configured search limit; one additional level verifies controlled 429/503 responses instead of unbounded waiting.
 
-Parallel werden wiederholt geprüft:
+Repeatedly check in parallel:
 
-- eine gewöhnliche, dateibasierte Inhaltsseite liefert den erwarteten 200-Status und unveränderten Kerninhalt;
-- die Formularseite bleibt abrufbar, CSRF-/Validierungsfehler funktionieren, und eine gültige lokale Testeinsendung erreicht genau einmal den Stub-Mailtransport;
-- Website-Prozess und Formular besitzen keine Datenbank- oder Anbieterschlüssel des Suchdienstes;
-- es gibt keine Website-Panics, Prozessneustarts oder erschöpften Website-Verbindungspools;
-- Suchanfragen halten ihre Gesamtfrist ein oder werden kontrolliert abgewiesen; nach Lastende erholt sich der Dienst ohne manuellen Registereingriff.
+- An ordinary file-backed content page returns the expected 200 and unchanged core content.
+- The form remains available, CSRF/validation errors work, and a valid local test submission reaches the stub mail transport exactly once.
+- Website process and form have no search-service database/provider credentials.
+- There are no website panics, restarts or exhausted website connection pools.
+- Queries respect overall deadlines or are rejected predictably; after load ends, search recovers without manual registry intervention.
 
-Abnahme: Gewöhnliche Seite und Formular haben in jeder Stufe eine Erfolgsquote von 100 Prozent. Ihre p95-Zeiten werden zusammen mit dem unbelasteten Ausgangswert berichtet; eine Freigabeschwelle wird vor dem Lauf als konkretes Hostbudget festgelegt und darf nicht nach Sichtung der Ergebnisse verschoben werden. Ohne vorab vereinbartes Hostbudget ist nur Erreichbarkeit, nicht eine Leistungsfreigabe, abnehmbar. Suchfehler dürfen weder Website noch Formular beenden. Dieselbe Prüfung wird mit beendetem Suchprozess, verweigerter Suchverbindung, ausgefallenem Postgres, langsamem Dienst, ungültigem JSON und ausgefallenem Ersatzanbieter wiederholt.
+Acceptance: ordinary page and form achieve 100% success at every level. Report their p95 alongside the unloaded baseline. Fix the approval threshold as a concrete host budget before running and do not move it after seeing results. Without an agreed prior host budget, only availability—not performance—can be accepted. Search failures must terminate neither website nor form. Repeat with search stopped, refused connections, PostgreSQL down, slow responses, invalid JSON and substitute-provider failure.
 
-## Datenschutz- und Negativprüfungen
+## Privacy and negative tests
 
-Ein einmaliger markierter Suchtext wird über HTML- und JSON-Suchweg geschickt. Anschließend werden die für den Test vereinbarten Go-, Proxy-, Datenbank- und Traceprotokolle durchsucht. Der Text darf dort nicht vorkommen; aggregierte Zähler dürfen ihn weder als Label noch als Attribut enthalten. Antworten tragen `Cache-Control: no-store`, HTML-Suchergebnisse zusätzlich `noindex`; die Suchwege verwenden `Referrer-Policy: no-referrer`. Diese Prüfung umfasst nur benannte lokale Protokolle. Eine Aussage über Cloudflare oder Produktion setzt einen eigenen dort ausgeführten Nachweis voraus.
+Send a unique marked query through both HTML and JSON search. Then search the agreed Go, proxy, database and trace logs. The query must be absent; aggregate counters must not contain it as a label or attribute. Responses use `Cache-Control: no-store`; HTML results additionally use `noindex`; search routes use `Referrer-Policy: no-referrer`. This check covers only named local logs. Claims about Cloudflare or production require separate tests there.
 
-Ungültige Filter, unbekannte Kennungen, SQL-artige Zeichenfolgen, sehr lange Anfragen und abgebrochene Clients werden mitgetestet. `fetch` akzeptiert nur bekannte Archivkennungen. Anfragewerte dürfen weder Schema noch Datenbankrolle wählen. Fehlermeldungen geben keine Geheimnisse, lokalen Pfade oder Rohabfragen aus.
+Also test invalid filters, unknown IDs, SQL-like strings, very long queries and cancelled clients. `fetch` accepts only known archive IDs. Request values cannot choose schema or database role. Error messages disclose no secrets, local paths or raw queries.
 
-## Bericht und Entscheidung
+## Report and decision
 
-Der Abnahmebericht nennt für jeden Test `passed`, `failed`, `blocked` oder `not_run`, die genaue Build- und Inhaltsversion, den ausgeführten Befehl und einen knappen Beleg. `blocked` ist erforderlich, wenn Vertrag, Textstellenmanifest, isolierter Cluster oder Beobachtbarkeit fehlen; es ist kein Erfolg mit Einschränkung.
+For every test, the acceptance report records `passed`, `failed`, `blocked` or `not_run`, exact build/content versions, command executed and concise evidence. `blocked` is required when the contract, passage manifest, isolated cluster or observability is missing; it is not qualified success.
 
-Der Validierungsbeitrag zu Phase 1 ist abnehmbar, wenn:
+The phase-1 validation contribution is acceptable when:
 
-1. alle in der Fallmenge genannten Website- und Archivkennungen am gebundenen Quellstand geprüft sind;
-2. Fallmenge und Plan Textlage, Stimme, Quellsprache, Ankündigung, Durchführung, Datumskonflikte, Namen und Negativfälle ohne erfundene Erwartungen wiedergeben;
-3. die künftigen Kriterien für Reproduzierbarkeit, Idempotenz, Wiederaufnahme, Änderung, Entfernung, API-/Inhaltsversion und Betriebsisolierung so beobachtbar formuliert sind, dass Daten- und Suchdienstimplementierung getrennt bewertet werden können;
-4. die maschinenlesbare Datei syntaktisch gültig ist und offene Passage-IDs ausdrücklich als offen markiert;
-5. noch nicht ausgeführte Tests und verbleibende Blocker nicht als bestandene Prüfungen erscheinen.
+1. Every website/archive ID named in the cases has been checked at the pinned source state.
+2. Cases and plan represent text availability, voice, source language, announcement, occurrence, date conflicts, names and negative cases without invented expectations.
+3. Future criteria for reproducibility, idempotency, resumption, changes, removal, API/content versions and operational isolation are observable enough to assess data and search-service implementations separately.
+4. The machine-readable file is syntactically valid and explicitly marks unresolved passage IDs.
+5. Unexecuted tests and remaining blockers are not presented as passed checks.
 
-Die spätere Erfüllung der in diesem Plan beschriebenen Durchstichkriterien kann erst nach den Ausführungen in Phase 2 bis 4 festgestellt werden. Der Phase-1-Beitrag bestätigt weder einen bereits funktionierenden technischen Durchstich noch vollständige Archivabdeckung, allgemeine Suchqualität oder Produktionsreife.
+Later fulfilment of this plan's integration criteria can be established only after execution in phases 2–4. Phase 1 establishes neither an already-working end-to-end implementation nor complete archive coverage, general search quality or production readiness.
