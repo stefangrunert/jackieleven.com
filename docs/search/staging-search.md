@@ -1,7 +1,9 @@
 # Öffentliche Suchvorschau auf Hetzner
 
 Die Vorschau unter https://unpubli.sh/jackieleven erhält eine eigene Suche. Die
-Produktionswebsite jackieleven.com und ihre Konfiguration bleiben unverändert.
+Produktionswebsite jackieleven.com wird getrennt aktualisiert; ihr Betrieb ist in
+[production-search.md](production-search.md) dokumentiert. Die unten protokollierte
+Vorschau-Bereitstellung ließ die Produktion unverändert.
 Die Website zeigt ein Suchfeld und gruppierte Fundstücke; Bereich, Stimme und
 Jahre liegen in einem zunächst geschlossenen Filterfeld. Die öffentliche Suche
 verwendet automatisch Hybrid-Suche und Reranking. Technische Suchmodi bleiben
