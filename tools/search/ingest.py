@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Pinned search export/import. All credential values and provider bodies stay private."""
 import argparse
-from contextlib import contextmanager
+from contextlib import contextmanager, closing
+from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 import fcntl
 import json
 import os
@@ -43,7 +44,39 @@ def embedding_plan(corpus, state, embed):
     return unique, missing
 
 
-def import_corpus(corpus, state, dsn, manifest_path, embed=False, provider=None, batch_size=16, failpoint=None):
+def embedding_batches(items, provider, batch_size=16, workers=1):
+    """Only provider calls run in threads; at most workers batches exist in flight."""
+    if not 1 <= workers <= 4:
+        raise ValueError('worker_limit')
+    batch_size = min(max(batch_size, 1), 16)
+    batches = iter(items[i:i+batch_size] for i in range(0, len(items), batch_size))
+    executor = ThreadPoolExecutor(max_workers=workers)
+    pending = {}
+    def submit_one():
+        batch = next(batches, None)
+        if batch is not None:
+            future = executor.submit(provider.embed, [text for key, text in batch])
+            pending[future] = batch
+    try:
+        for _ in range(workers):
+            submit_one()
+        while pending:
+            done, _ = wait(pending, return_when=FIRST_COMPLETED)
+            for future in done:
+                batch = pending.pop(future)
+                vectors = future.result()
+                if len(vectors) != len(batch):
+                    raise ValueError('provider_batch_mismatch')
+                yield batch, vectors
+                # The caller has persisted this result before the replacement is submitted.
+                submit_one()
+    finally:
+        for future in pending:
+            future.cancel()
+        executor.shutdown(wait=True, cancel_futures=True)
+
+
+def import_corpus(corpus, state, dsn, manifest_path, embed=False, provider=None, batch_size=16, failpoint=None, workers=1):
     import psycopg
     from psycopg.types.json import Jsonb
     manifest = manifest_for(corpus, embed)
@@ -74,21 +107,18 @@ def import_corpus(corpus, state, dsn, manifest_path, embed=False, provider=None,
             calls = 0
             try:
                 missing_items = list(sorted(missing.items()))
-                for offset in range(0, len(missing_items), batch_size):
-                    batch = missing_items[offset:offset+batch_size]
-                    if provider is None:
-                        raise ValueError('provider_required_for_missing_artifacts')
-                    vectors = provider.embed([text for key, text in batch])
-                    calls += 1
-                    if len(vectors) != len(batch):
-                        raise ValueError('provider_batch_mismatch')
-                    for (key, text), vector in zip(batch, vectors):
-                        artifact = state.save_artifact(key, vector)
-                        db.execute('INSERT INTO indexer_state.artifacts(artifact_key,profile,input_hash,sha256,dimensions,local_path) VALUES(%s,%s,%s,%s,1024,%s) ON CONFLICT(artifact_key) DO UPDATE SET sha256=excluded.sha256,local_path=excluded.local_path,validated_at=now()',
-                                   (key, profile, sha(text), artifact['sha256'], str(state.artifact_path(key))))
-                        db.execute("UPDATE indexer_state.run_items SET status='validated' WHERE build_id=%s AND artifact_key=%s", (build, key))
-                    if failpoint:
-                        failpoint('after_embedding_batch')
+                if missing_items and provider is None:
+                    raise ValueError('provider_required_for_missing_artifacts')
+                with closing(embedding_batches(missing_items, provider, batch_size, workers)) as batches:
+                    for batch, vectors in batches:
+                        calls += 1
+                        for (key, text), vector in zip(batch, vectors):
+                            artifact = state.save_artifact(key, vector)
+                            db.execute('INSERT INTO indexer_state.artifacts(artifact_key,profile,input_hash,sha256,dimensions,local_path) VALUES(%s,%s,%s,%s,1024,%s) ON CONFLICT(artifact_key) DO UPDATE SET sha256=excluded.sha256,local_path=excluded.local_path,validated_at=now()',
+                                       (key, profile, sha(text), artifact['sha256'], str(state.artifact_path(key))))
+                            db.execute("UPDATE indexer_state.run_items SET status='validated' WHERE build_id=%s AND artifact_key=%s", (build, key))
+                        if failpoint:
+                            failpoint('after_embedding_batch')
                 # A transaction contains the entire membership and ready transition. Failed writes cannot publish a partial build.
                 with db.transaction():
                     db.execute('DELETE FROM search.passages WHERE build_id=%s', (build,))
@@ -139,6 +169,7 @@ def main():
     parser.add_argument('--dsn-env', default='JACKIE_SEARCH_DATABASE_URL')
     parser.add_argument('--key-file')
     parser.add_argument('--batch-size', type=int, default=16)
+    parser.add_argument('--workers', type=int, choices=range(1, 5), default=1)
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--embed', action='store_true')
     group.add_argument('--lexical-only', action='store_true')
@@ -153,14 +184,14 @@ def main():
                           'entity_count': len(corpus['entities']), 'data_version': corpus['data_version'],
                           'embedding_profile': PROFILE_NAME if args.embed else 'none', 'embedding_unique_inputs': len(unique),
                           'embedding_cached': len(unique)-len(missing), 'embedding_missing': len(missing),
-                          'batch_size': min(max(args.batch_size, 1), 16)}, sort_keys=True), flush=True)
+                          'batch_size': min(max(args.batch_size, 1), 16), 'workers': args.workers}, sort_keys=True), flush=True)
         if args.plan:
             return
         dsn = args.database_url or os.environ.get(args.dsn_env)
         if not dsn:
             raise ValueError('database_url_required')
         provider = DeepInfra(load_key(args.key_file)) if args.embed and missing else None
-        result = import_corpus(corpus, state, dsn, args.manifest or args.state_dir / 'manifest.json', args.embed, provider, args.batch_size)
+        result = import_corpus(corpus, state, dsn, args.manifest or args.state_dir / 'manifest.json', args.embed, provider, args.batch_size, workers=args.workers)
         print(json.dumps({'stage': 'ready', **result}, sort_keys=True))
 
 

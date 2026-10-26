@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+import threading
+import time
 import unittest
 from unittest.mock import patch
 import urllib.error
@@ -125,6 +127,61 @@ class MockProvider:
         self.calls.append(list(texts))
         return [normalize([1.0]*4096) for _ in texts]
 
+
+
+class ConcurrencyTests(unittest.TestCase):
+    def test_bounded_provider_window_and_main_thread_persistence(self):
+        main_thread = threading.get_ident()
+        class ConcurrentProvider:
+            def __init__(self):
+                self.active = self.maximum = 0
+                self.lock = threading.Lock()
+            def embed(self, texts):
+                with self.lock:
+                    self.active += 1
+                    self.maximum = max(self.maximum, self.active)
+                time.sleep(0.01)
+                with self.lock:
+                    self.active -= 1
+                return [normalize([1.0]*4096) for _ in texts]
+        provider = ConcurrentProvider()
+        items = [(str(i), 'text ' + str(i)) for i in range(19)]
+        seen = []
+        for batch, vectors in ingest.embedding_batches(items, provider, batch_size=2, workers=4):
+            self.assertEqual(threading.get_ident(), main_thread)
+            self.assertEqual(len(batch), len(vectors))
+            seen.extend(key for key, text in batch)
+        self.assertEqual(sorted(seen), sorted(key for key, _ in items))
+        self.assertGreater(provider.maximum, 1)
+        self.assertLessEqual(provider.maximum, 4)
+        with self.assertRaises(ValueError):
+            list(ingest.embedding_batches(items, provider, workers=5))
+
+    def test_parallel_error_preserves_persisted_results_for_resume(self):
+        persisted = threading.Event()
+        class FailingProvider:
+            def embed(self, texts):
+                if texts[0] == 'failing':
+                    if not persisted.wait(timeout=2):
+                        raise AssertionError('successful result was not persisted')
+                    raise ProviderError('injected_failure')
+                return [normalize([1.0]*4096) for _ in texts]
+        with tempfile.TemporaryDirectory() as root:
+            state = State(root)
+            items = [(state.artifact_key(PROFILE, text), text) for text in ['successful', 'failing']]
+            with self.assertRaises(ProviderError):
+                for batch, vectors in ingest.embedding_batches(items, FailingProvider(), batch_size=1, workers=2):
+                    for (key, text), vector in zip(batch, vectors):
+                        state.save_artifact(key, vector)
+                    persisted.set()
+            missing = [(key, text) for key, text in items if state.artifact(key) is None]
+            self.assertEqual([text for key, text in missing], ['failing'])
+            resumed = MockProvider()
+            for batch, vectors in ingest.embedding_batches(missing, resumed, workers=2):
+                for (key, text), vector in zip(batch, vectors):
+                    state.save_artifact(key, vector)
+            self.assertEqual(resumed.calls, [['failing']])
+            self.assertTrue(all(state.artifact(key) for key, _ in items))
 
 @unittest.skipUnless(os.environ.get('SEARCH_TEST_DSN'), 'SEARCH_TEST_DSN required for dedicated local PostgreSQL')
 class PostgresTests(unittest.TestCase):
