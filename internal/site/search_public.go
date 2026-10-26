@@ -79,10 +79,7 @@ func publicSearchLabels(lang string) map[string]string {
 		"EntityTitle": {"Eintrag im Archiv", "Archive record"}, "Claims": {"Angaben und Belege", "Statements and sources"},
 		"EntityNote": {"Das Archiv bewahrt die Angaben seiner Quellen einzeln. Abweichende Daten oder widersprüchliche Aussagen bleiben sichtbar.", "The archive preserves each source’s statements separately. Different dates and conflicting accounts remain visible."},
 		"Evidence":   {"Belege anzeigen", "Show sources"}, "NoEvidence": {"Kein Belegverweis", "No source reference"}, "Recorded": {"Erfassung und Originaldaten", "Provenance and original data"},
-		"About": {"Über diese Seite", "About this site"}, "ExamplesLabel": {"Vielleicht suchst du …", "You might ask …"},
-		"Example1": {"Was verband Jackie mit Norwegen?", "What connected Jackie with Norway?"},
-		"Example2": {"Welche Lieder handeln von Verlust?", "Which songs are about loss?"},
-		"Example3": {"Was war Doll by Doll?", "What was Doll by Doll?"},
+		"About": {"Über diese Seite", "About this site"},
 	}
 	for k, p := range pairs {
 		l[k] = searchMessage(lang, p[0], p[1])

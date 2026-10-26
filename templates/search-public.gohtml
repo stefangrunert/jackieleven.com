@@ -25,5 +25,5 @@
 <p class="discovery-card-bottom"><span>{{.Voice}}</span><a href="{{.ReadURL}}">{{$.L.Read}}</a></p></div>
 </article>{{end}}</div></section>{{end}}
 {{else}}<p class="discovery-empty">{{.L.Empty}}</p>{{end}}
-{{else}}<section class="discovery-examples" aria-label="{{.L.ExamplesLabel}}"><p>{{.L.ExamplesLabel}}</p><a href="{{.Action}}?q={{.L.Example1}}">{{.L.Example1}}</a><a href="{{.Action}}?q={{.L.Example2}}">{{.L.Example2}}</a><a href="{{.Action}}?q={{.L.Example3}}">{{.L.Example3}}</a></section>{{end}}
+{{end}}
 {{template "public-search-foot" .}}
