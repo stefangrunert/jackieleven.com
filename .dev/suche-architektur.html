@@ -187,7 +187,7 @@ footer {
 <header>
   <h1>Suche im Jackie-Leven-Archiv: Architekturentwurf</h1>
   <div class="angaben">
-    <div>Entwurf · Stand 25. Oktober 2026, überarbeitet nach der <a href="pruefung-ontologie-suche-2026-10-25.html">technischen Prüfung</a> · Stefan Grunert</div>
+    <div>Entwurf · Stand 26. Oktober 2026, Go-Website, separater Suchdienst und geprüfter Archivbestand; Grundlage bleibt die <a href="pruefung-ontologie-suche-2026-10-25.html">technische Prüfung</a> · Stefan Grunert</div>
     <div>Datenmodell: <a href="ontologie.html">Ontologie des Archivs</a> · Datenzuwachs: <a href="erschliessung.html">Erschließungsstrategie</a></div>
   </div>
 </header>
@@ -196,17 +196,19 @@ footer {
   <ol>
     <li><a href="#ausgangslage">Ausgangslage</a></li>
     <li><a href="#anforderungen">Anforderungen</a></li>
-    <li><a href="#datenhaltung">Datenhaltung</a></li>
+    <li><a href="#datenhaltung">Datenhaltung und Stand der Sammlung</a></li>
     <li><a href="#datenmodell">Datenmodell und Indexeinheit</a></li>
     <li><a href="#ablauf">Ablauf einer Suchanfrage</a></li>
     <li><a href="#embeddings">Embeddings</a></li>
     <li><a href="#deploy">Build und Deploy</a></li>
     <li><a href="#evaluation">Evaluation</a></li>
-    <li><a href="#betrieb">Suchdienst, Datenschutz und Betrieb</a></li>
+    <li><a href="#betrieb">Suchdienst, interne HTTP-API und Betrieb</a></li>
     <li><a href="#agenten">Zugang für Agenten und KI-Suchen</a></li>
     <li><a href="#entscheidungen">Entscheidungen</a></li>
     <li><a href="#stufen">Ausbaustufen</a></li>
     <li><a href="#offen">Offene Punkte</a></li>
+    <li><a href="#entwicklungsplan">Entwicklungsplan und Agenten</a></li>
+    <li><a href="#arbeitsstand">Arbeitsstand und Wiederaufnahme</a></li>
   </ol>
 </nav>
 
@@ -214,7 +216,18 @@ footer {
   <h2>1. Ausgangslage</h2>
   <p>Die Website jackieleven.com umfasst derzeit 73 Kolumnen Jackie Levens mit zusammen rund 90.000 Wörtern, 741 Quellen über ihn aus den Jahren 1971 bis heute, 88 Diskografie-Einträge mit 881 Titeleinträgen, die Stationen der Zeitreise und 15 Kapitel einer als Pastiche gekennzeichneten Autobiografie. In der Recherche liegen weitere Bestände, die noch nicht auf der Website erscheinen, darunter ein Konzertkalender mit 470 Auftritten. Hinzukommen sollen weitere Presseartikel, Termine, Konzerte und Personen.</p>
   <p>Die Texte sind zweisprachig, aber nicht parallel: Die Kolumnen und viele Zitate liegen nur im englischen Original vor, die Inhaltsangaben der Quellen auf Deutsch und Englisch. Eigennamen, Albumtitel und Jahreszahlen sind häufig. Eine Suchfunktion gibt es bisher nicht; Inhalte sind nur über Zeitstrahlen, Listen und Filter erreichbar.</p>
-  <p>Die Website läuft auf einem Server mit 2 vCPUs und knapp 4 GB Arbeitsspeicher, den sie mit anderen Diensten teilt. PHP 8.3 und Postgres 17 sind installiert. Ein Embedding-Modell mit mehreren Milliarden Parametern lässt sich dort nicht mit vertretbarer Antwortzeit betreiben.</p>
+  <p>Die Website läuft seit dem 25. Oktober 2026 einschließlich Formular auf Go. <code>cmd/jackieleven</code> startet einen <code>net/http</code>-Server; <code>internal/site</code> enthält Routing, Inhaltsaufbereitung und <code>html/template</code>-Vorlagen. Die JSON-Kataloge und Kolumnen werden beim Start geladen. Suche, Postgres-Anbindung, <code>/id/</code>-Auflösung und MCP sind noch nicht implementiert. Der Code verwendet bisher ausschließlich die Go-Standardbibliothek. Diese Bestandsprüfung bezieht sich auf Commit <code>d819f9d</code>; alle nachfolgenden Suchbausteine sind Planung.</p>
+  <p>Nach dem dokumentierten Infrastrukturstand teilt die Website einen Server mit 2 vCPUs und knapp 4 GB Arbeitsspeicher mit anderen Diensten; Postgres 17 ist vorhanden. PHP bleibt dort nur als Rückfall für die frühere Anwendung. Die Go-Migration vergrößert weder CPU noch Arbeitsspeicher. Ein eigenes großes Embedding-Modell ist daher weiterhin nicht als Produktionslösung vorgesehen; Modellgröße und Antwortzeit bleiben zu messen.</p>
+  <h3>Entschiedener Aufbau</h3>
+  <p>Website und Suche werden als zwei Go-Programme im selben Code-Repository entwickelt. Die Website rendert Seiten und verarbeitet das Formular. Ein eigener Suchdienst übernimmt Suche, Belegauflösung, die öffentliche JSON-Schnittstelle und später MCP. Die serverseitige Ergebnisseite fragt ihn über eine interne HTTP-API ab. Die Trennung dient unabhängigen Neustarts, gezielten Ressourcenlimits und der späteren Wiederverwendung der Suchtechnik.</p>
+  <div class="tabelle"><table><thead><tr><th>Bereich</th><th>Entscheidung</th><th>Folge</th></tr></thead><tbody>
+    <tr><td>Prozesse</td><td>Zwei Go-Binärdateien, zwei Dienste</td><td>Suchfehler und Suchneustarts beenden nicht den Website-Prozess.</td></tr>
+    <tr><td>Code</td><td>Gemeinsames Website-Repository</td><td>API-Vertrag, Client und Dienst können gemeinsam geprüft werden; ein eigenes Such-Repository bleibt eine spätere Option.</td></tr>
+    <tr><td>Kommunikation</td><td>Versionierte HTTP-API mit JSON über Loopback</td><td>Die Website braucht einen begrenzten HTTP-Client und klare Fehlerbehandlung.</td></tr>
+    <tr><td>Daten</td><td>Eigenes öffentliches Repository <code>jackieleven-archive</code></td><td>Versionierte Aussagen und Belege bleiben unabhängig von der Laufzeit; Postgres ist ein abgeleitetes Lesemodell.</td></tr>
+    <tr><td>Suchverfahren</td><td>BM25, Vektoren, Fusion, Reranking und Evaluation</td><td>Der fachliche Anspruch bleibt erhalten.</td></tr>
+  </tbody></table></div>
+  <p class="hinweis">Die Diensttrennung ist beschlossen, aber noch nicht implementiert. Getrennte Prozesse teilen weiterhin Server und gegebenenfalls Postgres-Cluster. Verbindungs-, CPU- und Speicherbudgets sowie Lasttests sind deshalb erforderlich. Alle neuen Programmpfade, Endpunkte und Konfigurationsnamen in diesem Entwurf sind Vorschläge für die Umsetzung.</p>
 </section>
 
 <section id="anforderungen">
@@ -226,20 +239,31 @@ footer {
 </section>
 
 <section id="datenhaltung">
-  <h2>3. Datenhaltung</h2>
-  <p>Die Daten liegen als Dateien in einem eigenen, öffentlichen Datenrepository (<code>stefangrunert/jackieleven-archive</code>), wo sie bearbeitet, geprüft und versioniert werden. Code, Darstellung und vollständige Texte Dritter bleiben im privaten Repository der Website (<a href="ontologie.html#repository">Ontologie, Abschnitt 11</a>). Der Build der Website lädt eine festgelegte Version der Daten und erzeugt daraus ein Lesemodell in Postgres. Dieses Lesemodell wird nie von Hand geändert und lässt sich jederzeit vollständig aus beiden Repositories neu aufbauen.</p>
-  <p>Die Trennung erhält die bisherige Auslieferung. Ein Release ist ein abgeschlossenes Paket, der Wechsel erfolgt atomar über einen Symlink, und ein Rollback stellt das vorige Paket wieder her. Für die Datenbank bildet ein eigenes Schema je Release dieses Verhalten nach (Abschnitt 7). Ein Wechsel des Embedding-Modells ist unter diesen Bedingungen ein Neubau des Lesemodells und keine Datenmigration.</p>
-  <div class="abbildung">
-    <ol>
-      <li><b>Datenrepository</b> <span>– Datendateien, Schema, Validierung; Versionen mit Export</span></li>
-      <li><b>Website-Repository</b> <span>– Sperrdatei mit der Datenversion, Texte Dritter, Code</span></li>
-      <li><b>Build</b> <span>– Entitäten, Aussagen, Textstellen, Vektoren</span></li>
-      <li><b>Postgres-Schema des Release</b> <span>– für die Website nur lesbar</span></li>
-      <li><b>Suchdienst in Go</b> <span>– Suche, Schnittstelle, MCP-Server, Adressen unter <code>/id/</code></span></li>
-      <li><b>Website in PHP</b> <span>– Ergebnisseite, Sofortsuche, Entitätsseiten, verwandte Inhalte</span></li>
-    </ol>
-    <p class="unterschrift">Abb. 1: Datenfluss vom Repository zur Website</p>
-  </div>
+  <h2>3. Datenhaltung und Stand der Sammlung</h2>
+  <p>Die strukturierten Daten liegen im eigenen öffentlichen Repository <code>stefangrunert/jackieleven-archive</code>. Code für Website und Suche, Darstellung und vollständige Texte Dritter bleiben im privaten Website-Repository (<a href="ontologie.html#repository">Ontologie, Abschnitt 11</a>). Der Suchbuild verbindet festgelegte Revisionen beider Repositories und erzeugt daraus das Postgres-Lesemodell. Es wird nie von Hand geändert und lässt sich aus den gebundenen Eingaben neu aufbauen; externe Embeddings werden zusätzlich als Build-Artefakte aufbewahrt.</p>
+  <h3 id="sammlungsstand">Geprüfter Stand vom 26. Oktober 2026</h3>
+  <p>Die lokale Archivprüfung bezieht sich auf <code>main</code>, Commit <code>7d353a4</code>, Schema v0.2. Gezählt wurden <b>965 Entitäten und 1.853 strukturierte Aussagen</b>. Die Aussagen enthalten 1.634 Belegverweise, davon 383 mit einem Zitat. Mehrere Aussagen können dieselbe Quelle verwenden; diese Zahlen bezeichnen keine unabhängigen Quellen oder bereits suchbaren Textsegmente.</p>
+  <div class="tabelle"><table><thead><tr><th>Entitätstyp</th><th>Anzahl</th></tr></thead><tbody>
+    <tr><td>Dokumente</td><td>250</td></tr><tr><td>Ereignisse</td><td>220</td></tr>
+    <tr><td>Orte und Spielstätten</td><td>216</td></tr><tr><td>Personen</td><td>146</td></tr>
+    <tr><td>Publikationen</td><td>101</td></tr><tr><td>Gruppen</td><td>20</td></tr>
+    <tr><td>Organisationen</td><td>10</td></tr><tr><td>Personas</td><td>2</td></tr>
+  </tbody></table></div>
+  <p>Zwei Aufträge sind als <code>done</code> markiert: Der Pilot wertete 89 Konzertberichte aus; der zweite Lauf 99 Meldungsdateien. Unter diesen befinden sich 75 Einzelmeldungen und 24 Sammeldateien. Daraus entstanden 161 Dokumentdatensätze, die zusammen mit den 89 Pilotdokumenten den heutigen Dokumentbestand bilden. Die Entitätszahlen werden aus dem aktuellen Bestand gezählt, nicht aus historischen Kandidatenzahlen addiert; Zusammenführungen verändern diese Summen.</p>
+  <p>Die Abdeckung ist unterschiedlich: Der Pilot ist als <code>fully_checked</code> dokumentiert, einschließlich vermerkter Zugriffslücken. Bei den Meldungen gilt <code>readable</code>. Dort beruhen Teile der Erfassung auf Tabellen und Inhaltsangaben vorhandener Sammeldateien; die Originalfundstellen wurden in diesem Lauf ohne Webzugriff nicht erneut geöffnet. Rund 1.400 weitere Fundstellen wurden nur gezählt, darunter Programmhinweise, Listennennungen und nicht frei zugängliche Ausgaben. Diese Zählung ist keine Volltexterschließung. Alben und Singles wurden im Meldungsauftrag nicht als Entitäten erfasst.</p>
+  <p>Die ausgeführte Validierung mit Konfliktbericht lieferte <b>0 Fehler und 3 Hinweise auf mögliche Dubletten</b>: zwei gleichnamige Dokumente, zwei Spielstätten namens Troubadour und zwei Publikationskennungen für jackieleven.com. Zusätzlich meldete sie sechs als strittig geführte Datumskonstellationen. Solche Hinweise verlangen Sichtprüfung; eine gleiche Bezeichnung allein rechtfertigt keine Zusammenführung. Die Auftragsprüfung ist in der Git-Historie dokumentiert. An den gezählten Aussagen sind bisher keine <code>reviewed_by</code>- oder <code>review_hash</code>-Markierungen gesetzt. Formale Validität und abgeschlossener Auftrag sind daher keine Einzelprüfung jeder historischen Aussage.</p>
+  <h3>Wie die Sammlung aufgebaut wird</h3>
+  <div class="abbildung"><ol>
+    <li><b>Auftrag festlegen</b> <span>– <code>jobs/</code> definiert Quellenbereich, Entitätsklassen, Methode und Budget.</span></li>
+    <li><b>Quellen auswerten</b> <span>– vorhandene Entitäten suchen und ergänzen; neue Entitäten als <code>data/&lt;type&gt;/&lt;key&gt;.yaml</code> erfassen.</span></li>
+    <li><b>Aussagen belegen</b> <span>– feste Aussagekennungen, Quelle, Fundstelle, gegebenenfalls wörtliches Zitat, Belegart und Unsicherheit führen; Ankündigung und Durchführung unterscheiden.</span></li>
+    <li><b>Abdeckung dokumentieren</b> <span>– <code>coverage/</code> hält geprüfte Bestände, Funde, nicht zugängliche Quellen und bloß gezählte Fundstellen fest.</span></li>
+    <li><b>Validieren und prüfen</b> <span>– Schema, Verweise, Kennungen, Belege, Dublettenhinweise und Konflikte kontrollieren; Korrekturen vor Übernahme nach <code>main</code>.</span></li>
+    <li><b>Suchstand ableiten</b> <span>– künftig ein versionierter Export, Textstellenverzeichnis, Segmente und Postgres-Import; keine direkte Suche in laufend veränderten Arbeitsdateien.</span></li>
+  </ol><p class="unterschrift">Abb. 1: Vom Erschließungsauftrag zum reproduzierbaren Suchstand</p></div>
+  <p>Der heutige Validator prüft unter anderem Schema und Referenzen, Belegpflichten, Datumsangaben, Aussagekennungen und den Ausschluss der Pastiche als Beleg. Eine Prüfung von Textstellenverweisen ist vorgesehen, greift aber erst mit dem entsprechenden Verzeichnis. <code>passages/manifest.txt</code> existiert noch nicht; in den gezählten Belegen sind noch keine <code>passage</code>-Verweise gesetzt. Die bisherigen Fundstellenbeschreibungen und Zitate ersetzen keine stabilen HTML-Anker.</p>
+  <p>Für den ersten Suchdurchstich fehlt deshalb vor allem die Verbindung zwischen einer Aussage, ihrer zitierbaren Textstelle und der veröffentlichten Seite. Ein kleiner, bewusst ausgewählter Teil der vorhandenen Dokumente genügt als Pilot. Weitere Quellenarten und die Diskografie können parallel erschlossen werden; vollständige Erschließung ist keine Voraussetzung für den Suchbau.</p>
+  <p>Nachweise im lokalen Archiv: <a href="../../jackieleven-archive/README.md">README</a>, <a href="../../jackieleven-archive/jobs/pilot-konzertberichte.yaml">Pilotauftrag</a>, <a href="../../jackieleven-archive/jobs/meldungen.yaml">Meldungsauftrag</a>, <a href="../../jackieleven-archive/coverage/pilot-konzertberichte.yaml">Pilotabdeckung</a> und <a href="../../jackieleven-archive/coverage/meldungen.yaml">Meldungsabdeckung</a>. Diese relativen Links setzen die beiden benachbarten lokalen Repository-Verzeichnisse voraus.</p>
 </section>
 
 <section id="datenmodell">
@@ -251,7 +275,7 @@ footer {
     <table>
       <thead><tr><th>Feld</th><th>Inhalt</th></tr></thead>
       <tbody>
-        <tr><td><code>id</code>, <code>document</code></td><td>Kennung der Textstelle und des Dokuments, zu dem sie gehört</td></tr>
+        <tr><td><code>id</code>, <code>document</code></td><td>Kennung des Suchsegments und des zugehörigen Dokuments; zitierbare Textstellen stehen getrennt in <code>passages</code></td></tr>
         <tr><td><code>language</code></td><td>tatsächliche Sprache des Texts</td></tr>
         <tr><td><code>text_kind</code></td><td><code>original</code>, <code>translation</code> oder <code>summary</code></td></tr>
         <tr><td><code>version_group</code></td><td>verbindet die Fassungen desselben Inhalts, etwa deutsche und englische Inhaltsangabe einer Quelle</td></tr>
@@ -273,7 +297,7 @@ footer {
     <ol>
       <li><b>Anfrageanalyse</b> <span>– Bekannte Namen und Kennungen werden über einen normalisierten Namenspfad erkannt, Schreibvarianten ergänzend per Trigramm-Abgleich. Geburtsname, Schreibvarianten und Personas werden auf die Person aufgelöst: Eine Anfrage nach „Sir Vincent Lone“ erkennt Persona und Person. Jahreszahlen werden nur bei klarer Absicht zum harten Zeitfilter, da eine Zahl auch Teil eines Titels oder einer Katalognummer sein kann. Ergibt sich eine strukturierte Frage, folgt der strukturierte Pfad (siehe unten). Das Verfahren ist deterministisch und benötigt kein Sprachmodell.</span></li>
       <li><b>Lexikalische Suche</b> <span>– BM25 über Text, Titel und Namen, nach Feld gewichtet. Parallel dazu:</span> <b>semantische Suche</b> <span>– Anfragevektor über DeepInfra (zwischengespeichert), Vektorsuche mit pgvector.</span></li>
-      <li><b>Fusion</b> <span>– Reciprocal Rank Fusion der beiden Ranglisten in einer SQL-Abfrage.</span></li>
+      <li><b>Fusion</b> <span>– Reciprocal Rank Fusion der beiden Ranglisten im Go-Suchmodul; gleicher Filter- und Datenstand für beide Pfade.</span></li>
       <li><b>Reranking</b> <span>– Nachbewertung der 50 besten Treffer mit einem Cross-Encoder, nur auf der vollständigen Ergebnisseite.</span></li>
       <li><b>Darstellung</b> <span>– Gruppierung nach Stimme, Entitäten zu erkannten Namen, Verweis auf die Textstelle.</span></li>
     </ol>
@@ -281,33 +305,25 @@ footer {
   </div>
 
   <h3>Fusion der Ranglisten</h3>
-  <p>Reciprocal Rank Fusion verrechnet die Ränge der Treffer, nicht ihre Scores. BM25-Werte und Kosinusabstände liegen auf unterschiedlichen Skalen und lassen sich ohne Kalibrierung nicht sinnvoll addieren; die Ränge sind dagegen vergleichbar. RRF ist damit ein robuster Ausgangspunkt, aber nicht ohne Weiteres die beste Wahl: Untersuchungen finden für abgestimmte konvexe Kombinationen normierter Scores Vorteile gegenüber RRF. Eine solche kalibrierte Kombination wird deshalb mit dem Testsatz verglichen. Die Konstante 60 und die Länge der Ranglisten sind zu messende Werte. Die BM25-Syntax der Skizze entspricht ParadeDB <code>pg_search</code> und hängt von der gewählten Erweiterung ab.</p>
-<pre><code>WITH lexical AS (
-  SELECT id, row_number() OVER (ORDER BY paradedb.score(id) DESC) AS rank
-  FROM passage
-  WHERE text @@@ :query AND version IN ('original', :lang)
-  ORDER BY paradedb.score(id) DESC
-  LIMIT 50
-),
-semantic AS (
-  SELECT id, row_number() OVER (ORDER BY embedding &lt;=&gt; :embedding) AS rank
-  FROM passage
-  WHERE version IN ('original', :lang)
-  ORDER BY embedding &lt;=&gt; :embedding
-  LIMIT 50
-)
-SELECT id, sum(1.0 / (60 + rank)) AS rrf
-FROM (SELECT * FROM lexical UNION ALL SELECT * FROM semantic) t
-GROUP BY id
-ORDER BY rrf DESC
-LIMIT 50;</code></pre>
-  <p>Die Skizze filtert vereinfacht nach Sprache. Tatsächlich werden Sprache, Textart und zusammengehörige Fassungen getrennt geführt. Die deutsche Seite sucht in Originaltexten jeder Sprache und in deutschen Übersetzungen und Inhaltsangaben; trifft eine Anfrage nur die englische Fassung einer Inhaltsangabe, wird über <code>version_group</code> die deutsche angezeigt. Vor der endgültigen Gruppierung werden mehrere Treffer aus demselben Dokument zusammengefasst, damit eine Quelle nicht doppelt erscheint.</p>
+  <p>Reciprocal Rank Fusion verrechnet die Ränge der Treffer, nicht ihre Scores. BM25-Werte und Kosinusabstände liegen auf unterschiedlichen Skalen. Die Konstante 60 und die Kandidatenzahl 50 sind Ausgangswerte für den Testsatz, keine bereits optimierten Werte. Eine kalibrierte Kombination normierter Scores bleibt als Vergleich vorgesehen.</p>
+  <p>Die Datenbank liefert zwei geordnete Kandidatenlisten aus demselben unveränderlichen Suchschema. Die Go-Schicht vereinigt sie nach Segmentkennung und kann bei ausfallendem Vektorpfad die bereits ermittelte lexikalische Liste verwenden. Damit muss die lokale Suche nicht auf ein externes Embedding warten. Eine spätere SQL-Fusion bleibt als zu messende Alternative möglich. Die Abfragen verwenden die getrennten Modellfelder für Sprache und Textart aus Abschnitt 4.</p>
+<pre><code># Ablaufskizze, kein vorhandener ausführbarer Code
+lexical := BM25(query, filters, boundSchema)     # sofort beginnen
+semantic := VectorSearch(Embed(query), filters, boundSchema)
+
+# Beide Pfade haben eigene Teilfristen innerhalb einer Gesamtfrist.
+# Scheitert der optionale semantische Pfad, bleibt lexical erhalten.
+score(segment) = sum(1 / (60 + rank_in_list))
+# Je Liste nur ein Beitrag je Segment; Rang beginnt bei 1.
+# Gleichstand deterministisch nach Segmentkennung auflösen.</code></pre>
+  <p>Die Sprache der Anfrage, die Sprache des Originals, <code>text_kind</code> und <code>version_group</code> bleiben getrennte Angaben. Sprachübergreifende Kandidaten dürfen nicht vorzeitig durch einen harten Filter auf die Oberflächensprache ausgeschlossen werden. Nach der Bewertung wird, soweit vorhanden, die passende Übersetzung oder Inhaltsangabe derselben Versionsgruppe angezeigt. Dokument-, Zeit-, Stimm- und Sichtbarkeitsfilter gelten dagegen konsistent in beiden Pfaden; eine Anzeigealternative muss sie ebenfalls erfüllen.</p>
+  <p>Mehrere Segmente und Sprachfassungen desselben Dokuments werden vor der endgültigen Darstellung zusammengeführt. Die Antwort behält die konkreten Textstellenkennungen als Zitierziele. Rückfallbetrieb wird mit <code>mode</code> und einer sachlichen Einschränkung ausgewiesen; ein Fehler der Datenbank wird nicht als „keine Treffer“ ausgegeben.</p>
 
   <h3>Strukturierte Anfragen</h3>
-  <p>„Welche belegten Konzerte fanden 2004 in Norwegen statt?“ verlangt eine vollständige Liste nach Ort, Datum und Durchführungsstatus. Eine Rangliste der ähnlichsten Absätze leistet das nicht. Erkennt die Anfrageanalyse Entitäten und eindeutige Filter, übersetzt der Suchdienst sie in eine strukturierte Abfrage über die Aussagen des Lesemodells, etwa Ereignisse der Art Konzert mit Ort in Norwegen, Zeit im Jahr 2004 und Status <code>took_place</code>. Die Textsuche ergänzt das Ergebnis um passende Textstellen. Historische Zeit und Erscheinungszeit sind dabei getrennte Filter.</p>
+  <p>„Welche belegten Konzerte fanden 2004 in Norwegen statt?“ verlangt eine vollständige Liste nach Ort, Datum und Durchführungsstatus. Eine Rangliste der ähnlichsten Absätze leistet das nicht. Erkennt die Anfrageanalyse Entitäten und eindeutige Filter, übersetzt das Suchmodul sie in eine strukturierte Abfrage über die Aussagen des Lesemodells, etwa Ereignisse der Art Konzert mit Ort in Norwegen, Zeit im Jahr 2004 und Status <code>took_place</code>. Die Textsuche ergänzt das Ergebnis um passende Textstellen. Historische Zeit und Erscheinungszeit sind dabei getrennte Filter.</p>
 
   <h3>Vektorindex</h3>
-  <p>Beim heutigen Bestand ist eine exakte Vektorsuche ohne Index schnell genug und hat vollständigen Recall. Sie dient als Referenz. Ein HNSW-Index wird erst angelegt, wenn eine Messung zeigt, dass sein Zeitgewinn den Verlust an Recall und den Speicherbedarf rechtfertigt; für das Lernziel kann der Vergleich trotzdem durchgeführt und dokumentiert werden. Bei gefilterten Anfragen liefert ein HNSW-Index unter Umständen weniger Treffer als angefordert. pgvector kann die Suche in diesem Fall fortsetzen, aber nur, wenn iterative Scans ausdrücklich aktiviert sind, und auch dann endet sie an einer Scan-Grenze.</p>
+  <p>Eine exakte Vektorsuche ohne Näherungsindex dient als Referenz für den Recall der Kandidatensuche; ob ihre Laufzeit für den tatsächlichen Segmentbestand ausreicht, wird gemessen. Vollständiger Recall dieser Distanzsuche bedeutet noch nicht, dass alle fachlich relevanten Belege unter den ersten Treffern stehen. Ein HNSW-Index wird erst angelegt, wenn eine Messung zeigt, dass sein Zeitgewinn den Verlust an Recall und den Speicherbedarf rechtfertigt; für das Lernziel kann der Vergleich trotzdem durchgeführt und dokumentiert werden. Bei gefilterten Anfragen liefert ein HNSW-Index unter Umständen weniger Treffer als angefordert. pgvector kann die Suche in diesem Fall fortsetzen, aber nur, wenn iterative Scans ausdrücklich aktiviert sind, und auch dann endet sie an einer Scan-Grenze.</p>
 
   <h3>Zeitbudget und Rückfall</h3>
   <p>Die folgenden Werte sind Annahmen und werden vor dem Bau gemessen.</p>
@@ -316,21 +332,23 @@ LIMIT 50;</code></pre>
       <thead><tr><th>Schritt</th><th>Sofortsuche</th><th>Ergebnisseite</th></tr></thead>
       <tbody>
         <tr><td>Anfragevektor</td><td>0 ms aus dem Cache, sonst bis ca. 300 ms</td><td>wie Sofortsuche</td></tr>
-        <tr><td>Hybride SQL-Abfrage</td><td>unter 30 ms</td><td>unter 30 ms</td></tr>
+        <tr><td>Lokale SQL-Suche und Fusion</td><td>unter 30 ms</td><td>unter 30 ms</td></tr>
         <tr><td>Reranking</td><td>entfällt</td><td>ca. 200–500 ms</td></tr>
         <tr><td>Zeitgrenze je externem Aufruf</td><td>800 ms</td><td>800 ms</td></tr>
         <tr><td>Gesamtfrist der Anfrage</td><td>1 s</td><td>2 s</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Wird eine Zeitgrenze überschritten, entfällt der betreffende Schritt. Ohne Anfragevektor sucht der Dienst rein lexikalisch und über den Namenspfad, ohne Reranking gilt die Reihenfolge der Fusion. Die Fristen der einzelnen Schritte addieren sich nicht zu einer beliebig langen Anfrage: Eine Gesamtfrist begrenzt jede Anfrage, und bei Überlast fällt der Dienst früh in die lokale Suche zurück.</p>
+  <p>Wird eine Teilfrist überschritten, entfällt der betreffende optionale Schritt. Ohne Anfragevektor bleiben BM25 und Namenspfad, ohne Reranking gilt die vorherige Rangfolge. Die lexikalische Abfrage beginnt parallel zur Vektorerzeugung; ihr Budget bleibt reserviert. Die Fristen für Poolzugang, SQL und Anbieteraufrufe werden aus dem Anfragekontext abgeleitet. Externe Aufrufe enden rechtzeitig vor der Gesamtfrist, damit das Ergebnis noch gerendert werden kann. Überlast des externen Pfads führt früh zum lokalen Ranking; ist auch dessen Kapazität erschöpft, wird begrenzt abgewiesen statt unbegrenzt gewartet. „Lokal“ bedeutet hier Suche in Postgres ohne Anbieteraufruf. Ist Postgres ausgefallen, antworten Suchpfade kontrolliert mit 503; bestehende Inhaltsseiten bleiben aus ihren Dateien erreichbar.</p>
 </section>
 
 <section id="embeddings">
   <h2>6. Embeddings</h2>
   <p>Als Modell ist Qwen3-Embedding-8B vorgesehen, abgerufen über die Programmierschnittstelle von DeepInfra, wo es ebenso wie Qwen3-Reranker-8B angeboten wird. Die Wahl beruht auf Versuchen in anderen Projekten. Die Spitzenplatzierung, die die Modellkarte nennt, bezieht sich auf einen Stand vom Juni 2025 und auf allgemeine Benchmarks; für dieses Archiv folgt daraus nichts. Mit dem Testsatz werden deshalb die kleineren Varianten 0.6B und 4B sowie ein unabhängiges mehrsprachiges Modell verglichen. Die Gewichte des Modells sind veröffentlicht. Entfällt der Anbieter, kann dasselbe Modell bei einem anderen Anbieter oder auf eigener Hardware betrieben und der Bestand neu eingebettet werden.</p>
-  <p>Das Modell liefert Vektoren mit 4096 Dimensionen. Da es mit Matryoshka Representation Learning trainiert wurde, tragen die vorderen Dimensionen den größten Teil der Information. Die Vektoren werden auf 1024 Dimensionen gekürzt und danach neu normiert. Als <code>halfvec</code> belegt ein Vektor 2 KB, bei 100.000 Textstellen also rund 200 MB zuzüglich Index. Ob 1024 Dimensionen genügen, zeigt der Testsatz.</p>
+  <p>Das Modell liefert Vektoren mit 4096 Dimensionen. Da es mit Matryoshka Representation Learning trainiert wurde, tragen die vorderen Dimensionen den größten Teil der Information. Die Vektoren werden auf 1024 Dimensionen gekürzt und danach neu normiert. Als <code>halfvec</code> belegt ein Vektor 2 KB, bei 100.000 Suchsegmenten also rund 200 MB zuzüglich Tabellen- und Indexaufwand. Ob 1024 Dimensionen genügen, zeigt der Testsatz.</p>
   <p>Index und Anfrage müssen dasselbe Modell in derselben Genauigkeit verwenden. Lokal erzeugte Vektoren, etwa aus einer quantisierten Ollama-Fassung desselben Modells, sind mit denen des Anbieters nicht austauschbar.</p>
+
+  <p>Für die geplanten Qwen3-Embeddings über DeepInfra ist lokal ein API-Schlüssel in <code>.dev/deepinfra-api-key</code> hinterlegt. Die Datei ist nicht versioniert, von Git ignoriert und nicht Teil der Release-Positivliste; ihre Rechte sind auf den Eigentümer beschränkt. Die künftige Pipeline beziehungsweise der Suchdienst übernimmt den Schlüssel beim Start in die Konfiguration <code>JACKIE_DEEPINFRA_API_KEY</code>, ohne ihn zu protokollieren. Das Hinterlegen der Datei allein aktiviert noch keine Anbieteraufrufe; die Einbindung ist noch zu implementieren.</p>
 
   <h3>Zuschnitt der Segmente</h3>
   <p>Segmente folgen der Struktur der Dokumente: Absätze von etwa 150 bis 400 Tokens, die nie über eine Dokumentgrenze hinausreichen. Kürzere Absätze werden mit ihrem Nachbarn zusammengefasst, längere an Satzgrenzen geteilt. Titellisten und Zitate bleiben ungeteilt.</p>
@@ -352,29 +370,54 @@ and discography that answer it
 Query: Wann war Jackie in Norwegen?</code></pre>
 
   <h3>Cache</h3>
-  <p>Vektoren werden unter einem Embedding-Profil gespeichert: Modell und Modellrevision, Tokenizer, Pooling, Anfrageinstruktion, Normierung, Kürzung und Anbieter. Der Cache-Schlüssel besteht aus diesem Profil und dem tatsächlich eingebetteten Gesamttext einschließlich Kontextkopf. Ein Build bettet nur geänderte Segmente neu ein. Da das Profil im Schema vermerkt ist, ist ein Modellvergleich ein Parameter des Builds. Die Vektoren eines Release werden aufbewahrt, weil sich externe Embeddings nicht verlässlich ein zweites Mal identisch erzeugen lassen.</p>
+  <p>Vektoren werden unter einem Embedding-Profil gespeichert: Modell und Modellrevision, Tokenizer, Pooling, Anfrageinstruktion, Normierung, Kürzung und Anbieter. Der Cache-Schlüssel besteht aus diesem Profil und dem tatsächlich eingebetteten Gesamttext einschließlich Kontextkopf. Ein Build bettet nur Segmente ohne passendes validiertes Artefakt neu ein. Dieser dauerhafte Build-Cache ist vom kurzlebigen Anfragecache des Suchdienstes getrennt; sein Register und die Wiederaufnahme sind in <a href="#indexierungsstand">Abschnitt 7</a> beschrieben. Da das Profil im Schema vermerkt ist, ist ein Modellvergleich ein Parameter des Builds. Die Vektoren eines Release werden aufbewahrt, weil sich externe Embeddings nicht verlässlich ein zweites Mal identisch erzeugen lassen.</p>
 </section>
 
 <section id="deploy">
   <h2>7. Build und Deploy</h2>
-  <div class="abbildung">
-    <ol>
-      <li><b>Datenversion laden</b> <span>– Export der in der Sperrdatei genannten Version mit Prüfsumme; validiert wurde er bereits im Datenrepository</span></li>
-      <li><b>Entitäten, Aussagen, Textstellen</b> <span>– Textstellen der Texte Dritter aus dem Website-Repository; Prüfung, dass alle Verweise auf Textstellen auflösbar sind</span></li>
-      <li><b>Kontextkopf und Embeddings</b> <span>– nur für geänderte Textstellen, über den Cache</span></li>
-      <li><b>Evaluation</b> <span>– Testsatz gegen den neuen Index</span></li>
-      <li><b>Schema <code>search_&lt;release&gt;</code> laden</b> <span>– auf dem Server, vor dem Umschalten, mit Stichproben</span></li>
-      <li><b>Release-Wechsel</b> <span>– Symlink und Schema wechseln gemeinsam</span></li>
-    </ol>
-    <p class="unterschrift">Abb. 3: Build und Deploy</p>
-  </div>
-  <p>Die Pipeline wird in Python geschrieben und mit uv verwaltet. Für Embeddings, Evaluation und Sprachmodelle ist das Angebot an Bibliotheken dort größer, und <code>werkzeug/</code> enthält bereits Python-Werkzeuge. Zur Laufzeit arbeiten der Suchdienst in Go und die Website in PHP (Abschnitt 9).</p>
-  <p>Der Suchdienst wird lokal für Linux kompiliert und als einzelne ausführbare Datei in das Release aufgenommen; die Positivliste der Release-Dateien wird entsprechend erweitert.</p>
-  <h3>Konsistenz beim Wechsel</h3>
-  <p>Der bisherige Deploy schaltet den Symlink der Website atomar um. Ein danach folgender Neustart des Suchdienstes wäre ein zweiter Vorgang, in dessen Lauf neues PHP mit dem alten Dienst sprechen könnte. Socket-Aktivierung hielte zwar den Socket offen, garantiert aber weder den Erhalt jeder angenommenen Anfrage noch zusammenpassende Datenstände. Maßgeblich ist daher die Regel: Jede Anfrage verwendet ein zusammengehöriges Tupel aus Website-Version, Dienstversion, Datenversion und Suchschema.</p>
-  <p>Jedes Release startet deshalb seine eigene Instanz des Suchdienstes auf einem eigenen Socket, bevor der Symlink umgeschaltet wird. Die Website eines Release spricht nur mit dem Socket desselben Release. Nach dem Umschalten laufen die Anfragen der alten Instanz aus, danach wird sie beendet. Ein Rollback schaltet auf das vorige Release zurück, dessen Instanz dafür neu gestartet wird; Healthcheck und fehlgeschlagener Start folgen derselben Regel. Während des Wechsels laufen zwei Instanzen und unter Umständen zwei Suchschemata nebeneinander, was in der Speicherrechnung zu berücksichtigen ist.</p>
-  <p>Ein Manifest des Release hält Schema-, Pipeline-, Embedding- und Erweiterungsversionen fest. Ältere Schemas werden nach einer festen Anzahl von Releases entfernt. Die Website verbindet sich nicht unmittelbar mit Postgres; der Suchdienst verwendet eine Rolle, die nur lesen darf, das Deploy eine eigene Rolle, die Schemas anlegen und löschen kann.</p>
-  <p>Verschlechtert sich ein Messwert des Testsatzes gegenüber dem laufenden Release über eine festgelegte Toleranz hinaus, bricht das Deploy ab.</p>
+  <div class="abbildung"><ol>
+    <li><b>Eingaben binden</b> <span>– Website-Inhalte, Archivexport, Textstellenverzeichnis und Prüfsummen festhalten.</span></li>
+    <li><b>Suchstand vorbereiten</b> <span>– Segmente und profilgebundene Embeddings erzeugen; unveränderliches Schema <code>search_&lt;build&gt;</code> laden.</span></li>
+    <li><b>Programme bauen</b> <span>– getrennte Binärdateien und Pakete für Website und Suchdienst, mit kompatiblem API-Vertrag und Manifesten.</span></li>
+    <li><b>Prüfen</b> <span>– Evaluation, Readiness, Datenbindung und Zusammenspiel der beiden Programme testen.</span></li>
+    <li><b>Aktivieren</b> <span>– passenden Suchdienst bereitstellen; Website und öffentliche Suchrouten kontrolliert auf denselben freigegebenen Inhaltsstand beziehen.</span></li>
+    <li><b>Abnehmen oder zurücknehmen</b> <span>– Fehler, Linkziele und Rückfallbetrieb prüfen; kompatible vorherige Kombination wiederherstellen.</span></li>
+  </ol><p class="unterschrift">Abb. 3: Geplanter Releaseablauf für zwei Programme. Der heutige Paketbauer erzeugt bisher nur die Website.</p></div>
+  <p>Import, Segmentierung, Batch-Embeddings und Evaluation bleiben Python-Werkzeuge mit uv außerhalb beider Laufzeitprozesse. Der bestehende Go-Paketbauer und seine Dateipositivliste werden gezielt erweitert beziehungsweise um ein Suchdienst-Paket ergänzt. <code>build.json</code> enthält heute nur Revision, Dirty-Status und Zielplattform. Neu sind Suchmanifest, API-Version und die Bindung der veröffentlichten Textstellen. Datenbankzugang und Anbieterschlüssel bleiben außerhalb der Pakete.</p>
+  <h3 id="indexierungsstand">Dauerhafter Indexierungsstand und laufender Datenzuwachs</h3>
+  <p>Die Sammlung wächst kontinuierlich. Die Pipeline benötigt deshalb einen persistenten Arbeitsstand, der Prozessneustarts, abgebrochene Läufe und neue Releases überlebt. Ein Zeitstempel „zuletzt indexiert“ genügt nicht: Änderungen können Texte, Belege, Filter, Zieladressen oder Modellprofile betreffen; auch entfernte Inhalte müssen erkannt werden. Git hält die Quellenhistorie, das Indexierungsregister hält den Verarbeitungsstand. Der freigegebene Suchindex bleibt bis zum nächsten geprüften Wechsel unveränderlich.</p>
+  <p>Vorgesehen ist ein separates Verwaltungsschema <code>indexer_state</code> in Postgres, außerhalb der kurzlebigen Schemas <code>search_&lt;build&gt;</code>. Nur die Pipeline erhält dort Schreibrechte. Der Suchdienst benötigt keine Schreibrechte auf dieses Register. Zum gesicherten Betriebszustand gehören außerdem der dauerhafte Embedding-Artefaktspeicher und die Release-Manifeste. Diese liegen außerhalb von Git und den austauschbaren Programmverzeichnissen. Das ist geplante Infrastruktur, noch keine vorhandene Datenbank.</p>
+  <div class="tabelle"><table><thead><tr><th>Register</th><th>Gespeicherter Stand</th><th>Zweck</th></tr></thead><tbody>
+    <tr><td><code>runs</code></td><td>Laufkennung, feste Quellrevisionen, vollständiges Eingabemanifest, Pipeline-/Profilversionen, Zustand und Zähler</td><td>Ein Lauf verarbeitet einen reproduzierbaren Snapshot; später eintreffende Änderungen gehören in einen neuen Lauf.</td></tr>
+    <tr><td><code>run_items</code></td><td>Dokument-/Segmentkennung, Eingabe- und Metadatenhash, Arbeitsschritt, Zustand, Versuche, Fehlercode, nächster Versuch und begrenzte Reservierung</td><td>Fortsetzen, Fehler eingrenzen und abgeschlossene Arbeit erkennen.</td></tr>
+    <tr><td><code>artifacts</code></td><td>Hash des tatsächlichen Embedding-Eingabetexts, Profilkennung, Vektor beziehungsweise Speicherverweis, Dimension und Prüfsumme</td><td>Validierte Ergebnisse wiederverwenden und unabhängig vom Anbieter wiederherstellen.</td></tr>
+    <tr><td><code>builds</code></td><td>Suchbuild, Inhaltsversion, vollständige Mitgliedsliste, Schema, Prüfergebnis und Freigabestatus</td><td>Unterscheiden, was vorbereitet, vollständig geprüft und tatsächlich veröffentlicht ist.</td></tr>
+  </tbody></table></div>
+  <p>Zu Beginn wird der vollständige freigegebene Quellenbestand des Snapshots inventarisiert. Für diesen kleinen Bestand ist eine vollständige Hashprüfung zunächst einfacher als ein eigenes Ereignissystem. Git-Diffs können die Arbeit später beschleunigen, ersetzen aber nicht den Abgleich auf fehlende oder entfernte Datensätze. Dateiänderungszeiten sind kein verlässliches Kriterium. Stabile Dokument- und Textstellenkennungen bleiben von den Inhaltshashes getrennt; ein korrigierter Absatz soll nicht allein wegen seines neuen Hashs seine Zitieridentität verlieren.</p>
+  <div class="tabelle"><table><thead><tr><th>Änderung</th><th>Arbeit im nächsten Suchbuild</th></tr></thead><tbody>
+    <tr><td>Neues Dokument</td><td>Textstellen zuordnen, segmentieren, Metadaten und BM25-Daten übernehmen; nur fehlende Embedding-Artefakte erzeugen.</td></tr>
+    <tr><td>Unveränderte Eingaben und Profile</td><td>Vorhandene validierte Artefakte wiederverwenden; kein erneuter Anbieteraufruf.</td></tr>
+    <tr><td>Text, eingebetteter Titel oder Kontext geändert</td><td>Betroffene Segmente neu ableiten; neuen Eingabetexthash berechnen und nur Cache-Fehltreffer einbetten.</td></tr>
+    <tr><td>Nur Filter, Beleg, Zieladresse oder andere nicht eingebettete Metadaten geändert</td><td>Lesemodell und betroffene lexikalische Felder aktualisieren; Vektoren bei identischem Eingabetext und Profil wiederverwenden.</td></tr>
+    <tr><td>Entfernt, zusammengeführt oder nicht mehr zur Veröffentlichung freigegeben</td><td>Aus dem neuen Suchstand ausschließen; Identitätsverweise, Belege und Linkziele prüfen. Ein fehlgeschlagener Import gilt nicht als Löschung.</td></tr>
+    <tr><td>Segmentierung, Kontextbildung oder Modellprofil geändert</td><td>Abhängige Artefakte neu bestimmen; inkompatible Vektoren niemals mischen. Wiederverwendung nur bei nachweislich gleicher Eingabe und gleichem Profil.</td></tr>
+  </tbody></table></div>
+  <p>Die Pipeline verfolgt auch Abhängigkeiten: Ändert sich beispielsweise ein Personenname, eine Aussage oder eine Publikationsangabe, müssen davon abgeleitete Namen, Filter oder Kontextköpfe neu berechnet werden, selbst wenn die Quelldatei des Dokuments unverändert blieb. Erst danach entscheidet der jeweilige Hash, ob ein neues Embedding nötig ist. So wird kontinuierlicher Datenzuwachs korrekt verarbeitet, ohne vorsorglich jeden Text erneut an DeepInfra zu senden.</p>
+  <h3>Unterbrechen, fortsetzen und freigeben</h3>
+  <p>Arbeitsschritte haben explizite Zustände wie <code>pending</code>, <code>running</code>, <code>done</code> und <code>failed</code>. Ein Lauf lässt sich pausieren: Er nimmt keine neue Arbeit an und sichert bereits erhaltene Ergebnisse. Nach einem Absturz werden abgelaufene Reservierungen erneut bearbeitbar. Für die erste Stufe genügt ein aktiver Schreiber je Projekt; Transaktionen, eindeutige Arbeitsschlüssel und bei Übernahme erneuerte Reservierungskennungen verhindern widersprüchliche Abschlüsse. Externe Netzwerkaufrufe halten keine lange Datenbanktransaktion offen.</p>
+  <p>Ein erhaltenes Embedding wird auf Dimension und gültige Zahlen geprüft, dauerhaft gespeichert und erst danach als erledigt markiert. Wiederholungen derselben lokalen Arbeit sind idempotent. Bei einem Verbindungsabbruch nach erfolgreicher Verarbeitung durch den Anbieter kann ein erneuter kostenpflichtiger Aufruf dennoch nötig werden; ohne bestätigte Anbieterunterstützung wird kein „genau einmal“ versprochen. Begrenzte Wiederholungen mit wachsendem Abstand, Kostenbudget und sichtbaren Fehlerzuständen verhindern Endlosschleifen. Das Register enthält Archiv-Verarbeitungsdaten, keine protokollierten Suchanfragen von Besuchern.</p>
+  <p>Inkrementelle Verarbeitung und vollständige Release-Stände passen zusammen: Ein neuer Build enthält alle freigegebenen Dokumente, übernimmt unveränderte Artefakte und ergänzt nur die Änderungen. PostgreSQL-Indizes dürfen dabei zunächst vollständig im neuen Schema aufgebaut werden. Die erste Optimierung betrifft teure Embedding-Aufrufe und wiederholbare Aufbereitung, nicht zwingend jede lokale Indexoperation. Erst wenn alle für den Build vorgesehenen Elemente und Verweise vollständig geprüft sind, darf er freigegeben werden. Fehler lassen den bisherigen Suchstand aktiv; eine bewusst verkleinerte Auswahl erfordert ein neues ausdrückliches Eingabemanifest.</p>
+  <p>Neue freigegebene Archivstände können den nächsten Lauf auslösen; Auslöser und Takt werden bei der Implementierung festgelegt. Änderungen an der Quellsammlung allein schalten keinen öffentlichen Index um. Datenfreigabe, Website-Inhalte und Suchfreigabe bleiben gemäß dem folgenden Versionsvertrag aufeinander abgestimmt. Ein älterer, später fertig gewordener Lauf darf einen neueren freigegebenen Stand nicht verdrängen.</p>
+  <p>Backups und Wiederherstellung umfassen Register, Artefakte und die referenzierten Manifeste. Aufräumen erfolgt anhand ihrer Referenzen: Aktive Builds, fortsetzbare Läufe und erlaubte Rollbacks behalten ihre Artefakte. Bei einer erforderlichen Inhaltsentfernung müssen auch gespeicherte Texte, Vektoren, Caches und zugelassene Rollbacks geprüft werden; ein Rollback darf entfernte Inhalte nicht wieder öffentlich machen.</p>
+  <h3>Getrennte Programme, zusammenpassende Daten</h3>
+  <p>Drei Kennungen haben unterschiedliche Aufgaben: <code>data_version</code> bezeichnet den Archivexport; <code>content_version</code> den freigegebenen Inhaltsstand einschließlich Website-Texten, Textstellenkennungen und Zieladressen; <code>search_release</code> bezeichnet Code und Indexkonfiguration des Suchdienstes. Nur ein Archiv-Commit genügt nicht, weil sich Texte und Anker im privaten Website-Repository ändern können. Die genaue Berechnung von <code>content_version</code> wird im Importvertrag festgelegt.</p>
+  <p>Der Website-Prozess liest seine erwartete Inhaltsversion und die interne Suchadresse beim Start aus freigegebener Konfiguration. Der Suchdienst bindet beim Start genau ein unveränderliches Schema, Embedding-Profil und Inhaltsmanifest. Die Website sendet ihre erwartete <code>content_version</code> bei jeder internen Anfrage; der Dienst weist einen abweichenden Stand ausdrücklich zurück. Die Website prüft außerdem die Versionskennung in der Antwort. Ein HTTP-200 mit fremdem Datenstand wird nicht als gültiges Suchergebnis angezeigt.</p>
+  <p>Ein reines Suchcode- oder Rankingupdate kann unabhängig ausgeliefert werden, wenn API und Inhaltsversion kompatibel bleiben und die Evaluation besteht. Bei veränderten Inhalten oder Ankern braucht es eine koordinierte Freigabe. Für die erste Stufe ist eine kurze kontrollierte Unterbrechung der Suchfunktion vertretbar: Suchzugänge werden gesperrt, die neue Kombination wird gestartet und geprüft, danach werden die öffentlichen Routen freigegeben. Bestehende Dateiseiten bleiben unabhängig von der Suche erreichbar. Der heutige Website-Neustart selbst kann kurz unterbrechen; ein atomarer Symlinkwechsel allein ist kein unterbrechungsfreies Gesamtdeploy.</p>
+  <p>Ein späterer Wechsel mit überlappenden Instanzen startet den neuen Suchdienst auf einem eigenen Loopback-Endpunkt. Alte Website-Instanzen behalten ihren festen alten Endpunkt, neue verwenden den neuen. Die öffentlichen JSON-, ID- und MCP-Routen werden erst nach Prüfung der Zielseiten umgeschaltet. Ein bereits geöffnetes Suchformular bindet seine Inhaltsversion ebenfalls; veraltete Anfragen erhalten eine klare Aufforderung zum Neuladen statt stillschweigend fremder Treffer. Auch mehrteilige API-/MCP-Abläufe wie <code>search</code> und <code>fetch</code> müssen denselben Inhaltsstand binden oder bei einem Wechsel ausdrücklich abbrechen. Dieser Ablauf und die zeitweise doppelte Ressourcenbelegung müssen vor einem solchen Ausbau getestet werden.</p>
+  <h3>Readiness, Rollback und Rechte</h3>
+  <p>Die Readinessprüfung des Suchdienstes prüft API-Kompatibilität, Datenrevision, Schemaformat, Indexbereitschaft und Embedding-Profil. Die Freigabeprüfung verbindet dies mit der Inhaltsversion der Website. Der externe Embeddinganbieter ist keine Voraussetzung für Readiness, weil der lexikalische Rückfall funktionieren soll. Ein späterer Ausfall von Suchprozess oder Postgres betrifft Such- und datenabhängige Entitätsseiten; gewöhnliche Seiten und Formular hängen davon nicht ab.</p>
+  <p>Website und Suchdienst bekommen getrennte systemd-Units und Benutzer. Nur der Suchdienst erhält eine lesende Datenbankrolle und die Anbieterschlüssel; die Website benötigt dafür keine Zugangsdaten. Eine gesonderte Build-/Deploy-Rolle erzeugt Schemas und Indizes. Schemanamen stammen ausschließlich aus validierter Konfiguration und werden korrekt als SQL-Bezeichner quotiert; Anfrageparameter dürfen weder Rolle noch Schema wählen. SQL-Werte werden parametrisiert.</p>
+  <p>Ein Rollback stellt eine geprüfte Kombination aus Website, Suchdienst, Inhalten und Schema wieder her; ein kompatibles Suchcodeupdate kann allein zurückgenommen werden. Alte Pakete und Schemas bleiben erhalten, solange ein laufender Prozess oder ein freigegebenes Rollback darauf verweist. Postgres-Erweiterungsupgrades sind separate Betriebseingriffe, die durch einen Schemawechsel nicht rückgängig werden. Eine Verschlechterung außerhalb der Evaluations-Toleranz verhindert die Freigabe. Ausfall- und Rollbacktests schließen interne API und öffentliche Suchwege ein.</p>
 </section>
 
 <section id="evaluation">
@@ -397,21 +440,74 @@ Query: Wann war Jackie in Norwegen?</code></pre>
       </tbody>
     </table>
   </div>
-  <p>Gemessen wird außerdem je Modellgröße, Dimension und Fassung des Kontextkopfs. Die Evaluation fragt den Suchdienst über seine Schnittstelle ab und misst damit dieselbe Konfiguration, die ausgeliefert wird, einschließlich Rückfallbetrieb, Gruppierung und Sprachwahl. Veröffentlicht werden Auswertungen nach Sprache und Anfrageart mit Unsicherheitsintervallen und Fehlerbeispielen, keine einzelne Gesamtnote. Eine bessere Suchqualität wird nur für den tatsächlich gemessenen Vergleich behauptet. Für die Darstellung nach außen ist ein öffentlich nachvollziehbarer Ausschnitt mit Testdaten, Schema, Werkzeugen und Evaluationsbericht vorgesehen, da der private Testsatz allein von außen nicht prüfbar ist.</p>
+  <p>Gemessen wird außerdem je Modellgröße, Dimension und Fassung des Kontextkopfs. Die Evaluation fragt den Suchdienst über seine versionierte HTTP-Schnittstelle ab und misst damit dieselbe Konfiguration, die ausgeliefert wird, einschließlich Rückfallbetrieb, Gruppierung und Sprachwahl. Hinzu kommen deterministische Tests des Suchmoduls mit Ersatzfunktionen für Embedding und Reranking, Integrationstests gegen einen isolierten Postgres-Cluster sowie Vertragstests für Website-Client und Suchdienst sowie Ende-zu-Ende-Tests, dass HTML, API und MCP dieselben Filter, Textstellen und Stimmen verwenden. Gleichheit bedeutet dieselbe Suchsemantik; unterschiedliche Oberflächenbudgets, etwa ohne Reranking in der Sofortsuche, werden ausdrücklich mitgetestet. Veröffentlicht werden Auswertungen nach Sprache und Anfrageart mit Unsicherheitsintervallen und Fehlerbeispielen, keine einzelne Gesamtnote. Eine bessere Suchqualität wird nur für den tatsächlich gemessenen Vergleich behauptet. Für die Darstellung nach außen ist ein öffentlich nachvollziehbarer Ausschnitt mit Testdaten, Schema, Werkzeugen und Evaluationsbericht vorgesehen, da der private Testsatz allein von außen nicht prüfbar ist.</p>
 </section>
 
 <section id="betrieb">
-  <h2>9. Suchdienst, Datenschutz und Betrieb</h2>
-
-  <h3>Suchdienst in Go</h3>
-  <p>Suche, HTTP-Schnittstelle, MCP-Server und die Auflösung der <code>/id/</code>-Adressen laufen in einem eigenen Dienst, der in Go geschrieben ist. Eine Suchanfrage wartet überwiegend auf externe Dienste, auf DeepInfra für den Anfragevektor und auf der Ergebnisseite zusätzlich auf den Reranker. In PHP-FPM belegt jede solche Anfrage für diese Zeit einen Worker, und die Zahl der Worker ist auf dem geteilten Server knapp; gleichzeitige Anfragen von Agenten könnten so Worker binden, die auch die übrigen Seiten ausliefern. Der Go-Dienst hält wartende Anfragen mit geringem Speicherbedarf und unabhängig von PHP-FPM. Für den MCP-Server steht ein offizielles SDK für Go zur Verfügung, das Streamable HTTP einschließlich gestreamter Antworten unterstützt.</p>
-  <p>Der Dienst lauscht auf einem Unix-Socket. nginx leitet <code>/api/</code>, <code>/mcp</code> und <code>/id/</code> an ihn weiter. Er liest Postgres über pgx mit der pgvector-Erweiterung und ruft DeepInfra mit Zeitgrenzen auf; Anfragevektoren hält er in einem begrenzten Zwischenspeicher im Arbeitsspeicher. HTML erzeugt er nicht. Für <code>/id/</code> liefert er JSON-LD und Markdown und leitet HTML-Anfragen auf die Seiten der Website weiter, auch auf die einfachen Entitätsseiten.</p>
-  <p>Die Website bleibt in PHP. Die Sofortsuche ruft die Schnittstelle des Dienstes unmittelbar aus dem Browser auf, ohne PHP. Die HTML-Ergebnisseite und die Entitätsseiten fragen den Dienst über den Unix-Socket ab und rendern das Ergebnis mit den vorhandenen Templates, Übersetzungen und dem Layout. Während dieser Abfrage bleibt ihr PHP-FPM-Worker belegt; das Argument für Go gilt also für die direkten Aufrufe von Schnittstelle und MCP-Server, nicht für die serverseitig gerenderte Suche. Für sie gelten eine Gesamtfrist, ein Ergebnis-Cache und eine Obergrenze gleichzeitiger Suchseiten, bei Bedarf in einem eigenen FPM-Pool. Ein Lasttest muss zeigen, dass die übrigen Seiten auch bei vielen gleichzeitigen langsamen Suchanfragen erreichbar bleiben. Der Dienst läuft unter einem eigenen Systembenutzer als systemd-Unit mit Speichergrenze.</p>
+  <h2>9. Go-Integration, interne HTTP-API und Betrieb</h2>
+  <h3>Zwei Programme im gemeinsamen Repository</h3>
+<pre><code>cmd/jackieleven/          Website und Kontaktformular (bestehend)
+cmd/jackieleven-search/   Suchdienst, HTTP-API, Belegauflösung und MCP (geplant)
+internal/site/           HTML-Handler und Templates (bestehend)
+internal/search/         Suchablauf, Ranking und Rückfallbetrieb (geplant)
+internal/searchapi/      Transporttypen und API-Vertrag (geplant)
+internal/searchclient/   Begrenzter HTTP-Client für die Website (geplant)</code></pre>
+  <p>Die Website rendert weiterhin die Suchergebnisse und die Entitätsseiten mit ihrer Sprachwahl und ihren Templates. Sie führt keine eigene Retrievallogik aus. Der Suchdienst verarbeitet normalisierte Abfragen, greift auf Postgres zu und ruft bei Bedarf Embedding und Reranking auf. JSON-API und MCP sind Adapter derselben Suchlogik. Die Belegauflösung für <code>/id/</code> und <code>fetch</code> benötigt keine Vektorerzeugung. HTML-Anfragen an eine Kennung führen zur zugehörigen Website-Seite; strukturierte Darstellungen liefert der Dienst.</p>
+  <h3 id="interne-api">HTTP mit JSON über Loopback</h3>
+  <p>„Intern“ beschreibt die Erreichbarkeit, „REST-orientiert“ den Schnittstellenstil. Die Programme kommunizieren über HTTP, zunächst ausschließlich auf einer Loopback-Adresse. <code>127.0.0.1:18766</code> ist ein vorgeschlagener Produktionsport und vor Einrichtung auf Verfügbarkeit zu prüfen. Der bestehende Website-Port bleibt getrennt. Im Browser ist der interne Port nicht erreichbar; die Loopback-Bindung ist eine Netzwerkgrenze, aber keine Authentifizierung gegenüber anderen lokalen Prozessen. Ein späterer Betrieb über mehrere Hosts erfordert einen ausdrücklich abgesicherten Transport.</p>
+<pre><code>Browser → Website → interner HTTP-Client → Suchdienst → Postgres
+                                              └────→ Embedding / Reranking
+Browser-Sofortsuche → nginx /api/search ─────────────→ Suchdienst
+MCP-Client         → nginx /mcp ────────────────────→ Suchdienst</code></pre>
+  <p>Vorgeschlagener interner Aufruf; Headername und JSON-Felder werden im OpenAPI-Vertrag festgeschrieben:</p>
+<pre><code>GET /v1/search?q=Norwegen&amp;lang=de&amp;limit=20
+Accept: application/json
+X-Archive-Content-Version: content-example-001</code></pre>
+<pre><code>{
+  "api_version": "v1",
+  "data_version": "archive-export-example",
+  "content_version": "content-example-001",
+  "search_release": "search-example-001",
+  "mode": "lexical",
+  "degraded": true,
+  "reason": "embedding_unavailable",
+  "hits": [{
+    "document_id": "document/example",
+    "passage_id": "document/example#p1",
+    "title": "Beispieltitel",
+    "url": "https://jackieleven.com/de/quelle/example#p1",
+    "voice": "third_party",
+    "snippet": "Beispiel für einen Textauszug."
+  }]
+}</code></pre>
+  <p>Die Beispielkennungen sind Platzhalter. Der Vertrag umfasst außerdem Filter, Zeitangaben, Lizenzen, Belege und Ergebnislimits. Lesende Endpunkte für bekannte Entitäten und Textstellen ergänzen <code>/v1/search</code>; <code>fetch</code> darf keine beliebigen URLs abrufen. Ein eingechecktes OpenAPI-Dokument und Vertragstests halten Client und Dienst zusammen. Gemeinsame Go-Typen helfen beim Bauen, ersetzen aber keine HTTP-Kompatibilität zwischen unterschiedlich alten Programmen.</p>
+  <div class="tabelle"><table><thead><tr><th>Fall</th><th>Verhalten</th></tr></thead><tbody>
+    <tr><td>Treffer oder echte Nulltreffermenge</td><td>200; <code>hits</code> enthält Treffer oder eine leere Liste.</td></tr>
+    <tr><td>Embedding oder Reranking nicht verfügbar</td><td>200 mit lokal ermittelten Treffern, eingeschränktem <code>mode</code> und maschinenlesbarem Grund.</td></tr>
+    <tr><td>Ungültige Anfrage</td><td>400 mit stabilem Fehlercode; keine SQL- oder Anbieterinterna.</td></tr>
+    <tr><td>Erwartete Inhaltsversion passt nicht</td><td>409 mit <code>content_version_mismatch</code>; Website erklärt den vorübergehenden Wechsel beziehungsweise bietet Neuladen an.</td></tr>
+    <tr><td>Anfragelimit erreicht</td><td>429, soweit sinnvoll mit <code>Retry-After</code>.</td></tr>
+    <tr><td>Datenbank oder Suchdienst nicht verfügbar</td><td>Dienst antwortet 503; bei Verbindungsfehler oder Fristablauf rendert die Website eine verständliche 503-Suchseite. Niemals als „keine Treffer“ darstellen.</td></tr>
+  </tbody></table></div>
+  <p>Der Website-Client verwendet einen wiederverwendeten HTTP-Transport mit begrenzten Verbindungen, Verbindungs- und Antwortfristen sowie einer maximalen Antwortgröße. Das Gesamtbudget aus Abschnitt 5 umfasst internen Aufruf und HTML-Ausgabe; das Dienstbudget endet vorher. Der Anfragekontext wird bis SQL und Anbieteraufrufen weitergeführt. Automatische Wiederholungen kostenpflichtiger Suchaufrufe sind nicht der Standard. Textauszüge werden als Text durch <code>html/template</code> gerendert; Hervorhebungen entstehen aus kontrollierten Textteilen.</p>
+  <p>Die Browser-Sofortsuche nutzt den öffentlichen Pfad am selben Ursprung. nginx veröffentlicht ausschließlich die vorgesehenen Such-, ID- und MCP-Routen, keine internen Health- oder Verwaltungsendpunkte. Eine öffentliche Anfrage erhält keine Möglichkeit zur freien Schemawahl. Die Website bindet ihre Inhaltsversion ausdrücklich; öffentliche Clients können einen erwarteten Stand angeben und erhalten bei Abweichung denselben Fehler. Pfadumschreibung, Präfix und URL-Erzeugung sind für die Vorschau unter <code>/jackieleven</code> mitzudenken. Kanonische Belegadressen bleiben auf die Produktionsdomain bezogen; lokale Navigationslinks werden kontrolliert auf den jeweiligen Mount abgebildet.</p>
+  <h3>Wiederverwendbarer Kern und Archivregeln</h3>
+  <p><code>internal/search</code> enthält die übertragbare Suchtechnik: Kandidatensuche, Fusion, Reranking, Anbieterzugriffe, Caches, Fristen und Betriebsmetriken. Ein Importvertrag führt Dokumentkennung, Text, Sprache, Metadaten, Textstellen und freigegebene Zieladressen zusammen. Jackie-Leven-spezifisch bleiben Datenimport, Ontologieabfragen, Filter, Stimmen und die Regeln zur Pastiche. Ein weiteres Projekt braucht dafür eigene Datenadapter, Konfiguration und einen bewerteten Testsatz.</p>
+  <p>Website und Suche bleiben zunächst im gemeinsamen Code-Repository; das Datenrepository bleibt separat. Beim zweiten Anwendungsfall kann der Suchkern in ein eigenes Repository überführt werden. Ein universelles Plugin-System ist jetzt nicht erforderlich. Wiederverwendung beginnt mit einer eigenen Dienstinstanz und getrennten Daten je Projekt; ein gemeinsamer Mehrmandantendienst mit Berechtigungen und Quoten ist ein zusätzlicher Ausbau.</p>
+  <h3>Ressourcen und Ausfälle</h3>
+  <p>Der Suchdienst bekommt einen eigenen systemd-Benutzer, eine eigene Unit und gemessene CPU-, Speicher- und Parallelitätsgrenzen. Die Website behält ihren Prozess und die Formularschlüssel. Ein Suchneustart oder Speicherabbruch beendet so nicht die Website. Beide teilen aber den Host; ein gemeinsamer Postgres-Cluster bleibt ein gemeinsamer Engpass. Die Prozessgrenze ersetzt weder ein Budget für SQL-Verbindungen noch Lasttests.</p>
+  <p>Für SQL sind <a href="https://github.com/jackc/pgx">pgx</a>, ein begrenzter <a href="https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool">pgxpool</a> und <a href="https://github.com/pgvector/pgvector-go">pgvector-go</a> vorgesehen. Vektor-Codecs werden je neuer Poolverbindung eingerichtet. Suchparallelität, Poolwartezeit, SQL-Laufzeit, externe Aufrufe und Kandidatenmengen sind begrenzt. Caches sind nebenläufig sicher und nach Größe und Lebensdauer begrenzt; ihre Schlüssel enthalten Datenstand, Anfrage, Sprache, Filter und Suchprofil. Zusammengefasste gleichzeitige Anbieteranfragen erhalten ein eigenes begrenztes Budget, ohne von einem einzelnen wartenden Client abhängig zu sein. Kostenlimits müssen alle aktiven Dienstinstanzen zusammen berücksichtigen.</p>
+  <p>Treiber und SDKs werden mit Version und <code>go.sum</code> festgeschrieben; beide Programme müssen weiterhin für Linux gebaut und getrennt getestet werden. Der bestehende Build ohne CGO wird für die neuen Abhängigkeiten geprüft. Integrationstests starten tatsächlich beide HTTP-Prozesse. Sie prüfen auch Verbindungsverweigerung, verspätete oder ungültige Antworten, falsche Inhaltsversion, Clientabbruch und das Zusammenspiel mit nginx. Unter Suchlast müssen gewöhnliche Seiten und das Formular erreichbar bleiben.</p>
+  <h3>Lokale Entwicklung</h3>
+  <p>Der bestehende Dauerbetrieb bleibt: <code>https://jackieleven.localhost</code> → MAMP Apache → Website auf <code>127.0.0.1:8080</code>, gestartet durch den LaunchAgent. <code>./ops/go-local.sh restart</code> baut und startet heute nur diese Website. Die Anleitung steht im <a href="go-tutorial.html#dauerbetrieb">Go-Tutorial</a> und in <a href="../ops/GO-LOKAL.md">GO-LOKAL.md</a>.</p>
+  <p>Neu einzurichten sind ein Suchprozess auf einem eigenen freien Loopback-Port, etwa 8081, ein isolierter Postgres-Testcluster und die Suchadresse in der Website-Konfiguration. Für die HTML-Ergebnisseite genügt der interne Aufruf; Sofortsuche, <code>/id/</code> und MCP benötigen zusätzlich passende MAMP-Proxyrouten. Ein eigenes Start-/Buildskript und bei Bedarf ein zweiter LaunchAgent erlauben getrennte Neustarts. Diese Einrichtung existiert noch nicht; die bisherigen Betriebsskripte steuern den neuen Dienst nicht automatisch.</p>
+  <p>Kleine veröffentlichbare Testdaten, versionierte SQL-Dateien und ein Importbefehl machen die Einrichtung reproduzierbar. Kostenpflichtige Anbieteraufrufe bleiben lokal standardmäßig ausgeschaltet; Ersatzfunktionen dienen den Tests. Ein Container oder eigener Cluster mit festgeschriebenen Erweiterungen verhindert Eingriffe in andere lokale Datenbanken. Eine zusätzliche Datenbank im selben Cluster bietet diese Isolation nicht.</p>
 
   <h3>Datenschutz</h3>
-  <p>Drei Datenflüsse gehen an DeepInfra. Beim Build werden die Segmente des Archivs eingebettet. Bei einer Suche geht der Text der Anfrage zur Einbettung an den Anbieter, ohne IP-Adresse und Cookies. Beim Reranking auf der Ergebnisseite gehen Anfrage und Kandidatenpassagen an den Anbieter. Ein optionaler Kontextsatz je Segment, den ein Sprachmodell erzeugt, wäre ein vierter Datenfluss. Die Modellseiten des Anbieters nennen derzeit keine Speicherung der Eingaben; das belegt weder eine bestimmte Verarbeitungsregion noch alle vertraglichen Bedingungen, die vor dem Betrieb geprüft werden. Alle Datenflüsse werden im Datenschutzabschnitt der Website genannt. Anfragevektoren werden im Suchdienst mit begrenzter Lebensdauer zwischengespeichert, sodass wiederholte Anfragen nicht erneut übertragen werden.</p>
-  <p>Suchanfragen werden nicht protokolliert. Erfasst werden nur Summen: Antwortzeiten, der Anteil der Anfragen im Rückfallbetrieb und der Anteil ohne Treffer. Der API-Schlüssel steht als <code>JACKIE_DEEPINFRA_API_KEY</code> in einer nur für root lesbaren Umgebungsdatei der systemd-Unit, außerhalb der Releases, wie die übrigen Schlüssel der Website in der PHP-FPM-Poolkonfiguration; beim Anbieter ist ein Ausgabenlimit gesetzt.</p>
-  <p>„Keine Suchprotokolle“ muss auf allen Ebenen gelten. GET-Anfragen erscheinen sonst mit dem Suchtext in den Zugriffsprotokollen von nginx, im Referrer folgender Seitenaufrufe, in Fehlerprotokollen und in den Protokollen von Cloudflare. Die Site-Konfiguration definiert bisher kein eigenes Protokollformat, sodass das Standardformat mit vollständiger Anfragezeile gilt. Für die Suchpfade wird ein Format ohne Abfrageparameter festgelegt, Ergebnisseiten senden eine Referrer-Policy, die keine Parameter weitergibt, und Fehler- und Trace-Ausgaben des Dienstes enthalten keinen Suchtext. Ein Test mit einem markierten Suchtext prüft, dass er in keinem der vereinbarten Protokolle auftaucht. Ergebnisseiten tragen <code>noindex</code>.</p>
+  <p>Drei geplante Datenflüsse gehen an DeepInfra: Archivsegmente beim Build, Suchtexte zur Anfrageeinbettung sowie Anfrage und Kandidatenpassagen zum Reranking. Der Suchdienst übermittelt dabei keine Besucher-IP und keine Cookies. Ein optionaler, per Sprachmodell erzeugter Kontextsatz wäre ein vierter Datenfluss. Verarbeitungsregion, Speicherung und vertragliche Bedingungen werden vor Freigabe anhand der dann geltenden Anbieterunterlagen geprüft; die Architektur allein garantiert keine Datenlöschung. Alle eingesetzten Datenflüsse müssen im Datenschutzabschnitt der Website beschrieben werden.</p>
+  <p>Suchtexte werden nicht protokolliert. Aggregierte Betriebswerte umfassen Antwortzeiten, Auslastung, Fehler, Rückfallbetrieb und den Anteil ohne Treffer; Querytext, IP-Adresse und Dokumentkennung werden keine Metriklabels. Anfragevektoren und Ergebnisse dürfen nur in begrenzten, kurzlebigen internen Caches liegen. Der geplante Schlüssel <code>JACKIE_DEEPINFRA_API_KEY</code> sowie die Datenbankzugangsdaten kommen in die geschützte Umgebungsdatei der neuen Suchdienst-Unit, vorgeschlagen als <code>/etc/jackieleven/search.env</code>, außerhalb von Repository, Release und Manifest. Der API-Schlüssel wird nicht an Browser oder MCP-Clients ausgegeben. Lokale und anbieterseitige Kostenlimits ergänzen einander.</p>
+  <p>GET-Suchtexte können in Zugriffsprotokollen, Fehlerausgaben und Referrern erscheinen. Die Go-nginx-Vorlage definiert bisher kein eigenes Zugriffsprotokollformat; die tatsächlich geerbten Server- und Cloudflare-Einstellungen müssen geprüft werden. Suchpfade benötigen Protokolle ohne Querystring und eine konsistente <code>Referrer-Policy: no-referrer</code>; das bisherige <code>strict-origin-when-cross-origin</code> gibt bei gleichnamigem Ursprung die volle Adresse weiter. Go und Proxy dürfen keine widersprüchlichen doppelten Header setzen. Suchantworten erhalten <code>Cache-Control: no-store</code>, die HTML-Ergebnisseiten außerdem <code>noindex</code>. Fehler- und Traceausgaben enthalten keinen Suchtext. Ein markierter Testtext prüft alle vereinbarten Protokolle, lokal auch MAMP. Die GET-Adresse bleibt im Browser sichtbar und kann in dessen Verlauf stehen; das ist von serverseitiger Protokollierung zu unterscheiden.</p>
+
 </section>
 
 <section id="agenten">
@@ -425,7 +521,7 @@ Query: Wann war Jackie in Norwegen?</code></pre>
   <h3>Training</h3>
   <p>Trainingscrawler sind zugelassen, auch für Levens Kolumnen. Die Kolumnen sind über das Internet Archive ohnehin zugänglich und vermutlich bereits in älteren Sammlungen von Webtexten enthalten; eine Sperre auf der Website hätte daran wenig geändert. Die Website gibt sie ohne ausdrückliche Zustimmung der Rechteinhaber wieder und sagt auf der Seite „Über“ zu, sie auf Wunsch umgehend zu entfernen. Bei einem solchen Wunsch werden die Kolumnen von der Website entfernt und ihre Pfade für Trainingscrawler gesperrt; was bis dahin in ein Training eingegangen ist, lässt sich nicht zurücknehmen.</p>
   <p>Ausgenommen bleiben die Faksimiles, die Ausschnitte aus Zeitungen und Tonträgern zeigen, an denen das Projekt keine Rechte hat. Ausgenommen sind außerdem die Suche, die Schnittstelle und der MCP-Server. Ihre Antworten hängen von der Anfrage ab, wiederholen Inhalte der Seiten und lösen bei jedem nicht zwischengespeicherten Aufruf eine Einbettung bei DeepInfra aus, die Kosten verursacht.</p>
-  <p>Die robots.txt wird heute in <code>index.php</code> erzeugt und um eine Gruppe für die bekannten Trainingscrawler erweitert. Ein Crawler folgt nur der Gruppe, die seinen Namen nennt; die Gruppe der Trainingscrawler enthält deshalb alle für sie geltenden Regeln.</p>
+  <p>Die robots.txt wird heute vom Go-Router in <code>internal/site/server.go</code> erzeugt. Dieser Handler wird um eine Gruppe für die bekannten Trainingscrawler erweitert; lokale und unter einem Präfix betriebene Vorschauen behalten ihren Indexierungsschutz. Ein Crawler folgt nur der Gruppe, die seinen Namen nennt; die Gruppe der Trainingscrawler enthält deshalb alle für sie geltenden Regeln.</p>
 <pre><code>User-agent: *
 Content-Signal: search=yes, ai-input=yes
 Allow: /
@@ -455,19 +551,20 @@ Sitemap: https://jackieleven.com/sitemap.xml</code></pre>
     <li><b>Anker je Textstelle.</b> Jede Textstelle ist über eine Adresse mit Fragment zitierbar; Ergebnisse von Suche, Schnittstelle und MCP-Server verweisen auf diese Adressen.</li>
     <li><b>Markdown-Fassung</b> jeder Seite und jeder <code>/id/</code>-Adresse über <code>Accept: text/markdown</code>: Hauptinhalt ohne Navigation, mit einem Kopf aus Titel, Datum, Urheber, Stimme, kanonischer Adresse und Lizenz.</li>
     <li><b>llms.txt</b> im Wurzelverzeichnis mit einer kurzen Beschreibung des Archivs, der Unterscheidung der Stimmen, den Hauptbereichen und den Adressen von Schnittstelle, MCP-Server und Datenrepository. Die Datei folgt einem Vorschlag, keinem Standard; wie weit Assistenten sie auswerten, ist offen, der Aufwand ist gering.</li>
-    <li><b>Suchseite mit GET-Adresse.</b> <code>/de/suche?q=…</code> liefert die Ergebnisse serverseitig, sodass auch ein Assistent, der nur Seiten abrufen kann, die Suche verwenden kann. Ergebnisseiten tragen <code>noindex</code>, sind in robots.txt aber nicht gesperrt.</li>
+    <li><b>Suchseite mit GET-Adresse.</b> <code>/de/suche?q=…</code> liefert die Ergebnisse serverseitig, sodass auch ein Assistent, der nur Seiten abrufen kann, die Suche verwenden kann. Ergebnisseiten tragen <code>noindex</code>, bleiben für Such- und Abrufcrawler aber erreichbar; die oben genannten Trainingscrawler sind ausgenommen.</li>
   </ul>
 
   <h3>HTTP-Schnittstelle</h3>
-  <p>Die Schnittstelle ist lesend, ohne Schlüssel nutzbar und für Aufrufe aus dem Browser freigegeben (CORS). Eine OpenAPI-Beschreibung liegt unter <code>/api/openapi.json</code>.</p>
+  <p>Die geplante Schnittstelle ist lesend und ohne Schlüssel nutzbar. Die eigene Sofortsuche spricht denselben Ursprung an und benötigt kein CORS. Für den bewusst öffentlichen JSON-Zugang wird eine ausdrückliche CORS-Regel ohne Cookies oder andere Zugangsdaten festgelegt. Das ist keine Freigabe beliebiger MCP-Origins. Eine OpenAPI-Beschreibung wird unter <code>/api/openapi.json</code> veröffentlicht.</p>
 <pre><code>GET /api/search?q=Norwegen&amp;lang=de&amp;type=document&amp;from=1990&amp;to=1999&amp;limit=20</code></pre>
   <p>Die Antwort enthält die Auswertung der Anfrage (erkannte Entitäten, Zeitfilter) und je Treffer die Kennung der Textstelle, die Adresse mit Anker, Titel und Datum des Dokuments, die Stimme, einen Textauszug und die Lizenz. Erkannte Entitäten werden mit ihrer <code>/id/</code>-Adresse aufgeführt, über die Aussagen, Ränge und Belege als JSON-LD abrufbar sind.</p>
 
   <h3>Grenzen für Schnittstelle und MCP-Server</h3>
-  <p>Die bestehenden Grenzen für Anfragen und Verbindungen stehen in nginx nur im Block für <code>index.php</code>. Neue Pfade wie <code>/api/</code>, <code>/mcp</code> und <code>/id/</code> erben sie nicht und erhalten eigene. Eine Grenze je IP-Adresse reicht zudem nicht aus, um kostenpflichtige Aufrufe zu begrenzen, die über viele Adressen verteilt eintreffen. Der Suchdienst begrenzt deshalb selbst die Zahl gleichzeitiger Anfragen und die Länge seiner Warteschlange, deckelt Anfrage- und Ergebnisgröße und setzt die Gesamtfrist aus Abschnitt 5. Gleichzeitige identische Anfragen an DeepInfra werden zusammengefasst; bei anhaltenden Fehlern des Anbieters setzt der Dienst externe Aufrufe vorübergehend aus. Ein lokales Tagesbudget für externe Aufrufe ergänzt das Ausgabenlimit beim Anbieter. <code>fetch</code> nimmt nur bekannte Archivkennungen an. CORS und robots.txt ersetzen keine dieser Grenzen.</p>
+  <p>In der aktuellen Go-Vorlage <code>ops/nginx-go-site.conf</code> liegen Anfrage- und Verbindungslimits im Block <code>location /</code>. Neue Pfade wie <code>/api/</code>, <code>/mcp</code> und <code>/id/</code> fallen zunächst in diesen Block. Werden für sie eigene Locations eingerichtet, müssen Limits, Proxyparameter und die geltenden Sicherheitsregeln dort ausdrücklich erhalten beziehungsweise passend gesetzt werden. Geplant sind gezielte Weiterleitungen von <code>/api/search</code>, den freigegebenen API-Beschreibungen, <code>/mcp</code> und <code>/id/</code> an den Suchdienst; normale Seiten und HTML-Suche bleiben bei der Website. Der öffentliche Suchpfad wird kontrolliert auf den versionierten Dienstpfad abgebildet. Öffentliche Readiness- oder Verwaltungszugänge werden nicht mitfreigegeben. Eine Grenze je IP-Adresse reicht zudem nicht aus, um kostenpflichtige Aufrufe zu begrenzen, die über viele Adressen verteilt eintreffen. Das Suchmodul begrenzt deshalb selbst die Zahl gleichzeitiger Anfragen und die Länge seiner Warteschlange, deckelt Anfrage- und Ergebnisgröße und setzt die Gesamtfrist aus Abschnitt 5. Gleichzeitige identische Anfragen an DeepInfra werden zusammengefasst; bei anhaltenden Fehlern des Anbieters setzt das Suchmodul externe Aufrufe vorübergehend aus. Ein lokales Tagesbudget für externe Aufrufe ergänzt das Ausgabenlimit beim Anbieter. <code>fetch</code> nimmt nur bekannte Archivkennungen an. CORS und robots.txt ersetzen keine dieser Grenzen.</p>
 
   <h3>MCP-Server</h3>
-  <p>Ein MCP-Server unter <code>/mcp</code> stellt die Suche über Streamable HTTP bereit, lesend und ohne Anmeldung. Er folgt einer festgelegten Fassung des Protokolls, derzeit 2025-11-25, mit den dazugehörigen Prüfungen des Transports, präzisen Ausgabeschemata und Annotationen, die die Werkzeuge als lesend kennzeichnen. Für Deep Research und die Wissensanbindung von ChatGPT beschreibt OpenAI zwei Werkzeuge mit den Namen <code>search</code> und <code>fetch</code>, mit festgelegtem Ergebnisschema, strukturierten Ergebnissen und zitierbaren Adressen. Der Server stellt beide in dieser Form bereit: <code>search</code> liefert Kennungen, Titel und Adressen von Textstellen und Entitäten, <code>fetch</code> den vollständigen Inhalt mit Metadaten und Belegen. Für Agenten, die weitere Werkzeuge nutzen, kommen <code>get_entity</code> (Aussagen mit Rang und Belegen), <code>list_events</code> (nach Zeitraum, Art und Ort) und <code>list_disputed</code> (strittige Angaben) hinzu. Claude und andere MCP-Clients verwenden denselben Server.</p>
+  <p>Ein MCP-Server unter <code>/mcp</code> stellt die Suche über Streamable HTTP bereit, lesend und ohne Anmeldung. Die implementierte Protokollfassung wird zusammen mit der Version des <a href="https://github.com/modelcontextprotocol/go-sdk">offiziellen Go-SDK</a> festgeschrieben und gegen die vorgesehenen Clients getestet. Die frühere Planung nannte 2025-11-25; das SDK dokumentiert inzwischen auch 2026-07-28. Entscheidend ist die getestete Versionsaushandlung, ergänzt um Origin-Prüfung, präzise Ausgabeschemata und Annotationen, die die Werkzeuge als lesend kennzeichnen. Für Deep Research und die Wissensanbindung von ChatGPT beschreibt OpenAI zwei Werkzeuge mit den Namen <code>search</code> und <code>fetch</code>, mit festgelegtem Ergebnisschema, strukturierten Ergebnissen und zitierbaren Adressen. Der Server stellt beide in dieser Form bereit: <code>search</code> liefert Kennungen, Titel und Adressen von Textstellen und Entitäten, <code>fetch</code> den vollständigen Inhalt mit Metadaten und Belegen. Für Agenten, die weitere Werkzeuge nutzen, kommen <code>get_entity</code> (Aussagen mit Rang und Belegen), <code>list_events</code> (nach Zeitraum, Art und Ort) und <code>list_disputed</code> (strittige Angaben) hinzu. Claude und andere MCP-Clients verwenden denselben Server.</p>
+  <p>Der Transport braucht eine eigene Betriebsprüfung: Die bestehende Website setzt <code>WriteTimeout</code> auf 45 Sekunden, der nginx-Proxy Lese- und Schreibfristen auf 35 Sekunden. Der neue Suchdienst erhält eigene HTTP-Fristen; MCP läuft dort und muss nicht die Website-Fristen übernehmen. Normale Suchaufrufe bleiben deutlich darunter. Für gestreamte MCP-Antworten sind zusätzlich Proxybufferung, Abbruch und gegebenenfalls längere Verbindungen zu prüfen; falls nötig, gelten angepasste Fristen und <code>proxy_buffering off</code> gezielt für diesen Transport. Die Fristen der übrigen Website werden dafür nicht pauschal aufgehoben. Für den ersten Ausbau sind kurze begrenzte Werkzeugaufrufe ausreichend; dauerhaft offene Sitzungen sind kein Selbstzweck.</p>
   <p>Wie eigene MCP-Server in ChatGPT eingebunden werden, hängt von Konto, Arbeitsbereich und den jeweils geltenden Regeln von OpenAI ab und hat sich mehrfach geändert. Die Kompatibilität wird daher als datierter Nachweis geführt: Protokollfassung, SDK-Version, Client und tatsächlich getesteter Zugang.</p>
   <p>Schnittstelle und MCP-Server liefern zu jeder Aussage Stimme, Belegart, Rang und Belege. Ein Assistent kann so Levens Selbstaussagen von Angaben Dritter unterscheiden und strittige Daten als strittig wiedergeben, statt einen der Werte auszuwählen. Beim Lesen der Seiten müsste er diese Unterscheidung aus dem Fließtext erschließen.</p>
   <p>Anfragen über Schnittstelle und MCP-Server werden wie die der Website behandelt: Der Suchtext geht zur Einbettung an DeepInfra, protokolliert wird er nicht. Maschinenlesbare Metadaten und <code>fiction: true</code> verbessern die Voraussetzungen für eine richtige Wiedergabe, garantieren sie aber nicht. Stimme und Fiktionsstatus stehen deshalb auch im gelieferten Text, und gezielte Tests prüfen Zitate und Verwechslungen.</p>
@@ -482,38 +579,44 @@ Sitemap: https://jackieleven.com/sitemap.xml</code></pre>
     <table>
       <thead><tr><th>Thema</th><th>Gewählt</th><th>Verworfen</th><th>Begründung</th></tr></thead>
       <tbody>
-        <tr><td>Datenhaltung</td><td>Dateien in einem öffentlichen Datenrepository, Postgres als abgeleitetes Lesemodell</td><td>Postgres oder CMS als Primärquelle</td><td>prüfbare Änderungen, atomare Releases, vollständiger Neubau möglich</td></tr>
+        <tr><td>Datenhaltung</td><td>Dateien in einem öffentlichen Datenrepository, Postgres als abgeleitetes Lesemodell</td><td>Postgres oder CMS als Primärquelle</td><td>prüfbare Änderungen, fest gebundene Release-Stände, vollständiger Neubau möglich</td></tr>
         <tr><td>Suchsystem</td><td>Postgres 17 mit pgvector und BM25-Erweiterung</td><td>Elasticsearch, OpenSearch, Qdrant, Meilisearch, Vespa</td><td>ein System für Text, Vektoren und Beziehungen; bereits vorhanden; begrenzter Arbeitsspeicher</td></tr>
-        <tr><td>Embeddings</td><td>Qwen3-Embedding-8B über DeepInfra, 1024 Dimensionen</td><td>eigenes Hosting auf dem Server, proprietäre Modelle</td><td>Qualität bei sprachübergreifenden Anfragen; veröffentlichte Gewichte; Server reicht nur für 0.6B</td></tr>
+        <tr><td>Embeddings</td><td>Qwen3-Embedding-8B über DeepInfra, 1024 Dimensionen</td><td>eigenes Hosting auf dem Server, proprietäre Modelle</td><td>Kandidat für sprachübergreifende Qualität; veröffentlichte Gewichte; lokales Großmodell passt nicht zum Ressourcenplan. Modell und Dimension bleiben am Testsatz zu bestätigen.</td></tr>
         <tr><td>Lexikalische Suche</td><td>BM25 über Erweiterung</td><td><code>ts_rank</code></td><td><code>ts_rank</code> berücksichtigt keine Dokumenthäufigkeit; beide geprüften Erweiterungen benötigen <code>shared_preload_libraries</code> und einen Neustart des Clusters</td></tr>
         <tr><td>Fusion</td><td>Reciprocal Rank Fusion als Ausgangspunkt; kalibrierte konvexe Kombination als Vergleich</td><td>unkalibrierte Summe der Scores</td><td>Scores liegen auf verschiedenen Skalen; die bessere Fusion zeigt erst der Testsatz</td></tr>
         <tr><td>Reranking</td><td>Cross-Encoder auf der Ergebnisseite</td><td>Reranking auch in der Sofortsuche</td><td>zusätzliche Antwortzeit von mehreren hundert Millisekunden</td></tr>
-        <tr><td>Pipeline</td><td>Python mit uv</td><td>PHP</td><td>Bibliotheken für Embeddings und Evaluation</td></tr>
-        <tr><td>Laufzeit</td><td>Suchdienst in Go; Darstellung in PHP</td><td>PHP-Modul mit eigenem FPM-Pool</td><td>gemeinsame Suchlogik für Website, Schnittstelle und MCP; begrenzbare Parallelität bei direkten Aufrufen; MCP mit Streamable HTTP; Lernziel des Projekts</td></tr>
-        <tr><td>Releases</td><td>Schema je Release</td><td>eine fortlaufend überschriebene Tabelle</td><td>atomarer Wechsel und Rollback bleiben erhalten</td></tr>
+        <tr><td>Pipeline</td><td>Python mit uv außerhalb des Webprozesses</td><td>Indexaufbau in HTTP-Handlern; vollständige Portierung der Pflegewerkzeuge allein wegen der Go-Migration</td><td>vorhandene Werkzeuge und Bibliotheken für Embeddings und Evaluation weiterverwenden</td></tr>
+        <tr><td>Laufzeit</td><td>Separater Go-Suchdienst, interne HTTP-/JSON-API zur Go-Website</td><td>Suchlogik im Website-Prozess</td><td>getrennte Neustarts und Ressourcenlimits; klarer Vertrag und wiederverwendbare Suchtechnik</td></tr>
+        <tr><td>Repository</td><td>Zwei Programme im gemeinsamen Code-Repository, separates Archiv-Datenrepository</td><td>sofort ein drittes Repository oder ein Mehrmandantendienst</td><td>gemeinsame Vertragsänderungen und Tests; Auslagerung des Suchkerns bei einem weiteren Anwendungsfall</td></tr>
+        <tr><td>Releases</td><td>Unveränderliches Schema je Suchstand, kompatible Dienst- und Website-Manifeste</td><td>eine fortlaufend überschriebene Tabelle; Schemawahl je Request über einen veränderlichen Zeiger</td><td>getrennte Codeupdates bei gleicher Inhaltsversion; koordinierter Wechsel bei neuen Texten oder Ankern, geprüfter Rollback</td></tr>
         <tr><td>Agentenzugang</td><td>HTTP-Schnittstelle und MCP-Server auf Basis derselben Suche, maschinenlesbare Seiten</td><td>nur Seiten für Crawler</td><td>Agenten erhalten Stimme, Rang und Belege strukturiert</td></tr>
         <tr><td>KI-Training</td><td>Trainingscrawler zugelassen, einschließlich der Kolumnen; ausgenommen Faksimiles, Suche, Schnittstelle und MCP-Server</td><td>vollständige Sperre; Sperre der Kolumnen</td><td>Kolumnen sind über das Internet Archive ohnehin zugänglich; Faksimiles zeigen Material Dritter; Suche und Schnittstelle verursachen Kosten je Aufruf</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Eine eigenständige Suchmaschine ist nicht vorgesehen. Sie wäre ein zweites System auf einem kleinen, geteilten Server, und die Beziehungen zwischen Personen, Konzerten und Quellen erfordern ohnehin eine relationale Datenbank. Ein Sprachmodell zur Laufzeit ist in der ersten Stufe ebenfalls nicht vorgesehen. Generierte Antworten hängen von der Qualität der zugrunde liegenden Treffer ab, die zuerst gemessen werden soll.</p>
+  <p>Eine zusätzliche fertige Suchplattform wie Elasticsearch ist weiterhin nicht vorgesehen; der eigene Go-Suchdienst verwendet Postgres. Postgres ist für das relationale Lesemodell mit Aussagen und Belegen naheliegend und kann Text und Vektoren gemeinsam verwalten. Eine relationale Datenbank ist dafür eine Projektentscheidung, keine zwingende Eigenschaft einer Ontologie. Die Go-Migration allein ist kein Grund, den bewerteten Entwurf für Datenhaltung und Retrieval auszutauschen.</p>
+  <p>Eine ernsthafte Alternative bei schwieriger Erweiterungsinstallation wäre ein eingebetteter Go-Index wie <a href="https://github.com/blevesearch/bleve">Bleve</a>, das Text-, Vektor- und hybride Suche unterstützt. Bleve liefe innerhalb unseres Suchdienstes und benötigte keine weitere Suchplattform. Die Arbeit an reproduzierbaren Indexdateien, Sprachverarbeitung, Speichergrenzen und Beziehungen bliebe bestehen. Bleve war auch mit dem früher geplanten Go-Dienst möglich; es wird durch die Migration nicht automatisch überlegen. Es bleibt eine Vergleichsoption, falls Postgres-Erweiterungen im isolierten Pilot zu hohe Betriebs- oder Ressourcenanforderungen zeigen.</p>
+  <p>Die beiden BM25-Kandidaten verlangen laut ihren Installationsanleitungen eine Einbindung in <code>shared_preload_libraries</code> und einen Clusterneustart: <a href="https://www.paradedb.com/docs/operate/deploy/self-hosted/extension">ParadeDB pg_search</a> und <a href="https://github.com/timescale/pg_textsearch">pg_textsearch</a>. Eine andere Sprache der Website ändert daran nichts. Exakte und approximative Vektorsuche werden nach den jeweiligen <a href="https://github.com/pgvector/pgvector">pgvector</a>-Eigenschaften geprüft, nicht aus der geringen Zahl der sichtbaren Seiten abgeschätzt.</p>
+  <p>Generierte Antworten zur Laufzeit sind in der ersten Stufe weiterhin nicht vorgesehen. Ihre Qualität hängt von den zugrunde liegenden Treffern ab, die zuerst gemessen werden sollen. Embedding und Reranking bleiben davon getrennte Modellaufgaben.</p>
 </section>
 
 <section id="stufen">
   <h2>12. Ausbaustufen</h2>
-  <p>Die Ausbaustufen sind als überprüfbare Durchstiche angelegt, damit Ontologie, Suche, Export und Betrieb nicht gleichzeitig ungeprüfte Voraussetzungen füreinander bilden. Jede Stufe hat eine Abnahme.</p>
+  <p>Der persistente Indexierungsstand gehört bereits zum ersten Importdurchstich. Seine Abnahme umfasst: Wiederholung ohne Änderungen verursacht keine weiteren Embedding-Aufrufe; Ergänzung, Korrektur und Entfernung erscheinen korrekt im nächsten Build; ein abgebrochener Lauf lässt sich fortsetzen; ein fehlgeschlagener Build verändert die laufende Suche nicht.
+  </p><p>Die Ausbaustufen sind als überprüfbare Durchstiche angelegt, damit Ontologie, Suche, Export und Betrieb nicht gleichzeitig ungeprüfte Voraussetzungen füreinander bilden. Jede Stufe hat eine Abnahme.</p>
   <div class="tabelle">
     <table>
       <thead><tr><th>Stufe</th><th>Ergebnis</th><th>Abnahme</th></tr></thead>
       <tbody>
-        <tr><td>1. Modellpilot</td><td>Schema v0.2, Validierung, erster Erschließungslauf (89 Konzertberichte, 408 Entitäten)</td><td>Selbstaussage bleibt unsicher, Widerspruch bleibt sichtbar, Ankündigung wird nicht zur Durchführung. Teilweise erreicht; stabile Textstellen fehlen noch.</td></tr>
-        <tr><td>2. Reproduzierbarer Import</td><td>Datenversion mit Export, Verzeichnis der Textstellen, kleines Lesemodell in Postgres, erste <code>/id/</code>-Antworten</td><td>Gleiche Eingaben ergeben denselben normalisierten Export; Beziehungen und Belege lösen sich auf; nicht bevorzugte Aussagen erscheinen nicht als Tatsachen.</td></tr>
-        <tr><td>3. Suche und Vergleich</td><td>BM25-Referenz, exakte Vektorsuche, Hybrid, gegebenenfalls Reranking; bewerteter Entwicklungs- und Testsatz</td><td>Verbesserung je Anfrageart sichtbar; Kosten, Speicher, p50 und p95 sowie Fehlerfälle dokumentiert.</td></tr>
-        <tr><td>4. Öffentlicher Betrieb</td><td>Ergebnisseite, Sofortsuche, Schnittstelle und MCP-Server mit Versionsbindung, Grenzen, Rückfallbetrieb und geprüfter Protokollierung; maschinenlesbare Seiten, robots.txt und Cloudflare-Einstellungen</td><td>Last, Ausfälle des Anbieters, Deploy und Rollback getestet; normale Seiten bleiben erreichbar; markierte Suchtexte fehlen in den vereinbarten Protokollen.</td></tr>
+        <tr><td>1. Modell und erste Sammlung</td><td>Schema v0.2; zwei abgeschlossene Aufträge mit 89 Konzertberichten und 99 Meldungsdateien; 965 Entitäten, 1.853 Aussagen</td><td>Formale Validierung: 0 Fehler, 3 Dublettenhinweise, 6 gemeldete Datumskonflikte. Abdeckung und Prüfgrenzen siehe Abschnitt 3; stabile Textstellen fehlen noch.</td></tr>
+        <tr><td>2. Reproduzierbarer Import</td><td>Datenversion mit Export, Verzeichnis der Textstellen, kleines Lesemodell in isoliertem Postgres, reproduzierbare lokale Einrichtung, separater Go-Suchdienst mit HTTP-Vertrag und erste <code>/id/</code>-Antworten</td><td>Gleiche Eingaben ergeben denselben normalisierten Export; Beziehungen und Belege lösen sich auf; nicht bevorzugte Aussagen erscheinen nicht als Tatsachen. Manifest und Schemaformat passen zusammen; der Suchdienst startet mit fest gebundenem Suchstand; der Website-Client erkennt eine unpassende Inhaltsversion.</td></tr>
+        <tr><td>3. Suche und Vergleich</td><td>Suchdienst mit JSON-API und HTML-Anbindung über den Website-Client; BM25-Referenz, exakte Vektorsuche, Hybrid, gegebenenfalls Reranking; bewerteter Entwicklungs- und Testsatz</td><td>Verbesserung je Anfrageart sichtbar; Kosten, Speicher, p50 und p95 sowie Fehlerfälle dokumentiert. Sprachwahl, Filter und Belege stimmen über die Oberflächen überein; Vorschaupräfix funktioniert.</td></tr>
+        <tr><td>4. Öffentlicher Betrieb</td><td>Ergebnisseite, Sofortsuche, Schnittstelle und MCP-Server mit Versionsbindung, Grenzen, Rückfallbetrieb und geprüfter Protokollierung; maschinenlesbare Seiten, robots.txt und Cloudflare-Einstellungen</td><td>Last, Ausfall des Suchprozesses, Anbieter- und Datenbankausfall, Clientabbruch, kompatible und koordinierte Deploys sowie Rollback getestet; normale Seiten und Formular bleiben erreichbar. Keine ungebremste Arbeit nach Fristablauf; markierte Suchtexte fehlen in den vereinbarten Protokollen; MCP-Transport ist mit Proxy und Fristen getestet.</td></tr>
         <tr><td>5. Skalierte Erschließung</td><td>weitere Aufträge, Personen, Orte und Konzertkalender; Abgleich mit Wikidata und MusicBrainz; Recherche der Aufnahmen</td><td>Präzision, Auslassungen, Doppelungen und Prüfaufwand sind aus der Vergleichsmenge bekannt; Änderungen lösen nötige Neuprüfungen aus.</td></tr>
       </tbody>
     </table>
   </div>
+  <p>Der erste Durchstich verwendet einen kleinen Ausschnitt des vorhandenen Bestands: Quellen und Textstellen binden, importieren, über HTTP suchen und den Treffer mit Beleganker auf der Website öffnen. Weitere Erschließung muss darauf nicht warten, und der Suchbau muss nicht auf die Vollständigkeit des Archivs warten.</p>
   <p>Danach folgen verwandte Inhalte auf jeder Seite, die Freigabe bestätigter Angaben an Wikidata und MusicBrainz, die Archivierung bei Zenodo und, als letzter Schritt, Antworten mit Beleg für jede Aussage über die Claude-API, mit der Pastiche als ausgeschlossenem Beleg.</p>
 </section>
 
@@ -524,20 +627,67 @@ Sitemap: https://jackieleven.com/sitemap.xml</code></pre>
     <li>Pastiche in der Suche: als eigene, gekennzeichnete Gruppe oder ausgeschlossen.</li>
     <li>BM25-Erweiterung: ParadeDB <code>pg_search</code> (AGPL) oder <code>pg_textsearch</code>.</li>
     <li>Eigener Postgres-Cluster für das Archiv oder Neustart des geteilten Clusters: Beide BM25-Erweiterungen benötigen <code>shared_preload_libraries</code>, eine weitere Datenbank im selben Cluster isoliert weder diese Einbindung noch den Ressourcenverbrauch. Die Erweiterungen werden vorher in einem isolierten Testcluster mit festgeschriebenen Versionen verglichen: deutsche und englische Analyse, unveränderte Eigennamen, Phrasen, Feldgewichtung, Filter, Speicher und Upgradepfad.</li>
-    <li>Anfragen ohne Treffer festhalten, um Lücken im Archiv zu erkennen, oder darauf verzichten.</li>
+    <li>Die Zahl der Anfragen ohne Treffer wird nur aggregiert erfasst. Ein späterer Wunsch, die Texte zur Erschließung von Archivlücken zu speichern, wäre eine bewusste Änderung des bisherigen Datenschutzkonzepts und ist hier nicht vorgesehen.</li>
   </ul>
   <h3>Vor dem Bau zu prüfen</h3>
   <ul>
     <li>pgvector auf dem Server: Version und Verhalten iterativer Scans.</li>
     <li>BM25-Erweiterung auf Postgres 17 installierbar, ohne andere Datenbanken zu beeinträchtigen.</li>
-    <li>Suchdienst auf dem Server: Socket-Aktivierung über systemd, Weiterleitung in nginx, Speicherbedarf im Betrieb.</li>
+    <li>Getrennte Go-Dienste: Benutzer, Units, freie Loopback-Ports, CPU-/Speichergrenzen, SQL-Pool und Cache budgetieren; Seiten und Formular unter Suchlast und bei einem Suchprozessabbruch messen.</li>
     <li>DeepInfra: Antwortzeit vom Server aus, Verarbeitungsregion und vertragliche Bedingungen zur Datenspeicherung.</li>
-    <li>Protokolle von nginx, Cloudflare und Fehlerausgaben auf Suchtexte; globale nginx-Konfiguration des Servers.</li>
-    <li>Arbeitsspeicher im geteilten Postgres-Cluster für Index und Cache.</li>
-    <li>Tatsächliche Zahl der Textstellen im heutigen Bestand.</li>
+    <li>Protokolle von nginx, Cloudflare, lokalem MAMP und Go-Fehlerausgaben auf Suchtexte; geerbte Protokollformate und Referrer-Header prüfen.</li>
+    <li>Arbeitsspeicher im geteilten Postgres-Cluster für Index und Cache; Betrieb mehrerer Release-Schemas während Deploy und Rollback.</li>
+    <li>Go-Abhängigkeiten, Vektor-Codecs und Linux-Build ohne CGO; Race- und Abbruchtests für gemeinsame Caches und parallele Anfragen.</li>
+    <li>Getrennte Pakete, Startskripte und Installer sowie Inhaltsversionsvertrag einrichten; keine neuen Dateien allein durch Ablage im Repository veröffentlichen. Lokaler Testcluster und Produktionscluster müssen kompatible festgeschriebene Erweiterungen verwenden.</li>
+    <li>Dauerhaftes Indexierungsregister, Artefaktspeicher, Backup und Wiederaufnahme einrichten; Abhängigkeiten und Hashregeln festlegen. Zuwachs, Löschung, Modellwechsel und Absturz im Pilot testen.</li>
+    <li>Textstellenverzeichnis und Exportvertrag aufbauen; Auswahl und Größe des ersten Suchkorpus festlegen. Die 250 Dokumententitäten sind noch keine 250 vollständig segmentierten Suchtexte.</li>
     <li>Einstellungen der Cloudflare-Zone für KI-Crawler und Bot-Abwehr; Erreichbarkeit von Seiten, Schnittstelle und MCP-Server für die Crawler und Clients der Anbieter.</li>
     <li>Datierter Nachweis der Einbindung des MCP-Servers in ChatGPT und Claude: Protokollfassung, SDK-Version, Client, Zugang.</li>
   </ul>
+  <h3>Grundlage dieser Überarbeitung</h3>
+  <p>Geprüft wurden am 26. Oktober 2026 der Go-Einstieg und Router, <code>go.mod</code>, Release-Paketierung, Starter, systemd-Unit sowie die nginx- und lokalen Proxyvorlagen im Website-Repository, Stand <code>d819f9d</code>. Die verlinkten Primärquellen betreffen Treiber, Indexbibliotheken, Erweiterungsinstallation und MCP-SDK. Dies ist eine Architekturprüfung anhand von Code und Dokumentation; sie enthält weder einen Suchbenchmark noch eine erneute Inventur des Produktionsservers. Der Archivstand wurde zusätzlich am lokalen Commit <code>7d353a4</code> anhand von Datendateien, Aufträgen, Abdeckungsregistern und ausgeführter Validierung geprüft. Die Website-Bestandszahlen in Abschnitt 1 stammen aus dem bisherigen Entwurf; sie sind von der strukturierten Sammlung in Abschnitt 3 zu unterscheiden. Der nächste belastbare Nachweis ist der isolierte Import- und Suchpilot aus Stufe 2 und 3.</p>
+</section>
+
+<section id="entwicklungsplan">
+  <h2>14. Entwicklungsplan und Agenten</h2>
+  <p>Dieses Dokument verbindet die Architektur mit dem am 26. Oktober 2026 freigegebenen Entwicklungsplan. Die Entwicklung beginnt auf <code>codex/search-development</code>. Die Website auf <code>main</code> und der lokale Dauerbetrieb bleiben die Referenz. Die erste Phase verändert keine Produktionsdienste und ruft keine kostenpflichtigen Embedding-Endpunkte auf.</p>
+  <h3>Dirigent und Fachagenten</h3>
+  <p>Der koordinierende Agent verantwortet Architektur, gemeinsame Verträge, Aufgabenvergabe, Integration und Abnahme. Neben ihm arbeiten höchstens drei Fachagenten gleichzeitig. Jeder schreibende Agent verwendet einen eigenen Worktree und Aufgabenbranch. Geprüfte Commits werden in den Integrationsbranch übernommen. Änderungen an Importformat, API oder Versionsbindung werden vor ihrer Übernahme mit dem Dirigenten abgestimmt.</p>
+  <div class="tabelle"><table><thead><tr><th>Rolle</th><th>Verantwortung</th><th>Liefergegenstand</th></tr></thead><tbody>
+    <tr><td>Daten und Indexierung</td><td>Pilotbestand, Textstellen, Importvertrag, Fortschrittsregister und Artefakte</td><td>Nachvollziehbarer Datenpilot und später eine wiederaufnehmbare Pipeline.</td></tr>
+    <tr><td>Suchdienst</td><td>Postgres/BM25, HTTP-API, später Vektorsuche und Ranking</td><td>Isolierter Datenbankpilot und eigenständig startbarer Go-Dienst.</td></tr>
+    <tr><td>Website-Integration</td><td>HTTP-Client, Ergebnisseiten, Sprache, Anker und Fehlerdarstellung</td><td>Suche ohne JavaScript; Beginn nach Festlegung des Vertrags.</td></tr>
+    <tr><td>Validierung und Review</td><td>Unabhängige Daten-, Vertrags-, Ausfall- und Browserprüfung</td><td>Reproduzierbare Prüffälle, Befunde und Abnahmebericht.</td></tr>
+  </tbody></table></div>
+  <p>Das Archiv-Repository wird zunächst ausschließlich am festgelegten Commit <code>7d353a4</code> gelesen. Notwendige Korrekturen werden als Befunde gesammelt; laufende Erschließung und Veröffentlichung im öffentlichen Repository werden nicht verändert. Der DeepInfra-Schlüssel bleibt in seiner lokalen, ignorierten Datei und wird weder kopiert noch in Übergaben aufgenommen.</p>
+  <h3>Phase 1: Grundlagen und technischer Pilot</h3>
+  <ol>
+    <li><b>Datenagent:</b> kleine Auswahl zugänglicher Dokumente mit unterschiedlichen Sprachen und Belegarten begründen; tatsächliche Textverfügbarkeit und Rechtehinweise festhalten; Importformat und stabile Textstellenzuordnung vorschlagen. Originaldaten bleiben unverändert.</li>
+    <li><b>Suchdienst-Agent:</b> lokale Voraussetzungen prüfen; reproduzierbaren, isolierten Postgres-Testcluster vorbereiten und die beiden BM25-Kandidaten auf Installation, Sprachverarbeitung, Filter und Ressourcen prüfen. Bereits laufende Datenbanken werden nicht umkonfiguriert. Nicht durchführbare Messungen werden als offen ausgewiesen.</li>
+    <li><b>Validierungsagent:</b> unabhängig konkrete Suchfragen, erwartete Belege und Fehlerfälle aus den Quellen ableiten; Kriterien für Import, Wiederaufnahme, Änderungen, Löschung und HTTP-Vertrag vorbereiten.</li>
+  </ol>
+  <p>Der Dirigent gleicht die drei Ergebnisse ab und hält Auswahl, offene Punkte und Entscheidungen fest. Abnahme: ein prüfbarer Pilotbestand, ein reproduzierbarer Datenbankversuch oder klar belegte Infrastrukturhindernisse und ein unabhängiger Testplan. Eine BM25-Entscheidung wird erst nach tatsächlichen Versuchen als bestätigt bezeichnet.</p>
+  <h3>Phase 2: Vollständiger Durchstich</h3>
+  <p>Zuerst werden Dokument-/Textstellenformat, HTTP-/OpenAPI-Vertrag und Indexierungszustände gemeinsam festgeschrieben. Datenagent, Suchdienst-Agent und Website-Agent entwickeln anschließend parallel gegen diese Verträge und kleine Beispieldaten. Der Durchstich lautet: Archiv → Textstellen → inkrementeller Import → BM25 → interne HTTP-API → HTML-Ergebnisseite → Beleganker.</p>
+  <p>Abnahme: Suche ohne JavaScript; korrekte Beleglinks; gleicher Import ohne unnötige Wiederholung; korrekte Ergänzungen, Korrekturen und Entfernungen; Wiederaufnahme nach Abbruch; normale Seiten und Formular bleiben beim Suchausfall nutzbar. Integrationsprüfungen starten tatsächlich getrennte Prozesse.</p>
+  <h3>Phase 3: Semantische Suche und Qualitätsvergleich</h3>
+  <p>Qwen3-Embeddings, Vektorsuche, Fusion und anschließend Reranking erweitern die BM25-Referenz. Die Validierung vergleicht Trefferqualität, Laufzeit, Ressourcen und Anbieteraufwand am selben Testsatz. Ein zurückgehaltener Teil wird nicht zur Abstimmung genutzt; echte Messwerte werden von Annahmen getrennt.</p>
+  <h3>Phase 4: Betriebsabnahme</h3>
+  <p>Ein unabhängiger Prüfer untersucht Lastgrenzen, Ausfälle, Datenversionswechsel, Rollback, Protokollierung und die lokale Einrichtung. Öffentliche API und MCP werden auf dem geprüften Suchkern aufgebaut. Testbereitstellung und spätere Produktionsfreigabe sind getrennte Meilensteine.</p>
+  <h3>Pausieren und wieder aufnehmen</h3>
+  <p>Jeder Agent dokumentiert Branch, Commit, Dateien, ausgeführte Prüfungen, offene Fragen und nächsten Schritt. Bei „Stop“ werden die Agenten unterbrochen; gestartete Versuche werden kontrolliert beendet oder ihr Zustand festgehalten. Uncommittierte Arbeit bleibt erhalten. Die Fortsetzung beginnt mit dem Arbeitsstand und der Prüfung tatsächlicher Prozesse und Dateien, nicht mit einer Annahme aus dem Chatverlauf.</p>
+</section>
+
+<section id="arbeitsstand">
+  <h2>15. Arbeitsstand und Wiederaufnahme</h2>
+  <p>Stand: 26. Oktober 2026. Architektur und Agentenplan sind gesichert; Phase 1 ist zur Ausführung freigegeben. Basis der Website: <code>d819f9d</code>; Basis des Archivs: <code>7d353a4</code>. Integrationsbranch: <code>codex/search-development</code>.</p>
+  <div class="tabelle"><table><thead><tr><th>Aufgabe</th><th>Status</th><th>Ergebnis / nächster Schritt</th></tr></thead><tbody>
+    <tr><td>Pilotdaten und Importvertrag</td><td>Start vorbereitet</td><td>Quellen prüfen und Auswahl mit Kennungen dokumentieren.</td></tr>
+    <tr><td>Postgres-/BM25-Pilot</td><td>Start vorbereitet</td><td>Containerlaufzeit und isolierte Erweiterungsinstallation prüfen.</td></tr>
+    <tr><td>Unabhängige Validierung</td><td>Start vorbereitet</td><td>Quellenbasierte Erwartungen und Abnahmekriterien vorbereiten.</td></tr>
+    <tr><td>Integration Phase 1</td><td>Wartet auf Ergebnisse</td><td>Artefakte prüfen, Ergebnisse abgleichen und nächste Verträge festschreiben.</td></tr>
+  </tbody></table></div>
+  <p>Die Liefergegenstände werden unter <code>docs/search/phase-1/</code> gesammelt; Datenbankversuche unter <code>ops/search-pilot/</code>. Diese Verzeichnisse entstehen im Verlauf der ersten Phase. Die noch nicht implementierten Architekturteile bleiben ausdrücklich Planung.</p>
 </section>
 
 <footer>Entwurf in <code>.dev/</code>, nicht Teil der Website.</footer>
