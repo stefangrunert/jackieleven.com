@@ -14,18 +14,24 @@ import (
 )
 
 type publicSearchMetadata struct {
-	Section     string `json:"section"`
-	Image       string `json:"image"`
-	DisplayDate string `json:"display_date"`
-	Place       string `json:"place"`
-	EventStatus string `json:"event_status"`
-	RecordKind  string `json:"record_kind"`
-	Fiction     bool   `json:"fiction"`
+	Section     string          `json:"section"`
+	Image       string          `json:"image"`
+	DisplayDate string          `json:"display_date"`
+	Place       string          `json:"place"`
+	EventStatus string          `json:"event_status"`
+	RecordKind  string          `json:"record_kind"`
+	Fiction     bool            `json:"fiction"`
+	EntityID    string          `json:"entity_id"`
+	Predicate   string          `json:"predicate"`
+	Rank        string          `json:"rank"`
+	Certainty   string          `json:"certainty"`
+	References  json.RawMessage `json:"references"`
 }
 type publicSearchCard struct {
 	searchHitView
 	Section, Image, Excerpt, Date, Place, Kind, Status, Voice, SourceVoiceLabel string
 	Fiction                                                                     bool
+	ReadURL                                                                     string
 }
 type publicSearchGroup struct {
 	Key, Title, MoreURL string
@@ -343,6 +349,28 @@ func (a *App) publicSearchCard(hit searchclient.Hit, lang, targetLang string) pu
 	}
 	if c.Fiction {
 		c.Kind = searchMessage(lang, "Literarische Fiktion", "Literary fiction")
+	}
+	archiveRecord := m.RecordKind == "archive_entity" || m.RecordKind == "archive_statement"
+	if archiveRecord {
+		c.Kind = searchMessage(lang, "Archivhinweis", "Archive note")
+		if c.Fiction {
+			c.Kind += " · " + searchMessage(lang, "Literarische Fiktion", "Literary fiction")
+		}
+		c.Excerpt = archiveCardExcerpt(hit.Text, m, lang)
+		if m.RecordKind == "archive_statement" && len(m.References) > 0 {
+			var references []json.RawMessage
+			if json.Unmarshal(m.References, &references) == nil && len(references) == 0 {
+				c.Kind += " · " + searchMessage(lang, "Kein Belegverweis", "No source reference")
+			}
+		}
+	}
+	c.ReadURL = c.PassageURL
+	if archiveRecord && m.EntityID != "" && len(m.EntityID) <= 1024 && utf8.ValidString(m.EntityID) && strings.IndexFunc(m.EntityID, unicode.IsControl) < 0 {
+		c.ReadURL = a.searchEntityURL(m.EntityID, lang)
+	}
+	isEvent := c.Section == "live" && (!archiveRecord || strings.HasPrefix(m.EntityID, "event/") || strings.HasPrefix(hit.DocumentID, "event/"))
+	if !isEvent {
+		return c
 	}
 	switch m.EventStatus {
 	case "announced":

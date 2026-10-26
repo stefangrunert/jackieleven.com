@@ -16,12 +16,12 @@
 {{range .Groups}}<section class="discovery-section discovery-section-{{.Key}}" aria-labelledby="section-{{.Key}}"><div class="discovery-section-heading"><h2 id="section-{{.Key}}">{{.Title}}</h2>{{if ne $.Section .Key}}<a href="{{.MoreURL}}">{{$.L.More}} <span aria-hidden="true">→</span></a>{{end}}</div>
 {{if eq .Key "biography"}}<p class="discovery-fiction-note">{{$.L.FictionNote}}</p>{{end}}
 <div class="discovery-cards">{{range .Cards}}<article class="discovery-card{{if .Fiction}} discovery-fiction{{end}}">
-{{if eq .Section "music"}}<a class="discovery-cover" href="{{.PassageURL}}" aria-label="{{.Title}}">{{if .Image}}<img src="{{.Image}}" alt="" width="400" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{else}}<span aria-hidden="true">♫</span>{{end}}</a>{{end}}
+{{if eq .Section "music"}}<a class="discovery-cover" href="{{.ReadURL}}" aria-label="{{.Title}}">{{if .Image}}<img src="{{.Image}}" alt="" width="400" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer">{{else}}<span aria-hidden="true">♫</span>{{end}}</a>{{end}}
 <div class="discovery-card-text">{{if or .Date .Place}}<p class="discovery-card-date">{{.Date}}{{if and .Date .Place}} · {{end}}{{.Place}}</p>{{end}}
-<h3><a href="{{.PassageURL}}">{{.Title}}</a></h3>
+<h3><a href="{{.ReadURL}}">{{.Title}}</a></h3>
 {{if or .Kind .Status}}<p class="discovery-card-kind">{{.Kind}}{{if and .Kind .Status}} · {{end}}{{.Status}}</p>{{end}}
 <p class="discovery-excerpt" lang="{{.Language}}">{{.Excerpt}}</p>
-<p class="discovery-card-bottom"><span>{{.Voice}}</span><a href="{{.PassageURL}}">{{$.L.Read}} <span aria-hidden="true">→</span></a></p></div>
+<p class="discovery-card-bottom"><span>{{.Voice}}</span><a href="{{.ReadURL}}">{{$.L.Read}} <span aria-hidden="true">→</span></a></p></div>
 </article>{{end}}</div></section>{{end}}
 {{else}}<p class="discovery-empty">{{.L.Empty}}</p>{{end}}
 {{else}}<section class="discovery-examples" aria-label="{{.L.ExamplesLabel}}"><p>{{.L.ExamplesLabel}}</p><a href="{{.Action}}?q={{.L.Example1}}">{{.L.Example1}} <span aria-hidden="true">↗</span></a><a href="{{.Action}}?q={{.L.Example2}}">{{.L.Example2}} <span aria-hidden="true">↗</span></a><a href="{{.Action}}?q={{.L.Example3}}">{{.L.Example3}} <span aria-hidden="true">↗</span></a></section>{{end}}

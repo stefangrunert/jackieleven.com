@@ -221,3 +221,71 @@ func TestEntityMarksOnlyUnreferencedAssertions(t *testing.T) {
 		}
 	}
 }
+
+func TestArchiveCardsAreReadableWithoutChangingStoredText(t *testing.T) {
+	rawText := "Archiv-Aussage über Jackie in Bergen\nSpielstätte:\nentity_value: Garage, Bergen\nRang: normal\nGewissheit: nicht angegeben\nAnmerkung: Der Bericht nennt das Garage in Bergen.\nBeleg (third_party): Bergensavisen\nlocator: Bergensavisen, 29. April 1995"
+	hit := publicHit("live", "Jackie in Bergen")
+	hit.Text = rawText
+	hit.DocumentID = "event/bergen"
+	hit.Metadata = json.RawMessage(`{"section":"live","record_kind":"archive_statement","entity_id":"event/bergen","predicate":"took_place_at","event_status":"announced","rank":"normal","references":[{"document":"document/report"}]}`)
+	a := &App{basePath: "/jackieleven"}
+	card := a.publicSearchCard(hit, "de", "de")
+	for _, technical := range []string{"entity_value", "Rang", "normal", "Gewissheit", "nicht angegeben", "locator", "third_party", "Archiv-Aussage"} {
+		if strings.Contains(card.Excerpt, technical) {
+			t.Errorf("technical field leaked: %s", technical)
+		}
+	}
+	for _, readable := range []string{"Der Bericht nennt das Garage in Bergen.", "Garage, Bergen", "Bergensavisen"} {
+		if !strings.Contains(card.Excerpt, readable) {
+			t.Errorf("source value omitted: %s", readable)
+		}
+	}
+	if card.Text != rawText {
+		t.Fatal("stored evidence text changed")
+	}
+	if card.ReadURL != "/jackieleven/de/suche/objekt?id=event%2Fbergen" || !strings.Contains(card.PassageURL, "/de/suche/textstelle?") {
+		t.Fatal("entity and stored passage targets not separated")
+	}
+	if card.Kind != "Archivhinweis" || card.Status != "Angekündigt" {
+		t.Fatalf("wrong archive attribution: %s / %s", card.Kind, card.Status)
+	}
+}
+func TestOccurrenceStatusOnlyForEventCards(t *testing.T) {
+	a := &App{}
+	for _, tc := range []struct{ section, id string }{{"site", "person/jackie-leven"}, {"press", "document/report"}, {"site", "place/garage"}, {"live", "person/jackie-leven"}} {
+		hit := publicHit(tc.section, "Archive record")
+		hit.DocumentID = tc.id
+		hit.Metadata = json.RawMessage(`{"section":"` + tc.section + `","record_kind":"archive_entity","entity_id":"` + tc.id + `","event_status":"unknown"}`)
+		card := a.publicSearchCard(hit, "en", "en")
+		if card.Status != "" {
+			t.Errorf("non-event has performance status: %s", tc.id)
+		}
+	}
+}
+func TestArchiveStatementUncertaintyAndMissingEvidenceRemainVisible(t *testing.T) {
+	hit := publicHit("live", "Concert")
+	hit.DocumentID = "event/one"
+	hit.Text = "Archiv-Aussage über Concert\nZeitangabe:\nedtf_value: [1997-04-05,1997-04-13]\nRang: normal\nGewissheit: uncertain\nBelegstatus: Kein Belegverweis an dieser Aussage."
+	hit.Metadata = json.RawMessage(`{"section":"live","record_kind":"archive_statement","entity_id":"event/one","certainty":"uncertain","references":[]}`)
+	a := &App{}
+	card := a.publicSearchCard(hit, "en", "en")
+	if !strings.Contains(card.Kind, "No source reference") || !strings.Contains(card.Excerpt, "Uncertain statement") || !strings.Contains(card.Excerpt, "[1997-04-05,1997-04-13]") {
+		t.Fatalf("meaningful evidence state lost: %+v", card)
+	}
+}
+func TestArchiveResultLinksOpenStructuredReader(t *testing.T) {
+	hit := publicHit("live", "Concert in Bergen")
+	hit.DocumentID = "event/bergen"
+	hit.Metadata = json.RawMessage(`{"section":"live","record_kind":"archive_entity","entity_id":"event/bergen","event_status":"took_place"}`)
+	a := newSearchTestApp(t, "/jackieleven", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(searchclient.SearchResponse{Versions: testVersions(), Mode: "hybrid", Hits: []searchclient.Hit{hit}})
+	})
+	w := searchRequest(a, "GET", "/jackieleven/en/search?q=Bergen")
+	body := w.Body.String()
+	if w.Code != 200 || strings.Count(body, `href="/jackieleven/en/search/entity?id=event%2Fbergen"`) < 2 {
+		t.Fatal("archive title/read link does not reach structured record")
+	}
+	if !strings.Contains(body, "Archive note") {
+		t.Fatal("archive attribution missing")
+	}
+}
