@@ -50,7 +50,7 @@ class Snapshot:
 def inline(text):
     # Match the deliberately small site's MarkdownInline reader; never interpret raw HTML.
     text = re.sub(r'\*\*(.+?)\*\*', r'\1', text, flags=re.S)
-    text = re.sub(r'(?<![A-Za-z0-9_*])\*(\S(?:.*?\S)?)\*(?![A-Za-z0-9_*])', r'\1', text)
+    text = re.sub(r'(?<![A-Za-z0-9_*])\*(\S(?:.*?\S)?)\*(?![A-Za-z0-9_*])', r'\1', text, flags=re.S)
     return re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', r'\1', text)
 
 
