@@ -142,11 +142,13 @@ func (s *Service) semantic(ctx context.Context, q Query, v []float32, n int) ([]
 	return s.repo.Semantic(ctx, s.Manifest, q, v, n)
 }
 
-// Fusion is by document for grouped search, while retaining an actual passage as
-// evidence. The lexical representative wins when both lists cover a document.
+// Fusion ranks documents, but uses the semantic list's query-specific passage
+// when both lists find a document. A title match can give every paragraph the
+// same lexical score; retaining that arbitrary paragraph hides relevant evidence
+// from the reranker. Scores from the two retrieval methods are never compared.
 func documentRRF(lists ...[]Hit) []Hit {
 	scores := make(map[string]Hit)
-	for _, list := range lists {
+	for listIndex, list := range lists {
 		seen := make(map[string]bool)
 		for i, h := range list {
 			k := documentKey(h)
@@ -158,6 +160,11 @@ func documentRRF(lists ...[]Hit) []Hit {
 			if !ok {
 				old = h
 				old.Score = 0
+			}
+			if ok && listIndex > 0 {
+				score := old.Score
+				old = h
+				old.Score = score
 			}
 			old.Score += 1 / float64(60+i+1)
 			scores[k] = old
@@ -223,6 +230,29 @@ func groupedResults(hits []Hit, limit int) []Hit {
 	out := make([]Hit, 0, limit)
 	for _, section := range order {
 		out = append(out, groups[section][:selected[section]]...)
+	}
+	return out
+}
+
+// Initial corpus-specific calibration, not a probability-of-truth claim. The
+// 2026-10-26 full-corpus negative control peaked at 0.00326004; relevant Norway
+// excerpts scored 0.0686–0.8139, irrelevant ones below 0.00132. Require both a
+// conservative absolute floor and 5% of the best score, so near-zero ANN matches
+// never acquire relevance merely because they are the best in an empty section.
+// Apply only to successfully reranked grouped results, never raw BM25/RRF scores.
+func relevantGrouped(hits []Hit) []Hit {
+	best := 0.0
+	for _, h := range hits {
+		if h.Score > best {
+			best = h.Score
+		}
+	}
+	floor := max(0.01, best*0.05)
+	out := make([]Hit, 0, len(hits))
+	for _, h := range hits {
+		if h.Score >= floor {
+			out = append(out, h)
+		}
 	}
 	return out
 }

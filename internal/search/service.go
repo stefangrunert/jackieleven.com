@@ -270,6 +270,30 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 			}
 		}
 	}
+	if q.Grouped && q.Rerank {
+		if out.Reranked {
+			out.Hits = relevantGrouped(out.Hits)
+		} else if out.Mode != "lexical" {
+			// Without the requested relevance check, semantic nearest neighbours
+			// alone cannot establish that a section answers the query. Fall back
+			// to actual lexical matches instead of filling every section with ANN.
+			if q.Mode == "semantic" {
+				lex.hits, lex.err = s.lexical(ctx, q, n)
+				if lex.err != nil {
+					return out, ErrUnavailable
+				}
+			}
+			out.Mode = "lexical"
+			if q.Section != "" {
+				out.Hits = sectionCandidatesLimit(lex.hits, min(q.Limit, 28))
+			} else {
+				out.Hits = groupedCandidates(lex.hits)
+			}
+			for i := range out.Hits {
+				out.Hits[i].Text = excerpt(out.Hits[i].Text, 1200)
+			}
+		}
+	}
 	if q.Grouped && q.Section == "" {
 		out.Hits = groupedResults(out.Hits, q.Limit)
 	}

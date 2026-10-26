@@ -147,11 +147,11 @@ func TestGroupedRerankTimeoutPreservesResults(t *testing.T) {
 		t.Fatal(out, e)
 	}
 }
-func TestDocumentFusionRetainsEvidenceAndNoDuplicateCredit(t *testing.T) {
+func TestDocumentFusionChoosesQuerySpecificEvidenceAndNoDuplicateCredit(t *testing.T) {
 	original := Hit{ID: "p1", DocumentID: "doc", TextKind: "original", Text: "Exact original"}
 	other := Hit{ID: "p2", DocumentID: "doc", TextKind: "summary", Text: "Summary"}
 	out := documentRRF([]Hit{original, other}, []Hit{other})
-	if len(out) != 1 || out[0].ID != "p1" || out[0].Text != "Exact original" || out[0].Score != 2.0/61 {
+	if len(out) != 1 || out[0].ID != "p2" || out[0].Text != "Summary" || out[0].Score != 2.0/61 {
 		t.Fatal(out)
 	}
 }
@@ -171,5 +171,43 @@ func TestExpandedSectionRerankLimit(t *testing.T) {
 	}
 	if got := len(sectionCandidatesLimit(hits, 28)); got != 28 {
 		t.Fatal("expanded rerank cap", got)
+	}
+}
+
+func TestGroupedRelevanceCalibration(t *testing.T) {
+	hits := []Hit{{ID: "norway", Score: 0.81387991}, {ID: "tromso", Score: 0.06859533}, {ID: "italy", Score: 0.00131617}, {ID: "blossom", Score: 0.00001297}}
+	got := relevantGrouped(hits)
+	if len(got) != 2 || got[0].ID != "norway" || got[1].ID != "tromso" {
+		t.Fatal(got)
+	}
+	if got := relevantGrouped([]Hit{{ID: "negative-control", Score: 0.00326004}}); len(got) != 0 {
+		t.Fatal(got)
+	}
+	if got := relevantGrouped([]Hit{{ID: "boundary", Score: 0.01}}); len(got) != 1 {
+		t.Fatal(got)
+	}
+	if got := relevantGrouped(nil); got == nil {
+		t.Fatal("empty JSON array required")
+	}
+}
+
+type semanticOnlyGroupedRepo struct{ groupedRepo }
+
+func (r *semanticOnlyGroupedRepo) Lexical(context.Context, Manifest, Query, int) ([]Hit, error) {
+	return []Hit{}, nil
+}
+func TestGroupedFailedRerankDoesNotInventMatchingSections(t *testing.T) {
+	o := DefaultOptions()
+	o.RerankTimeout = time.Millisecond
+	for _, mode := range []string{"hybrid", "semantic"} {
+		s, _ := New(testManifest(), &semanticOnlyGroupedRepo{}, &groupedProvider{slow: true}, o)
+		q := query()
+		q.Grouped = true
+		q.Rerank = true
+		q.Mode = mode
+		out, e := s.Search(context.Background(), q)
+		if e != nil || len(out.Hits) != 0 || !out.Degraded || out.Mode != "lexical" || out.Reranked {
+			t.Fatal(mode, out, e)
+		}
 	}
 }

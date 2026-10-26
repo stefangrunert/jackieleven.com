@@ -78,6 +78,17 @@ paths:
         Default searches exclude text_voice=pastiche and metadata.fiction=true;
         only explicit section=biography or voice=pastiche permits fiction.
         Automatically subdividing a grouped request never opts into biography.
+        Grouped hybrid uses the semantically selected passage when both retrieval
+        lists cover a document, so a repeated title cannot replace relevant body
+        evidence with an arbitrary short paragraph. Successfully reranked grouped
+        hits require score >= max(0.01, 0.05 * highest score). This is an initial
+        corpus-specific relevance calibration, not factual confidence: the full
+        corpus negative control peaked at 0.00326; relevant Norway excerpts ranged
+        from 0.0686 to 0.8139 while unrelated excerpts stayed below 0.00132.
+        Empty or insufficiently relevant sections are omitted. If requested
+        reranking fails, grouped search falls back to lexical matches with
+        degraded=true; nearest neighbours alone do not populate sections.
+        Ungrouped technical searches retain their existing score semantics.
         Semantic and hybrid fall back to lexical when embeddings are disabled or
         unavailable. Reranking is optional and uses bounded returned excerpts.
         A DB failure is an error, never an empty result. Scores are meaningful
