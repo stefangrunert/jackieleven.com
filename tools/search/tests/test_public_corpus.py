@@ -33,7 +33,7 @@ class FullCorpusTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.state = State(cls.tmp.name)
-        cls.website = Snapshot(ROOT, 'a1ea027')
+        cls.website = Snapshot(ROOT, '11947ff9ed768bdd525defbc1807d6ebb1f88266')
         cls.archive = Snapshot(ARCHIVE, '7d353a4')
         cls.corpus = export(cls.website, cls.archive, cls.state)
 
@@ -97,7 +97,7 @@ class FullCorpusTests(unittest.TestCase):
         self.assertTrue(all(p['url_de'].startswith('/de/suche/objekt?id=') for p in records))
 
     def test_repeat_export_is_identical(self):
-        again = export(Snapshot(ROOT, 'a1ea027'), Snapshot(ARCHIVE, '7d353a4'), self.state)
+        again = export(Snapshot(ROOT, '11947ff9ed768bdd525defbc1807d6ebb1f88266'), Snapshot(ARCHIVE, '7d353a4'), self.state)
         self.assertEqual(canonical(self.corpus), canonical(again))
 
     @unittest.skipUnless(os.environ.get('SEARCH_BASELINE_EXPORT'), 'Set SEARCH_BASELINE_EXPORT to check the retained vector inputs')

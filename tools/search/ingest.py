@@ -161,7 +161,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--website-root', required=True, type=Path)
     parser.add_argument('--archive-root', required=True, type=Path)
-    parser.add_argument('--website-revision', default='a1ea027')
+    parser.add_argument('--website-revision', default='11947ff9ed768bdd525defbc1807d6ebb1f88266')
     parser.add_argument('--archive-revision', default='7d353a4')
     parser.add_argument('--state-dir', type=Path, required=True)
     parser.add_argument('--manifest', type=Path)

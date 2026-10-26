@@ -32,3 +32,27 @@ __pycache__/
 /jackieleven
 /bin/
 /dist/
+
+# Original photographs removed from published Git history
+/assets/bilder/memorial.jpg
+/assets/bilder/phase-anfaenge.jpg
+/assets/bilder/phase-ende.jpg
+/assets/bilder/phase-zentrum.jpg
+/assets/bilder/y1983.jpg
+/assets/bilder/y2000-owl.jpg
+/assets/bilder/y2002-hund.jpg
+/assets/bilder/y2002-pub.jpg
+/assets/bilder/y2004-brick.jpg
+/assets/bilder/y2004-live.jpg
+/assets/bilder/y2011-portrait.jpg
+/sketches/assets/memorial.jpg
+/sketches/assets/phase-anfaenge.jpg
+/sketches/assets/phase-ende.jpg
+/sketches/assets/phase-zentrum.jpg
+/sketches/assets/y1983.jpg
+/sketches/assets/y2000-owl.jpg
+/sketches/assets/y2002-hund.jpg
+/sketches/assets/y2002-pub.jpg
+/sketches/assets/y2004-brick.jpg
+/sketches/assets/y2004-live.jpg
+/sketches/assets/y2011-portrait.jpg

@@ -1,6 +1,6 @@
 # Local search importer
 
-Python 3.11+; install `requirements.txt` into a private venv. The exporter reads pinned Git snapshots, never changing archive files. Default snapshots are website `a1ea027` and archive `7d353a4`. Published pastiche is explicitly marked as fiction and requires service opt-in; see [full-coverage.md](full-coverage.md). Every archive entity is preserved as its complete JSON object, including conflicting statements and references.
+Python 3.11+; install `requirements.txt` into a private venv. The exporter reads pinned Git snapshots, never changing archive files. Default snapshots are website `11947ff9ed768bdd525defbc1807d6ebb1f88266` and archive `7d353a4`. Published pastiche is explicitly marked as fiction and requires service opt-in; see [full-coverage.md](full-coverage.md). Every archive entity is preserved as its complete JSON object, including conflicting statements and references.
 
 ```sh
 uv venv .dev/runtime/search/venv

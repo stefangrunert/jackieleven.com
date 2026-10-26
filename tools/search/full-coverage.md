@@ -1,6 +1,6 @@
 # Public corpus coverage — 26 October 2026
 
-This report describes the bounded public corpus, not the historical completeness of the archive or a scholarly critical edition. Website inputs are pinned to `a1ea027`; the archive remains pinned to `7d353a4ce8043e284619fe409bfe87238dae2257`. Before selecting that archive revision, HEAD and status were inspected: there were 965 committed data files and only unrelated untracked IDE files. Those files were not read into the corpus or changed.
+This report describes the bounded public corpus, not the historical completeness of the archive or a scholarly critical edition. Website inputs are pinned to `11947ff9ed768bdd525defbc1807d6ebb1f88266`; the archive remains pinned to `7d353a4ce8043e284619fe409bfe87238dae2257`. Before selecting that archive revision, HEAD and status were inspected: there were 965 committed data files and only unrelated untracked IDE files. Those files were not read into the corpus or changed.
 
 ## Inventory
 
