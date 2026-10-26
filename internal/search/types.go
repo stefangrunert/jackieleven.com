@@ -80,10 +80,11 @@ type Hit struct {
 	Metadata    json.RawMessage `json:"metadata,omitempty"`
 }
 type Query struct {
-	Text, Language, Mode, Voice string
-	Limit                       int
-	From, To                    *int
-	Rerank                      bool
+	Text, Language, Mode, Voice, Section string
+	Limit                                int
+	From, To                             *int
+	Rerank                               bool
+	Grouped                              bool
 }
 
 func (q Query) Validate() error {
@@ -94,6 +95,9 @@ func (q Query) Validate() error {
 		if unicode.IsControl(r) {
 			return ErrInvalid
 		}
+	}
+	if q.Section != "" && !validSection(q.Section) {
+		return ErrInvalid
 	}
 	switch q.Voice {
 	case "", "leven", "third_party", "editorial", "pastiche":

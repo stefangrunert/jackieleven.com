@@ -172,7 +172,7 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 	}
 	lexical := make(chan result, 1)
 	startLexical := func() {
-		go func() { h, e := s.repo.Lexical(ctx, s.Manifest, q, n); lexical <- result{h, e} }()
+		go func() { h, e := s.lexical(ctx, q, n); lexical <- result{h, e} }()
 	}
 	if q.Mode != "semantic" {
 		startLexical()
@@ -189,7 +189,7 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 			if err != nil {
 				reason = "embedding_unavailable"
 			} else {
-				semantic, err = s.repo.Semantic(ctx, s.Manifest, q, v, n)
+				semantic, err = s.semantic(ctx, q, v, n)
 				if err != nil {
 					return out, ErrUnavailable
 				}
@@ -221,11 +221,19 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 	case "semantic":
 		out.Hits = semantic
 	case "hybrid":
-		out.Hits = RRF(lex.hits, semantic)
+		if q.Grouped {
+			out.Hits = documentRRF(lex.hits, semantic)
+		} else {
+			out.Hits = RRF(lex.hits, semantic)
+		}
 	}
-	out.Hits = uniquePassages(out.Hits)
-	if len(out.Hits) > q.Limit {
-		out.Hits = out.Hits[:q.Limit]
+	if q.Grouped {
+		out.Hits = groupedCandidates(out.Hits)
+	} else {
+		out.Hits = uniquePassages(out.Hits)
+		if len(out.Hits) > q.Limit {
+			out.Hits = out.Hits[:q.Limit]
+		}
 	}
 	if out.Hits == nil {
 		out.Hits = []Hit{}
@@ -257,6 +265,9 @@ func (s *Service) Search(ctx context.Context, q Query) (Response, error) {
 				out.Reranked = true
 			}
 		}
+	}
+	if q.Grouped {
+		out.Hits = groupedResults(out.Hits, q.Limit)
 	}
 	out.DurationMS = time.Since(start).Milliseconds()
 	return out, nil

@@ -143,8 +143,8 @@ func only(v url.Values, keys ...string) bool {
 	return true
 }
 func parseQuery(v url.Values) (search.Query, error) {
-	q := search.Query{Text: v.Get("q"), Language: v.Get("lang"), Mode: v.Get("mode"), Voice: v.Get("voice"), Limit: 20}
-	if !only(v, "q", "lang", "mode", "voice", "limit", "from", "to", "rerank") {
+	q := search.Query{Text: v.Get("q"), Language: v.Get("lang"), Mode: v.Get("mode"), Voice: v.Get("voice"), Section: v.Get("section"), Limit: 20}
+	if !only(v, "q", "lang", "mode", "voice", "limit", "from", "to", "rerank", "section", "grouped") {
 		return q, search.ErrInvalid
 	}
 	if q.Language == "" {
@@ -168,6 +168,13 @@ func parseQuery(v url.Values) (search.Query, error) {
 			}
 			*dst = &n
 		}
+	}
+	switch v.Get("grouped") {
+	case "", "0":
+	case "1":
+		q.Grouped = true
+	default:
+		return q, search.ErrInvalid
 	}
 	switch v.Get("rerank") {
 	case "", "0":

@@ -63,34 +63,57 @@ func (p *Postgres) Ready(ctx context.Context, m Manifest) error {
 
 const fields = `p.id,p.document_id,p.title,p.text,p.language,p.source_voice,p.text_voice,p.text_kind,CASE WHEN $3='de' THEN p.url_de ELSE p.url_en END,p.metadata`
 
-const excerptFields = `p.id,p.document_id,left(p.title,1024),left(p.text,1201),p.language,p.source_voice,p.text_voice,p.text_kind,CASE WHEN $3='de' THEN p.url_de ELSE p.url_en END,CASE WHEN octet_length(p.metadata::text)<=16384 THEN p.metadata ELSE '{}'::jsonb END`
+const excerptFields = `p.id,p.document_id,left(p.title,1024),left(p.text,1201),p.language,p.source_voice,p.text_voice,p.text_kind,CASE WHEN $3='de' THEN p.url_de ELSE p.url_en END,CASE WHEN octet_length(p.metadata::text)<=16384 THEN p.metadata ELSE jsonb_build_object('section',p.metadata->'section','fiction',p.metadata->'fiction') END`
 
 // Every path binds both the build and content version; no caller chooses a schema.
 const bound = ` FROM search.passages p JOIN search.builds b ON b.build_id=p.build_id WHERE p.build_id=$1 AND b.content_version=$2 AND b.status='ready'`
-const filters = ` AND ($4::text='' OR p.text_voice=$4) AND ($5::integer IS NULL OR p.year >= $5) AND ($6::integer IS NULL OR p.year <= $6)`
+const filters = ` AND ($4::text='' OR p.text_voice=$4) AND ($5::integer IS NULL OR p.year >= $5) AND ($6::integer IS NULL OR p.year <= $6) AND ($9::text='' OR coalesce(p.metadata->>'section','site')=$9) AND ($10::boolean OR (p.text_voice<>'pastiche' AND coalesce(p.metadata->>'fiction','false')<>'true'))`
 
 func args(m Manifest, q Query) []any {
 	return []any{m.BuildID, m.ContentVersion, q.Language, q.Voice, q.From, q.To}
 }
 func (p *Postgres) Lexical(ctx context.Context, m Manifest, q Query, n int) ([]Hit, error) {
-	a := append(args(m, q), q.Text, n)
+	a := append(args(m, q), q.Text, n, q.Section, q.Section == "biography" || q.Voice == "pastiche")
 	// Bind $7 as text before casting to boost. If its first use has type
 	// pdb.boost, a later $7::text serializes the internal query object to JSON
 	// and incorrectly searches body text for tokens such as "string" and "null".
-	return p.hits(ctx, `SELECT `+excerptFields+`,pdb.score(p.row_id)::double precision`+bound+filters+` AND (p.title ||| $7::text::pdb.boost(3) OR p.text ||| $7::text) ORDER BY pdb.score(p.row_id) DESC,p.id LIMIT $8`, a...)
+	base := `SELECT ` + excerptFields + `,pdb.score(p.row_id)::double precision` + bound + filters + ` AND (p.title ||| $7::text::pdb.boost(3) OR p.text ||| $7::text)`
+	if q.Grouped {
+		return p.hits(ctx, groupedSQL(base), a...)
+	}
+	return p.hits(ctx, base+` ORDER BY pdb.score(p.row_id) DESC,p.id LIMIT $8`, a...)
 }
 func (p *Postgres) Semantic(ctx context.Context, m Manifest, q Query, v []float32, n int) ([]Hit, error) {
 	if len(v) != 1024 {
 		return nil, ErrInvalid
 	}
-	a := append(args(m, q), pgvector.NewHalfVector(v), n)
-	return p.hits(ctx, `SELECT `+excerptFields+`,(1-(p.embedding <=> $7::halfvec))::double precision`+bound+filters+` AND p.embedding IS NOT NULL ORDER BY p.embedding <=> $7::halfvec,p.id LIMIT $8`, a...)
+	a := append(args(m, q), pgvector.NewHalfVector(v), n, q.Section, q.Section == "biography" || q.Voice == "pastiche")
+	base := `SELECT ` + excerptFields + `,(1-(p.embedding <=> $7::halfvec))::double precision` + bound + filters + ` AND p.embedding IS NOT NULL`
+	if q.Grouped {
+		return p.hits(ctx, groupedSQL(base), a...)
+	}
+	return p.hits(ctx, base+` ORDER BY p.embedding <=> $7::halfvec,p.id LIMIT $8`, a...)
+}
+
+// Dedupe after scoring/filtering but BEFORE LIMIT, so a long document cannot
+// crowd other documents out of a section. Prefer localized summaries within 5%
+// of the best relevance, but retain an original when it is the best passage.
+func groupedSQL(base string) string {
+	return `WITH scored(id,document_id,title,text,language,source_voice,text_voice,text_kind,url,metadata,score) AS MATERIALIZED (` + base + `), ranked AS (SELECT *,max(score) OVER (PARTITION BY document_id) AS best_score FROM scored), chosen AS (SELECT DISTINCT ON (document_id) id,document_id,title,text,language,source_voice,text_voice,text_kind,url,metadata,score FROM ranked ORDER BY document_id,CASE WHEN text_kind='original' AND score=best_score THEN 0 WHEN language=$3 AND text_kind<>'original' AND score>=best_score-greatest(abs(best_score)*0.05,0.000001) THEN 1 ELSE 2 END,score DESC,id) SELECT * FROM chosen ORDER BY score DESC,id LIMIT $8`
 }
 func scanHit(row pgx.Row) (Hit, error) {
 	var h Hit
 	e := row.Scan(&h.ID, &h.DocumentID, &h.Title, &h.Text, &h.Language, &h.SourceVoice, &h.TextVoice, &h.TextKind, &h.URL, &h.Metadata, &h.Score)
 	if len(h.Metadata) > 16384 {
-		h.Metadata = nil
+		var safety struct {
+			Section string `json:"section"`
+			Fiction bool   `json:"fiction"`
+		}
+		if json.Unmarshal(h.Metadata, &safety) == nil {
+			h.Metadata, _ = json.Marshal(safety)
+		} else {
+			h.Metadata = nil
+		}
 	}
 	return h, e
 }

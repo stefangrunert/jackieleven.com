@@ -16,6 +16,8 @@ import (
 )
 
 type mcpSearchInput struct {
+	Section  string `json:"section,omitempty" jsonschema:"Optional section music, live, timeline, writing, press, biography or site. Biography explicitly includes fiction."`
+	Grouped  bool   `json:"grouped,omitempty" jsonschema:"Return diverse documents grouped by section, at most three per section"`
 	Query    string `json:"q" jsonschema:"Search query, maximum 1024 UTF-8 bytes"`
 	Language string `json:"lang,omitempty" jsonschema:"Original link language de or en, defaults to de"`
 	Mode     string `json:"mode,omitempty" jsonschema:"lexical, semantic or hybrid; defaults to hybrid; semantic and hybrid send the query to DeepInfra"`
@@ -73,6 +75,12 @@ func NewWithMCP(s *search.Service, timeout time.Duration) http.Handler {
 		}
 		if in.To != nil {
 			v.Set("to", strconv.Itoa(*in.To))
+		}
+		if in.Section != "" {
+			v.Set("section", in.Section)
+		}
+		if in.Grouped {
+			v.Set("grouped", "1")
 		}
 		if in.Rerank {
 			v.Set("rerank", "1")

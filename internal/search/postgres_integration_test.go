@@ -163,6 +163,7 @@ func TestPostgresIntegration(t *testing.T) {
 	if e != nil {
 		t.Fatal("entity", e)
 	}
+	testGroupedPostgres(t, ctx, admin, db, m)
 	m.ContentVersion = "wrong"
 	if db.Ready(ctx, m) == nil {
 		t.Fatal("accepted wrong manifest")
@@ -212,5 +213,91 @@ func TestLiveNoHitRegression(t *testing.T) {
 		if term == "xxxxxxxxxxzyxzxq" && (e != nil || len(hits) != 0) {
 			t.Errorf("nonexistent term returned %d hits", len(hits))
 		}
+	}
+}
+
+func testGroupedPostgres(t *testing.T, ctx context.Context, admin *pgx.Conn, db *Postgres, m Manifest) {
+	t.Helper()
+	vector := make([]float32, 1024)
+	vector[0] = 1
+	insert := func(id, doc, section, language, kind, voice string, fiction bool) {
+		t.Helper()
+		metadata := fmt.Sprintf(`{"section":%q,"fiction":%t}`, section, fiction)
+		_, e := admin.Exec(ctx, `INSERT INTO search.passages(build_id,id,document_id,title,text,language,source_voice,text_voice,text_kind,year,url_de,url_en,content_hash,embedding,metadata) VALUES($1,$2,$3,'Fixture','groupedvalidationterm',$4,'editorial',$5,$6,2001,'/de/synthetic','/en/synthetic','grouped-hash',$7,$8)`, m.BuildID, id, doc, language, voice, kind, pgvector.NewHalfVector(vector), metadata)
+		if e != nil {
+			t.Fatal("grouped fixture insert failed")
+		}
+	}
+	for i := 0; i < 20; i++ {
+		insert(fmt.Sprintf("group-many-%d", i), "many", "music", "en", "original", "editorial", false)
+	}
+	for i := 0; i < 3; i++ {
+		insert(fmt.Sprintf("group-other-%d", i), fmt.Sprintf("other-%d", i), "music", "en", "original", "editorial", false)
+	}
+	insert("local-en", "localized", "press", "en", "summary", "editorial", false)
+	insert("local-de", "localized", "press", "de", "summary", "editorial", false)
+	insert("original-en", "quoted", "press", "en", "original", "editorial", false)
+	insert("original-de", "quoted", "press", "de", "summary", "editorial", false)
+	insert("fiction-voice", "fiction-voice", "biography", "de", "original", "pastiche", false)
+	insert("fiction-flag", "fiction-flag", "press", "de", "summary", "editorial", true)
+	q := query()
+	q.Text = "groupedvalidationterm"
+	q.Mode = "lexical"
+	hits, e := db.Lexical(ctx, m, q, 50)
+	if e != nil || len(hits) != 27 {
+		t.Fatalf("default fiction exclusion: n=%d e=%v", len(hits), e)
+	}
+	q.Section = "music"
+	q.Grouped = true
+	for _, semantic := range []bool{false, true} {
+		var hits []Hit
+		var e error
+		if semantic {
+			hits, e = db.Semantic(ctx, m, q, vector, 4)
+		} else {
+			hits, e = db.Lexical(ctx, m, q, 4)
+		}
+		if e != nil || len(hits) != 4 {
+			t.Fatalf("dedup before LIMIT (semantic=%t): n=%d e=%v", semantic, len(hits), e)
+		}
+		docs := map[string]bool{}
+		for _, h := range hits {
+			if docs[h.DocumentID] || hitSection(h) != "music" {
+				t.Fatal("section or document leak")
+			}
+			docs[h.DocumentID] = true
+		}
+	}
+	q.Section = "press"
+	for _, semantic := range []bool{false, true} {
+		var hits []Hit
+		var e error
+		if semantic {
+			hits, e = db.Semantic(ctx, m, q, vector, 10)
+		} else {
+			hits, e = db.Lexical(ctx, m, q, 10)
+		}
+		if e != nil || len(hits) != 2 {
+			t.Fatalf("localized/evidence selection (semantic=%t): n=%d e=%v", semantic, len(hits), e)
+		}
+		for _, h := range hits {
+			if h.DocumentID == "localized" && h.ID != "local-de" {
+				t.Fatal("preferred summary language not selected")
+			}
+			if h.DocumentID == "quoted" && h.ID != "original-en" {
+				t.Fatal("original quote displaced")
+			}
+		}
+	}
+	q.Section = "biography"
+	hits, e = db.Lexical(ctx, m, q, 10)
+	if e != nil || len(hits) != 1 || hits[0].ID != "fiction-voice" {
+		t.Fatal("biography opt-in", len(hits), e)
+	}
+	q.Section = ""
+	q.Voice = "pastiche"
+	hits, e = db.Semantic(ctx, m, q, vector, 10)
+	if e != nil || len(hits) != 1 || hits[0].ID != "fiction-voice" {
+		t.Fatal("pastiche voice opt-in", len(hits), e)
 	}
 }

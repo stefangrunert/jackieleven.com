@@ -6,7 +6,8 @@ info:
     Internal loopback API, pinned to one immutable startup manifest. No request
     can choose a build. Query strings and provider credentials are not logged.
     Responses are no-store/noindex. lang selects original-document link language,
-    not a corpus-language restriction. voice filters text_voice.
+    not a corpus-language restriction. voice filters text_voice. Fiction is excluded
+    by default unless section=biography or voice=pastiche explicitly opts in.
 servers:
   - url: http://127.0.0.1:8081
 paths:
@@ -59,7 +60,21 @@ paths:
       description: >-
         Lexical uses parameterized ParadeDB BM25 with title boost 3 and Unicode
         tokenization. Semantic uses exact cosine distance of normalized halfvec(1024).
-        Hybrid fuses up to 100 candidates per retrieval list using RRF k=60.
+        Ungrouped hybrid fuses up to 100 candidates per retrieval list using RRF k=60.
+        grouped=1 instead retrieves at most 12 distinct documents per section and
+        retrieval list, with two concurrent SQL queries per list. Each document is
+        deduplicated before the SQL candidate limit. It fuses by document and sends
+        at most four documents per populated section (28 overall) to the optional
+        reranker. The final flat hits contain at most three documents per section,
+        respect limit, and are contiguous by section in relevance order. A small
+        limit takes one per populated section before second or third results.
+        Original best-scoring passages retain precedence; a localized non-original
+        passage is preferred when within five percent of the document's best score.
+        metadata.section contains music, live, timeline, writing, press, biography
+        or site. Absent section metadata is treated as site for older snapshots.
+        Default searches exclude text_voice=pastiche and metadata.fiction=true;
+        only explicit section=biography or voice=pastiche permits fiction.
+        Automatically subdividing a grouped request never opts into biography.
         Semantic and hybrid fall back to lexical when embeddings are disabled or
         unavailable. Reranking is optional and uses bounded returned excerpts.
         A DB failure is an error, never an empty result. Scores are meaningful
@@ -83,6 +98,14 @@ paths:
           in: query
           description: Actual text voice; source_voice remains separate provenance
           schema: {type: string, enum: [leven, third_party, editorial, pastiche]}
+        - name: section
+          in: query
+          description: Optional content section; biography explicitly opts into fictional material
+          schema: {type: string, enum: [music, live, timeline, writing, press, biography, site]}
+        - name: grouped
+          in: query
+          description: Return diverse documents per section; output remains a flat hits array with metadata
+          schema: {type: integer, enum: [0, 1], default: 0}
         - name: from
           in: query
           description: Inclusive publication year, not concert year
@@ -211,7 +234,14 @@ components:
         text_kind: {type: string, enum: [original, translation, summary]}
         url: {type: string, description: Production-relative original document URL, not an exact passage anchor}
         score: {type: number}
-        metadata: {type: object, additionalProperties: true, description: Optional metadata up to 16 KiB}
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Metadata up to 16 KiB; section and fiction markers retained even when other oversized metadata is omitted
+          properties:
+            section: {type: string, enum: [music, live, timeline, writing, press, biography, site]}
+            fiction: {type: boolean}
+            version_group: {type: string}
     Error:
       type: object
       required: [api_version, error]
