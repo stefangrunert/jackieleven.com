@@ -1,0 +1,224 @@
+openapi: 3.1.0
+info:
+  title: Jackie Leven archive search
+  version: v1
+  description: >-
+    Internal loopback API, pinned to one immutable startup manifest. No request
+    can choose a build. Query strings and provider credentials are not logged.
+    Responses are no-store/noindex. lang selects original-document link language,
+    not a corpus-language restriction. voice filters text_voice.
+servers:
+  - url: http://127.0.0.1:8081
+paths:
+  /healthz:
+    get:
+      operationId: liveness
+      responses:
+        '200':
+          description: Process alive, independent of database and provider
+  /readyz:
+    get:
+      operationId: readiness
+      responses:
+        '200':
+          description: Pinned build, database, extensions, index and vector schema compatible
+        '503':
+          $ref: '#/components/responses/Unavailable'
+        '429':
+          $ref: '#/components/responses/Capacity'
+  /v1/search:
+    get:
+      operationId: search
+      description: >-
+        Lexical uses parameterized ParadeDB BM25 with title boost 3 and Unicode
+        tokenization. Semantic uses exact cosine distance of normalized halfvec(1024).
+        Hybrid fuses up to 100 candidates per retrieval list using RRF k=60.
+        Semantic and hybrid fall back to lexical when embeddings are disabled or
+        unavailable. Reranking is optional and uses bounded returned excerpts.
+        A DB failure is an error, never an empty result. Scores are meaningful
+        within a response only. Defaults: 6s request, 3s provider call, configurable
+        by CLI; at most 8 active requests, 4 DB connections and 2 provider calls.
+      parameters:
+        - $ref: '#/components/parameters/Version'
+        - name: q
+          in: query
+          required: true
+          description: Nonempty UTF-8 text, at most 1024 bytes, no control characters
+          schema: {type: string, minLength: 1, maxLength: 1024}
+        - $ref: '#/components/parameters/Language'
+        - name: mode
+          in: query
+          schema: {type: string, enum: [lexical, semantic, hybrid], default: hybrid}
+        - name: limit
+          in: query
+          schema: {type: integer, minimum: 1, maximum: 50, default: 20}
+        - name: voice
+          in: query
+          description: Actual text voice; source_voice remains separate provenance
+          schema: {type: string, enum: [leven, third_party, editorial, pastiche]}
+        - name: from
+          in: query
+          description: Inclusive publication year, not concert year
+          schema: {type: integer, minimum: 1, maximum: 9999}
+        - name: to
+          in: query
+          description: Inclusive publication year, not before from
+          schema: {type: integer, minimum: 1, maximum: 9999}
+        - name: rerank
+          in: query
+          schema: {type: integer, enum: [0, 1], default: 0}
+      responses:
+        '200':
+          description: Results; hits is an empty array for a lexical miss
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Versions'
+                  - type: object
+                    required: [mode, degraded, reranked, duration_ms, hits]
+                    properties:
+                      mode: {type: string, enum: [lexical, semantic, hybrid], description: Actually used mode}
+                      degraded: {type: boolean}
+                      reason:
+                        type: string
+                        enum: [external_disabled, embedding_profile_none, embedding_unavailable, rerank_unavailable]
+                      reranked: {type: boolean, description: True only after successful requested reranking}
+                      duration_ms: {type: integer, minimum: 0}
+                      hits:
+                        type: array
+                        maxItems: 50
+                        items: {$ref: '#/components/schemas/Hit'}
+        '400': {$ref: '#/components/responses/Invalid'}
+        '409': {$ref: '#/components/responses/VersionMismatch'}
+        '429': {$ref: '#/components/responses/Capacity'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/passages:
+    get:
+      operationId: getPassage
+      description: Full exact stored passage text and the original document URL; no fabricated anchor
+      parameters:
+        - $ref: '#/components/parameters/Version'
+        - $ref: '#/components/parameters/ID'
+        - $ref: '#/components/parameters/Language'
+      responses:
+        '200':
+          description: Exact passage bound to startup build
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Versions'
+                  - type: object
+                    required: [passage]
+                    properties:
+                      passage: {$ref: '#/components/schemas/Hit'}
+        '400': {$ref: '#/components/responses/Invalid'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/VersionMismatch'}
+        '429': {$ref: '#/components/responses/Capacity'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/entities:
+    get:
+      operationId: getEntity
+      parameters:
+        - $ref: '#/components/parameters/Version'
+        - $ref: '#/components/parameters/ID'
+      responses:
+        '200':
+          description: Original exported entity data including provenance
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Versions'
+                  - type: object
+                    required: [entity]
+                    properties:
+                      entity: {type: object, additionalProperties: true}
+        '400': {$ref: '#/components/responses/Invalid'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/VersionMismatch'}
+        '429': {$ref: '#/components/responses/Capacity'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+components:
+  parameters:
+    Version:
+      name: X-Archive-Content-Version
+      in: header
+      required: true
+      schema: {type: string}
+      description: Must equal the startup manifest content_version; missing or unequal returns 409
+    Language:
+      name: lang
+      in: query
+      schema: {type: string, enum: [de, en], default: de}
+    ID:
+      name: id
+      in: query
+      required: true
+      schema: {type: string, minLength: 1, maxLength: 1024}
+      description: Exact UTF-8 identifier, at most 1024 bytes, URL encoded including any hash sign
+  schemas:
+    Versions:
+      type: object
+      required: [api_version, content_version, data_version, search_release]
+      properties:
+        api_version: {type: string, const: v1}
+        content_version: {type: string}
+        data_version: {type: string}
+        search_release: {type: string}
+    Hit:
+      type: object
+      required: [id, document_id, title, text, language, source_voice, text_voice, text_kind, url, score]
+      properties:
+        id: {type: string}
+        document_id: {type: string}
+        title: {type: string}
+        text:
+          type: string
+          description: Search excerpt limited to 1200 Unicode code points plus ellipsis; passage endpoint returns full stored text up to 256 KiB
+        language: {type: string}
+        source_voice: {type: string}
+        text_voice: {type: string}
+        text_kind: {type: string, enum: [original, translation, summary]}
+        url: {type: string, description: Production-relative original document URL, not an exact passage anchor}
+        score: {type: number}
+        metadata: {type: object, additionalProperties: true, description: Optional metadata up to 16 KiB}
+    Error:
+      type: object
+      required: [api_version, error]
+      properties:
+        api_version: {type: string, const: v1}
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: {type: string, enum: [invalid_query, not_found, content_version_mismatch, capacity, unavailable, method_not_allowed]}
+            message: {type: string, description: Stable safe message without raw SQL or provider details}
+  responses:
+    Invalid:
+      description: Invalid, duplicate or unknown query parameters
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    NotFound:
+      description: ID not present in pinned build
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    VersionMismatch:
+      description: Required content version missing or mismatched
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Capacity:
+      description: Concurrency limit reached; Retry-After 1
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Unavailable:
+      description: Database, schema or required retrieval unavailable
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
