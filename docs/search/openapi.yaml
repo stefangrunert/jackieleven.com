@@ -78,6 +78,9 @@ paths:
         Default searches exclude text_voice=pastiche and metadata.fiction=true;
         only explicit section=biography or voice=pastiche permits fiction.
         Automatically subdividing a grouped request never opts into biography.
+        The literary biography section, including its nonfiction introduction,
+        is intentionally available only through an explicit section or pastiche
+        voice selection.
         Grouped hybrid uses the semantically selected passage when both retrieval
         lists cover a document, so a repeated title cannot replace relevant body
         evidence with an arbitrary short paragraph. Successfully reranked grouped
@@ -92,7 +95,7 @@ paths:
         Semantic and hybrid fall back to lexical when embeddings are disabled or
         unavailable. Reranking is optional and uses bounded returned excerpts.
         A DB failure is an error, never an empty result. Scores are meaningful
-        within a response only. Defaults: 6s request, 3s provider call, configurable
+        within a response only. Defaults: 10s request, 3s embedding call and 6s rerank call, configurable
         by CLI; at most 8 active requests, 4 DB connections and 2 provider calls.
       parameters:
         - $ref: '#/components/parameters/Version'

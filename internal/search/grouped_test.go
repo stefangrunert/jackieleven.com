@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -209,5 +210,87 @@ func TestGroupedFailedRerankDoesNotInventMatchingSections(t *testing.T) {
 		if e != nil || len(out.Hits) != 0 || !out.Degraded || out.Mode != "lexical" || out.Reranked {
 			t.Fatal(mode, out, e)
 		}
+	}
+}
+
+// This replays recorded scores, not external API calls. The JSON separately
+// records the five genuine before/after checks and their corpus versions.
+func TestRecordedNegativeControlCannotPopulateSections(t *testing.T) {
+	raw, e := os.ReadFile("testdata/grouped-quality-2026-10-26.json")
+	if e != nil {
+		t.Fatal(e)
+	}
+	var evidence struct {
+		Before []struct {
+			Query string `json:"query"`
+			Hits  []Hit  `json:"hits"`
+		} `json:"before"`
+	}
+	if e = json.Unmarshal(raw, &evidence); e != nil {
+		t.Fatal(e)
+	}
+	if len(evidence.Before) != 2 || len(evidence.Before[1].Hits) != 18 {
+		t.Fatal("missing full negative-control evidence")
+	}
+	if got := relevantGrouped(evidence.Before[1].Hits); len(got) != 0 {
+		t.Fatal("negative control admitted", got)
+	}
+}
+
+type inspectRepresentativeProvider struct {
+	fakeProvider
+	seen []Hit
+}
+
+func (p *inspectRepresentativeProvider) Rerank(_ context.Context, _ string, hits []Hit) ([]float64, error) {
+	p.seen = append([]Hit(nil), hits...)
+	scores := make([]float64, len(hits))
+	for i := range scores {
+		scores[i] = 0.46
+	}
+	return scores, nil
+}
+func TestRerankerReceivesRelevantBodyInsteadOfRepeatedTitleTie(t *testing.T) {
+	meta := json.RawMessage(`{"section":"writing"}`)
+	irrelevant := Hit{ID: "blossom", DocumentID: "bergen-blog", Title: "An evening flight to Bergen in Norway", Text: "In Spring there is apple blossom.", TextKind: "original", Metadata: meta, Score: 7.75}
+	relevant := Hit{ID: "festival", DocumentID: "bergen-blog", Title: irrelevant.Title, Text: "An evening flight from Gatwick to Bergen in Norway for a literary festival the next day in Odda.", TextKind: "original", Metadata: meta, Score: 0.73}
+	repo := &fakeRepo{lex: []Hit{irrelevant}, sem: []Hit{relevant}}
+	provider := &inspectRepresentativeProvider{}
+	service, _ := New(testManifest(), repo, provider, DefaultOptions())
+	q := query()
+	q.Text = "konzerte in norwegen"
+	q.Grouped = true
+	q.Rerank = true
+	q.Section = "writing"
+	out, e := service.Search(context.Background(), q)
+	if e != nil || len(provider.seen) != 1 || provider.seen[0].ID != "festival" || len(out.Hits) != 1 || out.Hits[0].Text != relevant.Text || !out.Reranked {
+		t.Fatal(out, e, provider.seen)
+	}
+}
+
+type lowScoreProvider struct{ fakeProvider }
+
+func (p *lowScoreProvider) Rerank(_ context.Context, _ string, hits []Hit) ([]float64, error) {
+	scores := make([]float64, len(hits))
+	for i := range scores {
+		scores[i] = 0.001
+	}
+	return scores, nil
+}
+func TestGroupedRelevanceGateDoesNotChangeTechnicalUngroupedSearch(t *testing.T) {
+	repo := &fakeRepo{lex: []Hit{{ID: "a", DocumentID: "a", Text: "Excerpt", Metadata: json.RawMessage(`{"section":"writing"}`)}}}
+	service, _ := New(testManifest(), repo, &lowScoreProvider{}, DefaultOptions())
+	q := query()
+	q.Mode = "lexical"
+	q.Rerank = true
+	q.Section = "writing"
+	out, e := service.Search(context.Background(), q)
+	if e != nil || len(out.Hits) != 1 || !out.Reranked {
+		t.Fatal("ungrouped semantics changed", out, e)
+	}
+	q.Grouped = true
+	out, e = service.Search(context.Background(), q)
+	if e != nil || len(out.Hits) != 0 || !out.Reranked {
+		t.Fatal("grouped weak relevance not removed", out, e)
 	}
 }

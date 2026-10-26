@@ -1,0 +1,346 @@
+{
+  "measured_at": "2026-10-26",
+  "source": "Five authorized HTTP queries against isolated local full-corpus API; genuine provider responses, not mocks.",
+  "content_version": "dd84acf1b05f7632f55cf61589245bd3a30eaea7d85d0f8e02c1bed82687f3be",
+  "data_version": "5b07aa00f31fd8ffac09b030de0c38798856620646525d0328bc9e1a8efc3338",
+  "passage_count": 16217,
+  "document_count": 1752,
+  "service_fix": "cf25cc1",
+  "limitations": "Initial bounded calibration using one negative control and two positive queries; no general recall or precision claim. Reranker scores are model-specific relevance signals, not factual confidence.",
+  "before": [
+    {
+      "query": "konzerte in norwegen",
+      "mode": "hybrid",
+      "reranked": true,
+      "degraded": false,
+      "duration_ms": 1173,
+      "hit_count": 18,
+      "sections": {
+        "live": 3,
+        "press": 3,
+        "timeline": 3,
+        "site": 3,
+        "writing": 3,
+        "music": 3
+      },
+      "hits": [
+        {
+          "id": "event/2007-09-norwegen-tournee#p-349bd8c243d8558ab4da26e75944cc80",
+          "score": 0.8138799071311951,
+          "section": "live"
+        },
+        {
+          "id": "event/2007-09-23-tromso-kaos#p-8c0e839773745a6f882e7ae365711d4e",
+          "score": 0.33147919178009033,
+          "section": "live"
+        },
+        {
+          "id": "event/2003-03-02-tromso-bla-rock-cafe#p-51fff35bf5a1526bb534cc1ba386fc5c",
+          "score": 0.06859533488750458,
+          "section": "live"
+        },
+        {
+          "id": "document/2022-05-13-itromso-blarock-liste-legendaere-konzerte#p-60fa047006245bb5b2ed6096313f9087",
+          "score": 0.3994980752468109,
+          "section": "press"
+        },
+        {
+          "id": "document/2009-03-23-dalane-tidende-visefestival-leven-dalane-brygghus#p-ca96cc43de49530b8a3dbf910cee91fb",
+          "score": 0.19392931461334229,
+          "section": "press"
+        },
+        {
+          "id": "document/2000-11-28-rockol-jackie-leven-non-verra-in-italia#p-8d8ce31005615a849126f82d76cdb3f9",
+          "score": 0.0013161728857085109,
+          "section": "press"
+        },
+        {
+          "id": "private/document/station/2008-cottage-industry#p-7055653f43495018b88241969225e1c8",
+          "score": 0.27578872442245483,
+          "section": "timeline"
+        },
+        {
+          "id": "private/document/station/1978-bristol-gardens#p-909e8d46d6a15401acc32f1150783bf3",
+          "score": 2.794709143927321e-05,
+          "section": "timeline"
+        },
+        {
+          "id": "private/document/station/1992-oban#p-3f691a609d775237a9ede77fc122571f",
+          "score": 1.3917759133619256e-05,
+          "section": "timeline"
+        },
+        {
+          "id": "place/kampen-bistro-oslo#p-400690b9c85a5915a38470313559e6c4",
+          "score": 0.16445325314998627,
+          "section": "site"
+        },
+        {
+          "id": "place/lundetangen-pub-skien#p-dab01d7010c557c981601b04a674487e",
+          "score": 0.14966946840286255,
+          "section": "site"
+        },
+        {
+          "id": "place/bla-rock-cafe-tromso#p-954597b42252575c8acff4c6e71a0784",
+          "score": 0.08806534856557846,
+          "section": "site"
+        },
+        {
+          "id": "private/document/column/2008-12-the-past-this-is-me-sitting-on-an-old-sofa-in#p-b66b9bf3625b5abb85e1b5382623590c",
+          "score": 4.145378261455335e-05,
+          "section": "writing"
+        },
+        {
+          "id": "private/document/column/2009-12-blog-an-evening-flight-from-gatwick-to-bergen-in-norway#p-d3e33a3d649e54acb85144e86de62f64",
+          "score": 1.2970711395610124e-05,
+          "section": "writing"
+        },
+        {
+          "id": "private/document/column/2007-07-1-deep-pool-juli-2007-1#p-77ef3df824895fffb05261b257407f3c",
+          "score": 9.089380910154432e-06,
+          "section": "writing"
+        },
+        {
+          "id": "private/document/release/2008-live-from-a-cornish-pub-in-germany#p-aa18638e5e3e5fcf9b3d1faffd7b562b",
+          "score": 3.085620846832171e-05,
+          "section": "music"
+        },
+        {
+          "id": "private/document/release/2003-men-in-prison-live-from-bergen-prison#p-4c3e24d2dea654a6a602b7d1ac91fb0c",
+          "score": 2.269969627377577e-05,
+          "section": "music"
+        },
+        {
+          "id": "private/document/release/2001-deep-in-the-heart-of-nowhere#p-05f5d5b44bd45b729f5a3eab1d86b0ca",
+          "score": 2.0638060959754512e-05,
+          "section": "music"
+        }
+      ]
+    },
+    {
+      "query": "zxqvplm 847291 nonsense-token",
+      "mode": "hybrid",
+      "reranked": true,
+      "degraded": false,
+      "duration_ms": 890,
+      "hit_count": 18,
+      "sections": {
+        "press": 3,
+        "site": 3,
+        "writing": 3,
+        "timeline": 3,
+        "live": 3,
+        "music": 3
+      },
+      "hits": [
+        {
+          "id": "document/2000-09-26-the-independent-jackie-leven-a-cult-artist#p-0022bb07ecbc5ec39e915949d074d749",
+          "score": 0.0032600362319499254,
+          "section": "press"
+        },
+        {
+          "id": "private/document/source/2004-01-26-gaesteliste-for-peace-comes-dropping-slow#p-19193e48f5f55f6ea11f4b0eb8d2cd96",
+          "score": 0.001132099307142198,
+          "section": "press"
+        },
+        {
+          "id": "private/document/source/2011-11-18-the-times-jackie-leven-obituary#p-a30221bc548750b58339be7d41769edd",
+          "score": 0.00043523148633539677,
+          "section": "press"
+        },
+        {
+          "id": "place/moments-bremen#p-ceddf6f88f235594b0aabf5628e73fcb",
+          "score": 0.00023358060570899397,
+          "section": "site"
+        },
+        {
+          "id": "place/bla-rock-cafe-tromso#p-954597b42252575c8acff4c6e71a0784",
+          "score": 2.5001018002512865e-05,
+          "section": "site"
+        },
+        {
+          "id": "group/jackie-leven-band-1983#p-25ac695b854e57a09600bd553c4654ef",
+          "score": 1.945610529219266e-05,
+          "section": "site"
+        },
+        {
+          "id": "private/document/column/2007-07-1-deep-pool-juli-2007-1#p-7e4b5026558f571d99afa183ea8332e7",
+          "score": 0.00022971490398049355,
+          "section": "writing"
+        },
+        {
+          "id": "private/document/column/2003-08-2-deep-pool-august-2003-2#p-3d6646e0f7ef588089de1498531632ca",
+          "score": 0.00021638142061419785,
+          "section": "writing"
+        },
+        {
+          "id": "private/document/column/2011-11-home-the-great-scottish-singer-and-song-writer-jackie-leven#p-27badbab291158f59326e92ee884e448",
+          "score": 8.234617416746914e-05,
+          "section": "writing"
+        },
+        {
+          "id": "private/document/station/1992-oban#p-f37dfdfc224e578d89bcb4f796024e16",
+          "score": 0.00015407368482556194,
+          "section": "timeline"
+        },
+        {
+          "id": "private/document/station/2011-november#p-bacfd8f499e95cb883c78961f0638882",
+          "score": 0.00010621605906635523,
+          "section": "timeline"
+        },
+        {
+          "id": "private/document/station/1978-bristol-gardens#p-23fa5f24a8025d52a2d0edd9477cf3c4",
+          "score": 9.32451948756352e-05,
+          "section": "timeline"
+        },
+        {
+          "id": "event/2008-09-london-the-borderline#p-0c207e997a0d5531b11e954f84539965",
+          "score": 0.0001090104560717009,
+          "section": "live"
+        },
+        {
+          "id": "event/2008-05-28-london-green-note#p-d29d1c5b214f526981fc0fbbd394c25b",
+          "score": 4.631706542568281e-05,
+          "section": "live"
+        },
+        {
+          "id": "event/2009-06-04-whitstable-folk-club#p-cc32261770bf5f5fb31c3df67d5c2dfd",
+          "score": 3.899037619703449e-05,
+          "section": "live"
+        },
+        {
+          "id": "private/document/release/2021-straight-outta-caledonia-the-songs-of-jackie-leven#p-377d15762d20588994cc727213825faa",
+          "score": 4.745184924104251e-05,
+          "section": "music"
+        },
+        {
+          "id": "private/document/release/1998-man-bleeds-in-glasgow#p-85f99c480dff50b7ac646d6ed9e107a1",
+          "score": 3.593411383917555e-05,
+          "section": "music"
+        },
+        {
+          "id": "private/document/release/1997-for-peace-comes-dropping-slow#p-6cf01c6f7bd6582594c3902239a89b66",
+          "score": 1.7149421182693914e-05,
+          "section": "music"
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "query": "konzerte in norwegen",
+      "mode": "hybrid",
+      "reranked": true,
+      "degraded": false,
+      "duration_ms": 1936,
+      "hit_count": 9,
+      "sections": {
+        "live": 3,
+        "writing": 1,
+        "press": 2,
+        "site": 3
+      },
+      "hits": [
+        {
+          "id": "event/2007-09-norwegen-tournee#p-349bd8c243d8558ab4da26e75944cc80",
+          "score": 0.8173099756240845,
+          "section": "live"
+        },
+        {
+          "id": "event/2007-09-23-tromso-kaos#p-bbd3b7c78cc053afa420ae185b0a9807",
+          "score": 0.2997976243495941,
+          "section": "live"
+        },
+        {
+          "id": "event/2003-03-02-tromso-bla-rock-cafe#p-5d517babb061502a91eea19b5759fb39",
+          "score": 0.12136583030223846,
+          "section": "live"
+        },
+        {
+          "id": "private/document/column/2009-12-blog-an-evening-flight-from-gatwick-to-bergen-in-norway#p-d5682bcce95152d2a8e49db14d94347f",
+          "score": 0.4661062955856323,
+          "section": "writing"
+        },
+        {
+          "id": "document/2022-05-13-itromso-blarock-liste-legendaere-konzerte#p-60fa047006245bb5b2ed6096313f9087",
+          "score": 0.39622050523757935,
+          "section": "press"
+        },
+        {
+          "id": "document/2009-03-23-dalane-tidende-visefestival-leven-dalane-brygghus#p-ca96cc43de49530b8a3dbf910cee91fb",
+          "score": 0.19376146793365479,
+          "section": "press"
+        },
+        {
+          "id": "place/kampen-bistro-oslo#p-400690b9c85a5915a38470313559e6c4",
+          "score": 0.15970923006534576,
+          "section": "site"
+        },
+        {
+          "id": "place/lundetangen-pub-skien#p-dab01d7010c557c981601b04a674487e",
+          "score": 0.15250377357006073,
+          "section": "site"
+        },
+        {
+          "id": "place/bla-rock-cafe-tromso#p-954597b42252575c8acff4c6e71a0784",
+          "score": 0.08613700419664383,
+          "section": "site"
+        }
+      ]
+    },
+    {
+      "query": "zxqvplm 847291 nonsense-token",
+      "mode": "hybrid",
+      "reranked": true,
+      "degraded": false,
+      "duration_ms": 1195,
+      "hit_count": 0,
+      "sections": {},
+      "hits": []
+    },
+    {
+      "query": "Men in Prison",
+      "mode": "hybrid",
+      "reranked": true,
+      "degraded": false,
+      "duration_ms": 2719,
+      "hit_count": 6,
+      "sections": {
+        "press": 3,
+        "music": 2,
+        "writing": 1
+      },
+      "hits": [
+        {
+          "id": "private/document/source/2009-03-01-record-collector-haunted-year-winter#p-3bfd71146a2c5ffcab9475e4faaff22e",
+          "score": 0.8204479217529297,
+          "section": "press"
+        },
+        {
+          "id": "private/document/source/2009-02-24-bergensavisen-jackie-leven-men-in-prison-munich-blues#p-58daf53e1b145e26ad797cb9972a2eb4",
+          "score": 0.3930283188819885,
+          "section": "press"
+        },
+        {
+          "id": "private/document/source/2009-05-05-soundi-the-haunted-year-men-in-prison-munich-blues#p-9b3ef2f3d4d7568cb593e79de2c55c8a",
+          "score": 0.16068457067012787,
+          "section": "press"
+        },
+        {
+          "id": "private/document/release/2003-men-in-prison-live-from-bergen-prison#p-de907555d705539f90a81c42db641241",
+          "score": 0.782287061214447,
+          "section": "music"
+        },
+        {
+          "id": "private/document/release/2009-the-haunted-year-winter#p-c90a1d59282e5477aff4fbb14f3885dc",
+          "score": 0.6125766038894653,
+          "section": "music"
+        },
+        {
+          "id": "private/document/column/2009-03-home-new-jackie-release-availabe-now-from-cooking-vinyl#p-b1b0468d77bd5ad6b0c975485bad1bb2",
+          "score": 0.7774977684020996,
+          "section": "writing"
+        }
+      ]
+    }
+  ]
+}
