@@ -51,7 +51,10 @@ PHP-zu-Go-Umstellung. Für die bereits laufende Go-Website wird jetzt
 3. Nach `/var/www/jackieleven/go-releases/RELEASE` übertragen. Installer,
    `install-go-production.py`, beide `nginx-search-production-*.conf` und
    `search/search-production.service` in derselben Verzeichnisstruktur auf
-   dem Server bereitstellen.
+   dem Server bereitstellen. Beim Upload mit rsync `--no-owner --no-group`
+   verwenden und ein neues, root-eigenes Zielverzeichnis wählen. Das gesamte
+   Release muss root gehören; lokale macOS-Benutzer-IDs dürfen nicht übernommen
+   werden. Hardlinks auf Releases mit abweichendem Eigentümer vermeiden.
 4. Aktuellen Vhost-SHA256 und Ziel von `go-current` lesen. Danach als root:
 
    ```sh
@@ -88,3 +91,42 @@ python3 /var/backups/jackieleven-go-updates/ZEITSTEMPEL/update-go-production.py 
 Eine inzwischen aktivierte andere Release-Version verhindert einen veralteten
 Rollback. Vorherige Go-Releases und der PHP-Rückfall werden nicht gelöscht.
 Die Backups enthalten geschützte Konfiguration und gehören nicht ins Repository.
+
+
+## Aktivierung und Prüfung am 26. Oktober 2026
+
+Aktiv ist `search-production-20261026`, gebaut aus Commit `5929c12` auf
+`codex/search-development`. Dieser Branch ist vollständig nach GitHub gepusht.
+Die Aktualisierung des Standardbranches `main` ist ein gesonderter Schritt.
+Der vorherige Stand `/var/www/jackieleven/go-releases/ba3224f` bleibt vorhanden.
+Die Transaktion liegt unter
+`/var/backups/jackieleven-go-updates/20261026T100802.730829Z`.
+
+Vor der Aktivierung bestanden `go test ./...` und 21 Offline-Prüfungen der
+Release- und Deployment-Werkzeuge einschließlich Rückweg und Dateirechten.
+Eine erste Vorprüfung stoppte vor jeder Änderung an der laufenden Website,
+weil rsync lokale Benutzer-IDs übernommen hatte. Die Eigentümer wurden nur im
+neuen Release korrigiert; gemeinsame Dateiverknüpfungen zur Vorschau wurden
+vorher aufgetrennt, damit deren Dateien unverändert blieben.
+
+Die echte hybride Serveranfrage „konzerte in norwegen“ lieferte neun Treffer
+mit Reranking ohne Rückfall in 1.872 ms. Dieselbe Suche funktionierte anschließend
+im öffentlichen Browser und zeigte die vier passenden Bereiche. Das ist eine
+Einzelmessung, keine Laufzeitzusage. Die schon geprüften Ladeanzeigen, der
+Filter-Iconbutton und die Darstellung ohne dekorative Pfeile sind enthalten.
+
+Extern bestätigt wurden Startseite und Suche auf Deutsch und Englisch,
+Formularbereitschaft in beiden Sprachen sowie das Suchskript. Startseiten
+bleiben indexierbar; Suchantworten liefern `no-store`, `no-referrer` und
+`noindex`. Beide technischen Suchseiten, geprüfte Schlüsselpfade, `/v1/search`
+und `/mcp` liefern 404. Die internen Ports 18765, 18768 und 55473 waren von außen
+nicht erreichbar. Der Standard-User-Agent von Python wurde durch die vorgelagerte
+Schutzschicht abgewiesen; Browser, curl und die Prüfung mit Browser-User-Agent
+funktionierten ohne Änderung an diesem Schutz.
+
+Der Schlüssel hat Modus 0600 und gehört ausschließlich dem Produktionssuchnutzer.
+`www-data`, `jackieleven` und `jackieleven-preview` können ihn nicht lesen; kein
+Release-Inhalt enthält den Schlüssel. Produktionswebsite und Suchdienst sind
+für automatischen Start aktiviert. Alle Vorschauprozesse laufen weiter.
+Der Formularcheck hat keine neue E-Mail versandt; der früher bestätigte echte
+Versandtest bleibt separat vom aktuellen Bereitschaftscheck dokumentiert.
