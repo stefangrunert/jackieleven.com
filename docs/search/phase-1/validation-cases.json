@@ -14,14 +14,14 @@
     "third_party_source_with_editorial_summaries": {
       "required_hit_fields": [
         "source_voice",
-        "passage_voice",
+        "text_voice",
         "text_kind",
         "language"
       ],
       "source_voice": "third_party",
       "accepted_passage_representations": [
         {
-          "passage_voice": "editorial",
+          "text_voice": "editorial",
           "text_kind": "summary",
           "language_allowed": [
             "de",
@@ -30,7 +30,7 @@
           "must_be_labelled_as_original": false
         },
         {
-          "passage_voice": "third_party",
+          "text_voice": "third_party",
           "text_kind": "original",
           "language_rule": "must_equal_source_language",
           "requires_direct_source_text": true
