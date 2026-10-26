@@ -1,13 +1,14 @@
 {{template "public-search-head" .}}
 <section class="discovery-intro"><h1 class="search-visually-hidden">{{.L.Title}}</h1><p class="discovery-intro-text">{{.L.Intro}}</p></section>
-<form class="discovery-form" action="{{.Action}}" method="get" role="search">
-<div class="discovery-query"><label class="search-visually-hidden" for="discovery-q">{{.L.Heading}}</label><input id="discovery-q" type="search" name="q" value="{{.Q}}" placeholder="{{.L.Placeholder}}" maxlength="1024" required><button type="submit">{{.L.Submit}} <span aria-hidden="true">→</span></button></div>
+<form class="discovery-form" action="{{.Action}}" method="get" role="search" data-search-pending data-status-id="search-progress" data-loading-label="{{.L.LoadingLabel}}" data-loading-message="{{.L.LoadingMessage}}" data-retry-message="{{.L.RetryMessage}}">
+<div class="discovery-query"><label class="search-visually-hidden" for="discovery-q">{{.L.Heading}}</label><input id="discovery-q" type="search" name="q" value="{{.Q}}" placeholder="{{.L.Placeholder}}" maxlength="1024" required><button type="submit"><span class="search-submit-label">{{.L.Submit}}</span><span class="search-submit-arrow" aria-hidden="true">→</span><span class="search-spinner" aria-hidden="true"></span></button></div>
 <details class="discovery-refine"><summary title="{{.L.Refine}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7v7l-4-2v-5z"/></svg><span class="search-visually-hidden">{{.L.Refine}}</span></summary><div class="discovery-filter-grid">
 <label>{{.L.Area}}<select name="section"><option value="">{{.L.Everywhere}}</option>{{range .Options}}<option value="{{.Key}}"{{if eq $.Section .Key}} selected{{end}}>{{.Label}}{{if eq .Key "biography"}} · {{$.L.Fiction}}{{end}}</option>{{end}}</select></label>
 <label>{{.L.Voice}}<select name="voice"><option value="">{{.L.All}}</option><option value="leven"{{if eq .Voice "leven"}} selected{{end}}>{{.L.Leven}}</option><option value="third_party"{{if eq .Voice "third_party"}} selected{{end}}>{{.L.ThirdParty}}</option><option value="editorial"{{if eq .Voice "editorial"}} selected{{end}}>{{.L.Editorial}}</option><option value="pastiche"{{if eq .Voice "pastiche"}} selected{{end}}>{{.L.Pastiche}}</option></select></label>
 <label>{{.L.From}}<input type="number" name="from" min="1" max="9999" value="{{.From}}" aria-describedby="discovery-years"></label><label>{{.L.To}}<input type="number" name="to" min="1" max="9999" value="{{.To}}" aria-describedby="discovery-years"></label>
 <p id="discovery-years" class="discovery-filter-help">{{.L.YearHint}}</p></div></details>
 </form>
+<p id="search-progress" class="search-progress" role="status" aria-live="polite" aria-atomic="true"></p>
 {{if .Filters}}<ul class="discovery-active" aria-label="{{.L.Refine}}">{{range .Filters}}<li><a href="{{.RemoveURL}}" aria-label="{{$.L.FilterRemove}}: {{.Label}}">{{.Label}} <span aria-hidden="true">×</span></a></li>{{end}}</ul>{{end}}
 <details class="discovery-privacy"><summary>{{.L.DeepInfra}} <span>{{.L.PrivacyDetails}}</span></summary><p>{{.L.PublicPrivacy}}</p></details>
 {{if .Error}}<p class="discovery-notice discovery-error" role="alert">{{.Error}}</p>{{else if .Searched}}

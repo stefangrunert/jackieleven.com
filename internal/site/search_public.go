@@ -61,7 +61,10 @@ func publicSearchPath(lang string) string {
 func publicSearchLabels(lang string) map[string]string {
 	l := searchLabels(lang)
 	pairs := map[string][2]string{
-		"Title": {"Suche", "Search"}, "Heading": {"Was möchtest du entdecken?", "What would you like to discover?"},
+		"LoadingLabel":   {"Suche läuft …", "Searching…"},
+		"LoadingMessage": {"Die Suche läuft. Einen Moment bitte.", "Searching the archive. One moment, please."},
+		"RetryMessage":   {"Die Antwort braucht länger. Du kannst die Suche erneut starten.", "This is taking longer. You can try searching again."},
+		"Title":          {"Suche", "Search"}, "Heading": {"Was möchtest du entdecken?", "What would you like to discover?"},
 		"Intro":       {"Lieder, Orte, Erinnerungen: Entdecke Jackies Welt mit einer Frage in deinen eigenen Worten.", "Songs, places, memories: explore Jackie’s world with a question in your own words."},
 		"Placeholder": {"Zum Beispiel: Was verband Jackie mit Norwegen?", "For example: What connected Jackie with Norway?"},
 		"Refine":      {"Suche eingrenzen", "Refine your search"}, "Area": {"Bereich", "Section"}, "Everywhere": {"Alle Bereiche", "All sections"},
@@ -126,7 +129,7 @@ func publicSearchHeaders(w http.ResponseWriter, lang string) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Content-Language", lang)
 	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Header().Set("Content-Security-Policy", "default-src 'none'; style-src 'self'; img-src 'self' https://is1-ssl.mzstatic.com https://f4.bcbits.com https://www.mig-music.de; font-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'")
+	w.Header().Set("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://is1-ssl.mzstatic.com https://f4.bcbits.com https://www.mig-music.de; font-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'")
 }
 func (a *App) servePublicSearch(w http.ResponseWriter, r *http.Request) bool {
 	lang, kind := "", "search"

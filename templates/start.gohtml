@@ -16,7 +16,7 @@
     </div>
   </section>
 
-  {{if search_enabled}}<section class="home-search" aria-label="{{t "nav.suche"}}"><form action="{{search_url}}" method="get" role="search"><label class="search-visually-hidden" for="home-search-q">{{t "search.prompt"}}</label><input id="home-search-q" name="q" type="search" placeholder="{{t "search.prompt"}}" maxlength="1024" required><button type="submit">{{t "search.submit"}} →</button></form><a href="{{search_url}}">{{t "search.privacy"}}</a></section>{{end}}
+  {{if search_enabled}}<section class="home-search" aria-label="{{t "nav.suche"}}"><form action="{{search_url}}" method="get" role="search" data-search-pending data-status-id="home-search-progress" data-loading-label="{{t "search.loading"}}" data-loading-message="{{t "search.loading_message"}}" data-retry-message="{{t "search.retry_message"}}"><label class="search-visually-hidden" for="home-search-q">{{t "search.prompt"}}</label><input id="home-search-q" name="q" type="search" placeholder="{{t "search.prompt"}}" maxlength="1024" required><button type="submit"><span class="search-submit-label">{{t "search.submit"}}</span><span class="search-submit-arrow" aria-hidden="true"> →</span><span class="search-spinner" aria-hidden="true"></span></button></form><p id="home-search-progress" class="search-progress" role="status" aria-live="polite" aria-atomic="true"></p><a href="{{search_url}}">{{t "search.privacy"}}</a></section>{{end}}
 
   <section class="home-hoeren" aria-labelledby="home-hoeren-titel">
     <div class="home-hoeren-inner">
