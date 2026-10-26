@@ -161,3 +161,34 @@ anschließend erfolgreich. Externe Verfügbarkeit bleibt eine Betriebsgrenze.
 
 Die historische Pilot-Rangliste in `pilot-search-results.json` beschreibt den
 kleineren Vorbestand und ist keine Qualitätsabnahme dieser neuen Oberfläche.
+
+## Aktivierter Stand und Live-Prüfung
+
+Aktiv seit 26.10.2026: Release `search-public-20261026-r2`, Laufzeitcode
+`a3fca57`, unveränderter Vollindex `dd84acf1…`. Die unmittelbar vorherigen
+Konfigurationen liegen in
+`/var/backups/jackieleven-search-preview/20261026T092721Z` und
+`/var/backups/jackieleven-go-preview/20261026T092723.511045Z`.
+
+Bestätigt wurden echte semantische und hybride Serveranfragen, Reranking,
+Negativfall ohne Treffer, DE/EN, Albumcover, explizite Fiktionssuche, genaue
+Textstellen, widersprüchliche Archivbelege und korrekte Präfixlinks. Der letzte
+Norwegen-Aufruf auf dem Server lieferte neun Treffer ohne Rückfall in 1.346 ms,
+der Negativfall null in 1.527 ms. Die öffentliche mobile Albumsuche zeigte
+sechs Fundstücke ohne Rückfall. Smartphonebreite 390 px wurde visuell geprüft;
+Dokumentbreite und Viewport waren beide 390 px, ohne horizontalen Überlauf.
+Die Sprache der präsentierten Archivkartentexte wird getrennt von der
+unveränderten Quellsprache ausgezeichnet.
+
+Der Lastschutz lieferte bei 14 schnell aufeinanderfolgenden leeren Anfragen
+neunmal 200 und fünfmal 429, auch mit kodiertem Parameternamen `%71`. Dabei
+wurden keine Anbieteranfragen ausgelöst. Technische Testpfade liefern 404,
+Assets bleiben verfügbar. Ein eindeutiger Marker im Querystring fehlte in den
+geprüften Nginx-Logs. Cloudflare meldete `DYNAMIC`, die Suche `no-store` und
+`no-referrer`; es wurde kein veralteter Rückfallstand zwischengespeichert.
+
+Die Produktionsseite und die unpubli.sh-Startseite behielten ihre Body-Hashes.
+Produktions-Vhost, Prozess-ID und Startzeit von `jackieleven-go.service` blieben
+unverändert. Die Vorschau hat getrennte Dienste, Datenbank und gesicherte
+Releases. Zeitweise DeepInfra-Rückfälle wurden auch im Live-Browser beobachtet
+und sichtbar gekennzeichnet; weitere echte Anfragen funktionierten wieder.
