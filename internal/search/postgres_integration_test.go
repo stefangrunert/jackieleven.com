@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 	pgvector "github.com/pgvector/pgvector-go"
 	pgxvec "github.com/pgvector/pgvector-go/pgx"
 )
@@ -63,6 +64,14 @@ func TestPostgresIntegration(t *testing.T) {
 		if e != nil {
 			t.Fatal("test passage insert failed")
 		}
+		// Internal boost serialization contains these words. They must never
+		// become search terms merely because a query parameter has a custom type.
+		trapVector := make([]float32, 1024)
+		trapVector[1] = 1
+		_, e = admin.Exec(ctx, `INSERT INTO search.passages(build_id,id,document_id,title,text,language,source_voice,text_voice,text_kind,year,url_de,url_en,content_hash,embedding) VALUES($1,'doc#trap','doc','Parameter regression trap','string null score adjusted query contrastuniquetoken','en','third_party','editorial','summary',2001,'/de/synthetic','/en/synthetic','trap-hash',$2)`, build, pgvector.NewHalfVector(trapVector))
+		if e != nil {
+			t.Fatal("parameter trap fixture insert failed")
+		}
 		_, e = admin.Exec(ctx, `INSERT INTO search.entities(build_id,id,data) VALUES($1,'person','{"id":"person","label":"Synthetic"}')`, build)
 		if e != nil {
 			t.Fatal("test entity insert failed")
@@ -88,6 +97,14 @@ func TestPostgresIntegration(t *testing.T) {
 		t.Fatal(e)
 	}
 	defer db.Close()
+	poolConfig := db.Pool.Config()
+	poolConfig.MaxConns = 1
+	db.Pool.Close()
+	db.Pool, e = pgxpool.NewWithConfig(ctx, poolConfig)
+	if e != nil {
+		t.Fatal("single-connection test pool")
+	}
+
 	if e = db.Ready(ctx, m); e != nil {
 		t.Fatal("readiness", e)
 	}
@@ -110,6 +127,21 @@ func TestPostgresIntegration(t *testing.T) {
 	if e != nil || len(hits) != 0 {
 		t.Fatal("exact miss", len(hits), e)
 	}
+	var pidBefore, pidAfter int
+	if e = db.Pool.QueryRow(ctx, "SELECT pg_backend_pid()").Scan(&pidBefore); e != nil {
+		t.Fatal("backend pid")
+	}
+	for i := 0; i < 18; i++ {
+		tc := []struct{ term, id string }{{"syntheticuniquetoken", "doc#p"}, {"contrastuniquetoken", "doc#trap"}, {"zzzxqvdoesnotexist", ""}}[i%3]
+		q.Text = tc.term
+		hits, e = db.Lexical(ctx, m, q, 20)
+		if e != nil || (tc.id == "" && len(hits) != 0) || (tc.id != "" && (len(hits) != 1 || hits[0].ID != tc.id)) {
+			t.Fatalf("reused connection query %d: n=%d err=%v", i, len(hits), e)
+		}
+	}
+	if e = db.Pool.QueryRow(ctx, "SELECT pg_backend_pid()").Scan(&pidAfter); e != nil || pidAfter != pidBefore {
+		t.Fatal("parameter regression must reuse one backend")
+	}
 	q.Text = "syntheticuniquetoken"
 	q.Voice = "third_party"
 	hits, e = db.Lexical(ctx, m, q, 20)
@@ -120,7 +152,7 @@ func TestPostgresIntegration(t *testing.T) {
 	v := make([]float32, 1024)
 	v[0] = 1
 	hits, e = db.Semantic(ctx, m, q, v, 20)
-	if e != nil || len(hits) != 1 || hits[0].Score < .999 {
+	if e != nil || len(hits) != 2 || hits[0].Score < .999 {
 		t.Fatal("halfvec exact cosine", len(hits), e)
 	}
 	p, e := db.Passage(ctx, m, "doc#p", "en")
@@ -141,5 +173,44 @@ func TestPostgresIntegration(t *testing.T) {
 	}
 	if _, e = db.Entity(ctx, m, "person"); e != ErrNotFound {
 		t.Fatal("wrong version entity", e)
+	}
+}
+
+// Optional regression against a pinned imported corpus; read-only.
+func TestLiveNoHitRegression(t *testing.T) {
+	manifestPath := os.Getenv("JACKIE_SEARCH_TEST_MANIFEST")
+	if manifestPath == "" {
+		t.Skip("set JACKIE_SEARCH_TEST_MANIFEST for populated-corpus regression")
+	}
+	m, e := LoadManifest(manifestPath)
+	if e != nil {
+		t.Fatal(e)
+	}
+	dsn := os.Getenv("JACKIE_SEARCH_TEST_READER_DATABASE_URL")
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	db, e := OpenPostgres(ctx, dsn, time.Second)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer db.Close()
+	poolConfig := db.Pool.Config()
+	poolConfig.MaxConns = 1
+	db.Pool.Close()
+	db.Pool, e = pgxpool.NewWithConfig(ctx, poolConfig)
+	if e != nil {
+		t.Fatal("single-connection test pool")
+	}
+
+	q := query()
+	q.Mode = "lexical"
+	q.Limit = 3
+	for i, term := range []string{"xxxxxxxxxxzyxzxq", "Leven", "xxxxxxxxxxzyxzxq", "Doll", "xxxxxxxxxxzyxzxq", "Norwegen", "xxxxxxxxxxzyxzxq", "Leven", "xxxxxxxxxxzyxzxq"} {
+		q.Text = term
+		hits, e := db.Lexical(ctx, m, q, 3)
+		t.Logf("iteration=%d hits=%d error=%v", i, len(hits), e)
+		if term == "xxxxxxxxxxzyxzxq" && (e != nil || len(hits) != 0) {
+			t.Errorf("nonexistent term returned %d hits", len(hits))
+		}
 	}
 }

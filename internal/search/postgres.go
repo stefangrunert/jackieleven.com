@@ -74,7 +74,10 @@ func args(m Manifest, q Query) []any {
 }
 func (p *Postgres) Lexical(ctx context.Context, m Manifest, q Query, n int) ([]Hit, error) {
 	a := append(args(m, q), q.Text, n)
-	return p.hits(ctx, `SELECT `+excerptFields+`,pdb.score(p.row_id)::double precision`+bound+filters+` AND (p.title ||| $7::pdb.boost(3) OR p.text ||| $7::text) ORDER BY pdb.score(p.row_id) DESC,p.id LIMIT $8`, a...)
+	// Bind $7 as text before casting to boost. If its first use has type
+	// pdb.boost, a later $7::text serializes the internal query object to JSON
+	// and incorrectly searches body text for tokens such as "string" and "null".
+	return p.hits(ctx, `SELECT `+excerptFields+`,pdb.score(p.row_id)::double precision`+bound+filters+` AND (p.title ||| $7::text::pdb.boost(3) OR p.text ||| $7::text) ORDER BY pdb.score(p.row_id) DESC,p.id LIMIT $8`, a...)
 }
 func (p *Postgres) Semantic(ctx context.Context, m Manifest, q Query, v []float32, n int) ([]Hit, error) {
 	if len(v) != 1024 {
