@@ -1,5 +1,11 @@
 # Lokale Suchabnahme · 26. Oktober 2026
 
+> Historischer Bericht zur ersten lokalen Pilotphase mit 7.993 Passagen.
+> Der erweiterte Bestand, die öffentliche Oberfläche und der Stagingbetrieb
+> werden in [staging-search.md](staging-search.md) dokumentiert. Die unten
+> genannten alten Rankingmessungen sind keine Abnahme des neuen Vollindex.
+
+
 Die Suche ist lokal funktionsfähig und für die manuelle Prüfung eingerichtet. Einstieg: <http://127.0.0.1:8082/de/suche-test>, englisch unter `/en/search-test`. Die Produktionswebsite wurde nicht umgestellt. Dies ist die technische Abnahme eines ersten vollständigen Suchdurchstichs, keine Freigabe für öffentlichen Betrieb oder ein Nachweis überlegener Suchqualität.
 
 ## Tatsächlicher Bestand und Betrieb

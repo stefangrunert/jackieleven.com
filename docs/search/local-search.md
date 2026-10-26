@@ -88,7 +88,7 @@ Wer die Website unmittelbar als Entwicklungsprozess startet, setzt `JACKIE_SEARC
 
 ## Importzustand und Manifestwechsel
 
-Der anfängliche Export liest Website-Revision `ea653b6` und Archiv-Revision `7d353a4`. Dieser ausgewählte Bestand umfasst 572 Dokumente, 7993 Textstellen und 965 Archiv-Entitäten. Die Zahlen beschreiben diesen Export, nicht den Umfang eines vollständig erschlossenen Archivs. Änderungen der Arbeitskopien gelangen nicht automatisch in den Index.
+Der erste, inzwischen erweiterte Export las Website-Revision `ea653b6` und Archiv-Revision `7d353a4`. Dieser ausgewählte Bestand umfasst 572 Dokumente, 7993 Textstellen und 965 Archiv-Entitäten. Die Zahlen beschreiben diesen Export, nicht den Umfang eines vollständig erschlossenen Archivs. Änderungen der Arbeitskopien gelangen nicht automatisch in den Index.
 
 Importdetails und Wiederaufnahme beschreibt [tools/search/README.md](../../tools/search/README.md). Vor dem ersten Import die private Python-Umgebung mit den festgelegten Abhängigkeiten einrichten:
 

@@ -133,3 +133,31 @@ der Wiederholungslauf bestätigte null fehlende Inputs und null Anbieteraufrufe.
 Der Restore wurde auf der separaten nativen Instanz erfolgreich durchgeführt.
 Der private Wiederherstellungssnapshot liegt zusätzlich unter
 `/mnt/HC_Volume_107171732/jackieleven-search-snapshots/`.
+
+## Relevanz und Abnahmegrenzen
+
+Die gruppierte öffentliche Suche verwendet die semantisch passendste echte
+Textstelle eines fusionierten Dokuments. Nach erfolgreichem Reranking werden
+sehr schwache Treffer entfernt: die anfängliche, am aktuellen Bestand geprüfte
+Grenze ist das Maximum aus 0,01 und fünf Prozent des höchsten Rerank-Scores.
+Das ist eine erste Kalibrierung, kein universeller Wahrscheinlichkeitswert und
+kein Ersatz für einen größeren, zurückgehaltenen Qualitätstestsatz. Die alte
+technische Suchansicht ohne Gruppierung bleibt unverändert.
+
+Bei einem Rerank-Ausfall fällt die gruppierte Suche ausdrücklich auf
+lexikalische Treffer zurück. Die Oberfläche zeigt diesen eingeschränkten
+Betrieb an; sie füllt die Bereiche dann nicht mit ungeprüften semantischen
+Nachbarn. Die literarische Biografie samt ihren Einleitungstexten bleibt als
+ganzer Bereich opt-in.
+
+Nach der Korrektur lieferten drei echte lokale Nachtests ohne Rückfall:
+„konzerte in norwegen“ neun Treffer in vier Bereichen (1.936 ms), „Men in Prison“
+sechs Treffer in drei Bereichen (2.719 ms), der Negativfall
+„zxqvplm 847291 nonsense-token“ null Treffer (1.195 ms). Das sind Einzelmessungen
+mit teilweise gecachten Anfragevektoren, keine zugesicherten Laufzeiten.
+Ein früherer externer Gesamtsmoke fiel zeitweise in den gekennzeichneten
+Provider-Rückfall; unabhängige echte Anbieterprüfungen auf Hetzner waren
+anschließend erfolgreich. Externe Verfügbarkeit bleibt eine Betriebsgrenze.
+
+Die historische Pilot-Rangliste in `pilot-search-results.json` beschreibt den
+kleineren Vorbestand und ist keine Qualitätsabnahme dieser neuen Oberfläche.
