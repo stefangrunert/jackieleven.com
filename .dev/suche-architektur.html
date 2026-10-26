@@ -680,11 +680,11 @@ Sitemap: https://jackieleven.com/sitemap.xml</code></pre>
 
 <section id="arbeitsstand">
   <h2>15. Arbeitsstand und Wiederaufnahme</h2>
-  <p>Stand: 26. Oktober 2026. Architektur und Agentenplan sind gesichert; Phase 1 ist zur Ausführung freigegeben. Basis der Website: <code>d819f9d</code>; Basis des Archivs: <code>7d353a4</code>. Integrationsbranch: <code>codex/search-development</code>.</p>
+  <p>Stand: 26. Oktober 2026. Architektur und Agentenplan sind in Commit <code>3fd28a9</code> gesichert; Phase 1 läuft mit drei getrennten Agenten und verwalteten Worktrees. Basis der Website: <code>d819f9d</code>; Basis des Archivs: <code>7d353a4</code>. Integrationsbranch: <code>codex/search-development</code>.</p>
   <div class="tabelle"><table><thead><tr><th>Aufgabe</th><th>Status</th><th>Ergebnis / nächster Schritt</th></tr></thead><tbody>
-    <tr><td>Pilotdaten und Importvertrag</td><td>Start vorbereitet</td><td>Quellen prüfen und Auswahl mit Kennungen dokumentieren.</td></tr>
-    <tr><td>Postgres-/BM25-Pilot</td><td>Start vorbereitet</td><td>Containerlaufzeit und isolierte Erweiterungsinstallation prüfen.</td></tr>
-    <tr><td>Unabhängige Validierung</td><td>Start vorbereitet</td><td>Quellenbasierte Erwartungen und Abnahmekriterien vorbereiten.</td></tr>
+    <tr><td>Pilotdaten und Importvertrag</td><td>In Arbeit: <code>search_pilot_data</code></td><td>Branch <code>codex/search-pilot-data</code>; Quellen und publizierte Textlagen prüfen, Pilotmanifest und Importvertrag erstellen.</td></tr>
+    <tr><td>Postgres-/BM25-Pilot</td><td>In Arbeit: <code>search_pilot_database</code></td><td>Branch <code>codex/search-pilot-database</code>; Docker-Engine zunächst nicht erreichbar, Startmöglichkeit wird geprüft.</td></tr>
+    <tr><td>Unabhängige Validierung</td><td>In Arbeit: <code>search_pilot_validation</code></td><td>Branch <code>codex/search-pilot-validation</code>; unabhängige Suchfälle und Abnahmekriterien vorbereiten.</td></tr>
     <tr><td>Integration Phase 1</td><td>Wartet auf Ergebnisse</td><td>Artefakte prüfen, Ergebnisse abgleichen und nächste Verträge festschreiben.</td></tr>
   </tbody></table></div>
   <p>Die Liefergegenstände werden unter <code>docs/search/phase-1/</code> gesammelt; Datenbankversuche unter <code>ops/search-pilot/</code>. Diese Verzeichnisse entstehen im Verlauf der ersten Phase. Die noch nicht implementierten Architekturteile bleiben ausdrücklich Planung.</p>
