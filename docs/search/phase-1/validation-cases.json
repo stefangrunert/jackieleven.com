@@ -1,0 +1,551 @@
+{
+  "schema_version": "phase-1-validation-cases-v1",
+  "created_at": "2026-10-26",
+  "website_revision": "3fd28a91f7bae2355492b24979ec9688f593c216",
+  "archive_revision": "7d353a4ce8043e284619fe409bfe87238dae2257",
+  "status": "expectations_only_not_executed",
+  "scope_note": "Kleine quellenbasierte Pilotmenge; kein vollstaendiger Goldstandard und keine Aussage ueber bereits gemessene Suchqualitaet.",
+  "passage_state": {
+    "status": "not_assigned",
+    "manifest_present_at_revisions": false,
+    "note": "Es gibt noch keine stabilen Passage-IDs oder Absatzanker. Die vorhandenen Seitenanker #beleg und #quelle sind keine Passage-IDs. Nullwerte duerfen nicht durch erfundene Kennungen ersetzt werden."
+  },
+  "voice_contracts": {
+    "third_party_source_with_editorial_summaries": {
+      "required_hit_fields": [
+        "source_voice",
+        "passage_voice",
+        "text_kind",
+        "language"
+      ],
+      "source_voice": "third_party",
+      "accepted_passage_representations": [
+        {
+          "passage_voice": "editorial",
+          "text_kind": "summary",
+          "language_allowed": [
+            "de",
+            "en"
+          ],
+          "must_be_labelled_as_original": false
+        },
+        {
+          "passage_voice": "third_party",
+          "text_kind": "original",
+          "language_rule": "must_equal_source_language",
+          "requires_direct_source_text": true
+        }
+      ],
+      "note": "Der Suchtreffer muss Dokumentstimme und Stimme der konkret angezeigten Passage getrennt ausweisen. Eine redaktionelle Zusammenfassung darf nicht als Originalaussage des historischen Autors erscheinen."
+    }
+  },
+  "grading": {
+    "relevance_scale": {
+      "0": "nicht relevant oder widerspricht der fachlichen Absicht",
+      "1": "nur Kontext oder schwacher Nachbar",
+      "2": "relevanter Teilbeleg",
+      "3": "direkter Beleg fuer die Anfrage"
+    },
+    "must_return_default_cutoff": 10,
+    "note": "must_return gilt nur, wenn der benannte Website-Text oder sein vertraglich ausgewiesener Ausschnitt tatsaechlich im Pilotindex enthalten ist."
+  },
+  "cases": [
+    {
+      "id": "p1-exact-title-001",
+      "query": "\"En perfekt kveld\"",
+      "query_language": "no",
+      "kind": "exact_title",
+      "intent": "Die exakte norwegische Ueberschrift einer Konzertkritik finden.",
+      "expected": {
+        "must_return": [
+          {
+            "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+            "website_source_id": "1998-10-23-lofotposten-en-perfekt-kveld",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 3,
+            "source_language": "no",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "target_url": "https://jackieleven.com/de/stimmen/1998-10-23-lofotposten-en-perfekt-kveld"
+          }
+        ],
+        "must_not_assert": []
+      },
+      "evidence": [
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "1998-10-23-lofotposten-en-perfekt-kveld",
+          "observed": "Titel, norwegische Quellsprache, DE/EN-Zusammenfassungen und zwei norwegische Zitate sind vorhanden."
+        },
+        {
+          "repository": "archive",
+          "path": "data/document/1998-10-23-lofotposten-en-perfekt-kveld.yaml",
+          "record_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+          "observed": "Dokument ist eine norwegische Konzertkritik und verweist auf event/1998-10-21-kabelvag-praestengbrygga."
+        }
+      ]
+    },
+    {
+      "id": "p1-name-variant-002",
+      "query": "Kevin O'Foster Troubadour",
+      "query_language": "en",
+      "kind": "name_variant",
+      "intent": "Die Schreibweise der Quelle auf die gefuehrte Person aufloesen, ohne die Quellschreibweise umzuschreiben.",
+      "expected": {
+        "must_return": [
+          {
+            "document_id": "document/2007-04-05-musicomh-jackie-leven-troubadour-london",
+            "website_source_id": "2007-04-05-musicomh-jackie-leven-troubadour-london",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 5,
+            "source_language": "en",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "target_url": "https://jackieleven.com/en/voices/2007-04-05-musicomh-jackie-leven-troubadour-london"
+          }
+        ],
+        "entity_resolution": [
+          {
+            "query_name": "Kevin O'Foster",
+            "entity_id": "person/kevin-foster",
+            "canonical_label": "Kevin Foster",
+            "source_form_must_be_preserved": true
+          }
+        ],
+        "must_not_assert": [
+          "Kevin O'Foster und Kevin Foster seien zwei verschiedene belegte Personen."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "2007-04-05-musicomh-jackie-leven-troubadour-london",
+          "observed": "Die englische Quelle nennt Kevin O’Foster als Begleitgitarristen."
+        },
+        {
+          "repository": "archive",
+          "path": "data/person/kevin-foster.yaml",
+          "record_id": "person/kevin-foster",
+          "observed": "Kevin O. Foster ist mit Beleg aus der musicOMH-Kritik als variant_spelling gefuehrt; der Scope nennt die Quellform Kevin O’Foster."
+        }
+      ]
+    },
+    {
+      "id": "p1-persona-003",
+      "query": "Ist Sir Vincent Lone Jackie Leven?",
+      "query_language": "de",
+      "kind": "name_and_persona",
+      "intent": "Persona und Person quellengebunden verbinden.",
+      "expected": {
+        "must_return": [
+          {
+            "document_id": "document/2007-kevin-coyne-home-page-news-coyne-of-the-realm",
+            "website_source_id": "2007-kevin-coyne-home-page-news-coyne-of-the-realm",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 10,
+            "source_language": "en",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "target_url": "http://kevincoynepage.free.fr/NEWS.html",
+            "target_kind": "current_external_source_for_website_record_without_detail_page"
+          }
+        ],
+        "entity_resolution": [
+          {
+            "query_name": "Sir Vincent Lone",
+            "entity_id": "persona/sir-vincent-lone",
+            "related_person_id": "person/jackie-leven",
+            "relation": "performs_as"
+          }
+        ],
+        "must_not_assert": [
+          "Sir Vincent Lone sei eine von Jackie Leven unabhaengige Person."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "archive",
+          "path": "data/person/jackie-leven.yaml",
+          "record_id": "person/jackie-leven",
+          "statement_id": "st-6e807764e292",
+          "observed": "performs_as verweist belegt auf persona/sir-vincent-lone."
+        },
+        {
+          "repository": "archive",
+          "path": "data/persona/sir-vincent-lone.yaml",
+          "record_id": "persona/sir-vincent-lone",
+          "observed": "Die Persona besitzt eine eigene stabile Entitaetskennung."
+        }
+      ]
+    },
+    {
+      "id": "p1-cross-language-004",
+      "query": "Welche Kritikerin beschrieb Levens Kabelvag-Konzert als perfekten Abend mit Galgenhumor?",
+      "query_language": "de",
+      "kind": "cross_language_source",
+      "intent": "Eine deutsche Frage auf ein norwegisches Quelldokument und dessen Autorin fuehren.",
+      "expected": {
+        "must_return": [
+          {
+            "document_id": "document/1998-10-23-lofotposten-en-perfekt-kveld",
+            "website_source_id": "1998-10-23-lofotposten-en-perfekt-kveld",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 10,
+            "source_language": "no",
+            "display_language_allowed": [
+              "de",
+              "en",
+              "no"
+            ],
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "expected_author": "Anki Gerhardsen",
+            "target_url": "https://jackieleven.com/de/stimmen/1998-10-23-lofotposten-en-perfekt-kveld"
+          }
+        ],
+        "must_not_assert": [
+          "Die deutsche redaktionelle Zusammenfassung sei der norwegische Originalartikel.",
+          "Die englische redaktionelle Fassung sei die historische Quellsprache."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "1998-10-23-lofotposten-en-perfekt-kveld",
+          "observed": "Quelle und Zitate sind norwegisch; die Website fuehrt redaktionelle DE/EN-Fassungen. Die Zusammenfassung nennt den perfekten Abend und Galgenhumor."
+        }
+      ],
+      "interpretation_limit": "Der Treffer allein beweist keine rein semantische sprachuebergreifende Suche, wenn die deutsche Zusammenfassung indexiert ist."
+    },
+    {
+      "id": "p1-announcement-vs-occurrence-005",
+      "query": "Welches Konzert fand am 2. Maerz 2000 in Tromso statt?",
+      "query_language": "de",
+      "kind": "structured_event_status",
+      "intent": "Eine Durchfuehrung nur mit nachtraeglichem Beleg als stattgefunden ausgeben und die Ankuendigung als eigene Aussage erhalten.",
+      "expected": {
+        "must_return": [
+          {
+            "entity_id": "event/2000-03-02-tromso-bla-rock-cafe",
+            "document_id": "document/2000-03-04-nordlys-grisete-sentimental",
+            "website_source_id": "2000-03-04-nordlys-grisete-sentimental",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 5,
+            "source_language": "no",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "required_status": "took_place",
+            "target_url": "https://jackieleven.com/de/stimmen/2000-03-04-nordlys-grisete-sentimental"
+          }
+        ],
+        "required_statements": [
+          {
+            "statement_id": "st-352c0eb9bc06",
+            "status_value": "announced"
+          },
+          {
+            "statement_id": "st-ec1d6b97257a",
+            "status_value": "took_place"
+          }
+        ],
+        "must_not_assert": [
+          "Der Vorbericht vom 2. Maerz allein belege die Durchfuehrung.",
+          "Das Grand Hotel Tromso sei die Konzertspielstaette."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "archive",
+          "path": "data/event/2000-03-02-tromso-bla-rock-cafe.yaml",
+          "record_id": "event/2000-03-02-tromso-bla-rock-cafe",
+          "observed": "Getrennte Aussagen announced und took_place; die Durchfuehrung stuetzt sich auf zwei Kritiken vom 4. Maerz. Die Eventnotiz schliesst das Grand Hotel als Spielstaette aus."
+        },
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "2000-03-04-nordlys-grisete-sentimental",
+          "observed": "Die norwegische Kritik nennt das Konzert im Bla Rock Cafe am Donnerstag, 2. Maerz 2000."
+        }
+      ]
+    },
+    {
+      "id": "p1-date-conflict-006",
+      "query": "Wann fand Jackie Levens erstes Konzert in Bodo im April 1997 statt?",
+      "query_language": "de",
+      "kind": "date_conflict_with_later_evidence",
+      "intent": "Den spaeter belegten Termin nennen und den unsicheren fruehen Ankuendigungsstand nicht als gleichwertige Durchfuehrungsdaten darstellen.",
+      "expected": {
+        "must_return": [
+          {
+            "entity_id": "event/1997-04-13-bodo-den-siste-glaede",
+            "document_id": "document/1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+            "website_source_id": "1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 5,
+            "source_language": "no",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "preferred_date_for_answer": "1997-04-13",
+            "required_status": "took_place",
+            "target_url": "https://jackieleven.com/de/stimmen/1997-04-15-nordlands-framtid-en-poetisk-grisegutt"
+          }
+        ],
+        "required_conflict_context": {
+          "earlier_statement_id": "st-7a54fe0fa988",
+          "earlier_edtf_value": "[1997-04-05,1997-04-06,1997-04-13]",
+          "earlier_certainty": "uncertain",
+          "later_statement_id": "st-483d637aef04",
+          "later_edtf_value": "1997-04-13"
+        },
+        "must_not_assert": [
+          "Am 5. und am 6. April 1997 haetten ebenfalls belegte Bodo-Konzerte stattgefunden.",
+          "Der unsichere Vorbericht sei aus der Provenienz zu loeschen."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "archive",
+          "path": "data/event/1997-04-13-bodo-den-siste-glaede.yaml",
+          "record_id": "event/1997-04-13-bodo-den-siste-glaede",
+          "observed": "Zwei Zeitaussagen: Kritiken belegen Sonntag, 13. April; ein frueher Vorbericht nennt 5., 6. oder 13. April als unsicher. took_place ist durch zwei nachtraegliche Kritiken belegt."
+        },
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "1997-04-15-nordlands-framtid-en-poetisk-grisegutt",
+          "observed": "Die norwegische Konzertkritik beschreibt das erste Bodo-Konzert am Sonntag, 13. April 1997."
+        }
+      ]
+    },
+    {
+      "id": "p1-two-announcements-unresolved-007",
+      "query": "Wo fand Jackie Levens Konzert am 27. September 2007 in Bodo statt?",
+      "query_language": "de",
+      "kind": "conflicting_announcements",
+      "intent": "Zwei abweichende Ankuendigungen zeigen, ohne eine Durchfuehrung oder Spielstaette zu erfinden.",
+      "expected": {
+        "may_return": [
+          {
+            "entity_id": "event/2007-09-27-bodo-public",
+            "document_id": "document/2007-09-17-puls-jackie-leven-pa-omfattende-norgesturne",
+            "website_source_id": "2007-09-17-puls-jackie-leven-pa-omfattende-norgesturne",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 2,
+            "source_language": "no",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "required_status": "announced",
+            "announced_place": "place/public-bodo",
+            "target_url": "https://www.puls.no/14906.html",
+            "target_kind": "current_external_source_for_website_record_without_detail_page"
+          },
+          {
+            "entity_id": "event/2007-09-27-bodo-sinus",
+            "document_id": "document/2007-09-26-avisa-nordland-vorbericht-sinus",
+            "website_source_id": null,
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 2,
+            "source_language": "no",
+            "source_voice": "third_party",
+            "passage_contract_status": "no_published_passage_verified_at_revision",
+            "required_status": "announced",
+            "announced_place": "place/sinus-bodo",
+            "target_url": null,
+            "target_status": "no_published_website_record_verified_at_revision"
+          }
+        ],
+        "answer_state": "unresolved",
+        "must_not_assert": [
+          "Das Konzert habe nachweislich stattgefunden.",
+          "Public sei die nachgewiesene Spielstaette.",
+          "Sinus sei die nachgewiesene Spielstaette.",
+          "Beide Datensaetze bezeichneten nachweislich dasselbe Ereignis."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "archive",
+          "path": "data/event/2007-09-27-bodo-public.yaml",
+          "record_id": "event/2007-09-27-bodo-public",
+          "observed": "Puls kuendigt Public an; Durchfuehrung ist nicht belegt."
+        },
+        {
+          "repository": "archive",
+          "path": "data/event/2007-09-27-bodo-sinus.yaml",
+          "record_id": "event/2007-09-27-bodo-sinus",
+          "observed": "Avisa Nordland kuendigt Sinus an; moegliche Identitaet oder Spielstaettenwechsel und Durchfuehrung bleiben offen."
+        },
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "2007-09-17-puls-jackie-leven-pa-omfattende-norgesturne",
+          "observed": "Die redaktionelle Zusammenfassung kennzeichnet die 14 Termine ausdruecklich als Ankuendigungsstand."
+        }
+      ]
+    },
+    {
+      "id": "p1-announcement-only-008",
+      "query": "Trat John St Field am 27. Oktober 1972 im Star Inn in Portsmouth auf?",
+      "query_language": "de",
+      "kind": "announcement_not_occurrence",
+      "intent": "Einen Kalendereintrag als Ankuendigung finden, ohne daraus eine Durchfuehrung zu machen.",
+      "expected": {
+        "must_return": [
+          {
+            "entity_id": "event/1972-10-27-portsmouth-star-inn",
+            "document_id": "document/1972-10-28-nme-gig-guide-john-st-field-folkclubs",
+            "website_source_id": "1972-10-28-nme-john-st-field-folkclubs",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 5,
+            "source_language": "en",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "required_status": "announced",
+            "target_url": "https://jackieleven.com/de/stimmen/1972-10-28-nme-john-st-field-folkclubs"
+          }
+        ],
+        "answer_state": "announced_occurrence_unproven",
+        "must_not_assert": [
+          "Das Konzert habe nachweislich stattgefunden.",
+          "Der Gig Guide sei ein Konzertbericht."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "1972-10-28-nme-john-st-field-folkclubs",
+          "observed": "Die redaktionellen DE/EN-Fassungen bezeichnen die drei Eintraege ausdruecklich als Ankuendigungen und lassen die Durchfuehrung offen."
+        },
+        {
+          "repository": "archive",
+          "path": "data/event/1972-10-27-portsmouth-star-inn.yaml",
+          "record_id": "event/1972-10-27-portsmouth-star-inn",
+          "statement_id": "st-886f2bd92670",
+          "observed": "performance_status ist announced; die Notiz sagt, dass die Durchfuehrung nicht belegt ist."
+        }
+      ]
+    },
+    {
+      "id": "p1-cross-language-inference-009",
+      "query": "Welcher Musiker spielte im Januar 1976 allein mit Stahlsaitengitarre im La Boite in Madrid?",
+      "query_language": "de",
+      "kind": "cross_language_source_and_inferred_identity",
+      "intent": "Eine deutsche Anfrage auf einen spanischen, nur ausschnittweise erhaltenen Konzertbericht fuehren und Berichtsaussage von externer Identitaetszuordnung trennen.",
+      "expected": {
+        "must_return": [
+          {
+            "entity_id": "event/1976-01-madrid-la-boite",
+            "document_id": "document/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+            "website_source_id": "1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+            "passage_id": null,
+            "passage_status": "not_assigned",
+            "relevance": 3,
+            "within_top": 10,
+            "source_language": "es",
+            "source_voice": "third_party",
+            "voice_contract_ref": "third_party_source_with_editorial_summaries",
+            "required_status": "took_place",
+            "source_named_performer": "persona/john-st-field",
+            "target_url": "https://jackieleven.com/de/stimmen/1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite"
+          }
+        ],
+        "entity_resolution": [
+          {
+            "query_name": "John St Field",
+            "entity_id": "persona/john-st-field",
+            "related_person_id": "person/jackie-leven",
+            "relation": "performs_as",
+            "relation_evidence_type": "inferred",
+            "source_itself_states_identity": false
+          }
+        ],
+        "must_not_assert": [
+          "Der unvollstaendig erhaltene Ya-Bericht selbst setze John St. Field ausdruecklich mit Jackie Leven gleich.",
+          "Der vollstaendige Wortlaut des spanischen Artikels liege im lokalen Bestand vor.",
+          "Der genaue Konzerttag sei bekannt."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "1976-01-28-ya-folk-rock-escoces-john-st-field-la-boite",
+          "observed": "Die Quelle ist spanisch und nur aus BNE-Trefferausschnitten rekonstruiert. Sie nennt John St. Field, La Boite, Stimme und Stahlsaitengitarre."
+        },
+        {
+          "repository": "archive",
+          "path": "data/event/1976-01-madrid-la-boite.yaml",
+          "record_id": "event/1976-01-madrid-la-boite",
+          "observed": "Das Konzert gilt als took_place, der Tag bleibt mit 1976-01? unsicher; der Bericht nennt nur John St. Field."
+        },
+        {
+          "repository": "archive",
+          "path": "data/person/jackie-leven.yaml",
+          "record_id": "person/jackie-leven",
+          "statement_id": "st-ea66ce597c8c",
+          "observed": "Die performs_as-Zuordnung ist inferred und stammt aus Recherchenotizen, nicht aus dem Zeitungsbericht."
+        }
+      ]
+    },
+    {
+      "id": "p1-negative-010",
+      "query": "Welches Jackie-Leven-Konzert fand am 27. September 2007 in Oslo statt?",
+      "query_language": "de",
+      "kind": "negative_structured",
+      "intent": "Einen engen unbelegten Ort-Datum-Status-Fall nicht mit dem aehnlichen Bodo-Termin beantworten.",
+      "expected": {
+        "structured_result": "no_supported_took_place_event",
+        "acceptable_search_behavior": [
+          "empty_hits",
+          "weak_or_unsubstantiated_candidates_explicitly_labelled"
+        ],
+        "must_not_assert": [
+          "Am 27. September 2007 habe in Oslo ein Jackie-Leven-Konzert stattgefunden.",
+          "Der Bodo-Termin sei ein Oslo-Termin.",
+          "Eine semantisch aehnliche Tourankuendigung belege die Durchfuehrung."
+        ]
+      },
+      "evidence": [
+        {
+          "repository": "website",
+          "path": "data/quellen.json",
+          "record_id": "2007-09-17-puls-jackie-leven-pa-omfattende-norgesturne",
+          "observed": "Die Terminliste nennt fuer den 27. September Bodo (Public); Oslo ist am 3. und 7. Oktober angekuendigt."
+        },
+        {
+          "repository": "archive",
+          "path": "data/event/2007-09-27-bodo-public.yaml",
+          "record_id": "event/2007-09-27-bodo-public",
+          "observed": "Der aehnliche Datensatz ist Bodo und nur announced."
+        },
+        {
+          "repository": "archive",
+          "path": "data/event/2007-09-27-bodo-sinus.yaml",
+          "record_id": "event/2007-09-27-bodo-sinus",
+          "observed": "Auch der zweite aehnliche Datensatz ist Bodo und nur announced."
+        }
+      ],
+      "interpretation_limit": "Die Negativerwartung gilt fuer die gebundenen Pilotquellen und behauptet keine vollstaendige historische Nichtexistenz."
+    }
+  ]
+}
