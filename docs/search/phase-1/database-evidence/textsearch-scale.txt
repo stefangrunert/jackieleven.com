@@ -1,0 +1,60 @@
+Timing is on.
+INSERT 0 990
+Time: 22.893 ms
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build started for relation documents_de
+psql:/pilot/scale.sql:5: NOTICE:  Using text search configuration: german
+psql:/pilot/scale.sql:5: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build completed: 300 documents, avg_length=5.67
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build started for relation documents_en
+psql:/pilot/scale.sql:5: NOTICE:  Using text search configuration: english
+psql:/pilot/scale.sql:5: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build completed: 700 documents, avg_length=5.86
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build started for relation documents_title
+psql:/pilot/scale.sql:5: NOTICE:  Using text search configuration: simple
+psql:/pilot/scale.sql:5: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build completed: 1000 documents, avg_length=2.30
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build started for relation documents_body
+psql:/pilot/scale.sql:5: NOTICE:  Using text search configuration: simple
+psql:/pilot/scale.sql:5: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/scale.sql:5: NOTICE:  BM25 index build completed: 1000 documents, avg_length=7.50
+REINDEX
+Time: 9.564 ms
+ANALYZE
+Time: 1.740 ms
+ synthetic_rows
+----------------
+           1000
+(1 row)
+
+Time: 0.192 ms
+=== relation sizes; tiny fixture, not capacity estimate ===
+     relname      | bytes
+------------------+--------
+ documents        | 180224
+ documents_body   |  40960
+ documents_de     |  24576
+ documents_en     |  32768
+ documents_filter |  16384
+ documents_name   |  16384
+ documents_pkey   |  40960
+ documents_title  |  32768
+(8 rows)
+
+Time: 0.358 ms
+ database_bytes
+----------------
+        8148659
+(1 row)
+
+Time: 0.308 ms
+            name            |    setting    | unit
+----------------------------+---------------+------
+ maintenance_work_mem       | 65536         | kB
+ max_connections            | 10            |
+ pg_textsearch.memory_limit | 65536         | kB
+ shared_buffers             | 16384         | 8kB
+ shared_preload_libraries   | pg_textsearch |
+ work_mem                   | 4096          | kB
+(6 rows)
+
+Time: 0.536 ms

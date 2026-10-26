@@ -1,0 +1,1 @@
+Own containers, network and data volumes removed by compose down --volumes. Downloaded images/packages retained. Docker Desktop left running.

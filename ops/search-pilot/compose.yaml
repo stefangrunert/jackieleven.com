@@ -1,0 +1,41 @@
+name: jackieleven-search-pilot
+services:
+  parade:
+    image: paradedb/paradedb:0.26.3-pg17@sha256:950f68abebc78e28fd2ecfc8ed915aa29d07b5dd8cba25b2f513ca4e211dda70
+    platform: linux/arm64
+    environment:
+      POSTGRES_USER: pilot
+      POSTGRES_PASSWORD: synthetic-pilot-only
+      POSTGRES_DB: pilot
+    ports: ["127.0.0.1:55471:5432"]
+    volumes: ["parade-data:/var/lib/postgresql/data"]
+    # Hide the distribution bootstrap (pg_cron, optional extensions).
+    tmpfs: ["/docker-entrypoint-initdb.d"]
+    command: ["postgres", "-c", "shared_preload_libraries=pg_search", "-c", "shared_buffers=128MB", "-c", "work_mem=4MB", "-c", "maintenance_work_mem=64MB", "-c", "max_connections=10", "-c", "max_parallel_workers_per_gather=0"]
+    mem_limit: 1g
+    cpus: 1.0
+    shm_size: 256m
+    networks: [pilot]
+  textsearch:
+    image: jackieleven-search-pilot-textsearch:1.5.1-pg17
+    build:
+      context: .
+      dockerfile: Dockerfile.textsearch
+    platform: linux/arm64
+    environment:
+      POSTGRES_USER: pilot
+      POSTGRES_PASSWORD: synthetic-pilot-only
+      POSTGRES_DB: pilot
+    ports: ["127.0.0.1:55472:5432"]
+    volumes: ["textsearch-data:/var/lib/postgresql/data"]
+    command: ["postgres", "-c", "shared_preload_libraries=pg_textsearch", "-c", "pg_textsearch.memory_limit=64MB", "-c", "shared_buffers=128MB", "-c", "work_mem=4MB", "-c", "maintenance_work_mem=64MB", "-c", "max_connections=10", "-c", "max_parallel_workers_per_gather=0"]
+    mem_limit: 1g
+    cpus: 1.0
+    shm_size: 256m
+    networks: [pilot]
+volumes:
+  parade-data:
+  textsearch-data:
+networks:
+  pilot:
+    internal: true

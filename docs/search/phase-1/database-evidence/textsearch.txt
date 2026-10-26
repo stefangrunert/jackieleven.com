@@ -1,0 +1,283 @@
+CREATE EXTENSION
+Timing is on.
+SET
+Time: 0.081 ms
+CREATE TABLE
+Time: 0.997 ms
+INSERT 0 10
+Time: 0.288 ms
+UPDATE 10
+Time: 0.270 ms
+CREATE INDEX
+Time: 0.417 ms
+ANALYZE
+Time: 0.317 ms
+psql:/pilot/textsearch.sql:4: NOTICE:  BM25 index build started for relation documents_de
+psql:/pilot/textsearch.sql:4: NOTICE:  Using text search configuration: german
+psql:/pilot/textsearch.sql:4: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/textsearch.sql:4: NOTICE:  BM25 index build completed: 3 documents, avg_length=5.67
+CREATE INDEX
+Time: 1.018 ms
+psql:/pilot/textsearch.sql:5: NOTICE:  BM25 index build started for relation documents_en
+psql:/pilot/textsearch.sql:5: NOTICE:  Using text search configuration: english
+psql:/pilot/textsearch.sql:5: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/textsearch.sql:5: NOTICE:  BM25 index build completed: 7 documents, avg_length=5.86
+CREATE INDEX
+Time: 0.672 ms
+psql:/pilot/textsearch.sql:6: NOTICE:  BM25 index build started for relation documents_title
+psql:/pilot/textsearch.sql:6: NOTICE:  Using text search configuration: simple
+psql:/pilot/textsearch.sql:6: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/textsearch.sql:6: NOTICE:  BM25 index build completed: 10 documents, avg_length=2.30
+CREATE INDEX
+Time: 0.593 ms
+psql:/pilot/textsearch.sql:7: NOTICE:  BM25 index build started for relation documents_body
+psql:/pilot/textsearch.sql:7: NOTICE:  Using text search configuration: simple
+psql:/pilot/textsearch.sql:7: NOTICE:  Using index options: k1=1.20, b=0.75
+psql:/pilot/textsearch.sql:7: NOTICE:  BM25 index build completed: 10 documents, avg_length=7.50
+CREATE INDEX
+Time: 0.649 ms
+CREATE INDEX
+Time: 0.241 ms
+=== versions ===
+                                                              version
+------------------------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+(1 row)
+
+Time: 0.066 ms
+    extname    | extversion
+---------------+------------
+ pg_textsearch | 1.5.1
+ plpgsql       | 1.0
+(2 rows)
+
+Time: 0.127 ms
+=== analysis ===
+              to_tsvector
+----------------------------------------
+ 'lied':3 'sang':1 'spielt':2 'stadt':4
+(1 row)
+
+Time: 0.084 ms
+         to_tsvector
+-----------------------------
+ 'river':3 'sing':1 'song':2
+(1 row)
+
+Time: 0.093 ms
+     to_tsvector
+----------------------
+ 'jackie':1 'leven':2
+(1 row)
+
+Time: 0.051 ms
+=== de inflection: 3,4 ===
+SET
+Time: 0.043 ms
+ id |        score
+----+---------------------
+  4 | -1.6028695106506348
+  3 | -1.4813035726547241
+(2 rows)
+
+Time: 0.301 ms
+=== en inflection: 1 ===
+SET
+Time: 0.040 ms
+ id |       score
+----+--------------------
+  1 | -3.314877510070801
+(1 row)
+
+Time: 0.161 ms
+=== exact name: 1,3,4,5; ordinary btree ===
+ id
+----
+  1
+  3
+  4
+  5
+(4 rows)
+
+Time: 0.072 ms
+=== phrase: 1,5 ===
+SET
+Time: 0.046 ms
+ id
+----
+  1
+  5
+(2 rows)
+
+Time: 0.099 ms
+=== filtered phrase: 1 ===
+ id
+----
+  1
+(1 row)
+
+Time: 0.103 ms
+=== unweighted field ranking; scores from separate indexes ===
+ id |        score
+----+---------------------
+  7 | -2.6608409881591797
+  6 |  -2.591695785522461
+  1 | -1.4422699213027954
+(3 rows)
+
+Time: 0.146 ms
+=== title factor 4; experimental score combination, not native BM25F ===
+ id |        score
+----+---------------------
+  6 | -10.366783142089844
+  7 | -2.6608409881591797
+  1 | -1.4422699213027954
+(3 rows)
+
+Time: 0.191 ms
+=== plan ===
+SET
+Time: 0.033 ms
+                                                   QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------
+ Limit  (cost=16.23..16.24 rows=5 width=12) (actual time=0.034..0.034 rows=5 loops=1)
+   Buffers: shared hit=10
+   ->  Sort  (cost=16.23..16.24 rows=6 width=12) (actual time=0.033..0.033 rows=5 loops=1)
+         Sort Key: ((body <@> 'documents_en:sing song'::bm25query))
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared hit=10
+         ->  Seq Scan on documents  (cost=0.00..16.15 rows=6 width=12) (actual time=0.012..0.032 rows=6 loops=1)
+               Filter: ((voice <> 'pastiche'::text) AND (language = 'en'::text))
+               Rows Removed by Filter: 4
+               Buffers: shared hit=10
+ Planning:
+   Buffers: shared hit=2
+ Planning Time: 0.022 ms
+ Execution Time: 0.038 ms
+(14 rows)
+
+Time: 0.149 ms
+CREATE FUNCTION
+Time: 0.217 ms
+psql:/pilot/textsearch.sql:46: NOTICE:  PASS exact name: {1,3,4,5}
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.241 ms
+SET
+Time: 0.034 ms
+psql:/pilot/textsearch.sql:48: NOTICE:  PASS DE: {3,4}
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.150 ms
+SET
+Time: 0.038 ms
+psql:/pilot/textsearch.sql:50: NOTICE:  PASS EN: {1}
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.135 ms
+psql:/pilot/textsearch.sql:51: NOTICE:  PASS no hits with explicit predicate: {}
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.133 ms
+=== rank-only no-hit diagnostic: forced sequential scoring returns nonmatches ===
+SET
+Time: 0.035 ms
+SET
+Time: 0.033 ms
+ id | score
+----+-------
+  1 |     0
+  2 |     0
+  5 |     0
+(3 rows)
+
+Time: 0.142 ms
+RESET
+Time: 0.041 ms
+RESET
+Time: 0.107 ms
+SET
+Time: 0.099 ms
+psql:/pilot/textsearch.sql:59: NOTICE:  PASS phrase excludes inserted/reordered tokens: {1,5}
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.089 ms
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.118 ms
+psql:/pilot/textsearch.sql:60: NOTICE:  PASS phrase + filters: {1}
+psql:/pilot/textsearch.sql:61: NOTICE:  PASS experimental title weighting: {6}
+ pilot_assert
+--------------
+
+(1 row)
+
+Time: 0.146 ms
+=== force index plan for diagnosis only ===
+SET
+Time: 0.040 ms
+                                                           QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.01..16.27 rows=5 width=12) (actual time=0.010..0.011 rows=1 loops=1)
+   Buffers: shared hit=16
+   ->  Index Scan using documents_en on documents  (cost=0.01..22.77 rows=7 width=12) (actual time=0.010..0.010 rows=1 loops=1)
+         Order By: (body <@> 'documents_en:sing song'::bm25query)
+         Buffers: shared hit=16
+ Planning:
+   Buffers: shared hit=8
+ Planning Time: 0.022 ms
+ Execution Time: 0.018 ms
+(9 rows)
+
+Time: 0.098 ms
+RESET
+Time: 0.037 ms
+=== relation sizes; tiny fixture, not capacity estimate ===
+     relname      | bytes
+------------------+-------
+ documents        |  8192
+ documents_body   | 24576
+ documents_de     | 24576
+ documents_en     | 24576
+ documents_filter | 16384
+ documents_name   | 16384
+ documents_pkey   | 16384
+ documents_title  | 24576
+(8 rows)
+
+Time: 0.261 ms
+ database_bytes
+----------------
+        7886515
+(1 row)
+
+Time: 0.262 ms
+            name            |    setting    | unit
+----------------------------+---------------+------
+ maintenance_work_mem       | 65536         | kB
+ max_connections            | 10            |
+ pg_textsearch.memory_limit | 65536         | kB
+ shared_buffers             | 16384         | 8kB
+ shared_preload_libraries   | pg_textsearch |
+ work_mem                   | 4096          | kB
+(6 rows)
+
+Time: 0.482 ms

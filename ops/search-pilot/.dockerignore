@@ -1,0 +1,5 @@
+*
+!Dockerfile.textsearch
+!downloads/
+downloads/*
+!downloads/pg-textsearch-postgresql-17_1.5.1-1_arm64.deb

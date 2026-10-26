@@ -1,0 +1,7 @@
+{
+  "transactions": 100,
+  "p50_ms": 0.4175,
+  "p95_ms": 0.492,
+  "max_ms": 1.537,
+  "scope": "1000 synthetic rows; 10 warmup + 100 transactions; one local-socket client"
+}

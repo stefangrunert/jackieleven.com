@@ -1,0 +1,2 @@
+["paradedb/paradedb@sha256:950f68abebc78e28fd2ecfc8ed915aa29d07b5dd8cba25b2f513ca4e211dda70"] Size=359040915
+["postgres@sha256:858bb5e98eed02eb8cafbcdc007f9a65d1b613972028944a8ec2133ccaf80d27"] Size=154226618

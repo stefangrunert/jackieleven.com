@@ -1,0 +1,2 @@
+jackieleven-search-pilot-parade-1 CPU=0.06% Memory=33.09MiB / 1GiB PIDs=6
+jackieleven-search-pilot-textsearch-1 CPU=0.05% Memory=26.55MiB / 1GiB PIDs=6

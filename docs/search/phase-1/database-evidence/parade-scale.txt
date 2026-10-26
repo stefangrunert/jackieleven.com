@@ -1,0 +1,39 @@
+Timing is on.
+INSERT 0 990
+Time: 4.389 ms
+REINDEX
+Time: 11.500 ms
+ANALYZE
+Time: 2.385 ms
+ synthetic_rows
+----------------
+           1000
+(1 row)
+
+Time: 0.373 ms
+=== relation sizes; tiny fixture, not capacity estimate ===
+     relname      |  bytes
+------------------+---------
+ documents        |  180224
+ documents_filter |   16384
+ documents_pkey   |   40960
+ documents_search | 3129344
+(4 rows)
+
+Time: 0.442 ms
+ database_bytes
+----------------
+       12203699
+(1 row)
+
+Time: 0.452 ms
+           name           |  setting  | unit
+--------------------------+-----------+------
+ maintenance_work_mem     | 65536     | kB
+ max_connections          | 10        |
+ shared_buffers           | 16384     | 8kB
+ shared_preload_libraries | pg_search |
+ work_mem                 | 4096      | kB
+(5 rows)
+
+Time: 0.751 ms
